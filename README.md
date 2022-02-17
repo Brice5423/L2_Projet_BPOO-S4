@@ -32,7 +32,7 @@ On _(peut)_ ajoute après entre `(...)` ce qu'on a fait pour avoir plus de déta
 
 ## 1.4. Plusieurs importances et/ou actions
 
-On ajoute un & à chaque fois qu'il y a une différence dans l'importance ou dans l'action.
+On ajoute un `&` à chaque fois qu'il y a une différence dans l'importance ou dans l'action.
 On remet l'importance du commit et son action après chaque `&`.
 
 -------------------------------------- 
