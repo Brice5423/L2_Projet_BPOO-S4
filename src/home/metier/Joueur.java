@@ -32,7 +32,7 @@ public class Joueur {
      * @return Renvoie une carte du joueur
      */
     public Carte deposerCarte() {
-        /* @TODO */
+        /* @TODO deposerCarte */
 
         /* J'ai fait un test pour ne pas avoir d'erreur. Le test renvoie une CarteBasique mais sa reste une Carte */
         Carte carteTest;
@@ -44,6 +44,6 @@ public class Joueur {
      * Range les cartes du joueur par ordre valeur puis par couleur
      */
     public void rangerCarte() {
-        /* @TODO */
+        /* @TODO rangerCarte */
     }
 }
