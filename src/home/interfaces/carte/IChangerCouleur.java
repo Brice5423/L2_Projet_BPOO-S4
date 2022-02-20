@@ -1,7 +1,7 @@
 package home.interfaces.carte;
 
-import home.enumeration.ECarteCouleur;
+import home.metier.Partie;
 
 public interface IChangerCouleur {
-    ECarteCouleur changerCouleur();
+    void changerCouleur(Partie partieEnCours);
 }

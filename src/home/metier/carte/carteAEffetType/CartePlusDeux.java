@@ -3,11 +3,8 @@ package home.metier.carte.carteAEffetType;
 import home.enumeration.ECarteCouleur;
 import home.enumeration.ECarteValeur;
 import home.interfaces.carte.IAjouterCarte;
-import home.metier.Joueur;
-import home.metier.carte.Carte;
+import home.metier.Partie;
 import home.metier.carte.CarteAEffet;
-
-import java.util.ArrayList;
 
 public class CartePlusDeux extends CarteAEffet implements IAjouterCarte {
     private final int nbCarteADonner = 2;
@@ -17,7 +14,8 @@ public class CartePlusDeux extends CarteAEffet implements IAjouterCarte {
     }
 
     @Override
-    public void ajouterCarte(Joueur joueurCible, ArrayList<Carte> pioche) {
+    public void ajouterCarte(Partie partieEnCours) {
+        /* @TODO ajouterCarte (+2) */
         int i;
 
         for (i = 0; i < nbCarteADonner; i++) {

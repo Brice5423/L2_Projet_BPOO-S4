@@ -3,6 +3,7 @@ package home.metier.carte.carteAEffetType;
 import home.enumeration.ECarteCouleur;
 import home.enumeration.ECarteValeur;
 import home.interfaces.carte.IChangerSens;
+import home.metier.Partie;
 import home.metier.carte.CarteAEffet;
 
 public class CarteChangerSens extends CarteAEffet implements IChangerSens {
@@ -12,7 +13,7 @@ public class CarteChangerSens extends CarteAEffet implements IChangerSens {
     }
 
     @Override
-    public boolean changerSens(boolean etreSensHoraire) {
-        return !etreSensHoraire;
+    public boolean changerSens(Partie partieEnCours) {
+        return (!partieEnCours.getEtreSensHoraire());
     }
 }

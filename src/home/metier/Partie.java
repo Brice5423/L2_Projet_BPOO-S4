@@ -43,7 +43,7 @@ public abstract class Partie {
         this.numTourJoueur = numTourJoueur;
     }
 
-    public boolean isEtreSensHoraire() {
+    public boolean getEtreSensHoraire() {
         return etreSensHoraire;
     }
 
