@@ -1,14 +1,14 @@
-package home.matier.carte.carteAEffetType;
+package home.metier.carte.carteAEffetType;
 
 import home.interfaces.carte.IAjouterCarte;
-import home.matier.Joueur;
-import home.matier.carte.Carte;
-import home.matier.carte.CarteAEffet;
+import home.metier.Joueur;
+import home.metier.carte.Carte;
+import home.metier.carte.CarteAEffet;
 
 import java.util.ArrayList;
 
-public class CartePlusDeux extends CarteAEffet implements IAjouterCarte {
-    private final int nbCarteADonner = 2;
+public class CartePlusQuatre extends CarteAEffet implements IAjouterCarte {
+    private final int nbCarteADonner = 4;
 
     @Override
     public void ajouterCarte(Joueur joueurCible, ArrayList<Carte> pioche) {
@@ -18,4 +18,6 @@ public class CartePlusDeux extends CarteAEffet implements IAjouterCarte {
             //joueurCible. // appel fonction pioche carte avec comment paramètre la carte retir à partir de la fonction de la carte de tête de pioche
         }
     }
+
+    // prendre ne compte qu'elle change la couleur
 }

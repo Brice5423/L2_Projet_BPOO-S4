@@ -1,7 +1,7 @@
-package home.matier.carte.carteAEffetType;
+package home.metier.carte.carteAEffetType;
 
 import home.interfaces.carte.IChangerSens;
-import home.matier.carte.CarteAEffet;
+import home.metier.carte.CarteAEffet;
 
 public class CarteChangerSens extends CarteAEffet implements IChangerSens {
 

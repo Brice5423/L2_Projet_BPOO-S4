@@ -1,8 +1,8 @@
-package home.matier;
+package home.metier;
 
 import home.enumeration.ECarteCouleur;
 import home.enumeration.ECarteValeur;
-import home.matier.carte.Carte;
+import home.metier.carte.Carte;
 
 import java.util.ArrayList;
 

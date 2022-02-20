@@ -1,8 +1,8 @@
-package home.matier.carte.carteAEffetType;
+package home.metier.carte.carteAEffetType;
 
 import home.enumeration.ECarteCouleur;
 import home.interfaces.carte.IChangerCouleur;
-import home.matier.carte.CarteAEffet;
+import home.metier.carte.CarteAEffet;
 
 public class CarteChangerCouleur extends CarteAEffet implements IChangerCouleur {
 

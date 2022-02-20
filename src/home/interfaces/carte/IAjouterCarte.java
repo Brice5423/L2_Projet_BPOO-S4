@@ -1,7 +1,7 @@
 package home.interfaces.carte;
 
-import home.matier.Joueur;
-import home.matier.carte.Carte;
+import home.metier.Joueur;
+import home.metier.carte.Carte;
 
 import java.util.ArrayList;
 

@@ -1,4 +1,4 @@
-package home.matier.carte;
+package home.metier.carte;
 
 public class CarteBasique extends Carte {
     /*

@@ -1,4 +1,4 @@
-package home.matier.carte;
+package home.metier.carte;
 
 import home.enumeration.ECarteCouleur;
 import home.enumeration.ECarteValeur;
