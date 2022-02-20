@@ -106,7 +106,7 @@ public abstract class Partie {
      * Initialise les carte des joueurs avec 7 cartes en mains.
      */
     public void initialiserCarteJoueur() {
-       /* @TODO initialiserCarteJoueur */
+        /* @TODO initialiserCarteJoueur */
     }
 
     /**
@@ -119,6 +119,7 @@ public abstract class Partie {
 
     /**
      * Dépose la carte du joueur dans le depot de la partie
+     *
      * @param carteJoueur Carte du joueur à déposer dans le depot
      */
     public void ajoutCartDepot(Carte carteJoueur) {
