@@ -1,5 +1,7 @@
 package home.metier.carte.carteAEffetType;
 
+import home.enumeration.ECarteCouleur;
+import home.enumeration.ECarteValeur;
 import home.interfaces.carte.IAjouterCarte;
 import home.metier.Joueur;
 import home.metier.carte.Carte;
@@ -9,6 +11,10 @@ import java.util.ArrayList;
 
 public class CartePlusQuatre extends CarteAEffet implements IAjouterCarte {
     private final int nbCarteADonner = 4;
+
+    public CartePlusQuatre(ECarteCouleur carteCouleur, ECarteValeur carteValeur) {
+        super(carteCouleur, carteValeur);
+    }
 
     @Override
     public void ajouterCarte(Joueur joueurCible, ArrayList<Carte> pioche) {

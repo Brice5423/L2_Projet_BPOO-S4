@@ -8,9 +8,10 @@ import java.util.ArrayList;
 
 public abstract class Partie {
     private int nbTour;
+    private int numTourJoueur;
+    private boolean etreSensHoraire;
     private ECarteCouleur couleurDernierCarte;
     private ECarteValeur valeurDernierCarte;
-    private boolean etreSensHoraire;
     private ArrayList<Joueur> listJoueur;
     private ArrayList<Carte> pioche; // -> joueur
     private ArrayList<Carte> depot; // <- joueur
