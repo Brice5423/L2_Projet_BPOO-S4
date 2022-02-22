@@ -27,12 +27,16 @@ Chaque étape correspond à comment on écrie un commit.
 ## 1.3. Zone/Détaille des commits
 
 Pour savoir ce qu'on a fait après avoir indiqué l'importance du commit _(🟢, 🟡, 🟠, 🔴)_ et quelle action _(+, ~, -)_,
-on indique dans quels sont les fichiers, ça était appliqué.
-On _(peut)_ ajoute après entre `(...)` ce qu'on a fait pour avoir plus de détails sur le commit.
+on indique dans quels fichiers ça était appliqué.  
+Si l'action ce porte dans l'ensemble des éléments d'un dossier, nous l'indiquerons par des `[nom_dossier]`.  
 
-## 1.4. Plusieurs importances et/ou actions
+On _(peut)_ ajoute entre `(...)` ce qu'on a fait pour avoir plus de détails sur le commit.
 
+## 1.4. Plusieurs importances, actions et/ou détailles 
+
+**??????????????????????????**  
 On ajoute un `&` à chaque fois qu'il y a une différence dans l'importance ou dans l'action.
-On remet l'importance du commit et son action après chaque `&`.
+On remet l'importance du commit et son action après chaque `&`.  
+**?????????????????????????**  
 
 -------------------------------------- 
