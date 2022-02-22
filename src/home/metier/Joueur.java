@@ -22,9 +22,6 @@ public class Joueur {
 
     /**
      * Mette la carte de la pioche dans la main du joueur
-     * On considère que le premier élément de l'array étant la carte dernier carte de la pioche
-     * On considère que la dernier élément de l'array étant la carte qu'on prend quand on pioche
-     * On ne prend pas en compte de la pioche, une autre fonction s'occupe d'elle
      *
      * @param CartePioche Carte récupérer dans la pioche
      */
