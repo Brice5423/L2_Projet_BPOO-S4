@@ -35,10 +35,7 @@ public class Joueur {
     public Carte deposerCarte() {
         /* @TODO deposerCarte */
 
-        /* J'ai fait un test pour ne pas avoir d'erreur. Le test renvoie une CarteBasique mais sa reste une Carte */
-        Carte carteTest;
-        carteTest = new CarteBasique(ECarteCouleur.BLEU, ECarteValeur.ZERO);
-        return carteTest;
+        return null;
     }
 
     /**
