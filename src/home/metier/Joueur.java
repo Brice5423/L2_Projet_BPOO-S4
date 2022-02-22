@@ -23,9 +23,9 @@ public class Joueur {
     /**
      * Mette la carte de la pioche dans la main du joueur
      *
-     * @param CartePioche Carte récupérer dans la pioche
+     * @param cartePioche Carte récupérer dans la pioche
      */
-    public void piocherCarte(Carte CartePioche) {
+    public void piocherCarte(Carte cartePioche) {
         /* @TODO Alicia */
     }
 
