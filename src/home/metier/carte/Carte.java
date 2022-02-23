@@ -21,7 +21,7 @@ public abstract class Carte {
     }
 
     /**
-     * Regarde si la carte peut être poser en fonction de la couleur et la valeur choisi.
+     * Regarde si la carte peut être posée en fonction de la couleur et la valeur choisie.
      */
     public boolean peutEtrePoser(ECarteCouleur couleurTest, ECarteValeur valeurTest) {
         /* @TODO peutEtrePoser */
