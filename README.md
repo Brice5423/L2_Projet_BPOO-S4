@@ -58,6 +58,6 @@ On recommence directement par indiquer l'importance puis son action pour montrer
 ```
 🟠 + fichier1 (fonction1) 🟢 - fichier1 (commantaire)
 ```
-> Le commit  indique que le `fichier1` à ajouté une fonction et qu'il a supprimé un commentaire.
- 
--------------------------------------- 
+> Le commit  indique que le `fichier1` à ajouté une fonction et qu'il a supprimé un commentaire.  
+
+--------------------------------------
