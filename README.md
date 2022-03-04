@@ -1,5 +1,5 @@
 # L2_Projet_BPOO-S4
-Projet en base de la programmation orientée objet fait durant le S4 de la L2 Info.
+Projet en base de la programmation orientée objet fait durant le S4 de la L2 Info.  
 Projet fait par :
 - [Brice ORLIANGE](mailto:briceorl54580@gmail.com), du groupe TP4
 - [Alicia OLIVIERI](mailto:alicia.olivieri2@gmail.com), du groupe TP5
