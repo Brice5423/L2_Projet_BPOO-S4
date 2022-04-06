@@ -10,7 +10,7 @@ import home.metier.carte.CarteAEffet;
 import java.util.Scanner;
 
 public class CartePlusQuatre extends CarteAEffet implements IAjouterCarte, IChangerCouleur {
-    private final int nbCarteADonner = 4;
+    private static final int nbCarteADonner = 4;
 
     public CartePlusQuatre(ECarteCouleur carteCouleur, ECarteValeur carteValeur) {
         super(carteCouleur, carteValeur);
