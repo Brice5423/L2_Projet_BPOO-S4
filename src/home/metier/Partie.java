@@ -7,32 +7,30 @@ import home.metier.carte.Carte;
 import java.util.ArrayList;
 
 public abstract class Partie {
-    private int nbTour;
+    private int nIemePartie;
     private int numTourJoueur;
     private boolean etreSensHoraire;
-    private ECarteCouleur couleurDernierCarte;
-    private ECarteValeur valeurDernierCarte;
-    private ArrayList<Joueur> listJoueur;
+    private Carte carteReference;
+    private ArrayList<Joueur> listeJoueur;
     private ArrayList<Carte> pioche; // -> joueur
     private ArrayList<Carte> depot; // <- joueur
 
-    public Partie(int nbTour, int numTourJoueur, boolean etreSensHoraire, ECarteCouleur couleurDernierCarte, ECarteValeur valeurDernierCarte, ArrayList<Joueur> listJoueur) {
-        this.nbTour = nbTour;
-        this.numTourJoueur = numTourJoueur;
-        this.etreSensHoraire = etreSensHoraire;
-        this.couleurDernierCarte = couleurDernierCarte;
-        this.valeurDernierCarte = valeurDernierCarte;
-        this.listJoueur = listJoueur;
+    public Partie(ArrayList<Joueur> listeJoueur) {
+        this.nIemePartie = 1;
+        this.numTourJoueur = 0;
+        this.etreSensHoraire = true;
+        this.carteReference = null;
+        this.listeJoueur = listeJoueur;
         genererPioche();
         genererDepotVide();
     }
 
-    public int getNbTour() {
-        return nbTour;
+    public int getNiemePartie() {
+        return nIemePartie;
     }
 
-    public void setNbTour(int nbTour) {
-        this.nbTour = nbTour;
+    public void setNiemePartie(int niemePartie) {
+        this.nIemePartie = niemePartie;
     }
 
     public int getNumTourJoueur() {
@@ -51,28 +49,20 @@ public abstract class Partie {
         this.etreSensHoraire = etreSensHoraire;
     }
 
-    public ECarteCouleur getCouleurDernierCarte() {
-        return couleurDernierCarte;
+    public Carte getCarteReference() {
+        return carteReference;
     }
 
-    public void setCouleurDernierCarte(ECarteCouleur couleurDernierCarte) {
-        this.couleurDernierCarte = couleurDernierCarte;
-    }
-
-    public ECarteValeur getValeurDernierCarte() {
-        return valeurDernierCarte;
-    }
-
-    public void setValeurDernierCarte(ECarteValeur valeurDernierCarte) {
-        this.valeurDernierCarte = valeurDernierCarte;
+    public void setCarteReference(Carte carteReference) {
+        this.carteReference = carteReference;
     }
 
     public ArrayList<Joueur> getListJoueur() {
-        return listJoueur;
+        return listeJoueur;
     }
 
-    public void setListJoueur(ArrayList<Joueur> listJoueur) {
-        this.listJoueur = listJoueur;
+    public void setListJoueur(ArrayList<Joueur> listeJoueur) {
+        this.listeJoueur = listeJoueur;
     }
 
     public ArrayList<Carte> getPioche() {

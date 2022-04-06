@@ -12,21 +12,51 @@ public class Joueur {
     private ArrayList<Carte> listCarte;
     private int nbVictory;
 
-    /*
-    @TODO Alicia : Tâche à faire dans Joueur :
-     - le constructeur
-     - les getters
-     - les setters
-     - la fonction piocherCarte
-     */
+    public Joueur() {
+        this.username = "anonyme";
+        this.listCarte = new ArrayList<Carte>();
+        this.nbVictory = 0;
+    }
+
+    public Joueur(String username) {
+
+        this.setUsername(username);
+        this.listCarte = new ArrayList<Carte>();
+        this.nbVictory = 0;
+    }
+
+    public ArrayList<Carte> getListCarte() {
+        return listCarte;
+    }
+
+    public int getNbVictory() {
+        return nbVictory;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    private void setUsername(String username) {
+        if (username.isBlank()) throw new IllegalArgumentException("Le nom du joueur est vide");
+        this.username = username;
+    }
+
+    public void setNbVictory(int nbVictory) {
+        this.nbVictory = nbVictory;
+    }
+
+
 
     /**
-     * Mette la carte de la pioche dans la main du joueur
+     * Mettre la carte de la pioche dans la main du joueur
      *
      * @param cartePioche Carte récupérer dans la pioche
      */
     public void piocherCarte(Carte cartePioche) {
-        /* @TODO Alicia */
+
+        listCarte.add(cartePioche);
+
     }
 
     /**
@@ -38,8 +68,13 @@ public class Joueur {
         return null;
     }
 
+    public void gagner(){
+        /* @TODO gagner */
+    }
+
     /**
      * Range les cartes du joueur par ordre valeur puis par couleur
+     * A VOIR SI CEST A FAIRE
      */
     public void rangerCarte() {
         /* @TODO rangerCarte */
