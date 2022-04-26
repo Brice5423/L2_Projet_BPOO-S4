@@ -8,45 +8,43 @@ import home.metier.carte.CarteBasique;
 import java.util.ArrayList;
 
 public class Joueur {
-    private String username;
-    private ArrayList<Carte> listCarte;
+    private String nom;
+    private ArrayList<Carte> mainDuJoueur;
     private int nbVictory;
 
     public Joueur() {
-        this.username = "anonyme";
-        this.listCarte = new ArrayList<Carte>();
+        this.nom = "anonyme";
+        this.mainDuJoueur = new ArrayList<Carte>();
         this.nbVictory = 0;
     }
 
-    public Joueur(String username) {
-
-        this.setUsername(username);
-        this.listCarte = new ArrayList<Carte>();
+    public Joueur(String nom) {
+        this.setNom(nom);
+        this.mainDuJoueur = new ArrayList<Carte>();
         this.nbVictory = 0;
     }
 
-    public ArrayList<Carte> getListCarte() {
-        return listCarte;
+    public String getNom() {
+        return nom;
+    }
+
+    private void setNom(String nom) {
+        if (nom.isBlank())
+            throw new IllegalArgumentException("Le nom du joueur est vide");
+        this.nom = nom;
+    }
+
+    public ArrayList<Carte> getMainDuJoueur() {
+        return this.mainDuJoueur;
     }
 
     public int getNbVictory() {
-        return nbVictory;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    private void setUsername(String username) {
-        if (username.isBlank()) throw new IllegalArgumentException("Le nom du joueur est vide");
-        this.username = username;
+        return this.nbVictory;
     }
 
     public void setNbVictory(int nbVictory) {
         this.nbVictory = nbVictory;
     }
-
-
 
     /**
      * Mettre la carte de la pioche dans la main du joueur
@@ -54,29 +52,27 @@ public class Joueur {
      * @param cartePioche Carte récupérer dans la pioche
      */
     public void piocherCarte(Carte cartePioche) {
-
-        listCarte.add(cartePioche);
-
+        this.mainDuJoueur.add(cartePioche);
     }
 
     /**
      * @return Renvoie une carte du joueur
      */
-    public Carte deposerCarte() {
-        /* @TODO deposerCarte */
+    public Carte poserCarte(Carte carteSurLaTable) {
+        /* @TODO poserCarte */
 
         return null;
     }
 
-    public void gagner(){
-        /* @TODO gagner */
-    }
-
     /**
      * Range les cartes du joueur par ordre valeur puis par couleur
-     * A VOIR SI CEST A FAIRE
+     * À voir SI on l'a fait
      */
     public void rangerCarte() {
         /* @TODO rangerCarte */
+    }
+
+    public void gagner(){
+        /* @TODO gagner */
     }
 }

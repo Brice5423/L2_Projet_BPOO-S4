@@ -13,7 +13,7 @@ public class CarteChangerSens extends CarteAEffet implements IChangerSens {
     }
 
     @Override
-    public boolean changerSens(Partie partieEnCours) {
-        return (!partieEnCours.getEtreSensHoraire());
+    public void changerSens(Partie partieEnCours) {
+        partieEnCours.setEtreSensHoraire(!partieEnCours.getEtreSensHoraire());
     }
 }

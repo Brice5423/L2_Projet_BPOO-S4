@@ -5,6 +5,7 @@ import home.enumeration.ECarteValeur;
 import home.interfaces.carte.IAjouterCarte;
 import home.interfaces.carte.IChangerCouleur;
 import home.metier.Partie;
+import home.metier.carte.Carte;
 import home.metier.carte.CarteAEffet;
 
 import java.util.Scanner;
@@ -22,31 +23,32 @@ public class CartePlusQuatre extends CarteAEffet implements IAjouterCarte, IChan
         int i;
 
         for (i = 0; i < nbCarteADonner; i++) {
-            //joueurCible. // appel fonction pioche carte avec comment paramètre la carte retir à partir de la fonction de la carte de tête de pioche
+            //joueurCible. // appel fonction pioche carte avec comment paramètre la carte retire à partir de la fonction de la carte de tête de pioche
         }
     }
 
     @Override
     public void changerCouleur(Partie partieEnCours) {
-        String saisie;
         Scanner entree = new Scanner(System.in);
+        Carte carteReference;
+
+        carteReference = partieEnCours.getCarteReference();
 
         do {
             System.out.println("""
                     Donner la couleur de la carte pour le prochain joueur.
-                     - R : Rouge
-                     - B : Bleu
-                     - V : Vert
-                     - J : Jaune""");
-            saisie = entree.next();
+                    \t- R : Rouge
+                    \t- B : Bleu
+                    \t- V : Vert
+                    \t- J : Jaune""");
 
-            switch (saisie.toLowerCase()) {
-                case "r", "rouge" -> partieEnCours.setCouleurDernierCarte(ECarteCouleur.ROUGE);
-                case "b", "bleu" -> partieEnCours.setCouleurDernierCarte(ECarteCouleur.BLEU);
-                case "v", "vert" -> partieEnCours.setCouleurDernierCarte(ECarteCouleur.VERT);
-                case "j", "jaune" -> partieEnCours.setCouleurDernierCarte(ECarteCouleur.JAUNE);
+            switch (entree.next().toLowerCase()) {
+                case "r", "rouge" -> carteReference.setCarteCouleur(ECarteCouleur.ROUGE);
+                case "b", "bleu" -> carteReference.setCarteCouleur(ECarteCouleur.BLEU);
+                case "v", "vert" -> carteReference.setCarteCouleur(ECarteCouleur.VERT);
+                case "j", "jaune" -> carteReference.setCarteCouleur(ECarteCouleur.JAUNE);
             }
 
-        } while (partieEnCours.getCouleurDernierCarte().equals(ECarteCouleur.NOIR));
+        } while (carteReference.getCarteCouleur().equals(ECarteCouleur.NOIR));
     }
 }

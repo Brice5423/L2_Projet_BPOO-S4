@@ -10,6 +10,6 @@ public class CarteAEffet extends Carte {
     }
 
     /*
-    Vide mais à pour but de mieux comprendre la nature de la carte
+    Vide, mais à pour but de mieux comprendre la nature de la carte
      */
 }

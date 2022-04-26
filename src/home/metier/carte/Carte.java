@@ -16,14 +16,22 @@ public abstract class Carte {
         return carteCouleur;
     }
 
+    public void setCarteCouleur(ECarteCouleur carteCouleur) {
+        this.carteCouleur = carteCouleur;
+    }
+
     public ECarteValeur getCarteValeur() {
         return carteValeur;
+    }
+
+    public void setCarteValeur(ECarteValeur carteValeur) {
+        this.carteValeur = carteValeur;
     }
 
     /**
      * Regarde si la carte peut être posée en fonction de la couleur et la valeur choisie.
      */
-    public boolean peutEtrePoser(ECarteCouleur couleurTest, ECarteValeur valeurTest) {
+    public boolean peutEtrePoser(Carte carteDeLaTable) {
         /* @TODO peutEtrePoser */
         return true;
     }
