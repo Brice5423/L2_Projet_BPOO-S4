@@ -88,12 +88,12 @@ public abstract class Partie {
      * Créer une ArrayList de Carte vide, remplit la liste de toutes les cartes et les met dans le désordre
      */
     public void genererPioche() {
-        // TODO genererPioche : Alicia
+        // @TODO genererPioche : Alicia
         this.pioche = new ArrayList<Carte>();
 
         // Générer tout les carte à main, je te remercie pour ce sacrifice Alicia ^^
         // Voici un exemple de comment faire avec un "+ 4"
-        pioche.add(new CartePlusQuatre(ECarteCouleur.NOIR, ECarteValeur.PLUS_QUATRE));
+        this.pioche.add(new CartePlusQuatre(ECarteCouleur.NOIR, ECarteValeur.PLUS_QUATRE));
         // ...
     }
 
@@ -105,18 +105,18 @@ public abstract class Partie {
      * Initialise les cartes des joueurs avec 7 cartes.
      */
     public void initialiserCarteJoueur() {
-        // TODO initialiserCarteJoueur
+        // @TODO initialiserCarteJoueur
     }
 
     public void lancerPartie() {
-        // TODO lancerPartie
+        // @TODO lancerPartie
     }
 
     /**
      * @return renvoie la carte de la pioche de dessus
      */
     public Carte prendreCartePioche() {
-        // TODO prendreCartePioche
+        // @TODO prendreCartePioche
         return null;
     }
 
@@ -125,6 +125,6 @@ public abstract class Partie {
      * @param carteJoueur Carte du joueur à déposer dans le depot
      */
     public void deposerCartDepot(Carte carteJoueur) {
-        // TODO ajoutCartDepot
+        // @TODO ajoutCartDepot
     }
 }

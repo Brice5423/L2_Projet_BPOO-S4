@@ -59,7 +59,7 @@ public class Joueur {
      * @return Renvoie une carte du joueur
      */
     public Carte poserCarte(Carte carteSurLaTable) {
-        /* @TODO poserCarte */
+        // @TODO poserCarte
 
         return null;
     }
@@ -69,10 +69,10 @@ public class Joueur {
      * À voir SI on l'a fait
      */
     public void rangerCarte() {
-        /* @TODO rangerCarte */
+        // @TODO rangerCarte
     }
 
     public void gagner(){
-        /* @TODO gagner */
+        // @TODO gagner
     }
 }

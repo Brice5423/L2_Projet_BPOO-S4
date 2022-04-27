@@ -32,7 +32,7 @@ public abstract class Carte {
      * Regarde si la carte peut être posée en fonction de la couleur et la valeur choisie.
      */
     public boolean peutEtrePoser(Carte carteDeLaTable) {
-        /* @TODO peutEtrePoser */
+        // @TODO peutEtrePoser
         return true;
     }
 }
