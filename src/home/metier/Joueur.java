@@ -32,6 +32,10 @@ public class Joueur {
         if (nom.isBlank())
             throw new IllegalArgumentException("Le nom du joueur est vide");
         this.nom = nom;
+
+        Joueur alicia = new Joueur("Alicia");
+
+        alicia.setNom("Brice");
     }
 
     public ArrayList<Carte> getMainDuJoueur() {

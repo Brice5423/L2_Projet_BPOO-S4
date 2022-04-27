@@ -93,7 +93,7 @@ public abstract class Partie {
 
         // Générer tout les carte à main, je te remercie pour ce sacrifice Alicia ^^
         // Voici un exemple de comment faire avec un "+ 4"
-        this.pioche.add(new CartePlusQuatre(ECarteCouleur.NOIR, ECarteValeur.PLUS_QUATRE));
+        this.pioche.add(new CartePlusQuatre());
         // ...
     }
 
