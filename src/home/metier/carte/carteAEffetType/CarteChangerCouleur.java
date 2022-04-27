@@ -39,4 +39,9 @@ public class CarteChangerCouleur extends CarteAEffet implements IChangerCouleur 
 
         } while (carteReference.getCarteCouleur().equals(ECarteCouleur.NOIR));
     }
+
+    @Override
+    public void appliquerEffet(Partie partieEnCours) {
+        // @TODO appliquerEffet
+    }
 }

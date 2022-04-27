@@ -51,4 +51,9 @@ public class CartePlusQuatre extends CarteAEffet implements IAjouterCarte, IChan
 
         } while (carteReference.getCarteCouleur().equals(ECarteCouleur.NOIR));
     }
+
+    @Override
+    public void appliquerEffet(Partie partieEnCours) {
+        // @TODO appliquerEffet
+    }
 }

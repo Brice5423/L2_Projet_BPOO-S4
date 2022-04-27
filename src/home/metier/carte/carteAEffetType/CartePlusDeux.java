@@ -22,4 +22,9 @@ public class CartePlusDeux extends CarteAEffet implements IAjouterCarte {
             //joueurCible. // appel fonction pioche carte avec comment paramètre la carte retire à partir de la fonction de la carte de tête de pioche
         }
     }
+
+    @Override
+    public void appliquerEffet(Partie partieEnCours) {
+        // @TODO appliquerEffet
+    }
 }

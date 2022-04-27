@@ -64,16 +64,13 @@ public abstract class Partie {
     }
 
     /**
-     * Créer une ArrayList de Carte vide, remplit la liste de toutes les cartes et les met dans le désordre
+     * Nombre de carte noir : 4 par carte (boucle),
+     * Nombre de carte différente de noir ET différente de 0 : 2 par carte (boucle),
+     * Nombre de carte 0 : 1 par couleur,
+     * Melanger, mettre aléatoirement lordre des cartes de la liste
      */
     public void genererPioche() {
-        // @TODO genererPioche : fini (alicia)
         this.pioche = new ArrayList<Carte>();
-        /* Nombre de carte noir : 4 par carte (boucle)
-         * Nombre de carte différente de noir ET différente de 0 : 2 par carte (boucle)
-         * Nombre de carte 0 : 1 par couleur
-         * melanger, mettre aléatoirement lordre des cartes de la liste
-         */
 
         this.pioche.add(new CarteBasique(ECarteCouleur.JAUNE, ECarteValeur.ZERO));
         this.pioche.add(new CarteBasique(ECarteCouleur.ROUGE, ECarteValeur.ZERO));
@@ -159,8 +156,6 @@ public abstract class Partie {
      * Initialise les cartes des joueurs avec 7 cartes.
      */
     public void initialiserCarteJoueur() {
-        // @TODO initialiserCarteJoueur : fini (alicia)
-
         for (Joueur joueur : this.listeJoueur) {
             for (int i = 0; i < 7; i++) {
                 joueur.recupererCarte(this.retirerCartePioche());
@@ -177,8 +172,6 @@ public abstract class Partie {
      * @return renvoie la carte de la pioche de dessus
      */
     public Carte retirerCartePioche() {
-        // @TODO prendreCartePioche : fini (alicia)
-
         return this.pioche.remove(0);
     }
 
@@ -188,8 +181,6 @@ public abstract class Partie {
      * @param carteJoueur Carte du joueur à déposer dans le depot
      */
     public void deposerCarteDepot(Carte carteJoueur) {
-        // @TODO ajoutCarteDepot : fini (alicia)
-
         this.depot.add(carteJoueur);
     }
 

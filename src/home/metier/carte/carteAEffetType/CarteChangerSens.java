@@ -16,4 +16,9 @@ public class CarteChangerSens extends CarteAEffet implements IChangerSens {
     public void changerSens(Partie partieEnCours) {
         partieEnCours.inverseSensPartie();
     }
+
+    @Override
+    public void appliquerEffet(Partie partieEnCours) {
+        // @TODO appliquerEffet
+    }
 }
