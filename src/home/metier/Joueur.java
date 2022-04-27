@@ -51,7 +51,7 @@ public class Joueur {
      *
      * @param cartePioche Carte récupérer dans la pioche
      */
-    public void piocherCarte(Carte cartePioche) {
+    public void recupererCarte(Carte cartePioche) {
         this.mainDuJoueur.add(cartePioche);
     }
 

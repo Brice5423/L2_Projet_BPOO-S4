@@ -105,7 +105,13 @@ public abstract class Partie {
      * Initialise les cartes des joueurs avec 7 cartes.
      */
     public void initialiserCarteJoueur() {
-        // @TODO initialiserCarteJoueur
+        // @TODO initialiserCarteJoueur : fini (alicia)
+
+        for (Joueur joueur : this.listeJoueur) {
+            for (int i = 0; i < 7; i++) {
+                joueur.recupererCarte(this.retirerCartePioche());
+            }
+        }
     }
 
     public void lancerPartie() {
@@ -115,16 +121,20 @@ public abstract class Partie {
     /**
      * @return renvoie la carte de la pioche de dessus
      */
-    public Carte prendreCartePioche() {
-        // @TODO prendreCartePioche
-        return null;
+    public Carte retirerCartePioche() {
+        // @TODO prendreCartePioche : fini (alicia)
+
+        return this.pioche.remove(0);
     }
 
     /**
      * Dépose la carte du joueur dans le depot de la partie
+     *
      * @param carteJoueur Carte du joueur à déposer dans le depot
      */
-    public void deposerCartDepot(Carte carteJoueur) {
-        // @TODO ajoutCartDepot
+    public void deposerCarteDepot(Carte carteJoueur) {
+        // @TODO ajoutCarteDepot : fini (alicia)
+
+        this.depot.add(carteJoueur);
     }
 }
