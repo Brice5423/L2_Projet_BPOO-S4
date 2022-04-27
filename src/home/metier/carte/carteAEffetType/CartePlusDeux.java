@@ -9,8 +9,8 @@ import home.metier.carte.CarteAEffet;
 public class CartePlusDeux extends CarteAEffet implements IAjouterCarte {
     private static final int nbCarteADonner = 2;
 
-    public CartePlusDeux(ECarteCouleur carteCouleur, ECarteValeur carteValeur) {
-        super(carteCouleur, carteValeur);
+    public CartePlusDeux(ECarteCouleur carteCouleur) {
+        super(carteCouleur, ECarteValeur.PLUS_QUATRE);
     }
 
     @Override

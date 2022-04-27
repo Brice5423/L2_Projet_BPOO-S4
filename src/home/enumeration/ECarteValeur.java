@@ -13,7 +13,7 @@ public enum ECarteValeur {
     NEUF("9"),
     CHANGER_SENS("changement de sens"),
     CHANGER_COULEUR("changement de couleur"),
-    PAUSE("pause"),
+    PASSER_TOUR("passer le tour"),
     PLUS_DEUX("plus 2"),
     PLUS_QUATRE("plus 4");
 

@@ -8,8 +8,8 @@ import home.metier.carte.CarteAEffet;
 
 public class PasserTour extends CarteAEffet implements IPasserTour {
 
-    public PasserTour(ECarteCouleur carteCouleur, ECarteValeur carteValeur) {
-        super(carteCouleur, carteValeur);
+    public PasserTour(ECarteCouleur carteCouleur) {
+        super(carteCouleur, ECarteValeur.PASSER_TOUR);
     }
 
     @Override

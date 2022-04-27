@@ -8,8 +8,8 @@ import home.metier.carte.CarteAEffet;
 
 public class CarteChangerSens extends CarteAEffet implements IChangerSens {
 
-    public CarteChangerSens(ECarteCouleur carteCouleur, ECarteValeur carteValeur) {
-        super(carteCouleur, carteValeur);
+    public CarteChangerSens(ECarteCouleur carteCouleur) {
+        super(carteCouleur, ECarteValeur.CHANGER_SENS);
     }
 
     @Override
