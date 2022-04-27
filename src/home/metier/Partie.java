@@ -5,9 +5,12 @@ import home.enumeration.ECarteValeur;
 import home.metier.carte.Carte;
 import home.metier.carte.CarteAEffet;
 import home.metier.carte.CarteBasique;
+import home.metier.carte.carteAEffetType.CarteChangerCouleur;
+import home.metier.carte.carteAEffetType.CarteChangerSens;
 import home.metier.carte.carteAEffetType.CartePlusQuatre;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public abstract class Partie {
     private int niemePartie;
@@ -88,13 +91,88 @@ public abstract class Partie {
      * Créer une ArrayList de Carte vide, remplit la liste de toutes les cartes et les met dans le désordre
      */
     public void genererPioche() {
-        // @TODO genererPioche : Alicia
+        // @TODO genererPioche : fini (alicia)
         this.pioche = new ArrayList<Carte>();
+        /* Nombre de carte noir : 4 par carte (boucle)
+         * Nombre de carte différente de noir ET différente de 0 : 2 par carte (boucle)
+         * Nombre de carte 0 : 1 par couleur
+         * melanger, mettre aléatoirement lordre des cartes de la liste
+         */
 
-        // Générer tout les carte à main, je te remercie pour ce sacrifice Alicia ^^
-        // Voici un exemple de comment faire avec un "+ 4"
-        this.pioche.add(new CartePlusQuatre());
-        // ...
+        this.pioche.add(new CarteBasique(ECarteCouleur.JAUNE, ECarteValeur.ZERO));
+        this.pioche.add(new CarteBasique(ECarteCouleur.ROUGE, ECarteValeur.ZERO));
+        this.pioche.add(new CarteBasique(ECarteCouleur.BLEU, ECarteValeur.ZERO));
+        this.pioche.add(new CarteBasique(ECarteCouleur.VERT, ECarteValeur.ZERO));
+
+        for (int boucleNoire = 0; boucleNoire < 4; boucleNoire++) {
+            this.pioche.add(new CartePlusQuatre());
+            this.pioche.add(new CarteChangerCouleur());
+        }
+
+        for (int boucleCarte = 0; boucleCarte < 2; boucleCarte++){
+            this.pioche.add(new CarteBasique(ECarteCouleur.JAUNE, ECarteValeur.UN));
+            this.pioche.add(new CarteBasique(ECarteCouleur.ROUGE, ECarteValeur.UN));
+            this.pioche.add(new CarteBasique(ECarteCouleur.BLEU, ECarteValeur.UN));
+            this.pioche.add(new CarteBasique(ECarteCouleur.VERT, ECarteValeur.UN));
+
+            this.pioche.add(new CarteBasique(ECarteCouleur.JAUNE, ECarteValeur.DEUX));
+            this.pioche.add(new CarteBasique(ECarteCouleur.ROUGE, ECarteValeur.DEUX));
+            this.pioche.add(new CarteBasique(ECarteCouleur.BLEU, ECarteValeur.DEUX));
+            this.pioche.add(new CarteBasique(ECarteCouleur.VERT, ECarteValeur.DEUX));
+
+            this.pioche.add(new CarteBasique(ECarteCouleur.JAUNE, ECarteValeur.TROIS));
+            this.pioche.add(new CarteBasique(ECarteCouleur.ROUGE, ECarteValeur.TROIS));
+            this.pioche.add(new CarteBasique(ECarteCouleur.BLEU, ECarteValeur.TROIS));
+            this.pioche.add(new CarteBasique(ECarteCouleur.VERT, ECarteValeur.TROIS));
+
+            this.pioche.add(new CarteBasique(ECarteCouleur.JAUNE, ECarteValeur.QUATRE));
+            this.pioche.add(new CarteBasique(ECarteCouleur.ROUGE, ECarteValeur.QUATRE));
+            this.pioche.add(new CarteBasique(ECarteCouleur.BLEU, ECarteValeur.QUATRE));
+            this.pioche.add(new CarteBasique(ECarteCouleur.VERT, ECarteValeur.QUATRE));
+
+            this.pioche.add(new CarteBasique(ECarteCouleur.JAUNE, ECarteValeur.CINQ));
+            this.pioche.add(new CarteBasique(ECarteCouleur.ROUGE, ECarteValeur.CINQ));
+            this.pioche.add(new CarteBasique(ECarteCouleur.BLEU, ECarteValeur.CINQ));
+            this.pioche.add(new CarteBasique(ECarteCouleur.VERT, ECarteValeur.CINQ));
+
+            this.pioche.add(new CarteBasique(ECarteCouleur.JAUNE, ECarteValeur.SIX));
+            this.pioche.add(new CarteBasique(ECarteCouleur.ROUGE, ECarteValeur.SIX));
+            this.pioche.add(new CarteBasique(ECarteCouleur.BLEU, ECarteValeur.SIX));
+            this.pioche.add(new CarteBasique(ECarteCouleur.VERT, ECarteValeur.SIX));
+
+            this.pioche.add(new CarteBasique(ECarteCouleur.JAUNE, ECarteValeur.SEPT));
+            this.pioche.add(new CarteBasique(ECarteCouleur.ROUGE, ECarteValeur.SEPT));
+            this.pioche.add(new CarteBasique(ECarteCouleur.BLEU, ECarteValeur.SEPT));
+            this.pioche.add(new CarteBasique(ECarteCouleur.VERT, ECarteValeur.SEPT));
+
+            this.pioche.add(new CarteBasique(ECarteCouleur.JAUNE, ECarteValeur.HUIT));
+            this.pioche.add(new CarteBasique(ECarteCouleur.ROUGE, ECarteValeur.HUIT));
+            this.pioche.add(new CarteBasique(ECarteCouleur.BLEU, ECarteValeur.HUIT));
+            this.pioche.add(new CarteBasique(ECarteCouleur.VERT, ECarteValeur.HUIT));
+
+            this.pioche.add(new CarteBasique(ECarteCouleur.JAUNE, ECarteValeur.NEUF));
+            this.pioche.add(new CarteBasique(ECarteCouleur.ROUGE, ECarteValeur.NEUF));
+            this.pioche.add(new CarteBasique(ECarteCouleur.BLEU, ECarteValeur.NEUF));
+            this.pioche.add(new CarteBasique(ECarteCouleur.VERT, ECarteValeur.NEUF));
+
+            this.pioche.add(new CarteBasique(ECarteCouleur.JAUNE, ECarteValeur.PASSER_TOUR));
+            this.pioche.add(new CarteBasique(ECarteCouleur.ROUGE, ECarteValeur.PASSER_TOUR));
+            this.pioche.add(new CarteBasique(ECarteCouleur.BLEU, ECarteValeur.PASSER_TOUR));
+            this.pioche.add(new CarteBasique(ECarteCouleur.VERT, ECarteValeur.PASSER_TOUR));
+
+            this.pioche.add(new CarteBasique(ECarteCouleur.JAUNE, ECarteValeur.CHANGER_SENS));
+            this.pioche.add(new CarteBasique(ECarteCouleur.ROUGE, ECarteValeur.CHANGER_SENS));
+            this.pioche.add(new CarteBasique(ECarteCouleur.BLEU, ECarteValeur.CHANGER_SENS));
+            this.pioche.add(new CarteBasique(ECarteCouleur.VERT, ECarteValeur.CHANGER_SENS));
+
+            this.pioche.add(new CarteBasique(ECarteCouleur.JAUNE, ECarteValeur.PLUS_DEUX));
+            this.pioche.add(new CarteBasique(ECarteCouleur.ROUGE, ECarteValeur.PLUS_DEUX));
+            this.pioche.add(new CarteBasique(ECarteCouleur.BLEU, ECarteValeur.PLUS_DEUX));
+            this.pioche.add(new CarteBasique(ECarteCouleur.VERT, ECarteValeur.PLUS_DEUX));
+
+        }
+        //Collections.shuffle melange les carte !
+        Collections.shuffle(this.pioche);
     }
 
     public void genererDepotVide() {
@@ -115,7 +193,8 @@ public abstract class Partie {
     }
 
     public void lancerPartie() {
-        // @TODO lancerPartie
+        // @TODO lancerPartie : entamé
+        initialiserCarteJoueur();
     }
 
     /**
