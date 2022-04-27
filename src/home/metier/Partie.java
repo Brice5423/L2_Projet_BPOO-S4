@@ -35,10 +35,6 @@ public abstract class Partie {
         return this.niemePartie;
     }
 
-    public void setNiemePartie(int niemePartie) {
-        this.niemePartie = niemePartie;
-    }
-
     public int getNumTourJoueur() {
         return this.numTourJoueur;
     }
@@ -51,28 +47,8 @@ public abstract class Partie {
         return this.etreSensHoraire;
     }
 
-    public void setEtreSensHoraire(boolean etreSensHoraire) {
-        this.etreSensHoraire = etreSensHoraire;
-    }
-
     public ArrayList<Joueur> getListJoueur() {
         return this.listeJoueur;
-    }
-
-    public void setListJoueur(ArrayList<Joueur> listeJoueur) {
-        this.listeJoueur = listeJoueur;
-    }
-
-    public ArrayList<Carte> getPioche() {
-        return this.pioche;
-    }
-
-    public void setPioche(ArrayList<Carte> pioche) {
-        this.pioche = pioche;
-    }
-
-    public ArrayList<Carte> getDepot() {
-        return this.depot;
     }
 
     public void setDepot(ArrayList<Carte> depot) {
@@ -215,5 +191,9 @@ public abstract class Partie {
         // @TODO ajoutCarteDepot : fini (alicia)
 
         this.depot.add(carteJoueur);
+    }
+
+    public void inverseSensPartie() {
+        this.etreSensHoraire = !this.getEtreSensHoraire();
     }
 }
