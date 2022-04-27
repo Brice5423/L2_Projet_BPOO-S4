@@ -14,6 +14,6 @@ public class CarteChangerSens extends CarteAEffet implements IChangerSens {
 
     @Override
     public void changerSens(Partie partieEnCours) {
-        partieEnCours.setEtreSensHoraire(!partieEnCours.getEtreSensHoraire());
+        partieEnCours.inverseSensPartie();
     }
 }
