@@ -11,8 +11,8 @@ import java.util.Scanner;
 
 public class CarteChangerCouleur extends CarteAEffet implements IChangerCouleur {
 
-    public CarteChangerCouleur(ECarteCouleur carteCouleur, ECarteValeur carteValeur) {
-        super(carteCouleur, carteValeur);
+    public CarteChangerCouleur() {
+        super(ECarteCouleur.NOIR, ECarteValeur.CHANGER_COULEUR);
     }
 
     @Override
