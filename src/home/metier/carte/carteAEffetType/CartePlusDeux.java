@@ -4,7 +4,6 @@ import home.enumeration.ECarteCouleur;
 import home.enumeration.ECarteValeur;
 import home.interfaces.carte.IAjouterCarte;
 import home.metier.Partie;
-import home.metier.carte.CarteAEffet;
 
 public class CartePlusDeux extends CarteAEffet implements IAjouterCarte {
     private static final int nbCarteADonner = 2;

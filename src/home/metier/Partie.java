@@ -3,10 +3,8 @@ package home.metier;
 import home.enumeration.ECarteCouleur;
 import home.enumeration.ECarteValeur;
 import home.metier.carte.Carte;
-import home.metier.carte.CarteAEffet;
 import home.metier.carte.CarteBasique;
 import home.metier.carte.carteAEffetType.CarteChangerCouleur;
-import home.metier.carte.carteAEffetType.CarteChangerSens;
 import home.metier.carte.carteAEffetType.CartePlusQuatre;
 
 import javax.management.JMRuntimeException;

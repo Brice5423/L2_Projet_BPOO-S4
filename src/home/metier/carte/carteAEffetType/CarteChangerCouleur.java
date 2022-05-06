@@ -4,8 +4,6 @@ import home.enumeration.ECarteCouleur;
 import home.enumeration.ECarteValeur;
 import home.interfaces.carte.IChangerCouleur;
 import home.metier.Partie;
-import home.metier.carte.Carte;
-import home.metier.carte.CarteAEffet;
 
 import java.util.Scanner;
 
