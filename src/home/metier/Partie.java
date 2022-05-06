@@ -11,7 +11,7 @@ import javax.management.JMRuntimeException;
 import java.util.ArrayList;
 import java.util.Collections;
 
-public abstract class Partie {
+public class Partie {
     private int niemePartie;
     private int numJoueurCourant;
     private boolean etreSensHoraire;
@@ -174,6 +174,8 @@ public abstract class Partie {
             }
         }
     }
+
+
 
     public void lancerPartie() {
         // @TODO lancerPartie : entamé
