@@ -17,6 +17,9 @@ public class ExpertBasiqueSurBasique extends Expert {
     @Override
     public boolean etreCoupValide(Carte carteAPoser, Carte carteReference) {
         // TODO etreCoupValide
-        return false;
+        CarteBasique carteAPoserB = (CarteBasique) carteAPoser;
+        CarteBasique carteReferenceB = (CarteBasique) carteReference;
+
+        return ((carteAPoserB.getCouleur() == carteReferenceB.getCouleur()) || (carteAPoserB.getValeur() == carteReferenceB.getValeur()));
     }
 }
