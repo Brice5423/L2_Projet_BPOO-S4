@@ -10,12 +10,7 @@ public enum ECarteValeur {
     SIX("6"),
     SEPT("7"),
     HUIT("8"),
-    NEUF("9"),
-    CHANGER_SENS("changement de sens"),
-    CHANGER_COULEUR("changement de couleur"),
-    PASSER_TOUR("passer le tour"),
-    PLUS_DEUX("plus 2"),
-    PLUS_QUATRE("plus 4");
+    NEUF("9");
 
     private final String valeur;
 
