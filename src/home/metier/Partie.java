@@ -3,17 +3,15 @@ package home.metier;
 import home.enumeration.ECarteCouleur;
 import home.enumeration.ECarteValeur;
 import home.metier.carte.Carte;
-import home.metier.carte.CarteAEffet;
 import home.metier.carte.CarteBasique;
 import home.metier.carte.carteAEffetType.CarteChangerCouleur;
-import home.metier.carte.carteAEffetType.CarteChangerSens;
 import home.metier.carte.carteAEffetType.CartePlusQuatre;
 
 import javax.management.JMRuntimeException;
 import java.util.ArrayList;
 import java.util.Collections;
 
-public abstract class Partie {
+public class Partie {
     private int niemePartie;
     private int numJoueurCourant;
     private boolean etreSensHoraire;
@@ -176,6 +174,8 @@ public abstract class Partie {
             }
         }
     }
+
+
 
     public void lancerPartie() {
         // @TODO lancerPartie : entamé
