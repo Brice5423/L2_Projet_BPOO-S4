@@ -9,12 +9,6 @@ public class Joueur {
     private ArrayList<Carte> mainDuJoueur;
     private int nbVictory;
 
-    public Joueur() {
-        this.nom = "anonyme";
-        this.mainDuJoueur = new ArrayList<Carte>();
-        this.nbVictory = 0;
-    }
-
     public Joueur(String nom) {
         this.setNom(nom);
         this.mainDuJoueur = new ArrayList<Carte>();
@@ -37,10 +31,6 @@ public class Joueur {
 
     public int getNbVictory() {
         return this.nbVictory;
-    }
-
-    public void setNbVictory(int nbVictory) {
-        this.nbVictory = nbVictory;
     }
 
     /**
@@ -69,7 +59,7 @@ public class Joueur {
         // @TODO rangerCarte
     }
 
-    public void gagner(){
+    public void avoirGagner(){
         // @TODO gagner
     }
 

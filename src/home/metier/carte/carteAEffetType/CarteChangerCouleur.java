@@ -1,7 +1,6 @@
 package home.metier.carte.carteAEffetType;
 
 import home.enumeration.ECarteCouleur;
-import home.enumeration.ECarteValeur;
 import home.metier.carte.Carte;
 import home.metier.carte.CarteAEffet;
 import home.interfaces.carte.IChangerCouleur;
@@ -12,7 +11,7 @@ import java.util.Scanner;
 public class CarteChangerCouleur extends CarteAEffet implements IChangerCouleur {
 
     public CarteChangerCouleur() {
-        super(ECarteCouleur.NOIR, ECarteValeur.CHANGER_COULEUR);
+        super(ECarteCouleur.NOIR);
     }
 
     @Override

@@ -1,15 +1,8 @@
 package home.metier;
 
-import home.enumeration.ECarteCouleur;
-import home.enumeration.ECarteValeur;
 import home.metier.carte.Carte;
-import home.metier.carte.CarteBasique;
-import home.metier.carte.carteAEffetType.CarteChangerCouleur;
-import home.metier.carte.carteAEffetType.CartePlusQuatre;
 
-import javax.management.JMRuntimeException;
 import java.util.ArrayList;
-import java.util.Collections;
 
 public class Partie {
     private int niemePartie;
@@ -23,15 +16,15 @@ public class Partie {
     /**
      * Crée une partie avec toutes les cartes du jeu
      */
-    public Partie() {
+    /*public Partie() {
         this.niemePartie = 1;
         this.numJoueurCourant = 0;
         this.etreSensHoraire = true;
         this.listeJoueur = new ArrayList<Joueur>();
-        genererPioche();
+        genererPioche(); // la fonction est en commentaire
         this.depot = new ArrayList<Carte>();
         this.carteReference = null;
-    }
+    }*/
 
     /**
      * Crée une partie en fonction d'une pioche donnée. C'est pour les tests
@@ -53,10 +46,6 @@ public class Partie {
 
     public int getNumJoueurCourant() {
         return this.numJoueurCourant;
-    }
-
-    public void setNumJoueurCourant(int numJoueurCourant) {
-        this.numJoueurCourant = numJoueurCourant;
     }
 
     public boolean getEtreSensHoraire() {
@@ -85,7 +74,7 @@ public class Partie {
      * Nombre de carte 0 : 1 par couleur,
      * Melanger, mettre aléatoirement lordre des cartes de la liste
      */
-    public void genererPioche() {
+    /*public void genererPioche() {
         this.pioche = new ArrayList<Carte>();
 
         this.pioche.add(new CarteBasique(ECarteCouleur.JAUNE, ECarteValeur.ZERO));
@@ -144,42 +133,40 @@ public class Partie {
             this.pioche.add(new CarteBasique(ECarteCouleur.BLEU, ECarteValeur.NEUF));
             this.pioche.add(new CarteBasique(ECarteCouleur.VERT, ECarteValeur.NEUF));
 
-            this.pioche.add(new CarteBasique(ECarteCouleur.JAUNE, ECarteValeur.PASSER_TOUR));
-            this.pioche.add(new CarteBasique(ECarteCouleur.ROUGE, ECarteValeur.PASSER_TOUR));
-            this.pioche.add(new CarteBasique(ECarteCouleur.BLEU, ECarteValeur.PASSER_TOUR));
-            this.pioche.add(new CarteBasique(ECarteCouleur.VERT, ECarteValeur.PASSER_TOUR));
+            this.pioche.add(new CartePasserTour(ECarteCouleur.JAUNE));
+            this.pioche.add(new CartePasserTour(ECarteCouleur.ROUGE));
+            this.pioche.add(new CartePasserTour(ECarteCouleur.BLEU));
+            this.pioche.add(new CartePasserTour(ECarteCouleur.VERT));
 
-            this.pioche.add(new CarteBasique(ECarteCouleur.JAUNE, ECarteValeur.CHANGER_SENS));
-            this.pioche.add(new CarteBasique(ECarteCouleur.ROUGE, ECarteValeur.CHANGER_SENS));
-            this.pioche.add(new CarteBasique(ECarteCouleur.BLEU, ECarteValeur.CHANGER_SENS));
-            this.pioche.add(new CarteBasique(ECarteCouleur.VERT, ECarteValeur.CHANGER_SENS));
+            this.pioche.add(new CarteChangerSens(ECarteCouleur.JAUNE));
+            this.pioche.add(new CarteChangerSens(ECarteCouleur.ROUGE));
+            this.pioche.add(new CarteChangerSens(ECarteCouleur.BLEU));
+            this.pioche.add(new CarteChangerSens(ECarteCouleur.VERT));
 
-            this.pioche.add(new CarteBasique(ECarteCouleur.JAUNE, ECarteValeur.PLUS_DEUX));
-            this.pioche.add(new CarteBasique(ECarteCouleur.ROUGE, ECarteValeur.PLUS_DEUX));
-            this.pioche.add(new CarteBasique(ECarteCouleur.BLEU, ECarteValeur.PLUS_DEUX));
-            this.pioche.add(new CarteBasique(ECarteCouleur.VERT, ECarteValeur.PLUS_DEUX));
+            this.pioche.add(new CartePlusDeux(ECarteCouleur.JAUNE));
+            this.pioche.add(new CartePlusDeux(ECarteCouleur.ROUGE));
+            this.pioche.add(new CartePlusDeux(ECarteCouleur.BLEU));
+            this.pioche.add(new CartePlusDeux(ECarteCouleur.VERT));
 
         }
         //Collections.shuffle melange les carte !
         Collections.shuffle(this.pioche);
-    }
+    }*/
 
     /**
      * Initialise les cartes des joueurs avec 7 cartes.
      */
-    public void initialiserCarteJoueur() {
+    /*public void initialiserCarteJoueur() {
         for (Joueur joueur : this.listeJoueur) {
             for (int i = 0; i < 7; i++) {
                 joueur.recupererCarte(this.retirerCartePioche());
             }
         }
-    }
-
-
+    }*/
 
     public void lancerPartie() {
-        // @TODO lancerPartie : entamé
-        initialiserCarteJoueur();
+        // @TODO lancerPartie
+        //initialiserCarteJoueur(); // fonction en commentaire
     }
 
     /**

@@ -1,7 +1,6 @@
 package home.metier.carte.carteAEffetType;
 
 import home.enumeration.ECarteCouleur;
-import home.enumeration.ECarteValeur;
 import home.metier.carte.CarteAEffet;
 import home.interfaces.carte.IAjouterCarte;
 import home.metier.Partie;
@@ -10,7 +9,7 @@ public class CartePlusDeux extends CarteAEffet implements IAjouterCarte {
     private static final int nbCarteADonner = 2;
 
     public CartePlusDeux(ECarteCouleur carteCouleur) {
-        super(carteCouleur, ECarteValeur.PLUS_QUATRE);
+        super(carteCouleur);
     }
 
     @Override
