@@ -3,17 +3,17 @@ package home.metier.carte;
 import home.enumeration.ECarteCouleur;
 
 public abstract class Carte {
-    private ECarteCouleur carteCouleur;
+    private ECarteCouleur couleur;
 
-    public Carte(ECarteCouleur carteCouleur) {
-        this.carteCouleur = carteCouleur;
+    public Carte(ECarteCouleur couleur) {
+        this.couleur = couleur;
     }
 
-    public ECarteCouleur getCarteCouleur() {
-        return this.carteCouleur;
+    public ECarteCouleur getCouleur() {
+        return this.couleur;
     }
 
-    public void setCarteCouleur(ECarteCouleur carteCouleur) {
-        this.carteCouleur = carteCouleur;
+    public void setCouleur(ECarteCouleur couleur) {
+        this.couleur = couleur;
     }
 }

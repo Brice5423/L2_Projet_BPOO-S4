@@ -4,18 +4,22 @@ import home.enumeration.ECarteCouleur;
 import home.enumeration.ECarteValeur;
 
 public class CarteBasique extends Carte {
-    private ECarteValeur carteValeur;
+    private ECarteValeur valeur;
 
-    public CarteBasique(ECarteCouleur carteCouleur, ECarteValeur carteValeur) {
-        super(carteCouleur);
-        this.carteValeur = carteValeur;
+    public CarteBasique(ECarteCouleur couleur, ECarteValeur valeur) {
+        super(couleur);
+        this.valeur = valeur;
     }
 
-    public ECarteValeur getCarteValeur() {
-        return this.carteValeur;
+    public ECarteValeur getValeur() {
+        return this.valeur;
     }
 
-    public void setCarteValeur(ECarteValeur carteValeur) {
-        this.carteValeur = carteValeur;
+    @Override
+    public String toString() {
+        return "CarteBasique{" +
+                "valeur=" + this.valeur + ", " +
+                "couleur=" + this.getCouleur() +
+                '}';
     }
 }
