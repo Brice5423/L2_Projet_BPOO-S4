@@ -1,5 +1,6 @@
 package home.metier;
 
+import home.expert.Expert;
 import home.metier.carte.Carte;
 
 import java.util.ArrayList;
@@ -165,7 +166,7 @@ public class Partie {
     }*/
 
     public void lancerPartie() {
-        // @TODO lancerPartie
+        // @TODO lancerPartie : pas besoin pour le moment
         //initialiserCarteJoueur(); // fonction en commentaire
     }
 
@@ -181,8 +182,17 @@ public class Partie {
      *
      * @param carteJoueur Carte du joueur à déposer dans le depot
      */
-    public void deposerCarteDepot(Carte carteJoueur) {
+    public void deposerCarteDepot(Carte carteJoueur) throws Exception {
+        // TODO faire en sorte qui lance l'expert
+        Expert lesExperts = Expert.initialiseTousLesExperts();
+
+        if (!lesExperts.peutEtrePoser(carteJoueur, this.carteReference)) {
+            // TODO : il faut mettre une exception mais là il y a une erreur
+            System.out.println("erreur (Partie -> deposerCarteDepot) : la carte n'est pas valide");
+        }
+
         this.depot.add(carteJoueur);
+        this.setCarteReference(carteJoueur);
     }
 
     public void inverseSensPartie() {
@@ -194,12 +204,10 @@ public class Partie {
     }
 
     public Carte carteDepot() {
-        // TODO carteDepot
-        return null;
+        return this.depot.get(this.depot.size() - 1);
     }
 
     public Joueur joueurCourant() {
-        // TODO joueurCourant
-        return null;
+        return this.listeJoueur.get(this.numJoueurCourant);
     }
 }

@@ -22,6 +22,7 @@ public class Joueur {
     private void setNom(String nom) {
         if (nom.isBlank())
             throw new IllegalArgumentException("Le nom du joueur est vide");
+
         this.nom = nom;
     }
 
@@ -31,6 +32,27 @@ public class Joueur {
 
     public int getNbVictory() {
         return this.nbVictory;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o)
+            return true;
+        if (o == null || this.getClass() != o.getClass())
+            return false;
+
+        Joueur joueur = (Joueur) o;
+
+        return this.nom.equals(joueur.getNom());
+    }
+
+    @Override
+    public String toString() {
+        return "Joueur{" +
+                "nom = '" + nom + '\'' +
+                ", nbVictory = " + nbVictory +
+                ", mainDuJoueur = \n" + mainDuJoueur +
+                '}';
     }
 
     /**
@@ -45,27 +67,25 @@ public class Joueur {
     /**
      * @return Renvoie une carte du joueur
      */
-    public Carte poserCarte(Carte carteSurLaTable) {
-        // @TODO poserCarte
+    public Carte poserCarte(Carte carteChoisieParJoueur) {
+        // @TODO poserCarte : a completé avec exception
 
-        return null;
+        if (!this.mainDuJoueur.contains(carteChoisieParJoueur)) {
+            // TODO faire une exception carte ou un truc du style
+            throw new IllegalArgumentException("carte choisie par le joueur n'est pas dans sa main");
+        }
+
+        this.mainDuJoueur.remove(carteChoisieParJoueur);
+
+        return carteChoisieParJoueur;
     }
 
-    /**
-     * Range les cartes du joueur par ordre valeur puis par couleur
-     * À voir SI on l'a fait
-     */
-    public void rangerCarte() {
-        // @TODO rangerCarte
-    }
-
-    public void avoirGagner(){
-        // @TODO gagner
+    public void avoirGagner() {
+        this.nbVictory++;
     }
 
     public int nbCarteEnMain() {
-        // TODO nbCarteEnMain
-        return 0;
+        return this.mainDuJoueur.size();
     }
 
     public void afficheCarteEnMain() {
@@ -77,6 +97,6 @@ public class Joueur {
     }
 
     public void finTour(Partie partieEnCours) {
-        //TODO finTour
+        // TODO finTour
     }
 }
