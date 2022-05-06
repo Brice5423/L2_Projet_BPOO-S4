@@ -9,25 +9,43 @@ import home.metier.carte.carteAEffetType.CarteChangerCouleur;
 import home.metier.carte.carteAEffetType.CarteChangerSens;
 import home.metier.carte.carteAEffetType.CartePlusQuatre;
 
+import javax.management.JMRuntimeException;
 import java.util.ArrayList;
 import java.util.Collections;
 
 public abstract class Partie {
     private int niemePartie;
-    private int numTourJoueur;
+    private int numJoueurCourant;
     private boolean etreSensHoraire;
     private ArrayList<Joueur> listeJoueur;
     private ArrayList<Carte> pioche; // -> joueur
     private ArrayList<Carte> depot; // <- joueur
     private Carte carteReference;
 
-    public Partie(ArrayList<Joueur> listeJoueur) {
+    /**
+     * Crée une partie avec toutes les cartes du jeu
+     */
+    public Partie() {
         this.niemePartie = 1;
-        this.numTourJoueur = 0;
+        this.numJoueurCourant = 0;
         this.etreSensHoraire = true;
-        this.listeJoueur = listeJoueur;
+        this.listeJoueur = new ArrayList<Joueur>();
         genererPioche();
-        genererDepotVide();
+        this.depot = new ArrayList<Carte>();
+        this.carteReference = null;
+    }
+
+    /**
+     * Crée une partie en fonction d'une pioche donnée. C'est pour les tests
+     * @param pioche liste de carte qu'on veut dans la partie
+     */
+    public Partie(ArrayList<Carte> pioche) {
+        this.niemePartie = 1;
+        this.numJoueurCourant = 0;
+        this.etreSensHoraire = true;
+        this.listeJoueur = new ArrayList<Joueur>();
+        this.pioche = pioche;
+        this.depot = new ArrayList<Carte>();
         this.carteReference = null;
     }
 
@@ -35,12 +53,12 @@ public abstract class Partie {
         return this.niemePartie;
     }
 
-    public int getNumTourJoueur() {
-        return this.numTourJoueur;
+    public int getNumJoueurCourant() {
+        return this.numJoueurCourant;
     }
 
-    public void setNumTourJoueur(int numTourJoueur) {
-        this.numTourJoueur = numTourJoueur;
+    public void setNumJoueurCourant(int numJoueurCourant) {
+        this.numJoueurCourant = numJoueurCourant;
     }
 
     public boolean getEtreSensHoraire() {
@@ -148,10 +166,6 @@ public abstract class Partie {
         Collections.shuffle(this.pioche);
     }
 
-    public void genererDepotVide() {
-        this.depot = new ArrayList<Carte>();
-    }
-
     /**
      * Initialise les cartes des joueurs avec 7 cartes.
      */
@@ -186,5 +200,19 @@ public abstract class Partie {
 
     public void inverseSensPartie() {
         this.etreSensHoraire = !this.getEtreSensHoraire();
+    }
+
+    public void ajoutJoueurPartie(Joueur joueur) {
+        this.listeJoueur.add(joueur);
+    }
+
+    public Carte carteDepot() {
+        // TODO carteDepot
+        return null;
+    }
+
+    public Joueur joueurCourant() {
+        // TODO joueurCourant
+        return null;
     }
 }

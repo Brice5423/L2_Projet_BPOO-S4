@@ -75,4 +75,21 @@ public class Joueur {
     public void gagner(){
         // @TODO gagner
     }
+
+    public int nbCarteEnMain() {
+        // TODO nbCarteEnMain
+        return 0;
+    }
+
+    public void afficheCarteEnMain() {
+        // TODO afficheCarteEnMain
+    }
+
+    public void ditUNO() {
+        // TODO ditUNO
+    }
+
+    public void finTour(Partie partieEnCours) {
+        //TODO finTour
+    }
 }
