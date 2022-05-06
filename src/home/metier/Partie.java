@@ -82,7 +82,7 @@ public abstract class Partie {
             this.pioche.add(new CarteChangerCouleur());
         }
 
-        for (int boucleCarte = 0; boucleCarte < 2; boucleCarte++){
+        for (int boucleCarte = 0; boucleCarte < 2; boucleCarte++) {
             this.pioche.add(new CarteBasique(ECarteCouleur.JAUNE, ECarteValeur.UN));
             this.pioche.add(new CarteBasique(ECarteCouleur.ROUGE, ECarteValeur.UN));
             this.pioche.add(new CarteBasique(ECarteCouleur.BLEU, ECarteValeur.UN));
@@ -172,7 +172,7 @@ public abstract class Partie {
      * @return renvoie la carte de la pioche de dessus
      */
     public Carte retirerCartePioche() {
-        return this.pioche.remove(0);
+        return this.pioche.remove(this.pioche.size() - 1);
     }
 
     /**
