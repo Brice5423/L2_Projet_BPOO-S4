@@ -18,13 +18,24 @@ public abstract class Expert {
         return this.suivant != null;
     }
 
-    public void ajoutExpert(Expert newExpert) {
+    private void ajoutExpert(Expert newExpert) {
         if (this.avoirUnSuivant()) {
             this.getSuivant().ajoutExpert(newExpert);
 
         } else {
             this.suivant = newExpert;
         }
+    }
+
+    public static Expert initialiseTousLesExperts() {
+        Expert lesExperts;
+
+        lesExperts = new ExpertBasiqueSurBasique();
+        lesExperts.ajoutExpert(new ExpertBasiqueSurEffet());
+        lesExperts.ajoutExpert(new ExpertEffetSurBasique());
+        lesExperts.ajoutExpert(new ExpertEffetSurEffet());
+
+        return lesExperts;
     }
 
     public boolean peutEtrePoser(Carte carteAPoser, Carte carteReference) throws Exception {
