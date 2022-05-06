@@ -7,8 +7,8 @@ import home.metier.Partie;
 
 public class CarteChangerSens extends CarteAEffet implements IChangerSens {
 
-    public CarteChangerSens(ECarteCouleur carteCouleur) {
-        super(carteCouleur);
+    public CarteChangerSens(ECarteCouleur couleur) {
+        super(couleur);
     }
 
     @Override
@@ -19,5 +19,12 @@ public class CarteChangerSens extends CarteAEffet implements IChangerSens {
     @Override
     public void appliquerEffet(Partie partieEnCours) {
         // @TODO appliquerEffet
+    }
+
+    @Override
+    public String toString() {
+        return "CarteChangerSens{" +
+                "couleur=" + this.getCouleur() +
+                "}";
     }
 }

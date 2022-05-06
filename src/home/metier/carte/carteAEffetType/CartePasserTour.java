@@ -7,8 +7,8 @@ import home.metier.carte.CarteAEffet;
 
 public class CartePasserTour extends CarteAEffet implements IPasserTour {
 
-    public CartePasserTour(ECarteCouleur carteCouleur) {
-        super(carteCouleur);
+    public CartePasserTour(ECarteCouleur couleur) {
+        super(couleur);
     }
 
     @Override
@@ -19,5 +19,12 @@ public class CartePasserTour extends CarteAEffet implements IPasserTour {
     @Override
     public void appliquerEffet(Partie partieEnCours) {
         // @TODO appliquerEffet
+    }
+
+    @Override
+    public String toString() {
+        return "CartePasserTour{" +
+                "couleur=" + this.getCouleur() +
+                "}";
     }
 }

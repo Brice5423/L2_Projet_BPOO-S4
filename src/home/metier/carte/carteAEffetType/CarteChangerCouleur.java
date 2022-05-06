@@ -30,17 +30,22 @@ public class CarteChangerCouleur extends CarteAEffet implements IChangerCouleur 
                     \t- J : Jaune""");
 
             switch (entree.next().toLowerCase()) {
-                case "r", "rouge" -> carteReference.setCarteCouleur(ECarteCouleur.ROUGE);
-                case "b", "bleu" -> carteReference.setCarteCouleur(ECarteCouleur.BLEU);
-                case "v", "vert" -> carteReference.setCarteCouleur(ECarteCouleur.VERT);
-                case "j", "jaune" -> carteReference.setCarteCouleur(ECarteCouleur.JAUNE);
+                case "r", "rouge" -> carteReference.setCouleur(ECarteCouleur.ROUGE);
+                case "b", "bleu" -> carteReference.setCouleur(ECarteCouleur.BLEU);
+                case "v", "vert" -> carteReference.setCouleur(ECarteCouleur.VERT);
+                case "j", "jaune" -> carteReference.setCouleur(ECarteCouleur.JAUNE);
             }
 
-        } while (carteReference.getCarteCouleur().equals(ECarteCouleur.NOIR));
+        } while (carteReference.getCouleur().equals(ECarteCouleur.NOIR));
     }
 
     @Override
     public void appliquerEffet(Partie partieEnCours) {
         // @TODO appliquerEffet
+    }
+
+    @Override
+    public String toString() {
+        return "CarteChangerCouleur";
     }
 }

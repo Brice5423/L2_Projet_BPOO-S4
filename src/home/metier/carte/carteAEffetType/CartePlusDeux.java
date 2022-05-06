@@ -8,8 +8,8 @@ import home.metier.Partie;
 public class CartePlusDeux extends CarteAEffet implements IAjouterCarte {
     private static final int nbCarteADonner = 2;
 
-    public CartePlusDeux(ECarteCouleur carteCouleur) {
-        super(carteCouleur);
+    public CartePlusDeux(ECarteCouleur couleur) {
+        super(couleur);
     }
 
     @Override
@@ -25,5 +25,12 @@ public class CartePlusDeux extends CarteAEffet implements IAjouterCarte {
     @Override
     public void appliquerEffet(Partie partieEnCours) {
         // @TODO appliquerEffet
+    }
+
+    @Override
+    public String toString() {
+        return "CartePlusDeux{" +
+                "couleur=" + this.getCouleur() +
+                "}";
     }
 }
