@@ -122,7 +122,7 @@ public class CoupsLegauxCartesSimples {
         }
 
         // 8) Alice finit le tour
-        alice.finTour();
+        alice.finTour(partie);
 
 
         // 9) Vérifier que le joueur courant est Bob.
@@ -130,7 +130,7 @@ public class CoupsLegauxCartesSimples {
             System.out.println("Le joueur courant est Bob");
         }
 
-        /* ***** ***** Debut test : Bob joue une carte de couleur différente, mais de même valeur. ***** ***** */4
+        /* ***** ***** Debut test : Bob joue une carte de couleur différente, mais de même valeur. ***** ***** */
 
      //1) Vérifier	que	Bob	possède	bien 3 cartes
         if (bob.nbCarteEnMain() == 3) {
@@ -149,6 +149,7 @@ public class CoupsLegauxCartesSimples {
         }
      // 4) Vérifier que	les cartes de Bob sont le « 4 jaune » et le	« 9	rouge »,
         //TODO : Alicia : J'attend d'avoir la fonction afficheCarteEnMain()
+        System.out.println(alice);
 
      //5) Vérifier que la carte au sommet du tas est le « 2 Bleu »,
         if (partie.carteDepot() == bleuDeux){
@@ -159,13 +160,11 @@ public class CoupsLegauxCartesSimples {
             System.out.println("Le nombre de carte dans le tas est de 3");
         }
      //7) Bob finit le tour,
-        bob.finTour();
+        bob.finTour(partie);
 
      // 8) Vérifier que le joueur courant est Charles.
         if(partie.joueurCourant().equals(charles)) {
             System.out.println("Le joueur courant est Charles");
         }
-
-
     }
 }
