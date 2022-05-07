@@ -17,7 +17,6 @@ public class ExpertBasiqueSurEffet extends Expert {
 
     @Override
     public boolean etreCoupValide(Carte carteAPoser, Carte carteReference) {
-        // TODO etreCoupValide
-        return false;
+        return (carteAPoser.getCouleur() == carteReference.getCouleur());
     }
 }

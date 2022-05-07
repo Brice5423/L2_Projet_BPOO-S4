@@ -1,5 +1,6 @@
 package home.expert;
 
+import home.enumeration.ECarteCouleur;
 import home.metier.carte.Carte;
 import home.metier.carte.CarteAEffet;
 import home.metier.carte.CarteBasique;
@@ -17,7 +18,6 @@ public class ExpertEffetSurBasique extends Expert {
 
     @Override
     public boolean etreCoupValide(Carte carteAPoser, Carte carteReference) {
-        // TODO etreCoupValide
-        return false;
+        return ((carteAPoser.getCouleur() == carteReference.getCouleur()) || (carteAPoser.getCouleur() == ECarteCouleur.NOIR));
     }
 }

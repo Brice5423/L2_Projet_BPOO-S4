@@ -89,7 +89,7 @@ public class Joueur {
     }
 
     public void afficheCarteEnMain() {
-        // TODO afficheCarteEnMain
+        System.out.println(this.mainDuJoueur);
     }
 
     public void ditUNO() {

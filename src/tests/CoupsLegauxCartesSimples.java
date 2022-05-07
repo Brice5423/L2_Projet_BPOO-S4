@@ -107,9 +107,7 @@ public class CoupsLegauxCartesSimples {
 
 
         // 5) Vérifier que	les	cartes d’Alice	sont le	« 6	jaune »	et	le	« 1	rouge »
-
-        //TODO : Alicia : J'attend d'avoir la fonction afficheCarteEnMain()
-
+        alice.afficheCarteEnMain();
 
         //6) Vérifier que la carte au sommet du tas est le « 2 Vert »
         if (partie.carteDepot() == vertDeux){
