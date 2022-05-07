@@ -122,6 +122,7 @@ public class CoupsLegauxCartesSimples {
         }
 
         // 8) Alice finit le tour
+        alice.finTour();
 
 
         // 9) Vérifier que le joueur courant est Bob.
@@ -158,7 +159,7 @@ public class CoupsLegauxCartesSimples {
             System.out.println("Le nombre de carte dans le tas est de 3");
         }
      //7) Bob finit le tour,
-        //TODO : ALicia : J'attend qu'on ait une fonction pour
+        bob.finTour();
 
      // 8) Vérifier que le joueur courant est Charles.
         if(partie.joueurCourant().equals(charles)) {
