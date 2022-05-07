@@ -70,7 +70,9 @@ public class CoupsLegauxCartesSimples {
         alice.recupererCarte(jauneSix);
         alice.recupererCarte(new CarteBasique(ECarteCouleur.ROUGE, ECarteValeur.UN));
 
-        bob.recupererCarte(new CarteBasique(ECarteCouleur.BLEU, ECarteValeur.DEUX));
+        Carte bleuDeux = new CarteBasique(ECarteCouleur.BLEU, ECarteValeur.DEUX);
+
+        bob.recupererCarte(bleuDeux);
         bob.recupererCarte(new CarteBasique(ECarteCouleur.JAUNE, ECarteValeur.QUATRE));
         bob.recupererCarte(new CarteBasique(ECarteCouleur.ROUGE, ECarteValeur.NEUF));
 
@@ -103,10 +105,66 @@ public class CoupsLegauxCartesSimples {
             System.out.println("Alice possède bien 2 cartes");
         }
 
-        // TODO Alicia : à finir...
+
+        // 5) Vérifier que	les	cartes d’Alice	sont le	« 6	jaune »	et	le	« 1	rouge »
+
+        //TODO : Alicia : J'attend d'avoir la fonction afficheCarteEnMain()
 
 
-        /* ***** ***** Debut test : Bob joue une carte de couleur différente, mais de même valeur. ***** ***** */
-        // TODO Alicia : à finir...
+        //6) Vérifier que la carte au sommet du tas est le « 2 Vert »
+        if (partie.carteDepot() == vertDeux){
+            System.out.println("La carte au sommet du tas est bien le 2 vert");
+        }
+
+        //7) Vérifier que le nombre de cartes du tas est 2,
+        if( Tas.size() == 2){
+            System.out.println("Le nombre de carte dans le tas est de 2");
+        }
+
+        // 8) Alice finit le tour
+
+
+        // 9) Vérifier que le joueur courant est Bob.
+        if(partie.joueurCourant().equals(bob)) {
+            System.out.println("Le joueur courant est Bob");
+        }
+
+        /* ***** ***** Debut test : Bob joue une carte de couleur différente, mais de même valeur. ***** ***** */4
+
+     //1) Vérifier	que	Bob	possède	bien 3 cartes
+        if (bob.nbCarteEnMain() == 3) {
+            System.out.println("Bob possède bien 3 cartes");
+        }
+
+     //2) Bob pose le « 2 bleu »,
+        try {
+            partie.deposerCarteDepot(bob.poserCarte(bleuDeux));
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+     //3) Vérifier que	Bob	possède	bien 2 cartes,
+        if (bob.nbCarteEnMain() == 2) {
+            System.out.println("Bob possède bien 2 cartes");
+        }
+     // 4) Vérifier que	les cartes de Bob sont le « 4 jaune » et le	« 9	rouge »,
+        //TODO : Alicia : J'attend d'avoir la fonction afficheCarteEnMain()
+
+     //5) Vérifier que la carte au sommet du tas est le « 2 Bleu »,
+        if (partie.carteDepot() == bleuDeux){
+            System.out.println("La carte au sommet du tas est bien le 2 Bleu");
+        }
+     //6) Vérifier	que le nombre de cartes du tas est 3,
+        if( Tas.size() == 3){
+            System.out.println("Le nombre de carte dans le tas est de 3");
+        }
+     //7) Bob finit le tour,
+        //TODO : ALicia : J'attend qu'on ait une fonction pour
+
+     // 8) Vérifier que le joueur courant est Charles.
+        if(partie.joueurCourant().equals(charles)) {
+            System.out.println("Le joueur courant est Charles");
+        }
+
+
     }
 }
