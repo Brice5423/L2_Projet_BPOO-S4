@@ -2,12 +2,11 @@ package tests;
 
 import home.enumeration.ECarteCouleur;
 import home.enumeration.ECarteValeur;
-import home.excepcion.ExpertManquantException;
-import home.expert.*;
 import home.metier.Joueur;
 import home.metier.Partie;
 import home.metier.carte.Carte;
 import home.metier.carte.CarteBasique;
+import tests.controleur.CompteurTest;
 
 import java.util.ArrayList;
 
@@ -20,8 +19,8 @@ public class CoupsLegauxCartesSimples {
      * 3) Alice joue le « 2 Vert »,
      * 4) Vérifier qu'Alice possède bien 2 cartes,
      * 5) Vérifier que les cartes d’Alice sont le « 6 jaune » et le « 1 rouge »,
-     * 6) Vérifier que la carte au sommet du tas est le « 2 Vert »,
-     * 7) Vérifier que le nombre de cartes du tas est 2,
+     * 6) Vérifier que la carte au sommet du tas (dépôt) est le « 2 Vert »,
+     * 7) Vérifier que le nombre de cartes du tas (dépôt) est 2,
      * 8) Alice finit le tour,
      * 9) Vérifier que le joueur courant est Bob.
      * _____________________________________________________________________________
@@ -31,12 +30,17 @@ public class CoupsLegauxCartesSimples {
      * 2) Bob pose le « 2 bleu »,
      * 3) Vérifier que	Bob	possède	bien 2 cartes,
      * 4) Vérifier que	les cartes de Bob sont le « 4 jaune » et le	« 9	rouge »,
-     * 5) Vérifier que la carte au sommet du tas est le « 2 Bleu »,
-     * 6) Vérifier	que le nombre de cartes du tas est 3,
+     * 5) Vérifier que la carte au sommet du tas (dépôt) est le « 2 Bleu »,
+     * 6) Vérifier	que le nombre de cartes du tas (dépôt) est 3,
      * 7) Bob finit le tour,
      * 8) Vérifier que le joueur courant est Charles.
      */
-    public static void executionDuTest() {
+    public static boolean executionDuTest() {
+        System.out.println("\n\t\t----- Tests coups légaux avec des cartes simples -----\n");
+
+        /* ***** ***** initialisation des compteurs du test ***** ***** */
+        CompteurTest compteurTest = new CompteurTest("Coup légaux avec des cartes simples");
+
         /* ***** ***** Initialiser le fichier test ***** ***** */
 
         ArrayList<Carte> pioche = new ArrayList<Carte>();
@@ -57,11 +61,10 @@ public class CoupsLegauxCartesSimples {
         partie.ajoutJoueurPartie(bob);
         partie.ajoutJoueurPartie(charles);
 
-        ArrayList<Carte> Tas = new ArrayList<Carte>();
+        ArrayList<Carte> depot = new ArrayList<Carte>();
 
-        Tas.add(new CarteBasique(ECarteCouleur.VERT, ECarteValeur.HUIT));
-        partie.setDepot(Tas);
-        partie.setCarteReference(partie.carteDepot());
+        depot.add(new CarteBasique(ECarteCouleur.VERT, ECarteValeur.HUIT));
+        partie.setDepot(depot);
 
         Carte vertDeux = new CarteBasique(ECarteCouleur.VERT, ECarteValeur.DEUX);
         Carte jauneSix = new CarteBasique(ECarteCouleur.JAUNE, ECarteValeur.SIX);
@@ -83,86 +86,110 @@ public class CoupsLegauxCartesSimples {
 
         /* ***** ***** Debut test : Alice joue une carte de la bonne couleur. ***** ***** */
 
+        System.out.println("\tAlice joue une carte de la bonne couleur.");
+
         // 1) Vérifier que le joueur courant est bien Alice,
         if (partie.joueurCourant().equals(alice)) {
-            System.out.println("Le joueur courant est bien Alice");
+            System.out.println("Le joueur courant est bien Alice ^^");
+            compteurTest.testOK();
+
+        } else {
+            System.out.println("Le joueur courant n'est pas Alice mais " + partie.joueurCourant().getNom() + " -_-");
+            compteurTest.testFaux();
         }
 
         // 2) Vérifier qu'Alice possède bien 3 cartes,
         if (alice.nbCarteEnMain() == 3) {
-            System.out.println("Alice possède bien 3 cartes");
+            System.out.println("Alice possède bien 3 cartes ^^");
+            compteurTest.testOK();
+        } else {
+            System.out.println("Alice possède " + alice.nbCarteEnMain() + " cartes -_-");
+            compteurTest.testFaux();
         }
 
         // 3) Alice joue le « 2 Vert »,
-        try {
-            partie.deposerCarteDepot(alice.poserCarte(vertDeux));
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
+        partie.deposerCarteDepot(alice.poserCarte(vertDeux));
 
         // 4) Vérifier qu'Alice possède bien 2 cartes,
         if (alice.nbCarteEnMain() == 2) {
-            System.out.println("Alice possède bien 2 cartes");
+            System.out.println("Alice possède bien 2 cartes ^^");
+            compteurTest.testOK();
+        } else {
+            System.out.println("Alice possède " + alice.nbCarteEnMain() + " cartes -_-");
+            compteurTest.testFaux();
         }
 
-
-        // 5) Vérifier que	les	cartes d’Alice	sont le	« 6	jaune »	et	le	« 1	rouge »
+        // 5) Vérifier que les cartes d’Alice sont le « 6 jaune » et le « 1 rouge »
         alice.afficheCarteEnMain();
 
-        //6) Vérifier que la carte au sommet du tas est le « 2 Vert »
-        if (partie.carteDepot() == vertDeux){
-            System.out.println("La carte au sommet du tas est bien le 2 vert");
+        // 6) Vérifier que la carte au sommet du tas (dépôt) est le « 2 Vert »
+        if (partie.carteDepot() == vertDeux) {
+            System.out.println("La carte au sommet du tas est bien le 2 vert ^^");
+            compteurTest.testOK();
+        } else {
+            System.out.println("La carte au sommet du tas est " + partie.carteDepot() + " -_-");
+            compteurTest.testFaux();
         }
 
-        //7) Vérifier que le nombre de cartes du tas est 2,
-        if( Tas.size() == 2){
-            System.out.println("Le nombre de carte dans le tas est de 2");
+        // 7) Vérifier que le nombre de cartes du tas (dépôt) est 2,
+        if (depot.size() == 2) {
+            System.out.println("Le nombre de carte dans le tas est de 2 ^^");
+            compteurTest.testOK();
+        } else {
+            System.out.println("Le nombre de carte dans le tas est de " + depot.size() + " -_-");
+            compteurTest.testFaux();
         }
 
         // 8) Alice finit le tour
         alice.finTour(partie);
 
-
         // 9) Vérifier que le joueur courant est Bob.
-        if(partie.joueurCourant().equals(bob)) {
-            System.out.println("Le joueur courant est Bob");
+        if (partie.joueurCourant().equals(bob)) {
+            System.out.println("Le joueur courant est Bob ^^");
+            compteurTest.testOK();
+        } else {
+            System.out.println("Le joueur courant est " + partie.joueurCourant().getNom() + " -_-");
+            compteurTest.testFaux();
         }
+
 
         /* ***** ***** Debut test : Bob joue une carte de couleur différente, mais de même valeur. ***** ***** */
 
-     //1) Vérifier	que	Bob	possède	bien 3 cartes
+        System.out.println("\n\tBob joue une carte de couleur différente, mais de même valeur.");
+
+
+        // 1) Vérifier	que	Bob	possède	bien 3 cartes
         if (bob.nbCarteEnMain() == 3) {
             System.out.println("Bob possède bien 3 cartes");
         }
 
-     //2) Bob pose le « 2 bleu »,
-        try {
-            partie.deposerCarteDepot(bob.poserCarte(bleuDeux));
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-     //3) Vérifier que	Bob	possède	bien 2 cartes,
+        // 2) Bob pose le « 2 bleu »,
+        partie.deposerCarteDepot(bob.poserCarte(bleuDeux));
+
+        // 3) Vérifier que	Bob	possède	bien 2 cartes,
         if (bob.nbCarteEnMain() == 2) {
             System.out.println("Bob possède bien 2 cartes");
         }
-     // 4) Vérifier que	les cartes de Bob sont le « 4 jaune » et le	« 9	rouge »,
-        //TODO : Alicia : J'attend d'avoir la fonction afficheCarteEnMain()
-        System.out.println(alice);
 
-     //5) Vérifier que la carte au sommet du tas est le « 2 Bleu »,
-        if (partie.carteDepot() == bleuDeux){
+        // 4) Vérifier que	les cartes de Bob sont le « 4 jaune » et le	« 9	rouge »,
+        bob.afficheCarteEnMain();
+
+        // 5) Vérifier que la carte au sommet du tas (dépôt) est le « 2 Bleu »,
+        if (partie.carteDepot() == bleuDeux) {
             System.out.println("La carte au sommet du tas est bien le 2 Bleu");
         }
-     //6) Vérifier	que le nombre de cartes du tas est 3,
-        if( Tas.size() == 3){
+        // 6) Vérifier	que le nombre de cartes du tas (dépôt) est 3,
+        if (depot.size() == 3) {
             System.out.println("Le nombre de carte dans le tas est de 3");
         }
-     //7) Bob finit le tour,
+        // 7) Bob finit le tour,
         bob.finTour(partie);
 
-     // 8) Vérifier que le joueur courant est Charles.
-        if(partie.joueurCourant().equals(charles)) {
+        // 8) Vérifier que le joueur courant est Charles.
+        if (partie.joueurCourant().equals(charles)) {
             System.out.println("Le joueur courant est Charles");
         }
+
+        return compteurTest.afficheResultatsTest();
     }
 }
