@@ -1,9 +1,16 @@
 package home.metier;
 
+import home.enumeration.ECarteCouleur;
+import home.enumeration.ECarteValeur;
 import home.expert.Expert;
 import home.metier.carte.Carte;
+import home.metier.carte.CarteBasique;
+import home.metier.carte.carteAEffetType.CarteChangerSens;
+import home.metier.carte.carteAEffetType.CartePasserTour;
+import home.metier.carte.carteAEffetType.CartePlusDeux;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class Partie {
     private int niemePartie;
@@ -12,24 +19,22 @@ public class Partie {
     private ArrayList<Joueur> listeJoueur;
     private ArrayList<Carte> pioche; // -> joueur
     private ArrayList<Carte> depot; // <- joueur
-    private Carte carteReference;
 
     /**
-     * Crée une partie avec toutes les cartes du jeu
+     * Crée une partie avec toutes les cartes du jeu (sauf +4 et changement couleur)
      */
-    /*public Partie() {
+    public Partie() {
         this.niemePartie = 1;
         this.numJoueurCourant = 0;
         this.etreSensHoraire = true;
         this.listeJoueur = new ArrayList<Joueur>();
         genererPioche(); // la fonction est en commentaire
         this.depot = new ArrayList<Carte>();
-        this.carteReference = null;
-    }*/
+    }
 
     /**
      * Crée une partie en fonction d'une pioche donnée. C'est pour les tests
-     * @param pioche liste de carte qu'on veut dans la partie
+     * @param pioche liste de carte qu'on veut dans la pioche de la partie
      */
     public Partie(ArrayList<Carte> pioche) {
         this.niemePartie = 1;
@@ -38,7 +43,6 @@ public class Partie {
         this.listeJoueur = new ArrayList<Joueur>();
         this.pioche = pioche;
         this.depot = new ArrayList<Carte>();
-        this.carteReference = null;
     }
 
     public int getNiemePartie() {
@@ -61,32 +65,19 @@ public class Partie {
         this.depot = depot;
     }
 
-    public Carte getCarteReference() {
-        return this.carteReference;
-    }
-
-    public void setCarteReference(Carte carteReference) {
-        this.carteReference = carteReference;
-    }
-
     /**
      * Nombre de carte noir : 4 par carte (boucle),
      * Nombre de carte différente de noir ET différente de 0 : 2 par carte (boucle),
      * Nombre de carte 0 : 1 par couleur,
      * Melanger, mettre aléatoirement lordre des cartes de la liste
      */
-    /*public void genererPioche() {
+    public void genererPioche() {
         this.pioche = new ArrayList<Carte>();
 
         this.pioche.add(new CarteBasique(ECarteCouleur.JAUNE, ECarteValeur.ZERO));
         this.pioche.add(new CarteBasique(ECarteCouleur.ROUGE, ECarteValeur.ZERO));
         this.pioche.add(new CarteBasique(ECarteCouleur.BLEU, ECarteValeur.ZERO));
         this.pioche.add(new CarteBasique(ECarteCouleur.VERT, ECarteValeur.ZERO));
-
-        for (int boucleNoire = 0; boucleNoire < 4; boucleNoire++) {
-            this.pioche.add(new CartePlusQuatre());
-            this.pioche.add(new CarteChangerCouleur());
-        }
 
         for (int boucleCarte = 0; boucleCarte < 2; boucleCarte++) {
             this.pioche.add(new CarteBasique(ECarteCouleur.JAUNE, ECarteValeur.UN));
@@ -152,22 +143,17 @@ public class Partie {
         }
         //Collections.shuffle melange les carte !
         Collections.shuffle(this.pioche);
-    }*/
+    }
 
     /**
-     * Initialise les cartes des joueurs avec 7 cartes.
+     * Donne 7 cartes à chaque joueur dans la partie.
      */
-    /*public void initialiserCarteJoueur() {
+    public void initialiserCarteJoueur() {
         for (Joueur joueur : this.listeJoueur) {
             for (int i = 0; i < 7; i++) {
                 joueur.recupererCarte(this.retirerCartePioche());
             }
         }
-    }*/
-
-    public void lancerPartie() {
-        // @TODO lancerPartie : pas besoin pour le moment
-        //initialiserCarteJoueur(); // fonction en commentaire
     }
 
     /**
@@ -182,17 +168,21 @@ public class Partie {
      *
      * @param carteJoueur Carte du joueur à déposer dans le depot
      */
-    public void deposerCarteDepot(Carte carteJoueur) throws Exception {
-        // TODO faire en sorte qui lance l'expert
+    public void deposerCarteDepot(Carte carteJoueur) {
         Expert lesExperts = Expert.initialiseTousLesExperts();
 
-        if (!lesExperts.peutEtrePoser(carteJoueur, this.carteReference)) {
-            // TODO : il faut mettre une exception mais là il y a une erreur
-            System.out.println("erreur (Partie -> deposerCarteDepot) : la carte n'est pas valide");
+        try {
+            if (!lesExperts.peutEtrePoser(carteJoueur, this.carteDepot())) {
+                // TODO : il faut mettre une exception mais là il y a une erreur
+                System.out.println("erreur (Partie -> deposerCarteDepot) : la carte n'est pas valide");
+            }
+
+        } catch (Exception e) {
+            // TODO deposerCarteDepot -> try catch : voir comment amélioré ça
+            System.out.println(e);
         }
 
         this.depot.add(carteJoueur);
-        this.setCarteReference(carteJoueur);
     }
 
     public void inverseSensPartie() {
@@ -209,5 +199,30 @@ public class Partie {
 
     public Joueur joueurCourant() {
         return this.listeJoueur.get(this.numJoueurCourant);
+    }
+
+    public void joueurSuivant(Joueur joueur) {
+        if (this.joueurCourant().equals(joueur)) {
+            if (this.etreSensHoraire) {
+                if (this.numJoueurCourant == (this.listeJoueur.size() - 1)) {
+                    this.numJoueurCourant = 0;
+
+                } else {
+                    this.numJoueurCourant++;
+                }
+
+            } else {
+                if (this.numJoueurCourant == 0) {
+                    this.numJoueurCourant = (this.listeJoueur.size() - 1);
+
+                } else {
+                    this.numJoueurCourant--;
+                }
+            }
+
+        } else {
+            // TODO joueurSuivant -> Exception : mettre en place une exception pour les joueur
+            System.out.println(joueur + " n'est pas le joueur courant, il ne peut pas finir sont tour");
+        }
     }
 }
