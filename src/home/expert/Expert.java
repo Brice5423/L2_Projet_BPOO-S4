@@ -38,15 +38,15 @@ public abstract class Expert {
         return lesExperts;
     }
 
-    public boolean peutEtrePoser(Carte carteAPoser, Carte carteReference) throws Exception {
-        if (this.etreBonExpert(carteAPoser, carteReference)) {
-            return etreCoupValide(carteAPoser, carteReference);
+    public boolean peutEtrePoser(Carte carteJoueur, Carte carteDepot) throws Exception {
+        if (this.etreBonExpert(carteJoueur, carteDepot)) {
+            return etreCoupValide(carteJoueur, carteDepot);
 
         } else if (this.avoirUnSuivant()) {
-            return this.getSuivant().peutEtrePoser(carteAPoser, carteReference);
+            return this.getSuivant().peutEtrePoser(carteJoueur, carteDepot);
 
         } else {
-            throw new ExpertManquantException(this);
+            throw new ExpertManquantException(this, carteJoueur, carteDepot);
         }
     }
 

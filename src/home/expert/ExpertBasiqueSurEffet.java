@@ -11,12 +11,12 @@ public class ExpertBasiqueSurEffet extends Expert {
     }
 
     @Override
-    public boolean etreBonExpert(Carte carteAPoser, Carte carteReference) {
-        return ((carteAPoser instanceof CarteBasique) && (carteReference instanceof CarteAEffet));
+    public boolean etreBonExpert(Carte carteJoueur, Carte carteDepot) {
+        return ((carteJoueur instanceof CarteBasique) && (carteDepot instanceof CarteAEffet));
     }
 
     @Override
-    public boolean etreCoupValide(Carte carteAPoser, Carte carteReference) {
-        return (carteAPoser.getCouleur() == carteReference.getCouleur());
+    public boolean etreCoupValide(Carte carteJoueur, Carte carteDepot) {
+        return (carteJoueur.getCouleur() == carteDepot.getCouleur());
     }
 }

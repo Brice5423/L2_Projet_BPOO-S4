@@ -10,16 +10,15 @@ public class ExpertBasiqueSurBasique extends Expert {
     }
 
     @Override
-    public boolean etreBonExpert(Carte carteAPoser, Carte carteReference) {
-        return ((carteAPoser instanceof CarteBasique) && (carteReference instanceof CarteBasique));
+    public boolean etreBonExpert(Carte carteJoueur, Carte carteDepot) {
+        return ((carteJoueur instanceof CarteBasique) && (carteDepot instanceof CarteBasique));
     }
 
     @Override
-    public boolean etreCoupValide(Carte carteAPoser, Carte carteReference) {
-        // TODO etreCoupValide
-        CarteBasique carteAPoserB = (CarteBasique) carteAPoser;
-        CarteBasique carteReferenceB = (CarteBasique) carteReference;
+    public boolean etreCoupValide(Carte carteJoueur, Carte carteDepot) {
+        CarteBasique carteJoueurB = (CarteBasique) carteJoueur;
+        CarteBasique carteDepotB = (CarteBasique) carteDepot;
 
-        return ((carteAPoserB.getCouleur() == carteReferenceB.getCouleur()) || (carteAPoserB.getValeur() == carteReferenceB.getValeur()));
+        return ((carteJoueurB.getCouleur() == carteDepotB.getCouleur()) || (carteJoueurB.getValeur() == carteDepotB.getValeur()));
     }
 }
