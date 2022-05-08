@@ -4,14 +4,26 @@
  * ************************************** */
 
 import tests.CoupsLegauxCartesSimples;
-
-import java.util.ArrayList;
+import tests.controleur.CompteurTest;
 
 public class Main {
     public static void main(String[] args) {
+        /* ***** ***** initialisation des compteurs du test ***** ***** */
+        CompteurTest compteurTest = new CompteurTest("Les tests");
+
+        /* ***** ***** Lancement de tous les tests ***** ***** */
+
         /* ***** Tests coups légaux avec des cartes simples ***** */
-        CoupsLegauxCartesSimples.executionDuTest();
+        if (CoupsLegauxCartesSimples.executionDuTest()) {
+            compteurTest.testOK();
+        } else {
+            compteurTest.testFaux();
+        }
 
         // ...
+
+
+        /* ***** ***** Affiche le résultat de tout les tests ***** ***** */
+        compteurTest.afficheResultatsTest();
     }
 }
