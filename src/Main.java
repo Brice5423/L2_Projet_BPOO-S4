@@ -24,6 +24,7 @@ public class Main {
 
 
         /* ***** ***** Affiche le résultat de tout les tests ***** ***** */
+        System.out.println("\n\n\t\t----- Tous les tests -----");
         compteurTest.afficheResultatsTest();
     }
 }
