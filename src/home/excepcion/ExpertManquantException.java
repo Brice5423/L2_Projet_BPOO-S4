@@ -1,12 +1,29 @@
 package home.excepcion;
 
 import home.expert.Expert;
+import home.metier.carte.Carte;
 
 public class ExpertManquantException extends Exception {
-    private Expert expert;
+    private final Expert expert;
+    private final Carte carteJoueur;
+    private final Carte carteDepot;
 
-    public ExpertManquantException(Expert expert) {
+    public ExpertManquantException(Expert expert, Carte carteJoueur, Carte carteDepot) {
         System.out.println("Il y a un problème avec l'expert");
         this.expert = expert;
+        this.carteJoueur = carteJoueur;
+        this.carteDepot = carteDepot;
+    }
+
+    public Expert getExpert() {
+        return this.expert;
+    }
+
+    public Carte getCarteJoueur() {
+        return this.carteJoueur;
+    }
+
+    public Carte getCarteDepot() {
+        return this.carteDepot;
     }
 }
