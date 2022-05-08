@@ -61,10 +61,10 @@ public class CoupsLegauxCartesSimples {
         partie.ajoutJoueurPartie(bob);
         partie.ajoutJoueurPartie(charles);
 
-        ArrayList<Carte> depot = new ArrayList<Carte>();
+        ArrayList<Carte> tas = new ArrayList<Carte>();
 
-        depot.add(new CarteBasique(ECarteCouleur.VERT, ECarteValeur.HUIT));
-        partie.setDepot(depot);
+        tas.add(new CarteBasique(ECarteCouleur.VERT, ECarteValeur.HUIT));
+        partie.setDepot(tas);
 
         Carte vertDeux = new CarteBasique(ECarteCouleur.VERT, ECarteValeur.DEUX);
         Carte jauneSix = new CarteBasique(ECarteCouleur.JAUNE, ECarteValeur.SIX);
@@ -132,11 +132,11 @@ public class CoupsLegauxCartesSimples {
         }
 
         // 7) Vérifier que le nombre de cartes du tas (dépôt) est 2,
-        if (depot.size() == 2) {
+        if (tas.size() == 2) {
             System.out.println("Le nombre de carte dans le tas est de 2 ^^");
             compteurTest.testOK();
         } else {
-            System.out.println("Le nombre de carte dans le tas est de " + depot.size() + " -_-");
+            System.out.println("Le nombre de carte dans le tas est de " + tas.size() + " -_-");
             compteurTest.testFaux();
         }
 
@@ -178,10 +178,12 @@ public class CoupsLegauxCartesSimples {
         if (partie.carteDepot() == bleuDeux) {
             System.out.println("La carte au sommet du tas est bien le 2 Bleu");
         }
+
         // 6) Vérifier	que le nombre de cartes du tas (dépôt) est 3,
-        if (depot.size() == 3) {
+        if (tas.size() == 3) {
             System.out.println("Le nombre de carte dans le tas est de 3");
         }
+
         // 7) Bob finit le tour,
         bob.finTour(partie);
 
