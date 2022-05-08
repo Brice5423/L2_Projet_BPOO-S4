@@ -93,10 +93,12 @@ public class Joueur {
     }
 
     public void ditUNO() {
-        // TODO ditUNO
+        // TODO ditUNO : voir s'il n'y a pas autre chose à faire
+        System.out.println(this.nom + " dit UNO !!!");
     }
 
     public void finTour(Partie partieEnCours) {
-        // TODO finTour
+        // TODO finTour : mettre à jour quand il aura une exception
+        partieEnCours.joueurSuivant(this);
     }
 }
