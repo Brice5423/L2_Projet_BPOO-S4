@@ -160,15 +160,24 @@ public class CoupsLegauxCartesSimples {
 
         // 1) Vérifier	que	Bob	possède	bien 3 cartes
         if (bob.nbCarteEnMain() == 3) {
-            System.out.println("Bob possède bien 3 cartes");
+            System.out.println("Bob possède bien 3 cartes ^^");
+            compteurTest.testOK();
+        } else {
+            System.out.println("Bob possède " + bob.nbCarteEnMain() + " cartes -_-");
+            compteurTest.testFaux();
         }
+
 
         // 2) Bob pose le « 2 bleu »,
         partie.deposerCarteDepot(bob.poserCarte(bleuDeux));
 
         // 3) Vérifier que	Bob	possède	bien 2 cartes,
         if (bob.nbCarteEnMain() == 2) {
-            System.out.println("Bob possède bien 2 cartes");
+            System.out.println("Bob possède bien 2 cartes ^^");
+            compteurTest.testOK();
+        } else {
+            System.out.println("Bob possède " + bob.nbCarteEnMain() + " cartes -_-");
+            compteurTest.testFaux();
         }
 
         // 4) Vérifier que	les cartes de Bob sont le « 4 jaune » et le	« 9	rouge »,
@@ -176,12 +185,20 @@ public class CoupsLegauxCartesSimples {
 
         // 5) Vérifier que la carte au sommet du tas (dépôt) est le « 2 Bleu »,
         if (partie.carteDepot() == bleuDeux) {
-            System.out.println("La carte au sommet du tas est bien le 2 Bleu");
+            System.out.println("La carte au sommet du tas est bien le 2 bleu ^^");
+            compteurTest.testOK();
+        } else {
+            System.out.println("La carte au sommet du tas est " + partie.carteDepot() + " -_-");
+            compteurTest.testFaux();
         }
 
         // 6) Vérifier	que le nombre de cartes du tas (dépôt) est 3,
         if (tas.size() == 3) {
-            System.out.println("Le nombre de carte dans le tas est de 3");
+            System.out.println("Le nombre de carte dans le tas est de 3 ^^");
+            compteurTest.testOK();
+        } else {
+            System.out.println("Le nombre de carte dans le tas est de " + tas.size() + " -_-");
+            compteurTest.testFaux();
         }
 
         // 7) Bob finit le tour,
@@ -189,7 +206,12 @@ public class CoupsLegauxCartesSimples {
 
         // 8) Vérifier que le joueur courant est Charles.
         if (partie.joueurCourant().equals(charles)) {
-            System.out.println("Le joueur courant est Charles");
+            System.out.println("Le joueur courant est bien Charles ^^");
+            compteurTest.testOK();
+
+        } else {
+            System.out.println("Le joueur courant n'est pas Charles mais " + partie.joueurCourant().getNom() + " -_-");
+            compteurTest.testFaux();
         }
 
         return compteurTest.afficheResultatsTest();
