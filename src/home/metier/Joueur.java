@@ -83,6 +83,17 @@ public class Joueur {
                 '}';
     }
 
+    public Joueur copyJoueur() {
+        Joueur copieJoueur = new Joueur();
+
+        copieJoueur.setNom(this.nom);
+        copieJoueur.setMainDuJoueur(this.mainDuJoueur);
+        copieJoueur.setDansPartie(this.dansLaPartie);
+        copieJoueur.setNbVictoire(this.nbVictoire);
+
+        return copieJoueur;
+    }
+
     /**
      * Mettre la carte de la pioche dans la main du joueur
      */
@@ -122,16 +133,26 @@ public class Joueur {
         }
     }
 
-    public void avoirGagner() {
-        this.nbVictoire++;
-    }
-
     public int nbCarteEnMain() {
         return this.mainDuJoueur.size();
     }
 
     public void afficheCarteEnMain() {
         System.out.println(this.mainDuJoueur);
+    }
+
+    public void finTour() {
+        try {
+            if (!this.equals(this.dansLaPartie.joueurCourant())) {
+                throw new JoueurException("Le joueur " + this.nom + " n'est pas le joueur courant donc pas de fin de tour");
+            }
+            this.dansLaPartie.joueurSuivant();
+
+        } catch (JoueurException e) {
+            this.piocherCarte();
+            this.piocherCarte();
+            System.out.println(e);
+        }
     }
 
     public void ditUNO() {
@@ -150,28 +171,7 @@ public class Joueur {
         }
     }
 
-    public void finTour() {
-        try {
-            if (!this.equals(this.dansLaPartie.joueurCourant())) {
-                throw new JoueurException("Le joueur " + this.nom + " n'est pas le joueur courant donc pas de fin de tour");
-            }
-            this.dansLaPartie.joueurSuivant();
-
-        } catch (JoueurException e) {
-            this.piocherCarte();
-            this.piocherCarte();
-            System.out.println(e);
-        }
-    }
-
-    public Joueur copyJoueur() {
-        Joueur copieJoueur = new Joueur();
-
-        copieJoueur.setNom(this.nom);
-        copieJoueur.setMainDuJoueur(this.mainDuJoueur);
-        copieJoueur.setDansPartie(this.dansLaPartie);
-        copieJoueur.setNbVictoire(this.nbVictoire);
-
-        return copieJoueur;
+    public void avoirGagner() {
+        this.nbVictoire++;
     }
 }

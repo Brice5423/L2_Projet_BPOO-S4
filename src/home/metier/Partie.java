@@ -116,6 +116,19 @@ public class Partie {
         this.tas = tas;
     }
 
+    public Partie copiePartie() {
+        Partie copiePartie = new Partie();
+
+        copiePartie.setNiemePartie(this.niemePartie);
+        copiePartie.setNumJoueurCourant(this.numJoueurCourant);
+        copiePartie.setEtreSensHoraire(this.etreSensHoraire);
+        copiePartie.setListeJoueur(this.listeJoueur);
+        copiePartie.setPioche(this.pioche);
+        copiePartie.setTas(this.tas);
+
+        return copiePartie;
+    }
+
     /**
      * Nombre de carte noir : 4 par carte (boucle),
      * Nombre de carte différente de noir ET différente de 0 : 2 par carte (boucle),
@@ -196,6 +209,20 @@ public class Partie {
         Collections.shuffle(this.pioche);
     }
 
+    private void initialisationListeJoueur(ArrayList<Joueur> listeJoueur) {
+        if (listeJoueur.size() < 2 || listeJoueur.size() > 10) {
+            try {
+                throw new ParteException("La partie doit avoir 2 à 10 dans une partie !");
+            } catch (ParteException e) {
+                throw new RuntimeException(e);
+            }
+
+        } else {
+            listeJoueur.forEach(joueur -> joueur.setDansPartie(this));
+            this.listeJoueur = listeJoueur;
+        }
+    }
+
     /**
      * Donne 7 cartes à chaque joueur dans la partie.
      */
@@ -239,12 +266,12 @@ public class Partie {
         this.tas.add(carteJoueur);
     }
 
-    public void inverseSensPartie() {
-        this.etreSensHoraire = !this.getEtreSensHoraire();
-    }
-
     public Carte carteAuDessusTas() {
         return this.tas.get(this.tas.size() - 1);
+    }
+
+    public void inverseSensPartie() {
+        this.etreSensHoraire = !this.getEtreSensHoraire();
     }
 
     public Joueur joueurCourant() {
@@ -267,33 +294,6 @@ public class Partie {
             } else {
                 this.numJoueurCourant--;
             }
-        }
-    }
-
-    public Partie copiePartie() {
-        Partie copiePartie = new Partie();
-
-        copiePartie.setNiemePartie(this.niemePartie);
-        copiePartie.setNumJoueurCourant(this.numJoueurCourant);
-        copiePartie.setEtreSensHoraire(this.etreSensHoraire);
-        copiePartie.setListeJoueur(this.listeJoueur);
-        copiePartie.setPioche(this.pioche);
-        copiePartie.setTas(this.tas);
-
-        return copiePartie;
-    }
-
-    private void initialisationListeJoueur(ArrayList<Joueur> listeJoueur) {
-        if (listeJoueur.size() < 2 || listeJoueur.size() > 10) {
-            try {
-                throw new ParteException("La partie doit avoir 2 à 10 dans une partie !");
-            } catch (ParteException e) {
-                throw new RuntimeException(e);
-            }
-
-        } else {
-            listeJoueur.forEach(joueur -> joueur.setDansPartie(this));
-            this.listeJoueur = listeJoueur;
         }
     }
 }
