@@ -22,6 +22,15 @@ public class Partie {
     private ArrayList<Carte> pioche; // -> joueur
     private ArrayList<Carte> depot; // <- joueur
 
+    private Partie() {
+        this.niemePartie = 1;
+        this.numJoueurCourant = 0;
+        this.etreSensHoraire = true;
+        this.listeJoueur = new ArrayList<Joueur>();
+        genererPioche(); // la fonction est en commentaire
+        this.depot = new ArrayList<Carte>();
+    }
+
     /**
      * Crée une partie avec toutes les cartes du jeu (sauf +4 et changement couleur)
      */
@@ -254,5 +263,18 @@ public class Partie {
             // TODO joueurSuivant -> Exception : mettre en place une exception pour les joueur
             System.out.println(joueur + " n'est pas le joueur courant, il ne peut pas finir sont tour");
         }
+    }
+
+    public Partie copiePartie() {
+        Partie copiePartie = new Partie();
+
+        copiePartie.niemePartie = this.niemePartie;
+        copiePartie.numJoueurCourant = this.numJoueurCourant;
+        copiePartie.etreSensHoraire = this.etreSensHoraire;
+        copiePartie.listeJoueur.addAll(this.listeJoueur);
+        copiePartie.pioche.addAll(this.pioche);
+        copiePartie.depot.addAll(this.depot);
+
+        return copiePartie;
     }
 }

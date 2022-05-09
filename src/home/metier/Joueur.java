@@ -1,8 +1,10 @@
 package home.metier;
 
+import home.exception.JoueurException;
 import home.metier.carte.Carte;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class Joueur {
     private String nom;
@@ -100,5 +102,14 @@ public class Joueur {
     public void finTour(Partie partieEnCours) {
         // TODO finTour : mettre à jour quand il aura une exception
         partieEnCours.joueurSuivant(this);
+    }
+
+    public Joueur copyJoueur() {
+        Joueur copieJoueur = new Joueur(this.getNom());
+
+        copieJoueur.mainDuJoueur.addAll(this.getMainDuJoueur());
+        copieJoueur.nbVictory = this.getNbVictory();
+
+        return copieJoueur;
     }
 }

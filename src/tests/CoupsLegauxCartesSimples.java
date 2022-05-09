@@ -2,6 +2,7 @@ package tests;
 
 import home.enumeration.ECarteCouleur;
 import home.enumeration.ECarteValeur;
+import home.exception.JoueurException;
 import home.metier.Joueur;
 import home.metier.Partie;
 import home.metier.carte.Carte;
@@ -9,6 +10,7 @@ import home.metier.carte.CarteBasique;
 import tests.controleur.CompteurTest;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class CoupsLegauxCartesSimples {
     /**
@@ -84,7 +86,6 @@ public class CoupsLegauxCartesSimples {
         charles.recupererCarte(new CarteBasique(ECarteCouleur.BLEU, ECarteValeur.NEUF));
         charles.recupererCarte(new CarteBasique(ECarteCouleur.BLEU, ECarteValeur.SEPT));
         charles.recupererCarte(new CarteBasique(ECarteCouleur.BLEU, ECarteValeur.ZERO));
-
 
         /* ***** ***** Debut test : Alice joue une carte de la bonne couleur. ***** ***** */
 
