@@ -1,4 +1,4 @@
-package home.excepcion;
+package home.exception;
 
 import home.expert.Expert;
 import home.metier.carte.Carte;

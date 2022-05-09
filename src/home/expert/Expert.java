@@ -1,6 +1,6 @@
 package home.expert;
 
-import home.excepcion.ExpertManquantException;
+import home.exception.ExpertManquantException;
 import home.metier.carte.Carte;
 
 public abstract class Expert {
