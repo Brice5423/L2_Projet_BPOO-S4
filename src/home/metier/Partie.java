@@ -2,6 +2,8 @@ package home.metier;
 
 import home.enumeration.ECarteCouleur;
 import home.enumeration.ECarteValeur;
+import home.excepcion.ExpertManquantException;
+import home.excepcion.ParteException;
 import home.expert.Expert;
 import home.metier.carte.Carte;
 import home.metier.carte.CarteBasique;
@@ -23,11 +25,15 @@ public class Partie {
     /**
      * Crée une partie avec toutes les cartes du jeu (sauf +4 et changement couleur)
      */
-    public Partie() {
+    public Partie(ArrayList<Joueur> listeJoueur) {
         this.niemePartie = 1;
         this.numJoueurCourant = 0;
         this.etreSensHoraire = true;
-        this.listeJoueur = new ArrayList<Joueur>();
+        try {
+            this.setListeJoueur(listeJoueur);
+        } catch (ParteException e) {
+            throw new RuntimeException(e);
+        }
         genererPioche(); // la fonction est en commentaire
         this.depot = new ArrayList<Carte>();
     }
@@ -36,11 +42,15 @@ public class Partie {
      * Crée une partie en fonction d'une pioche donnée. C'est pour les tests
      * @param pioche liste de carte qu'on veut dans la pioche de la partie
      */
-    public Partie(ArrayList<Carte> pioche) {
+    public Partie(ArrayList<Joueur> listeJoueur, ArrayList<Carte> pioche) {
         this.niemePartie = 1;
         this.numJoueurCourant = 0;
         this.etreSensHoraire = true;
-        this.listeJoueur = new ArrayList<Joueur>();
+        try {
+            this.setListeJoueur(listeJoueur);
+        } catch (ParteException e) {
+            throw new RuntimeException(e);
+        }
         this.pioche = pioche;
         this.depot = new ArrayList<Carte>();
     }
@@ -59,6 +69,15 @@ public class Partie {
 
     public ArrayList<Joueur> getListJoueur() {
         return this.listeJoueur;
+    }
+
+    private void setListeJoueur(ArrayList<Joueur> listeJoueur) throws ParteException {
+        if (listeJoueur.size() < 2 || listeJoueur.size() > 10) {
+            throw new ParteException("La partie doit avoir 2 à 10 dans une partie !");
+
+        } else {
+            this.listeJoueur = listeJoueur;
+        }
     }
 
     public void setDepot(ArrayList<Carte> depot) {
@@ -160,7 +179,12 @@ public class Partie {
      * @return renvoie la carte de la pioche de dessus
      */
     public Carte retirerCartePioche() {
-        return this.pioche.remove(this.pioche.size() - 1);
+        if (!this.pioche.isEmpty()) {
+            return this.pioche.remove(this.pioche.size() - 1);
+
+        } else {
+            return null;
+        }
     }
 
     /**
@@ -177,7 +201,7 @@ public class Partie {
                 System.out.println("erreur (Partie -> deposerCarteDepot) : la carte n'est pas valide");
             }
 
-        } catch (Exception e) {
+        } catch (ExpertManquantException e) {
             // TODO deposerCarteDepot -> try catch : voir comment amélioré ça
             System.out.println(e);
         }
@@ -189,8 +213,12 @@ public class Partie {
         this.etreSensHoraire = !this.getEtreSensHoraire();
     }
 
-    public void ajoutJoueurPartie(Joueur joueur) {
-        this.listeJoueur.add(joueur);
+    public void ajoutJoueurPartie(Joueur joueur) throws ParteException {
+        if (this.listeJoueur.size() > 10) {
+            throw new ParteException("Le joueur " + joueur.getNom() + " est en trop dans la partie !");
+        } else {
+            this.listeJoueur.add(joueur);
+        }
     }
 
     public Carte carteDepot() {

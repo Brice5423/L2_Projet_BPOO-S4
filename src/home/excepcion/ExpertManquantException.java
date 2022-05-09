@@ -9,7 +9,7 @@ public class ExpertManquantException extends Exception {
     private final Carte carteDepot;
 
     public ExpertManquantException(Expert expert, Carte carteJoueur, Carte carteDepot) {
-        System.out.println("Il y a un problème avec l'expert");
+        super("Il y a un problème avec l'expert");
         this.expert = expert;
         this.carteJoueur = carteJoueur;
         this.carteDepot = carteDepot;
