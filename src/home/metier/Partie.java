@@ -216,7 +216,7 @@ public class Partie {
     }
 
     public void ajoutJoueurPartie(Joueur joueur) throws ParteException {
-        if (this.listeJoueur.size() > 10) {
+        if (this.listeJoueur.size() > 9) {
             throw new ParteException("Le joueur " + joueur.getNom() + " est en trop dans la partie !", this);
         } else {
             this.listeJoueur.add(joueur);
