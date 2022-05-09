@@ -32,6 +32,7 @@ public class Partie {
         try {
             this.setListeJoueur(listeJoueur);
         } catch (ParteException e) {
+            this.listeJoueur = new ArrayList<Joueur>();
             throw new RuntimeException(e);
         }
         genererPioche(); // la fonction est en commentaire
@@ -49,6 +50,7 @@ public class Partie {
         try {
             this.setListeJoueur(listeJoueur);
         } catch (ParteException e) {
+            this.listeJoueur = new ArrayList<Joueur>();
             throw new RuntimeException(e);
         }
         this.pioche = pioche;
