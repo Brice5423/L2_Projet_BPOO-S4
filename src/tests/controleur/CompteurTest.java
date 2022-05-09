@@ -1,16 +1,14 @@
 package tests.controleur;
 
 public class CompteurTest {
-    private String nomTest;
+    private final String nomTest;
     private int nbTestTotal;
     private int nbTestOk;
-    private int nbTestFaux;
 
     public CompteurTest(String nomTest) {
         this.nomTest = nomTest;
         this.nbTestTotal = 0;
         this.nbTestOk = 0;
-        this.nbTestFaux = 0;
     }
 
     public void testOK() {
@@ -20,14 +18,17 @@ public class CompteurTest {
 
     public void testFaux() {
         this.nbTestTotal++;
-        this.nbTestFaux++;
     }
 
     public boolean afficheResultatsTest() {
         System.out.println("\n\tRésultats du test : " + this.nomTest);
         System.out.println("Nb test total : " + this.nbTestTotal);
         System.out.println("Nb test Ok : " + this.nbTestOk);
-        System.out.println("Nb test faux : " + this.nbTestFaux);
+        //System.out.println("Nb test faux : " + (this.nbTestTotal - this.nbTestOk));
+        if (this.nbTestTotal == 0) {
+            this.nbTestTotal = 1;
+        }
+        System.out.println("Taux de réussite : " + ((double) this.nbTestOk / this.nbTestTotal * 100) + "%");
 
         return (this.nbTestOk == this.nbTestTotal);
     }
