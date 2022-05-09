@@ -2,8 +2,8 @@ package home.metier;
 
 import home.enumeration.ECarteCouleur;
 import home.enumeration.ECarteValeur;
-import home.excepcion.ExpertManquantException;
-import home.excepcion.ParteException;
+import home.exception.ExpertManquantException;
+import home.exception.ParteException;
 import home.expert.Expert;
 import home.metier.carte.Carte;
 import home.metier.carte.CarteBasique;
@@ -75,7 +75,7 @@ public class Partie {
 
     private void setListeJoueur(ArrayList<Joueur> listeJoueur) throws ParteException {
         if (listeJoueur.size() < 2 || listeJoueur.size() > 10) {
-            throw new ParteException("La partie doit avoir 2 à 10 dans une partie !");
+            throw new ParteException("La partie doit avoir 2 à 10 dans une partie !", this);
 
         } else {
             this.listeJoueur = listeJoueur;
@@ -217,7 +217,7 @@ public class Partie {
 
     public void ajoutJoueurPartie(Joueur joueur) throws ParteException {
         if (this.listeJoueur.size() > 10) {
-            throw new ParteException("Le joueur " + joueur.getNom() + " est en trop dans la partie !");
+            throw new ParteException("Le joueur " + joueur.getNom() + " est en trop dans la partie !", this);
         } else {
             this.listeJoueur.add(joueur);
         }
