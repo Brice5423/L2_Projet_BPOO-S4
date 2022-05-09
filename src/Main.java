@@ -3,6 +3,7 @@
  *  Version Java : 17.0.2                 *
  * ************************************** */
 
+import tests.CoupsIllegauxCartesSimples;
 import tests.CoupsLegauxCartesSimples;
 import tests.controleur.CompteurTest;
 
@@ -15,6 +16,13 @@ public class Main {
 
         /* ***** Tests coups légaux avec des cartes simples ***** */
         if (CoupsLegauxCartesSimples.executionDuTest()) {
+            compteurTest.testOK();
+        } else {
+            compteurTest.testFaux();
+        }
+
+        /* ***** Tests coups illégaux avec des cartes simples ***** */
+        if (CoupsIllegauxCartesSimples.executionDuTest()) {
             compteurTest.testOK();
         } else {
             compteurTest.testFaux();
