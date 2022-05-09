@@ -4,26 +4,20 @@ import home.expert.Expert;
 import home.metier.carte.Carte;
 
 public class ExpertManquantException extends Exception {
-    private final Expert expert;
     private final Carte carteJoueur;
     private final Carte carteDepot;
 
-    public ExpertManquantException(Expert expert, Carte carteJoueur, Carte carteDepot) {
-        super("Il y a un problème avec l'expert");
-        this.expert = expert;
+    public ExpertManquantException(Carte carteJoueur, Carte carteDepot) {
+        super("Il doit manquée un expert");
         this.carteJoueur = carteJoueur;
         this.carteDepot = carteDepot;
     }
 
-    public Expert getExpert() {
-        return this.expert;
-    }
-
     public Carte getCarteJoueur() {
-        return this.carteJoueur;
+        return carteJoueur;
     }
 
     public Carte getCarteDepot() {
-        return this.carteDepot;
+        return carteDepot;
     }
 }

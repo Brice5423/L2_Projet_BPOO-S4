@@ -1,20 +1,29 @@
 package home.metier;
 
 import home.exception.JoueurException;
+import home.exception.ParteException;
 import home.metier.carte.Carte;
 
 import java.util.ArrayList;
-import java.util.Collections;
 
 public class Joueur {
     private String nom;
     private ArrayList<Carte> mainDuJoueur;
-    private int nbVictory;
+    private Partie dansLaPartie;
+    private int nbVictoire;
+
+    private Joueur() {
+        this.nom = null;
+        this.mainDuJoueur = new ArrayList<Carte>();
+        this.dansLaPartie = null;
+        this.nbVictoire = 0;
+    }
 
     public Joueur(String nom) {
         this.setNom(nom);
         this.mainDuJoueur = new ArrayList<Carte>();
-        this.nbVictory = 0;
+        this.dansLaPartie = null;
+        this.nbVictoire = 0;
     }
 
     public String getNom() {
@@ -32,8 +41,25 @@ public class Joueur {
         return this.mainDuJoueur;
     }
 
-    public int getNbVictory() {
-        return this.nbVictory;
+
+    private void setMainDuJoueur(ArrayList<Carte> mainDuJoueur) {
+        this.mainDuJoueur.addAll(mainDuJoueur);
+    }
+
+    public Partie getDansLaPartie() {
+        return this.dansLaPartie;
+    }
+
+    public void setDansPartie(Partie dansLaPartie) {
+        this.dansLaPartie = dansLaPartie;
+    }
+
+    public int getNbVictoire() {
+        return this.nbVictoire;
+    }
+
+    private void setNbVictoire(int nbVictoire) {
+        this.nbVictoire = nbVictoire;
     }
 
     @Override
@@ -52,38 +78,52 @@ public class Joueur {
     public String toString() {
         return "Joueur{" +
                 "nom = '" + nom + '\'' +
-                ", nbVictory = " + nbVictory +
+                ", nbVictory = " + nbVictoire +
                 ", mainDuJoueur = \n" + mainDuJoueur +
                 '}';
     }
 
     /**
      * Mettre la carte de la pioche dans la main du joueur
-     *
-     * @param cartePioche Carte récupérer dans la pioche
      */
-    public void recupererCarte(Carte cartePioche) {
-        this.mainDuJoueur.add(cartePioche);
+    public void piocherCarte() {
+        this.mainDuJoueur.add(this.dansLaPartie.retirerCartePioche());
     }
 
-    /**
-     * @return Renvoie une carte du joueur
-     */
-    public Carte poserCarte(Carte carteChoisieParJoueur) {
-        // @TODO poserCarte : a completé avec exception
+    public void piocherCarte(Carte carteDonnee) {
+        // TODO piocherCarte(Carte carteDonnee) : regardé si on vire les carte de la pioche
+        /*try {
+            if (!this.dansLaPartie.getPioche().contains(carteDonnee)) {
+                throw new ParteException("La carte " + carteDonnee + " n'existe pas dans la pioche");
+            }
+            this.dansLaPartie.getPioche().remove(carteDonnee);
 
-        if (!this.mainDuJoueur.contains(carteChoisieParJoueur)) {
-            // TODO faire une exception carte ou un truc du style
-            throw new IllegalArgumentException("carte choisie par le joueur n'est pas dans sa main");
+        } catch (ParteException e) {
+            System.out.println(e);
+        }*/
+
+        this.mainDuJoueur.add(carteDonnee);
+    }
+
+    public void poserCarte(Carte carteChoisieParJoueur) {
+        try {
+            if (!this.equals(this.dansLaPartie.joueurCourant())) {
+                throw new JoueurException("Le joueur " + this.nom + " joue alors que ce n'est pas son tour");
+            }
+            if (!this.mainDuJoueur.contains(carteChoisieParJoueur)) {
+                throw new JoueurException("Carte choisie par le joueur n'est pas dans sa main");
+            }
+
+            this.dansLaPartie.deposerCarteTas(carteChoisieParJoueur);
+            this.mainDuJoueur.remove(carteChoisieParJoueur);
+
+        } catch (JoueurException | ParteException e) {
+            System.out.println(e);
         }
-
-        this.mainDuJoueur.remove(carteChoisieParJoueur);
-
-        return carteChoisieParJoueur;
     }
 
     public void avoirGagner() {
-        this.nbVictory++;
+        this.nbVictoire++;
     }
 
     public int nbCarteEnMain() {
@@ -96,19 +136,41 @@ public class Joueur {
 
     public void ditUNO() {
         // TODO ditUNO : voir s'il n'y a pas autre chose à faire
-        System.out.println(this.nom + " dit UNO !!!");
+        if (!this.equals(this.dansLaPartie.joueurCourant())) {
+            try {
+                throw new JoueurException("Le joueur " + this.nom + " n'est pas le joueur courant");
+            } catch (JoueurException e) {
+                this.piocherCarte();
+                this.piocherCarte();
+                System.out.println(e);
+            }
+
+        } else {
+            System.out.println(this.nom + " dit UNO !!!");
+        }
     }
 
-    public void finTour(Partie partieEnCours) {
-        // TODO finTour : mettre à jour quand il aura une exception
-        partieEnCours.joueurSuivant(this);
+    public void finTour() {
+        try {
+            if (!this.equals(this.dansLaPartie.joueurCourant())) {
+                throw new JoueurException("Le joueur " + this.nom + " n'est pas le joueur courant donc pas de fin de tour");
+            }
+            this.dansLaPartie.joueurSuivant();
+
+        } catch (JoueurException e) {
+            this.piocherCarte();
+            this.piocherCarte();
+            System.out.println(e);
+        }
     }
 
     public Joueur copyJoueur() {
-        Joueur copieJoueur = new Joueur(this.getNom());
+        Joueur copieJoueur = new Joueur();
 
-        copieJoueur.mainDuJoueur.addAll(this.getMainDuJoueur());
-        copieJoueur.nbVictory = this.getNbVictory();
+        copieJoueur.setNom(this.nom);
+        copieJoueur.setMainDuJoueur(this.mainDuJoueur);
+        copieJoueur.setDansPartie(this.dansLaPartie);
+        copieJoueur.setNbVictoire(this.nbVictoire);
 
         return copieJoueur;
     }

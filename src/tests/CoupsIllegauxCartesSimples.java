@@ -81,28 +81,28 @@ public class CoupsIllegauxCartesSimples {
         ArrayList<Carte> tas = new ArrayList<Carte>();
 
         tas.add(new CarteBasique(ECarteCouleur.VERT, ECarteValeur.HUIT));
-        partie.setDepot(tas);
+        partie.setTas(tas);
 
         Carte vertDeux = new CarteBasique(ECarteCouleur.VERT, ECarteValeur.DEUX);
         Carte jauneSix = new CarteBasique(ECarteCouleur.JAUNE, ECarteValeur.SIX);
 
-        alice.recupererCarte(vertDeux);
-        alice.recupererCarte(jauneSix);
-        alice.recupererCarte(new CarteBasique(ECarteCouleur.ROUGE, ECarteValeur.UN));
+        alice.piocherCarte(vertDeux);
+        alice.piocherCarte(jauneSix);
+        alice.piocherCarte(new CarteBasique(ECarteCouleur.ROUGE, ECarteValeur.UN));
 
         Carte bleuDeux = new CarteBasique(ECarteCouleur.BLEU, ECarteValeur.DEUX);
 
-        bob.recupererCarte(bleuDeux);
-        bob.recupererCarte(new CarteBasique(ECarteCouleur.JAUNE, ECarteValeur.QUATRE));
-        bob.recupererCarte(new CarteBasique(ECarteCouleur.ROUGE, ECarteValeur.NEUF));
+        bob.piocherCarte(bleuDeux);
+        bob.piocherCarte(new CarteBasique(ECarteCouleur.JAUNE, ECarteValeur.QUATRE));
+        bob.piocherCarte(new CarteBasique(ECarteCouleur.ROUGE, ECarteValeur.NEUF));
 
         Carte bleuSix = new CarteBasique(ECarteCouleur.BLEU, ECarteValeur.SIX);
         Carte bleuSept = new CarteBasique(ECarteCouleur.BLEU, ECarteValeur.SEPT);
 
-        charles.recupererCarte(bleuSept);
-        charles.recupererCarte(bleuSix);
+        charles.piocherCarte(bleuSept);
+        charles.piocherCarte(bleuSix);
 
-        charles.recupererCarte(new CarteBasique(ECarteCouleur.BLEU, ECarteValeur.ZERO));
+        charles.piocherCarte(new CarteBasique(ECarteCouleur.BLEU, ECarteValeur.ZERO));
 
         Joueur aliceTest = alice.copyJoueur();
         Joueur bobTest = bob.copyJoueur();
@@ -110,26 +110,36 @@ public class CoupsIllegauxCartesSimples {
 
         Partie partieTest = partie.copiePartie();
 
-
         /* ***** ***** Debut test : Test d’une carte illégale ***** ***** */
 
-        partieTest.deposerCarteDepot(aliceTest.poserCarte(jauneSix));
+        aliceTest.poserCarte(jauneSix);
 
         //TODO : verifier qu'alice a tjr sa main : elle n'a pas le droit de poser du jaune sur du bleu !
 
-        aliceTest = alice.copyJoueur();
+        if (aliceTest.getMainDuJoueur().size() == 3) {
+            System.out.println("Alice à 3 carte ^^");
+        } else {
+            System.out.println("Alice n'à pas 3 carte mais " + aliceTest.getMainDuJoueur().size() + " -_-");
+        }
+
         partieTest = partie.copiePartie();
 
 
+        if (aliceTest.getDansLaPartie().equals(bobTest.getDansLaPartie())) {
+            System.out.println("\tLes deux joueurs sont dans la partie ^^");
+        } else {
+            System.out.println("\tLes joueurs sont dans des parties différentes -_-");
+        }
+
         /* ***** ***** Debut test : Test d’un joueur qui pose deux cartes légales de suite ***** ***** */
 
-        partieTest.deposerCarteDepot(aliceTest.poserCarte(vertDeux));
-        aliceTest.finTour(partieTest);
+        aliceTest.poserCarte(vertDeux);
+        aliceTest.finTour();
 
-        partieTest.deposerCarteDepot(bobTest.poserCarte(bleuDeux));
-        bobTest.finTour(partieTest);
+        bobTest.poserCarte(bleuDeux);
+        bobTest.finTour();
 
-        partieTest.deposerCarteDepot(charlesTest.poserCarte(bleuSix));
+        charlesTest.poserCarte(bleuSix);
 
         if (bobTest.nbCarteEnMain() == 2) {
             System.out.println("Charles possède bien 2 cartes ^^");
@@ -139,30 +149,31 @@ public class CoupsIllegauxCartesSimples {
             compteurTest.testFaux();
         }
 
-        partieTest.deposerCarteDepot(charlesTest.poserCarte(bleuSept));
+        charlesTest.poserCarte(bleuSept);
 
-        //TODO : verifier dans le catch que charles a tjr 2 cartes : Il n'a pas le droit de jouer 2 fois de suite
+        // TODO : verifier dans le catch que charles a tjr 2 cartes : Il n'a pas le droit de jouer 2 fois de suite
 
-         aliceTest = alice.copyJoueur();
+        // tu n'as pas besoin de faire ça, sauf si tu veux tout cassé ^^
+         /*aliceTest = alice.copyJoueur();
          bobTest = bob.copyJoueur();
-         charlesTest = charles.copyJoueur();
+         charlesTest = charles.copyJoueur();*/
 
          partieTest = partie.copiePartie();
 
 
         /* ***** ***** Debut test : Test d’un joueur qui finit son tour sans rien faire ***** ***** */
 
-        aliceTest.finTour(partieTest);
-        //TODO : verifier qu'alice possede toujours 3 cartes : Elle n'a pas le droit de pas jouer
+        aliceTest.finTour();
+        // TODO : verifier qu'alice possede toujours 3 cartes : Elle n'a pas le droit de pas jouer
 
-        aliceTest = alice.copyJoueur();
+        //aliceTest = alice.copyJoueur(); // la même ici
         partieTest = partie.copiePartie();
 
         /* ***** ***** Debut test : Test d’un joueur qui joue puis pioche ***** ***** */
 
-        partieTest.deposerCarteDepot(aliceTest.poserCarte(vertDeux));
+        aliceTest.poserCarte(vertDeux);
         // aliceTest.pioche();
-        //TODO : verifier qu'alice a toujours 2 cartes : elle n'a pas le droit de piocher si elle a deja joué !
+        // TODO : verifier qu'alice a toujours 2 cartes : elle n'a pas le droit de piocher si elle a deja joué !
         // TODO : verifier que la premiere carte de la pioche n'a pas changé : 6 Jaune
 
         return compteurTest.afficheResultatsTest();

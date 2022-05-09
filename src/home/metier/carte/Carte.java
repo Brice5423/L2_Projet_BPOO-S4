@@ -12,8 +12,4 @@ public abstract class Carte {
     public ECarteCouleur getCouleur() {
         return this.couleur;
     }
-
-    public void setCouleur(ECarteCouleur couleur) {
-        this.couleur = couleur;
-    }
 }

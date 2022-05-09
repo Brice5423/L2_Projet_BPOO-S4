@@ -4,6 +4,7 @@ import home.enumeration.ECarteCouleur;
 import home.metier.carte.CarteAEffet;
 import home.interfaces.carte.IChangerSens;
 import home.metier.Partie;
+import home.metier.carte.CarteBasique;
 
 public class CarteChangerSens extends CarteAEffet implements IChangerSens {
 
@@ -26,5 +27,17 @@ public class CarteChangerSens extends CarteAEffet implements IChangerSens {
         return "CarteChangerSens{" +
                 "couleur=" + this.getCouleur() +
                 "}";
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o)
+            return true;
+        if (o == null || getClass() != o.getClass())
+            return false;
+
+        CarteChangerSens that = (CarteChangerSens) o;
+
+        return (this.getCouleur() == that.getCouleur());
     }
 }

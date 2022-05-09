@@ -46,7 +46,7 @@ public abstract class Expert {
             return this.getSuivant().peutEtrePoser(carteJoueur, carteDepot);
 
         } else {
-            throw new ExpertManquantException(this, carteJoueur, carteDepot);
+            throw new ExpertManquantException(carteJoueur, carteDepot);
         }
     }
 

@@ -33,4 +33,16 @@ public class CartePlusDeux extends CarteAEffet implements IAjouterCarte {
                 "couleur=" + this.getCouleur() +
                 "}";
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o)
+            return true;
+        if (o == null || getClass() != o.getClass())
+            return false;
+
+        CartePlusDeux that = (CartePlusDeux) o;
+
+        return (this.getCouleur() == that.getCouleur());
+    }
 }

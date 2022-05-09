@@ -22,4 +22,16 @@ public class CarteBasique extends Carte {
                 "couleur=" + this.getCouleur() +
                 '}';
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o)
+            return true;
+        if (o == null || getClass() != o.getClass())
+            return false;
+
+        CarteBasique that = (CarteBasique) o;
+
+        return ((this.valeur == that.valeur) && (this.getCouleur() == that.getCouleur()));
+    }
 }
