@@ -38,7 +38,7 @@ public abstract class Expert {
         return lesExperts;
     }
 
-    public boolean peutEtrePoser(Carte carteJoueur, Carte carteDepot) throws Exception {
+    public boolean peutEtrePoser(Carte carteJoueur, Carte carteDepot) throws ExpertManquantException {
         if (this.etreBonExpert(carteJoueur, carteDepot)) {
             return etreCoupValide(carteJoueur, carteDepot);
 

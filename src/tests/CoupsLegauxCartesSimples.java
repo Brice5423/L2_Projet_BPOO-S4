@@ -13,7 +13,7 @@ import java.util.ArrayList;
 public class CoupsLegauxCartesSimples {
     /**
      * Alice joue une carte de la bonne couleur.
-     * <p>
+     *
      * 1) Vérifier que le joueur courant est bien Alice,
      * 2) Vérifier qu'Alice possède bien 3 cartes,
      * 3) Alice joue le « 2 Vert »,
@@ -25,7 +25,7 @@ public class CoupsLegauxCartesSimples {
      * 9) Vérifier que le joueur courant est Bob.
      * _____________________________________________________________________________
      * Bob joue une carte de couleur différente, mais de même valeur.
-     * <p>
+     *
      * 1) Vérifier	que	Bob	possède	bien 3 cartes,
      * 2) Bob pose le « 2 bleu »,
      * 3) Vérifier que	Bob	possède	bien 2 cartes,
@@ -51,15 +51,17 @@ public class CoupsLegauxCartesSimples {
         pioche.add(new CarteBasique(ECarteCouleur.BLEU, ECarteValeur.CINQ));
         pioche.add(new CarteBasique(ECarteCouleur.VERT, ECarteValeur.ZERO));
 
-        Partie partie = new Partie(pioche);
+        ArrayList<Joueur> listJoueur = new ArrayList<Joueur>();
 
         Joueur alice = new Joueur("Alice");
         Joueur bob = new Joueur("Bob");
         Joueur charles = new Joueur("Charles");
 
-        partie.ajoutJoueurPartie(alice);
-        partie.ajoutJoueurPartie(bob);
-        partie.ajoutJoueurPartie(charles);
+        listJoueur.add(alice);
+        listJoueur.add(bob);
+        listJoueur.add(charles);
+
+        Partie partie = new Partie(listJoueur, pioche);
 
         ArrayList<Carte> tas = new ArrayList<Carte>();
 
