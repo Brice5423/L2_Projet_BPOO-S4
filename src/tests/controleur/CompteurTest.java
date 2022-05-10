@@ -28,7 +28,7 @@ public class CompteurTest {
         if (this.nbTestTotal == 0) {
             this.nbTestTotal = 1;
         }
-        System.out.println("Taux de réussite : " + ((double) this.nbTestOk / this.nbTestTotal * 100) + "%");
+        System.out.println("Taux de réussite : " + ((double) this.nbTestOk / this.nbTestTotal * 100) + " %");
 
         return (this.nbTestOk == this.nbTestTotal);
     }
