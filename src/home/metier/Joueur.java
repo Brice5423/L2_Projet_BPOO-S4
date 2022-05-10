@@ -201,8 +201,7 @@ public class Joueur {
             System.out.println(this.nom + " dit UNO !!!");
 
         } catch (JoueurNonCourantException e) {
-            this.donnerCarte();
-            this.donnerCarte();
+            this.punition();
             System.out.println(e);
         }
     }
@@ -217,8 +216,7 @@ public class Joueur {
             this.avoirJoueSonTour = false;
 
         } catch (JoueurNonCourantException e) {
-            this.donnerCarte();
-            this.donnerCarte();
+            this.punition();
             System.out.println(e);
         }
     }
