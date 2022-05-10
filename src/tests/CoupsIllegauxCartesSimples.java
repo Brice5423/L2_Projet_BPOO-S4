@@ -57,7 +57,7 @@ public class CoupsIllegauxCartesSimples {
 
 
         /* ***** ***** initialisation des compteurs du test ***** ***** */
-        CompteurTest compteurTest = new CompteurTest("coups illégaux avec des cartes simples");
+        CompteurTest compteurTest = new CompteurTest("Coups illégaux avec des cartes simples");
 
         /* ***** ***** Initialiser le fichier test ***** ***** */
 
