@@ -117,7 +117,9 @@ public class Joueur {
                 throw new JoueurJoueMultipleException("Le joueur " + this.nom + " n'a pas le droit de piocher, il a déjà jouer", this);
             }
 
-            this.mainDuJoueur.add(this.dansLaPartie.retirerCartePioche());
+           this.mainDuJoueur.add(this.dansLaPartie.retirerCartePioche());
+            this.dansLaPartie.retirerCartePioche();
+
             this.avoirJoueSonTour = true;
 
         } catch (PartieException e) {

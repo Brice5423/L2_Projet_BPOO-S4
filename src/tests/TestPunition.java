@@ -3,6 +3,7 @@ package tests;
 import home.enumeration.ECarteCouleur;
 import home.enumeration.ECarteValeur;
 import home.exception.JoueurException;
+import home.exception.JoueurJoueMultipleException;
 import home.metier.Joueur;
 import home.metier.Partie;
 import home.metier.carte.Carte;
@@ -23,11 +24,11 @@ public class TestPunition {
 
         ArrayList<Carte> pioche = new ArrayList<Carte>();
 
-        pioche.add(new CarteBasique(ECarteCouleur.JAUNE, ECarteValeur.SIX));
-        pioche.add(new CarteBasique(ECarteCouleur.ROUGE, ECarteValeur.QUATRE));
-        pioche.add(new CarteBasique(ECarteCouleur.VERT, ECarteValeur.DEUX));
-        pioche.add(new CarteBasique(ECarteCouleur.BLEU, ECarteValeur.CINQ));
         pioche.add(new CarteBasique(ECarteCouleur.VERT, ECarteValeur.ZERO));
+        pioche.add(new CarteBasique(ECarteCouleur.BLEU, ECarteValeur.CINQ));
+        pioche.add(new CarteBasique(ECarteCouleur.VERT, ECarteValeur.DEUX));
+        pioche.add(new CarteBasique(ECarteCouleur.ROUGE, ECarteValeur.QUATRE));
+        pioche.add(new CarteBasique(ECarteCouleur.JAUNE, ECarteValeur.SIX));
 
         ArrayList<Joueur> listJoueur = new ArrayList<Joueur>();
 
@@ -89,27 +90,39 @@ public class TestPunition {
         }
 
 
+
         try {
             aliceTest.poserCarte(jauneSix);
 
         } catch (Exception e) {
-            aliceTest.punition();
+           // aliceTest.punition();
+            try{
+                aliceTest.donnerCarte(partieTest.retirerCartePioche());
+            }catch (Exception f){
+                System.out.println(f);
+            }
+            try{
+                aliceTest.donnerCarte(partieTest.retirerCartePioche());
+            }catch (Exception g){
+                System.out.println(g);
+            }
             System.out.println(e);
         }
 
         aliceTest.finTour();
         aliceTest.afficheCarteEnMain();
+        if( pioche.size() == 3){
+            System.out.println("its ok ^^");
+        }else{
+            System.out.println("nombre de carte dans la pioche :"+ pioche.size()+"-_-");
+        }
+
+
+
+
 
         //Punir Alice, la faire piocher 2 cartes et passer son tour
 
-        if(partieTest.retirerCartePioche().equals(vertDeux)){
-            System.out.println("La carte de la pioche est le 2 vert ^^");
-            compteurTest.testOK();
-
-        }else{
-            System.out.println("La carte de la pioche est le " + partieTest.retirerCartePioche() + " -_-");
-            compteurTest.testFaux();
-        }
 
 
         if (partieTest.joueurCourant().equals(bobTest)) {
@@ -123,12 +136,14 @@ public class TestPunition {
 
         bobTest.afficheCarteEnMain();
 
-        if (partieTest.retirerCartePioche() == vertDeux) {
-            System.out.println("La carte au sommet du tas est bien le 2 vert ^^");
+        Carte cartePioche = partieTest.retirerCartePioche();
+
+        if(cartePioche.equals(vertDeux)){
+            System.out.println("La carte de la pioche est le 2 vert ^^");
             compteurTest.testOK();
 
-        } else {
-            System.out.println("La carte au sommet du tas est " + partieTest.retirerCartePioche() + " -_-");
+        }else{
+            System.out.println("La carte de la pioche est le " + cartePioche + " -_-");
             compteurTest.testFaux();
         }
 
