@@ -146,6 +146,10 @@ public class Joueur {
         }
     }
 
+    public void donnerCarte(Carte carteDonnee) {
+        this.mainDuJoueur.add(carteDonnee);
+    }
+
     public void poserCarte(Carte carteChoisieParJoueur) throws PartieException {
         try {
             if (!this.equals(this.dansLaPartie.joueurCourant())) {
