@@ -224,7 +224,7 @@ public class Partie {
     public void initialiserCarteJoueur() {
         for (Joueur joueur : this.listeJoueur) {
             for (int i = 0; i < 7; i++) {
-                joueur.piocherCarte();
+                joueur.donnerCarte();
             }
         }
     }

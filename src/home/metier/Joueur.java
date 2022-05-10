@@ -146,6 +146,20 @@ public class Joueur {
         }
     }
 
+    public void donnerCarte() {
+        try {
+            if (this.dansLaPartie.getPioche().isEmpty()) {
+                throw new PartieException("Le joueur " + this.nom + " veut prendre une carte dans la pioche vide");
+            }
+
+            this.mainDuJoueur.add(this.dansLaPartie.retirerCartePioche());
+            this.avoirJoueSonTour = true;
+
+        } catch (PartieException e) {
+            System.out.println(e);
+        }
+    }
+
     public void donnerCarte(Carte carteDonnee) {
         this.mainDuJoueur.add(carteDonnee);
     }
@@ -188,8 +202,8 @@ public class Joueur {
             System.out.println(this.nom + " dit UNO !!!");
 
         } catch (JoueurException e) {
-            this.piocherCarte();
-            this.piocherCarte();
+            this.donnerCarte();
+            this.donnerCarte();
             System.out.println(e);
         }
     }
@@ -203,8 +217,8 @@ public class Joueur {
             this.avoirJoueSonTour = false;
 
         } catch (JoueurException e) {
-            this.piocherCarte();
-            this.piocherCarte();
+            this.donnerCarte();
+            this.donnerCarte();
             System.out.println(e);
         }
     }
