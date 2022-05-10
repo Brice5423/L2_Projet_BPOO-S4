@@ -142,15 +142,15 @@ public class CoupsIllegauxCartesSimples {
 
         charlesTest.poserCarte(bleuSix);
 
+
+        charlesTest.poserCarte(bleuSept);
         if (bobTest.nbCarteEnMain() == 2) {
-            System.out.println("Charles possède bien 2 cartes ^^");
+            System.out.println("Charles possède bien 2 cartes, il n'a pas le droit de poser 2 fois de suite ^^");
             compteurTest.testOK();
         } else {
             System.out.println("Charles possède " + charlesTest.nbCarteEnMain() + " cartes -_-");
             compteurTest.testFaux();
         }
-
-        charlesTest.poserCarte(bleuSept);
 
         // TODO : verifier dans le catch que charles a tjr 2 cartes : Il n'a pas le droit de jouer 2 fois de suite
 
@@ -165,6 +165,14 @@ public class CoupsIllegauxCartesSimples {
 
         aliceTest.finTour();
         // TODO : verifier qu'alice possede toujours 3 cartes : Elle n'a pas le droit de pas jouer
+        if (aliceTest.nbCarteEnMain() == 3) {
+            System.out.println("Alice possède bien 3 carte, elle n'a pas le droit de finir son tour sans jouer^^");
+            compteurTest.testOK();
+        } else {
+            System.out.println("Alice possède " + aliceTest.nbCarteEnMain() + " cartes -_-");
+            compteurTest.testFaux();
+        }
+
 
 
         /* ***** ***** Debut test : Test d’un joueur qui joue puis pioche ***** ***** */
@@ -176,8 +184,17 @@ public class CoupsIllegauxCartesSimples {
         charlesTest = partieTest.getListJoueur().get(2);
 
         aliceTest.poserCarte(vertDeux);
-        // aliceTest.pioche();
-        // TODO : verifier qu'alice a toujours 2 cartes : elle n'a pas le droit de piocher si elle a deja joué !
+        aliceTest.piocherCarte();
+
+            if (aliceTest.nbCarteEnMain() == 2) {
+            System.out.println("Alice possède bien 2 cartes ^^");
+            compteurTest.testOK();
+        } else {
+            System.out.println("Alice possède " + aliceTest.nbCarteEnMain() + " cartes -_-");
+            compteurTest.testFaux();
+        }
+
+
         // TODO : verifier que la premiere carte de la pioche n'a pas changé : 6 Jaune
 
         return compteurTest.afficheResultatsTest();
