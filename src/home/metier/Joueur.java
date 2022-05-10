@@ -241,7 +241,7 @@ public class Joueur {
             /*if (!this.avoirJoueSonTour) {
                 throw new JoueurJouePasException("Le joueur " + this.nom + " n'a pas joue, elle ne peut pas dire \"UNO !\"", this);
             }*/
-            if (!this.avoirDitUNO) {
+            if (!this.avoirDitUNO && this.nbCarteEnMain() == 1) {
                 throw new JoueurOublieDireUnoException("Le joueur " + this.nom + " à oublie de dire \"UNO !\"", this);
             }
 
