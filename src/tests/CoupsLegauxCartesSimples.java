@@ -45,6 +45,7 @@ public class CoupsLegauxCartesSimples {
         /* ***** ***** initialisation des compteurs du test ***** ***** */
         CompteurTest compteurTest = new CompteurTest("Coup légaux avec des cartes simples");
 
+
         /* ***** ***** Initialiser le fichier test ***** ***** */
 
         ArrayList<Carte> pioche = new ArrayList<Carte>();
@@ -89,15 +90,14 @@ public class CoupsLegauxCartesSimples {
         charles.donnerCarte(new CarteBasique(ECarteCouleur.BLEU, ECarteValeur.SEPT));
         charles.donnerCarte(new CarteBasique(ECarteCouleur.BLEU, ECarteValeur.ZERO));
 
-        /* ***** ***** Debut test : Alice joue une carte de la bonne couleur. ***** ***** */
 
+        /* ***** ***** Debut test : Alice joue une carte de la bonne couleur. ***** ***** */
         System.out.println("\tAlice joue une carte de la bonne couleur.");
 
         // 1) Vérifier que le joueur courant est bien Alice,
         if (partie.joueurCourant().equals(alice)) {
             System.out.println("Le joueur courant est bien Alice ^^");
             compteurTest.testOK();
-
         } else {
             System.out.println("Le joueur courant n'est pas Alice mais " + partie.joueurCourant().getNom() + " -_-");
             compteurTest.testFaux();
@@ -115,7 +115,6 @@ public class CoupsLegauxCartesSimples {
         // 3) Alice joue le « 2 Vert »,
         try {
             alice.poserCarte(vertDeux);
-
         } catch (JoueurJoueMultipleException | JoueurCarteIllegalException e) {
             System.out.println(e);
             compteurTest.testFaux();
@@ -125,7 +124,6 @@ public class CoupsLegauxCartesSimples {
         if (alice.nbCarteEnMain() == 2) {
             System.out.println("Alice possède bien 2 cartes ^^");
             compteurTest.testOK();
-
         } else {
             System.out.println("Alice possède " + alice.nbCarteEnMain() + " cartes -_-");
             compteurTest.testFaux();
@@ -138,7 +136,6 @@ public class CoupsLegauxCartesSimples {
         if (partie.carteAuDessusTas() == vertDeux) {
             System.out.println("La carte au sommet du tas est bien le 2 vert ^^");
             compteurTest.testOK();
-
         } else {
             System.out.println("La carte au sommet du tas est " + partie.carteAuDessusTas() + " -_-");
             compteurTest.testFaux();
@@ -148,7 +145,6 @@ public class CoupsLegauxCartesSimples {
         if (tas.size() == 2) {
             System.out.println("Le nombre de carte dans le tas est de 2 ^^");
             compteurTest.testOK();
-
         } else {
             System.out.println("Le nombre de carte dans le tas est de " + tas.size() + " -_-");
             compteurTest.testFaux();
@@ -165,7 +161,6 @@ public class CoupsLegauxCartesSimples {
         if (partie.joueurCourant().equals(bob)) {
             System.out.println("Le joueur courant est Bob ^^");
             compteurTest.testOK();
-
         } else {
             System.out.println("Le joueur courant est " + partie.joueurCourant().getNom() + " -_-");
             compteurTest.testFaux();
@@ -173,7 +168,6 @@ public class CoupsLegauxCartesSimples {
 
 
         /* ***** ***** Debut test : Bob joue une carte de couleur différente, mais de même valeur. ***** ***** */
-
         System.out.println("\n\tBob joue une carte de couleur différente, mais de même valeur.");
 
 
@@ -181,7 +175,6 @@ public class CoupsLegauxCartesSimples {
         if (bob.nbCarteEnMain() == 3) {
             System.out.println("Bob possède bien 3 cartes ^^");
             compteurTest.testOK();
-
         } else {
             System.out.println("Bob possède " + bob.nbCarteEnMain() + " cartes -_-");
             compteurTest.testFaux();
@@ -191,7 +184,6 @@ public class CoupsLegauxCartesSimples {
         // 2) Bob pose le « 2 bleu »,
         try {
             bob.poserCarte(bleuDeux);
-
         } catch (JoueurJoueMultipleException | JoueurCarteIllegalException e) {
             System.out.println(e);
             compteurTest.testFaux();
@@ -201,7 +193,6 @@ public class CoupsLegauxCartesSimples {
         if (bob.nbCarteEnMain() == 2) {
             System.out.println("Bob possède bien 2 cartes ^^");
             compteurTest.testOK();
-
         } else {
             System.out.println("Bob possède " + bob.nbCarteEnMain() + " cartes -_-");
             compteurTest.testFaux();
@@ -214,7 +205,6 @@ public class CoupsLegauxCartesSimples {
         if (partie.carteAuDessusTas() == bleuDeux) {
             System.out.println("La carte au sommet du tas est bien le 2 bleu ^^");
             compteurTest.testOK();
-
         } else {
             System.out.println("La carte au sommet du tas est " + partie.carteAuDessusTas() + " -_-");
             compteurTest.testFaux();
@@ -224,7 +214,6 @@ public class CoupsLegauxCartesSimples {
         if (tas.size() == 3) {
             System.out.println("Le nombre de carte dans le tas est de 3 ^^");
             compteurTest.testOK();
-
         } else {
             System.out.println("Le nombre de carte dans le tas est de " + tas.size() + " -_-");
             compteurTest.testFaux();
@@ -241,7 +230,6 @@ public class CoupsLegauxCartesSimples {
         if (partie.joueurCourant().equals(charles)) {
             System.out.println("Le joueur courant est bien Charles ^^");
             compteurTest.testOK();
-
         } else {
             System.out.println("Le joueur courant n'est pas Charles mais " + partie.joueurCourant().getNom() + " -_-");
             compteurTest.testFaux();
