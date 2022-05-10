@@ -6,6 +6,7 @@
 import tests.CoupsIllegauxCartesSimples;
 import tests.CoupsLegauxCartesSimples;
 import tests.TestPunition;
+import tests.TestUno;
 import tests.controleur.CompteurTest;
 
 public class Main {
@@ -30,6 +31,12 @@ public class Main {
         }
 
         if (TestPunition.executionDuTest()) {
+            compteurTest.testOK();
+        } else {
+            compteurTest.testFaux();
+        }
+
+        if (TestUno.executionDuTest()) {
             compteurTest.testOK();
         } else {
             compteurTest.testFaux();
