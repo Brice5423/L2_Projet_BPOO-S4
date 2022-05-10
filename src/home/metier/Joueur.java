@@ -124,7 +124,7 @@ public class Joueur {
         this.mainDuJoueur.add(carteDonnee);
     }
 
-    public void poserCarte(Carte carteChoisieParJoueur) {
+    public void poserCarte(Carte carteChoisieParJoueur) throws PartieException {
         try {
             if (!this.equals(this.dansLaPartie.joueurCourant())) {
                 throw new JoueurException("Le joueur " + this.nom + " joue alors que ce n'est pas son tour");
@@ -136,7 +136,7 @@ public class Joueur {
             this.dansLaPartie.deposerCarteTas(carteChoisieParJoueur);
             this.mainDuJoueur.remove(carteChoisieParJoueur);
 
-        } catch (JoueurException | PartieException e) {
+        } catch (JoueurException e) {
             System.out.println(e);
         }
     }
