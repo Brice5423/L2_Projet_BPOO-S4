@@ -1,15 +1,15 @@
-package tests;
+        package tests;
 
-import home.enumeration.ECarteCouleur;
-import home.enumeration.ECarteValeur;
-import home.exception.PartieException;
-import home.metier.Joueur;
-import home.metier.Partie;
-import home.metier.carte.Carte;
-import home.metier.carte.CarteBasique;
-import tests.controleur.CompteurTest;
+        import home.enumeration.ECarteCouleur;
+        import home.enumeration.ECarteValeur;
+        import home.exception.PartieException;
+        import home.metier.Joueur;
+        import home.metier.Partie;
+        import home.metier.carte.Carte;
+        import home.metier.carte.CarteBasique;
+        import tests.controleur.CompteurTest;
 
-import java.util.ArrayList;
+        import java.util.ArrayList;
 
 public class CoupsIllegauxCartesSimples {
     /**
@@ -87,23 +87,23 @@ public class CoupsIllegauxCartesSimples {
         Carte vertDeux = new CarteBasique(ECarteCouleur.VERT, ECarteValeur.DEUX);
         Carte jauneSix = new CarteBasique(ECarteCouleur.JAUNE, ECarteValeur.SIX);
 
-        alice.piocherCarte(vertDeux);
-        alice.piocherCarte(jauneSix);
-        alice.piocherCarte(new CarteBasique(ECarteCouleur.ROUGE, ECarteValeur.UN));
+        alice.donnerCarte(vertDeux);
+        alice.donnerCarte(jauneSix);
+        alice.donnerCarte(new CarteBasique(ECarteCouleur.ROUGE, ECarteValeur.UN));
 
         Carte bleuDeux = new CarteBasique(ECarteCouleur.BLEU, ECarteValeur.DEUX);
 
-        bob.piocherCarte(bleuDeux);
-        bob.piocherCarte(new CarteBasique(ECarteCouleur.JAUNE, ECarteValeur.QUATRE));
-        bob.piocherCarte(new CarteBasique(ECarteCouleur.ROUGE, ECarteValeur.NEUF));
+        bob.donnerCarte(bleuDeux);
+        bob.donnerCarte(new CarteBasique(ECarteCouleur.JAUNE, ECarteValeur.QUATRE));
+        bob.donnerCarte(new CarteBasique(ECarteCouleur.ROUGE, ECarteValeur.NEUF));
 
         Carte bleuSix = new CarteBasique(ECarteCouleur.BLEU, ECarteValeur.SIX);
         Carte bleuSept = new CarteBasique(ECarteCouleur.BLEU, ECarteValeur.SEPT);
 
-        charles.piocherCarte(bleuSept);
-        charles.piocherCarte(bleuSix);
+        charles.donnerCarte(bleuSept);
+        charles.donnerCarte(bleuSix);
 
-        charles.piocherCarte(new CarteBasique(ECarteCouleur.BLEU, ECarteValeur.ZERO));
+        charles.donnerCarte(new CarteBasique(ECarteCouleur.BLEU, ECarteValeur.ZERO));
 
 
         /* ***** ***** Debut test : Test d’une carte illégale ***** ***** */
@@ -122,10 +122,10 @@ public class CoupsIllegauxCartesSimples {
             compteurTest.testFaux();
         } catch (Exception e) {
             if (aliceTest.getMainDuJoueur().size() == 3) {
-                System.out.println("Alice à 3 carte ^^");
+                System.out.println("Alice a 3 carte ^^");
                 compteurTest.testOK();
             } else {
-                System.out.println("Alice n'à pas 3 carte mais " + aliceTest.getMainDuJoueur().size() + " -_-");
+                System.out.println("Alice a pas 3 carte mais " + aliceTest.getMainDuJoueur().size() + " -_-");
                 compteurTest.testFaux();
             }
         }
@@ -141,25 +141,32 @@ public class CoupsIllegauxCartesSimples {
 
         try {
             aliceTest.poserCarte(vertDeux);
+            System.out.println("Alice pose un 2 vert ^^");
         } catch (PartieException e) {
             System.out.println(e);
+            System.out.println("Alice ne peut pas poser le 2 vert -_-");
             compteurTest.testFaux();
         }
         aliceTest.finTour();
 
         try {
             bobTest.poserCarte(bleuDeux);
+            System.out.println("Bob pose un 2 bleu ^^");
         } catch (PartieException e) {
             System.out.println(e);
+            System.out.println("Bob ne peut pas poser le 2 bleu -_-");
             compteurTest.testFaux();
         }
 
         bobTest.finTour();
 
+
         try {
             charlesTest.poserCarte(bleuSix);
+            System.out.println("Charles pose un 6 bleu ^^");
         } catch (PartieException e) {
             System.out.println(e);
+            System.out.println("Charles ne peut pas poser le  6 bleu -_-");
             compteurTest.testFaux();
         }
 

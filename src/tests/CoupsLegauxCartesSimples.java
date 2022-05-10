@@ -72,19 +72,19 @@ public class CoupsLegauxCartesSimples {
         Carte vertDeux = new CarteBasique(ECarteCouleur.VERT, ECarteValeur.DEUX);
         Carte jauneSix = new CarteBasique(ECarteCouleur.JAUNE, ECarteValeur.SIX);
 
-        alice.piocherCarte(vertDeux);
-        alice.piocherCarte(jauneSix);
-        alice.piocherCarte(new CarteBasique(ECarteCouleur.ROUGE, ECarteValeur.UN));
+        alice.donnerCarte(vertDeux);
+        alice.donnerCarte(jauneSix);
+        alice.donnerCarte(new CarteBasique(ECarteCouleur.ROUGE, ECarteValeur.UN));
 
         Carte bleuDeux = new CarteBasique(ECarteCouleur.BLEU, ECarteValeur.DEUX);
 
-        bob.piocherCarte(bleuDeux);
-        bob.piocherCarte(new CarteBasique(ECarteCouleur.JAUNE, ECarteValeur.QUATRE));
-        bob.piocherCarte(new CarteBasique(ECarteCouleur.ROUGE, ECarteValeur.NEUF));
+        bob.donnerCarte(bleuDeux);
+        bob.donnerCarte(new CarteBasique(ECarteCouleur.JAUNE, ECarteValeur.QUATRE));
+        bob.donnerCarte(new CarteBasique(ECarteCouleur.ROUGE, ECarteValeur.NEUF));
 
-        charles.piocherCarte(new CarteBasique(ECarteCouleur.BLEU, ECarteValeur.NEUF));
-        charles.piocherCarte(new CarteBasique(ECarteCouleur.BLEU, ECarteValeur.SEPT));
-        charles.piocherCarte(new CarteBasique(ECarteCouleur.BLEU, ECarteValeur.ZERO));
+        charles.donnerCarte(new CarteBasique(ECarteCouleur.BLEU, ECarteValeur.NEUF));
+        charles.donnerCarte(new CarteBasique(ECarteCouleur.BLEU, ECarteValeur.SEPT));
+        charles.donnerCarte(new CarteBasique(ECarteCouleur.BLEU, ECarteValeur.ZERO));
 
         /* ***** ***** Debut test : Alice joue une carte de la bonne couleur. ***** ***** */
 
