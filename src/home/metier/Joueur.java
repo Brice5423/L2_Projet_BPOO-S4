@@ -143,7 +143,6 @@ public class Joueur {
             }
 
             this.mainDuJoueur.add(this.dansLaPartie.retirerCartePioche());
-            this.avoirJoueSonTour = true;
 
         } catch (PartieException e) {
             System.out.println(e);
