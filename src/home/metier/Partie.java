@@ -2,6 +2,7 @@ package home.metier;
 
 import home.enumeration.ECarteCouleur;
 import home.enumeration.ECarteValeur;
+import home.exception.JoueurCarteIllegalException;
 import home.exception.ExpertManquantException;
 import home.exception.PartieException;
 import home.expert.Expert;
@@ -259,13 +260,14 @@ public class Partie {
      *
      * @param carteJoueur Carte du joueur à déposer dans le tas
      */
-    public void deposerCarteTas(Carte carteJoueur) throws PartieException {
+    public void deposerCarteTas(Carte carteJoueur) throws JoueurCarteIllegalException {
         try {
             Expert lesExperts = Expert.initialiseTousLesExperts();
 
             if (!lesExperts.peutEtrePoser(carteJoueur, this.carteAuDessusTas())) {
-                throw new PartieException("Le joueur " + this.joueurCourant().getNom() + " ne peut pas poser La carte " + carteJoueur + " dans le tas");
+                throw new JoueurCarteIllegalException("Le joueur " + this.joueurCourant().getNom() + " ne peut pas poser La carte " + carteJoueur + " dans le tas", this.joueurCourant());
             }
+
             this.tas.add(carteJoueur);
 
         } catch (ExpertManquantException e) {
