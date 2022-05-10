@@ -52,7 +52,7 @@ public class CoupsIllegauxCartesSimples {
      *
      * @return true si succès est à 100% sinon false
      */
-    public static boolean executionDuTest() throws JoueurJoueMultipleException {
+    public static boolean executionDuTest() {
         System.out.println("\n\t\t----- Tests coups illégaux avec des cartes simples -----\n");
 
 
@@ -159,7 +159,7 @@ public class CoupsIllegauxCartesSimples {
             bobTest.poserCarte(bleuDeux);
             System.out.println("Bob pose un 2 bleu ^^");
 
-        } catch (JoueurCarteIllegalException e) {
+        } catch (JoueurCarteIllegalException | JoueurJoueMultipleException e) {
             System.out.println(e);
             System.out.println("Bob ne peut pas poser le 2 bleu -_-");
             compteurTest.testFaux();
@@ -172,8 +172,8 @@ public class CoupsIllegauxCartesSimples {
             charlesTest.poserCarte(bleuSix);
             System.out.println("Charles pose un 6 bleu ^^");
 
-        } catch (JoueurCarteIllegalException e) {
-            System.out.println(e);
+        } catch (JoueurCarteIllegalException | JoueurJoueMultipleException e) {
+            System.out.println(e + " -_-");
             System.out.println("Charles ne peut pas poser le  6 bleu -_-");
             compteurTest.testFaux();
         }
@@ -183,6 +183,11 @@ public class CoupsIllegauxCartesSimples {
             compteurTest.testFaux();
 
         } catch (JoueurCarteIllegalException e) {
+            System.out.println(e + " -_-");
+            System.out.println("Charles a un problème pour mettre ça carte ??? -_-");
+            compteurTest.testFaux();
+
+        } catch (JoueurJoueMultipleException e) {
             System.out.println(e);
             if (bobTest.nbCarteEnMain() == 2) {
                 System.out.println("Charles possède bien 2 cartes, il n'a pas le droit de poser 2 fois de suite ^^");
@@ -221,7 +226,7 @@ public class CoupsIllegauxCartesSimples {
         try {
             aliceTest.poserCarte(vertDeux);
 
-        } catch (JoueurCarteIllegalException e) {
+        } catch (JoueurCarteIllegalException | JoueurJoueMultipleException e) {
             System.out.println(e);
             compteurTest.testFaux();
         }
