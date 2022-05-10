@@ -29,11 +29,10 @@ public class TestUno {
         ArrayList<Carte> pioche = new ArrayList<Carte>();
 
 
-
         pioche.add(new CarteBasique(ECarteCouleur.BLEU, ECarteValeur.TROIS));
         pioche.add(new CarteBasique(ECarteCouleur.VERT, ECarteValeur.ZERO));
         pioche.add(new CarteBasique(ECarteCouleur.BLEU, ECarteValeur.CINQ));
-        pioche.add( new CarteBasique(ECarteCouleur.VERT, ECarteValeur.DEUX));
+        pioche.add(new CarteBasique(ECarteCouleur.VERT, ECarteValeur.DEUX));
         pioche.add(new CarteBasique(ECarteCouleur.JAUNE, ECarteValeur.SIX));
 
         ArrayList<Joueur> listJoueur = new ArrayList<Joueur>();
@@ -80,18 +79,20 @@ public class TestUno {
         Joueur charlesTest = partieTest.getListJoueur().get(2);
 
 
-        if(aliceTest.nbCarteEnMain() == 2){
+        if (aliceTest.nbCarteEnMain() == 2) {
             System.out.println("Alice a 2 cartes ^^");
             compteurTest.testOK();
-        }else{
-            System.out.println("Alice a "+ aliceTest.nbCarteEnMain()+"-_-");
+        } else {
+            System.out.println("Alice a " + aliceTest.nbCarteEnMain() + "-_-");
             compteurTest.testFaux();
         }
 
         try {
             aliceTest.poserCarte(vertDeux);
+
         } catch (JoueurCarteIllegalException | JoueurJoueMultipleException e) {
             System.out.println(e);
+            compteurTest.testFaux();
         }
 
         aliceTest.ditUNO();
@@ -102,7 +103,7 @@ public class TestUno {
             System.out.println(e);
 
             int tailleTas = partieTest.getTas().size();
-            Carte carteJouer = partieTest.getTas().remove(tailleTas-1);
+            Carte carteJouer = partieTest.getTas().remove(tailleTas - 1);
 
             System.out.println("Le joueur " + aliceTest.getNom() + " récupère ça carte : " + carteJouer);
             aliceTest.donnerCarte(carteJouer);
@@ -110,11 +111,11 @@ public class TestUno {
             compteurTest.testOK();
         }
 
-        if(aliceTest.nbCarteEnMain() == 1){
+        if (aliceTest.nbCarteEnMain() == 1) {
             System.out.println("Alice a 1 cartes ^^");
             compteurTest.testOK();
-        }else{
-            System.out.println("Alice a "+ aliceTest.nbCarteEnMain()+"-_-");
+        } else {
+            System.out.println("Alice a " + aliceTest.nbCarteEnMain() + "-_-");
             compteurTest.testFaux();
         }
 
@@ -139,11 +140,11 @@ public class TestUno {
 
 
         System.out.println("\n\tTest lorsqu’Alice oubli de dire « Uno ! »");
-         partieTest = partie.copiePartie();
+        partieTest = partie.copiePartie();
 
-         aliceTest = partieTest.getListJoueur().get(0);
-         bobTest = partieTest.getListJoueur().get(1);
-         charlesTest = partieTest.getListJoueur().get(2);
+        aliceTest = partieTest.getListJoueur().get(0);
+        bobTest = partieTest.getListJoueur().get(1);
+        charlesTest = partieTest.getListJoueur().get(2);
 
         try {
             aliceTest.poserCarte(vertDeux);
@@ -153,17 +154,31 @@ public class TestUno {
 
         try {
             aliceTest.finTour();
+            compteurTest.testFaux();
         } catch (JoueurOublieDireUnoException e) {
             System.out.println(e);
-            compteurTest.testFaux();
+            int tailleTas = partieTest.getTas().size();
+            Carte carteJouer = partieTest.getTas().remove(tailleTas - 1);
+
+            System.out.println("Le joueur " + aliceTest.getNom() + " récupère ça carte : " + carteJouer);
+            aliceTest.donnerCarte(carteJouer);
+            aliceTest.punition();
+            compteurTest.testOK();
+
+            try {
+                aliceTest.finTour();
+            } catch (JoueurOublieDireUnoException ex) {
+                System.out.println(ex);
+            }
+
         }
 
 
-        if(aliceTest.nbCarteEnMain() == 4){
+        if (aliceTest.nbCarteEnMain() == 4) {
             System.out.println("Alice a 4 cartes ^^");
             compteurTest.testOK();
-        }else{
-            System.out.println("Alice a "+ aliceTest.nbCarteEnMain()+"cartes -_-");
+        } else {
+            System.out.println("Alice a " + aliceTest.nbCarteEnMain() + "cartes -_-");
             compteurTest.testFaux();
         }
 
@@ -184,11 +199,6 @@ public class TestUno {
             System.out.println("Le joueur courant n'est pas Bob mais " + partieTest.joueurCourant().getNom() + " -_-");
             compteurTest.testFaux();
         }
-
-
-
-
-
 
 
         return compteurTest.afficheResultatsTest();
