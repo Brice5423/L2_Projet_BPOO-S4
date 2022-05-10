@@ -50,7 +50,7 @@ public class CoupsIllegauxCartesSimples {
      * @return true si succès est à 100% sinon false
      */
     public static boolean executionDuTest() {
-        System.out.println("\n\t\t----- Tests coups légaux avec des cartes simples -----\n");
+        System.out.println("\n\t\t----- Tests coups illégaux avec des cartes simples -----\n");
 
 
         /* ***** ***** initialisation des compteurs du test ***** ***** */
@@ -115,14 +115,15 @@ public class CoupsIllegauxCartesSimples {
         Joueur charlesTest = partieTest.getListJoueur().get(2);
         /* ************************************************** */
 
-        aliceTest.poserCarte(jauneSix);
 
-        //TODO : verifier qu'alice a tjr sa main : elle n'a pas le droit de poser du jaune sur du bleu !
-
-        if (aliceTest.getMainDuJoueur().size() == 3) {
-            System.out.println("Alice à 3 carte ^^");
-        } else {
-            System.out.println("Alice n'à pas 3 carte mais " + aliceTest.getMainDuJoueur().size() + " -_-");
+        try{
+            aliceTest.poserCarte(jauneSix);
+        }catch(Exception e){
+            if (aliceTest.getMainDuJoueur().size() == 3) {
+                System.out.println("Alice à 3 carte ^^");
+            } else {
+                System.out.println("Alice n'à pas 3 carte mais " + aliceTest.getMainDuJoueur().size() + " -_-");
+            }
         }
 
 

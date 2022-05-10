@@ -2,6 +2,7 @@ package tests;
 
 import home.enumeration.ECarteCouleur;
 import home.enumeration.ECarteValeur;
+import home.exception.JoueurException;
 import home.metier.Joueur;
 import home.metier.Partie;
 import home.metier.carte.Carte;
@@ -87,10 +88,22 @@ public class TestPunition {
             compteurTest.testFaux();
         }
 
-        aliceTest.poserCarte(jauneSix);
+
+        try{
+            aliceTest.poserCarte(jauneSix);
+        }catch(Exception e){
+            aliceTest.piocherCarte();
+            aliceTest.piocherCarte();
+            System.out.println(e);
+        }
+
+        aliceTest.finTour();
+        aliceTest.afficheCarteEnMain();
         //Punir Alice, la faire piocher 2 cartes et passer son tour
 
-        if (partie.joueurCourant().equals(bobTest)) {
+
+
+        if (partieTest.joueurCourant().equals(bobTest)) {
             System.out.println("Le joueur courant est bien Bob ^^");
             compteurTest.testOK();
 
@@ -101,7 +114,7 @@ public class TestPunition {
 
         aliceTest.afficheCarteEnMain();
 
-        if (partie.carteAuDessusTas() == vertDeux) {
+        if (partieTest.carteAuDessusTas() == vertDeux) {
             System.out.println("La carte au sommet du tas est bien le 2 vert ^^");
             compteurTest.testOK();
         } else {
@@ -126,4 +139,4 @@ public class TestPunition {
     }
 }
 
-}
+
