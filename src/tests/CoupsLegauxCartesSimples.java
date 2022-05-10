@@ -48,11 +48,11 @@ public class CoupsLegauxCartesSimples {
 
         ArrayList<Carte> pioche = new ArrayList<Carte>();
 
-        pioche.add(new CarteBasique(ECarteCouleur.JAUNE, ECarteValeur.SIX));
-        pioche.add(new CarteBasique(ECarteCouleur.ROUGE, ECarteValeur.QUATRE));
-        pioche.add(new CarteBasique(ECarteCouleur.VERT, ECarteValeur.DEUX));
-        pioche.add(new CarteBasique(ECarteCouleur.BLEU, ECarteValeur.CINQ));
         pioche.add(new CarteBasique(ECarteCouleur.VERT, ECarteValeur.ZERO));
+        pioche.add(new CarteBasique(ECarteCouleur.BLEU, ECarteValeur.CINQ));
+        pioche.add(new CarteBasique(ECarteCouleur.VERT, ECarteValeur.DEUX));
+        pioche.add(new CarteBasique(ECarteCouleur.ROUGE, ECarteValeur.QUATRE));
+        pioche.add(new CarteBasique(ECarteCouleur.JAUNE, ECarteValeur.SIX));
 
         ArrayList<Joueur> listJoueur = new ArrayList<Joueur>();
 

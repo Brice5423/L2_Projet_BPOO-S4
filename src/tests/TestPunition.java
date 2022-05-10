@@ -99,7 +99,17 @@ public class TestPunition {
 
         aliceTest.finTour();
         aliceTest.afficheCarteEnMain();
+
         //Punir Alice, la faire piocher 2 cartes et passer son tour
+
+        if(partieTest.retirerCartePioche().equals(vertDeux)){
+            System.out.println("La carte de la pioche est le 2 vert ^^");
+            compteurTest.testOK();
+
+        }else{
+            System.out.println("La carte de la pioche est le " + partieTest.retirerCartePioche() + " -_-");
+            compteurTest.testFaux();
+        }
 
 
         if (partieTest.joueurCourant().equals(bobTest)) {
@@ -111,14 +121,14 @@ public class TestPunition {
             compteurTest.testFaux();
         }
 
-        aliceTest.afficheCarteEnMain();
+        bobTest.afficheCarteEnMain();
 
-        if (partieTest.carteAuDessusTas() == vertDeux) {
+        if (partieTest.retirerCartePioche() == vertDeux) {
             System.out.println("La carte au sommet du tas est bien le 2 vert ^^");
             compteurTest.testOK();
 
         } else {
-            System.out.println("La carte au sommet du tas est " + partie.carteAuDessusTas() + " -_-");
+            System.out.println("La carte au sommet du tas est " + partieTest.retirerCartePioche() + " -_-");
             compteurTest.testFaux();
         }
 
