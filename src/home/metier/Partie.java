@@ -3,7 +3,7 @@ package home.metier;
 import home.enumeration.ECarteCouleur;
 import home.enumeration.ECarteValeur;
 import home.exception.ExpertManquantException;
-import home.exception.ParteException;
+import home.exception.PartieException;
 import home.expert.Expert;
 import home.metier.carte.Carte;
 import home.metier.carte.CarteBasique;
@@ -22,6 +22,9 @@ public class Partie {
     private ArrayList<Carte> pioche; // -> joueur
     private ArrayList<Carte> tas; // <- joueur
 
+    /**
+     * Constructeur utiliser pour créer une copie d'une partie
+     */
     private Partie() {
         this.niemePartie = 1;
         this.numJoueurCourant = 0;
@@ -33,20 +36,25 @@ public class Partie {
 
     /**
      * Crée une partie avec toutes les cartes du jeu (sauf +4 et changement couleur)
+     *
+     * @param listeJoueur liste de 2 à 10 joueurs
      */
     public Partie(ArrayList<Joueur> listeJoueur) {
         this.niemePartie = 1;
         this.numJoueurCourant = 0;
         this.etreSensHoraire = true;
         this.initialisationListeJoueur(listeJoueur);
-        genererPioche(); // la fonction est en commentaire
+        this.genererPioche();
+        this.initialiserCarteJoueur();
         this.tas = new ArrayList<Carte>();
     }
 
     /**
-     * Crée une partie en fonction d'une pioche donnée. C'est pour les tests
+     * Crée une partie en fonction d'une liste de joueur et d'une pioche donnée.
+     * Utiliser pour les tests.
      *
-     * @param pioche liste de carte qu'on veut dans la pioche de la partie
+     * @param listeJoueur liste de 2 à 10 joueurs
+     * @param pioche
      */
     public Partie(ArrayList<Joueur> listeJoueur, ArrayList<Carte> pioche) {
         this.niemePartie = 1;
@@ -85,21 +93,6 @@ public class Partie {
         return this.listeJoueur;
     }
 
-    private void setListeJoueur(ArrayList<Joueur> listeJoueur) {
-        if (listeJoueur.size() < 2 || listeJoueur.size() > 10) {
-            try {
-                throw new ParteException("La partie doit avoir 2 à 10 dans une partie !");
-            } catch (ParteException e) {
-                throw new RuntimeException(e);
-            }
-
-        } else {
-            this.listeJoueur.clear();
-            this.listeJoueur.addAll(listeJoueur);
-            this.listeJoueur.forEach(joueur -> joueur.setDansPartie(this));
-        }
-    }
-
     public ArrayList<Carte> getPioche() {
         return this.pioche;
     }
@@ -114,19 +107,6 @@ public class Partie {
 
     public void setTas(ArrayList<Carte> tas) {
         this.tas = tas;
-    }
-
-    public Partie copiePartie() {
-        Partie copiePartie = new Partie();
-
-        copiePartie.setNiemePartie(this.niemePartie);
-        copiePartie.setNumJoueurCourant(this.numJoueurCourant);
-        copiePartie.setEtreSensHoraire(this.etreSensHoraire);
-        copiePartie.setListeJoueur(this.listeJoueur);
-        copiePartie.setPioche(this.pioche);
-        copiePartie.setTas(this.tas);
-
-        return copiePartie;
     }
 
     /**
@@ -210,16 +190,31 @@ public class Partie {
     }
 
     private void initialisationListeJoueur(ArrayList<Joueur> listeJoueur) {
-        if (listeJoueur.size() < 2 || listeJoueur.size() > 10) {
-            try {
-                throw new ParteException("La partie doit avoir 2 à 10 dans une partie !");
-            } catch (ParteException e) {
-                throw new RuntimeException(e);
+        try {
+            if (listeJoueur.size() < 2 || listeJoueur.size() > 10) {
+                throw new PartieException("La partie doit avoir 2 à 10 dans une partie !");
             }
 
-        } else {
-            listeJoueur.forEach(joueur -> joueur.setDansPartie(this));
             this.listeJoueur = listeJoueur;
+            this.listeJoueur.forEach(joueur -> joueur.setDansPartie(this));
+
+        } catch (PartieException e) {
+            System.out.println(e);
+        }
+    }
+
+    private void setListeJoueurEtCopie(ArrayList<Joueur> listeJoueur) {
+        try {
+            if (listeJoueur.size() < 2 || listeJoueur.size() > 10) {
+                throw new PartieException("La partie doit avoir 2 à 10 dans une partie !");
+            }
+
+            this.listeJoueur.clear();
+            listeJoueur.forEach(joueur -> this.listeJoueur.add(joueur.copyJoueur()));
+            this.listeJoueur.forEach(joueur -> joueur.setDansPartie(this));
+
+        } catch (PartieException e) {
+            System.out.println(e);
         }
     }
 
@@ -232,6 +227,19 @@ public class Partie {
                 joueur.piocherCarte();
             }
         }
+    }
+
+    public Partie copiePartie() {
+        Partie copiePartie = new Partie();
+
+        copiePartie.setNiemePartie(this.niemePartie);
+        copiePartie.setNumJoueurCourant(this.numJoueurCourant);
+        copiePartie.setEtreSensHoraire(this.etreSensHoraire);
+        copiePartie.setListeJoueurEtCopie(this.listeJoueur);
+        copiePartie.setPioche(this.pioche);
+        copiePartie.setTas(this.tas);
+
+        return copiePartie;
     }
 
     /**
@@ -251,19 +259,18 @@ public class Partie {
      *
      * @param carteJoueur Carte du joueur à déposer dans le tas
      */
-    public void deposerCarteTas(Carte carteJoueur) throws ParteException {
-        Expert lesExperts = Expert.initialiseTousLesExperts();
-
+    public void deposerCarteTas(Carte carteJoueur) throws PartieException {
         try {
+            Expert lesExperts = Expert.initialiseTousLesExperts();
+
             if (!lesExperts.peutEtrePoser(carteJoueur, this.carteAuDessusTas())) {
-                throw new ParteException("Le joueur " + this.joueurCourant().getNom() + " ne peut pas poser La carte " + carteJoueur + " dans le tas");
+                throw new PartieException("Le joueur " + this.joueurCourant().getNom() + " ne peut pas poser La carte " + carteJoueur + " dans le tas");
             }
+            this.tas.add(carteJoueur);
 
         } catch (ExpertManquantException e) {
             System.out.println(e);
         }
-
-        this.tas.add(carteJoueur);
     }
 
     public Carte carteAuDessusTas() {

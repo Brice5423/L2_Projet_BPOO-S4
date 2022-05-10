@@ -104,11 +104,13 @@ public class CoupsIllegauxCartesSimples {
 
         charles.piocherCarte(new CarteBasique(ECarteCouleur.BLEU, ECarteValeur.ZERO));
 
-        Joueur aliceTest = alice.copyJoueur();
-        Joueur bobTest = bob.copyJoueur();
-        Joueur charlesTest = charles.copyJoueur();
+        /* ***** ***** Bloc des premiers copie pour les tests ***** ***** */
 
         Partie partieTest = partie.copiePartie();
+
+        Joueur aliceTest = partieTest.getListJoueur().get(0);
+        Joueur bobTest = partieTest.getListJoueur().get(1);
+        Joueur charlesTest = partieTest.getListJoueur().get(2);
 
         /* ***** ***** Debut test : Test d’une carte illégale ***** ***** */
 
@@ -124,12 +126,9 @@ public class CoupsIllegauxCartesSimples {
 
         partieTest = partie.copiePartie();
 
-
-        if (aliceTest.getDansLaPartie().equals(bobTest.getDansLaPartie())) {
-            System.out.println("\tLes deux joueurs sont dans la partie ^^");
-        } else {
-            System.out.println("\tLes joueurs sont dans des parties différentes -_-");
-        }
+        aliceTest = partieTest.getListJoueur().get(0);
+        bobTest = partieTest.getListJoueur().get(1);
+        charlesTest = partieTest.getListJoueur().get(2);
 
         /* ***** ***** Debut test : Test d’un joueur qui pose deux cartes légales de suite ***** ***** */
 
@@ -153,12 +152,11 @@ public class CoupsIllegauxCartesSimples {
 
         // TODO : verifier dans le catch que charles a tjr 2 cartes : Il n'a pas le droit de jouer 2 fois de suite
 
-        // tu n'as pas besoin de faire ça, sauf si tu veux tout cassé ^^
-         /*aliceTest = alice.copyJoueur();
-         bobTest = bob.copyJoueur();
-         charlesTest = charles.copyJoueur();*/
+        partieTest = partie.copiePartie();
 
-         partieTest = partie.copiePartie();
+        aliceTest = partieTest.getListJoueur().get(0);
+        bobTest = partieTest.getListJoueur().get(1);
+        charlesTest = partieTest.getListJoueur().get(2);
 
 
         /* ***** ***** Debut test : Test d’un joueur qui finit son tour sans rien faire ***** ***** */
@@ -166,8 +164,11 @@ public class CoupsIllegauxCartesSimples {
         aliceTest.finTour();
         // TODO : verifier qu'alice possede toujours 3 cartes : Elle n'a pas le droit de pas jouer
 
-        //aliceTest = alice.copyJoueur(); // la même ici
         partieTest = partie.copiePartie();
+
+        aliceTest = partieTest.getListJoueur().get(0);
+        bobTest = partieTest.getListJoueur().get(1);
+        charlesTest = partieTest.getListJoueur().get(2);
 
         /* ***** ***** Debut test : Test d’un joueur qui joue puis pioche ***** ***** */
 
