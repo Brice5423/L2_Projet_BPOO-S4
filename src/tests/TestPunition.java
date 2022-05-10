@@ -79,7 +79,7 @@ public class TestPunition {
         Joueur charlesTest = partieTest.getListJoueur().get(2);
         /* ************************************************** */
 
-        // 1) Vérifier que le joueur courant est bien Alice,
+        // 1er Test
         if (partie.joueurCourant().equals(aliceTest)) {
             System.out.println("Le joueur courant est bien Alice ^^");
             compteurTest.testOK();
@@ -90,29 +90,16 @@ public class TestPunition {
         }
 
 
-
         try {
             aliceTest.poserCarte(jauneSix);
 
         } catch (Exception e) {
-           // aliceTest.punition();
-            try{
-                aliceTest.donnerCarte(partieTest.retirerCartePioche());
-            }catch (Exception f){
-                System.out.println(f);
-            }
-            try{
-                aliceTest.donnerCarte(partieTest.retirerCartePioche());
-                System.out.println("Alice est puni");
-            }catch (Exception g){
-                System.out.println(g);
-            }
             System.out.println(e);
+            aliceTest.punition();
         }
 
 
         aliceTest.finTour();
-
 
 
         if (partieTest.joueurCourant().equals(bobTest)) {
@@ -128,14 +115,24 @@ public class TestPunition {
 
         Carte cartePioche = partieTest.retirerCartePioche();
 
-        if(cartePioche.equals(vertDeux)){
+        if (cartePioche.equals(vertDeux)) {
             System.out.println("La carte de la pioche est le 2 vert ^^");
             compteurTest.testOK();
 
-        }else{
+        } else {
             System.out.println("La carte de la pioche est le " + cartePioche + " -_-");
             compteurTest.testFaux();
         }
+
+        //2e Test
+        partieTest = partie.copiePartie();
+
+        aliceTest = partieTest.getListJoueur().get(0);
+        bobTest = partieTest.getListJoueur().get(1);
+        charlesTest = partieTest.getListJoueur().get(2);
+
+
+
 
         /* ***** ***** Fin du test, renvoie si test ok et affiche le résultat global ***** ***** */
         return compteurTest.afficheResultatsTest();
