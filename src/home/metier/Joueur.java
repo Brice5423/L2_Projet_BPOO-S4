@@ -232,7 +232,7 @@ public class Joueur {
         }
     }
 
-    public void finTour() {
+    public void finTour() throws JoueurOublieDireUnoException {
         try {
             if (!this.equals(this.dansLaPartie.joueurCourant())) {
                 throw new JoueurNonCourantException("Le joueur " + this.nom + " n'est pas le joueur courant donc pas de fin de tour", this);
@@ -245,23 +245,13 @@ public class Joueur {
                 throw new JoueurOublieDireUnoException("Le joueur " + this.nom + " à oublie de dire \"UNO !\"", this);
             }
 
-            this.dansLaPartie.joueurSuivant();
-            this.avoirJoueSonTour = false;
-
         } catch (JoueurNonCourantException e) {
             System.out.println(e);
             this.punition();
-
-        } catch (JoueurOublieDireUnoException e) {
-            System.out.println(e);
-
-            int tailleTas = this.dansLaPartie.getTas().size();
-            Carte carteJouer = this.dansLaPartie.getTas().remove(tailleTas - 1);
-
-            System.out.println("Le joueur " + this.nom + " récupère ça carte : " + carteJouer);
-            this.donnerCarte(carteJouer);
-            this.punition();
         }
+
+        this.dansLaPartie.joueurSuivant();
+        this.avoirJoueSonTour = false;
     }
 
     public void avoirGagner() {
