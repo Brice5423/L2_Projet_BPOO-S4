@@ -89,18 +89,17 @@ public class TestPunition {
         }
 
 
-        try{
+        try {
             aliceTest.poserCarte(jauneSix);
-        }catch(Exception e){
-            aliceTest.piocherCarte();
-            aliceTest.piocherCarte();
+
+        } catch (Exception e) {
+            aliceTest.punition();
             System.out.println(e);
         }
 
         aliceTest.finTour();
         aliceTest.afficheCarteEnMain();
         //Punir Alice, la faire piocher 2 cartes et passer son tour
-
 
 
         if (partieTest.joueurCourant().equals(bobTest)) {
@@ -117,24 +116,13 @@ public class TestPunition {
         if (partieTest.carteAuDessusTas() == vertDeux) {
             System.out.println("La carte au sommet du tas est bien le 2 vert ^^");
             compteurTest.testOK();
+
         } else {
             System.out.println("La carte au sommet du tas est " + partie.carteAuDessusTas() + " -_-");
             compteurTest.testFaux();
         }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+        /* ***** ***** Fin du test, renvoie si test ok et affiche le résultat global ***** ***** */
         return compteurTest.afficheResultatsTest();
     }
 }

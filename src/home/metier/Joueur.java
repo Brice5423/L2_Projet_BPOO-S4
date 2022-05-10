@@ -152,6 +152,15 @@ public class Joueur {
         this.mainDuJoueur.add(carteDonnee);
     }
 
+    /**
+     * punie le joueur en lui donnant 2 cartes.
+     */
+    public void punition() {
+        // TODO punition : regarder si on fait un finiTour pour les joueur courant
+        this.donnerCarte();
+        this.donnerCarte();
+    }
+
     public void poserCarte(Carte carteChoisieParJoueur) throws JoueurCarteIllegalException, JoueurJoueMultipleException {
         try {
             if (!this.equals(this.dansLaPartie.joueurCourant())) {

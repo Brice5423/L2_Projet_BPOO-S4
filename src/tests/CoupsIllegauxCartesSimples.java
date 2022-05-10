@@ -2,6 +2,8 @@ package tests;
 
 import home.enumeration.ECarteCouleur;
 import home.enumeration.ECarteValeur;
+import home.exception.JoueurCarteIllegalException;
+import home.exception.JoueurJoueMultipleException;
 import home.exception.PartieException;
 import home.metier.Joueur;
 import home.metier.Partie;
@@ -50,7 +52,7 @@ public class CoupsIllegauxCartesSimples {
      *
      * @return true si succès est à 100% sinon false
      */
-    public static boolean executionDuTest() {
+    public static boolean executionDuTest() throws JoueurJoueMultipleException {
         System.out.println("\n\t\t----- Tests coups illégaux avec des cartes simples -----\n");
 
 
@@ -120,10 +122,12 @@ public class CoupsIllegauxCartesSimples {
         try {
             aliceTest.poserCarte(jauneSix);
             compteurTest.testFaux();
+
         } catch (Exception e) {
             if (aliceTest.getMainDuJoueur().size() == 3) {
                 System.out.println("Alice a 3 carte ^^");
                 compteurTest.testOK();
+
             } else {
                 System.out.println("Alice a pas 3 carte mais " + aliceTest.getMainDuJoueur().size() + " -_-");
                 compteurTest.testFaux();
@@ -142,17 +146,20 @@ public class CoupsIllegauxCartesSimples {
         try {
             aliceTest.poserCarte(vertDeux);
             System.out.println("Alice pose un 2 vert ^^");
-        } catch (PartieException e) {
+
+        } catch (JoueurJoueMultipleException | JoueurCarteIllegalException e) {
             System.out.println(e);
             System.out.println("Alice ne peut pas poser le 2 vert -_-");
             compteurTest.testFaux();
         }
+
         aliceTest.finTour();
 
         try {
             bobTest.poserCarte(bleuDeux);
             System.out.println("Bob pose un 2 bleu ^^");
-        } catch (PartieException e) {
+
+        } catch (JoueurCarteIllegalException e) {
             System.out.println(e);
             System.out.println("Bob ne peut pas poser le 2 bleu -_-");
             compteurTest.testFaux();
@@ -164,7 +171,8 @@ public class CoupsIllegauxCartesSimples {
         try {
             charlesTest.poserCarte(bleuSix);
             System.out.println("Charles pose un 6 bleu ^^");
-        } catch (PartieException e) {
+
+        } catch (JoueurCarteIllegalException e) {
             System.out.println(e);
             System.out.println("Charles ne peut pas poser le  6 bleu -_-");
             compteurTest.testFaux();
@@ -173,11 +181,13 @@ public class CoupsIllegauxCartesSimples {
         try {
             charlesTest.poserCarte(bleuSept);
             compteurTest.testFaux();
-        } catch (PartieException e) {
+
+        } catch (JoueurCarteIllegalException e) {
             System.out.println(e);
             if (bobTest.nbCarteEnMain() == 2) {
                 System.out.println("Charles possède bien 2 cartes, il n'a pas le droit de poser 2 fois de suite ^^");
                 compteurTest.testOK();
+
             } else {
                 System.out.println("Charles possède " + charlesTest.nbCarteEnMain() + " cartes -_-");
                 compteurTest.testFaux();
@@ -197,22 +207,7 @@ public class CoupsIllegauxCartesSimples {
         charlesTest = partieTest.getListJoueur().get(2);
 
 
-        try {
-            aliceTest.finTour();
-            compteurTest.testFaux();
-        } catch (Exception e) {
-            System.out.println(e);
-            if (aliceTest.nbCarteEnMain() == 3) {
-                System.out.println("Alice possède bien 3 carte, elle n'a pas le droit de finir son tour sans jouer^^");
-                compteurTest.testOK();
-            } else {
-                System.out.println("Alice possède " + aliceTest.nbCarteEnMain() + " cartes -_-");
-                compteurTest.testFaux();
-            }
-
-        }
-
-
+        aliceTest.finTour();
 
 
         /* ***** ***** Debut test : Test d’un joueur qui joue puis pioche ***** ***** */
@@ -225,7 +220,8 @@ public class CoupsIllegauxCartesSimples {
 
         try {
             aliceTest.poserCarte(vertDeux);
-        } catch (PartieException e) {
+
+        } catch (JoueurCarteIllegalException e) {
             System.out.println(e);
             compteurTest.testFaux();
         }
@@ -233,6 +229,7 @@ public class CoupsIllegauxCartesSimples {
         try {
             aliceTest.piocherCarte();
             compteurTest.testFaux();
+
         } catch (Exception e) {
             System.out.println(e);
             if (aliceTest.nbCarteEnMain() == 2) {
@@ -243,17 +240,19 @@ public class CoupsIllegauxCartesSimples {
                 if (cartePioche.equals(jauneSix)) {
                     System.out.println("La carte au sommet du tas est bien le 6 jaune ^^");
                     compteurTest.testOK();
+
                 } else {
                     System.out.println("La carte au sommet du tas est " + cartePioche + " -_-");
                     compteurTest.testFaux();
                 }
+
             } else {
                 System.out.println("Alice possède " + aliceTest.nbCarteEnMain() + " cartes -_-");
                 compteurTest.testFaux();
             }
-
         }
 
+        /* ***** ***** Fin du test, renvoie si test ok et affiche le résultat global ***** ***** */
         return compteurTest.afficheResultatsTest();
     }
 }
