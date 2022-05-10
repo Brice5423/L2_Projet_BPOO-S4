@@ -145,7 +145,7 @@ public class TestPunition {
         charlesTest = partieTest.getListJoueur().get(2);
 
 
-        if (partie.joueurCourant().equals(aliceTest)) {
+        if (partieTest.joueurCourant().equals(aliceTest)) {
             System.out.println("Le joueur courant est bien Alice ^^");
             compteurTest.testOK();
 
