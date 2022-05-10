@@ -108,8 +108,11 @@ public class Joueur {
     /**
      * Mettre la carte de la pioche dans la main du joueur
      */
-    public void piocherCarte() throws JoueurJoueMultipleException {
+    public void piocherCarte() throws JoueurJoueMultipleException, JoueurNonCourantException {
         try {
+            if (!this.equals(this.dansLaPartie.joueurCourant())) {
+                throw new JoueurNonCourantException("Le joueur " + this.nom + " n'est pas le joueur courant", this);
+            }
             if (this.dansLaPartie.getPioche().isEmpty()) {
                 throw new PartieException("Le joueur " + this.nom + " veut prendre une carte dans la pioche vide");
             }
