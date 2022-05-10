@@ -236,8 +236,8 @@ public class Partie {
         copiePartie.setNumJoueurCourant(this.numJoueurCourant);
         copiePartie.setEtreSensHoraire(this.etreSensHoraire);
         copiePartie.setListeJoueurEtCopie(this.listeJoueur);
-        copiePartie.setPioche(this.pioche);
-        copiePartie.setTas(this.tas);
+        copiePartie.getPioche().addAll(this.pioche);
+        copiePartie.getTas().addAll(this.tas);
 
         return copiePartie;
     }

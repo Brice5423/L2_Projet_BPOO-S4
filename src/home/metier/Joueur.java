@@ -43,7 +43,7 @@ public class Joueur {
 
 
     private void setMainDuJoueur(ArrayList<Carte> mainDuJoueur) {
-        this.mainDuJoueur.addAll(mainDuJoueur);
+        this.mainDuJoueur = mainDuJoueur;
     }
 
     public Partie getDansLaPartie() {
@@ -87,7 +87,7 @@ public class Joueur {
         Joueur copieJoueur = new Joueur();
 
         copieJoueur.setNom(this.nom);
-        copieJoueur.setMainDuJoueur(this.mainDuJoueur);
+        copieJoueur.getMainDuJoueur().addAll(this.mainDuJoueur);
         copieJoueur.setDansPartie(this.dansLaPartie);
         copieJoueur.setNbVictoire(this.nbVictoire);
 
