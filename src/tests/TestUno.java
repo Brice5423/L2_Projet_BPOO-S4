@@ -200,6 +200,50 @@ public class TestUno {
             compteurTest.testFaux();
         }
 
+        System.out.println("\n\tTest lorsque Bob dit « Uno ! » quand ce n’est pas son tour");
+        partieTest = partie.copiePartie();
+
+        aliceTest = partieTest.getListJoueur().get(0);
+        bobTest = partieTest.getListJoueur().get(1);
+        charlesTest = partieTest.getListJoueur().get(2);
+
+        if (partieTest.joueurCourant().equals(aliceTest)) {
+            System.out.println("Le joueur courant est bien Alice ^^");
+            compteurTest.testOK();
+
+        } else {
+            System.out.println("Le joueur courant n'est pas Alice mais " + partieTest.joueurCourant().getNom() + " -_-");
+            compteurTest.testFaux();
+        }
+
+        bobTest.ditUNO();
+
+        if (bobTest.nbCarteEnMain() == 4) {
+            System.out.println("Bob a 4 cartes ^^");
+            compteurTest.testOK();
+        } else {
+            System.out.println("Bob a " + bobTest.nbCarteEnMain() + "cartes -_-");
+            compteurTest.testFaux();
+        }
+
+        if (partieTest.joueurCourant().equals(aliceTest)) {
+            System.out.println("Le joueur courant est bien Alice ^^");
+            compteurTest.testOK();
+
+        } else {
+            System.out.println("Le joueur courant n'est pas Alice mais " + partieTest.joueurCourant().getNom() + " -_-");
+            compteurTest.testFaux();
+        }
+
+        if (partieTest.carteAuDessusTas().equals(vertHuit)) {
+            System.out.println("La carte de la pioche est le 2 vert ^^");
+            compteurTest.testOK();
+
+        } else {
+            System.out.println("La carte de la pioche est le " + partieTest.carteAuDessusTas() + " -_-");
+            compteurTest.testFaux();
+        }
+
 
         return compteurTest.afficheResultatsTest();
     }
