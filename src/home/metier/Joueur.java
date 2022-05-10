@@ -98,7 +98,15 @@ public class Joueur {
      * Mettre la carte de la pioche dans la main du joueur
      */
     public void piocherCarte() {
-        this.mainDuJoueur.add(this.dansLaPartie.retirerCartePioche());
+        try {
+            if (this.dansLaPartie.getPioche().isEmpty()) {
+                throw new PartieException("Le joueur " + this.nom + " veut prendre une carte dans la pioche vide");
+            }
+            this.mainDuJoueur.add(this.dansLaPartie.retirerCartePioche());
+
+        } catch (PartieException e) {
+            System.out.println(e);
+        }
     }
 
     public void piocherCarte(Carte carteDonnee) {
@@ -157,17 +165,16 @@ public class Joueur {
 
     public void ditUNO() {
         // TODO ditUNO : voir s'il n'y a pas autre chose à faire
-        if (!this.equals(this.dansLaPartie.joueurCourant())) {
-            try {
+        try {
+            if (!this.equals(this.dansLaPartie.joueurCourant())) {
                 throw new JoueurException("Le joueur " + this.nom + " n'est pas le joueur courant");
-            } catch (JoueurException e) {
-                this.piocherCarte();
-                this.piocherCarte();
-                System.out.println(e);
             }
-
-        } else {
             System.out.println(this.nom + " dit UNO !!!");
+
+        } catch (JoueurException e) {
+            this.piocherCarte();
+            this.piocherCarte();
+            System.out.println(e);
         }
     }
 
