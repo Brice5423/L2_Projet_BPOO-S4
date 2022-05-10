@@ -2,6 +2,7 @@ package tests;
 
 import home.enumeration.ECarteCouleur;
 import home.enumeration.ECarteValeur;
+import home.exception.PartieException;
 import home.metier.Joueur;
 import home.metier.Partie;
 import home.metier.carte.Carte;
@@ -109,7 +110,12 @@ public class CoupsLegauxCartesSimples {
         }
 
         // 3) Alice joue le « 2 Vert »,
-        alice.poserCarte(vertDeux);
+        try {
+            alice.poserCarte(vertDeux);
+        } catch (PartieException e) {
+            System.out.println(e);
+            compteurTest.testFaux();
+        }
 
         // 4) Vérifier qu'Alice possède bien 2 cartes,
         if (alice.nbCarteEnMain() == 2) {
@@ -170,7 +176,12 @@ public class CoupsLegauxCartesSimples {
 
 
         // 2) Bob pose le « 2 bleu »,
-        bob.poserCarte(bleuDeux);
+        try {
+            bob.poserCarte(bleuDeux);
+        } catch (PartieException e) {
+            System.out.println(e);
+            compteurTest.testFaux();
+        }
 
         // 3) Vérifier que	Bob	possède	bien 2 cartes,
         if (bob.nbCarteEnMain() == 2) {
