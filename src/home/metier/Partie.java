@@ -197,7 +197,7 @@ public class Partie {
             }
 
             this.listeJoueur = listeJoueur;
-            this.listeJoueur.forEach(joueur -> joueur.setDansPartie(this));
+            this.listeJoueur.forEach(joueur -> joueur.setDansLaPartie(this));
 
         } catch (PartieException e) {
             System.out.println(e);
@@ -212,7 +212,7 @@ public class Partie {
 
             this.listeJoueur.clear();
             listeJoueur.forEach(joueur -> this.listeJoueur.add(joueur.copyJoueur()));
-            this.listeJoueur.forEach(joueur -> joueur.setDansPartie(this));
+            this.listeJoueur.forEach(joueur -> joueur.setDansLaPartie(this));
 
         } catch (PartieException e) {
             System.out.println(e);

@@ -10,6 +10,7 @@ public class Joueur {
     private ArrayList<Carte> mainDuJoueur;
     private Partie dansLaPartie;
     private boolean avoirJoueSonTour;
+    private boolean avoirDitUNO;
     private int nbVictoire;
 
     private Joueur() {
@@ -17,6 +18,7 @@ public class Joueur {
         this.mainDuJoueur = new ArrayList<Carte>();
         this.dansLaPartie = null;
         this.avoirJoueSonTour = false;
+        this.avoirDitUNO = false;
         this.nbVictoire = 0;
     }
 
@@ -25,6 +27,7 @@ public class Joueur {
         this.mainDuJoueur = new ArrayList<Carte>();
         this.dansLaPartie = null;
         this.avoirJoueSonTour = false;
+        this.avoirDitUNO = false;
         this.nbVictoire = 0;
     }
 
@@ -52,8 +55,24 @@ public class Joueur {
         return this.dansLaPartie;
     }
 
-    public void setDansPartie(Partie dansLaPartie) {
+    public void setDansLaPartie(Partie dansLaPartie) {
         this.dansLaPartie = dansLaPartie;
+    }
+
+    public boolean getAvoirJoueSonTour() {
+        return this.avoirJoueSonTour;
+    }
+
+    private void setAvoirJoueSonTour(boolean avoirJoueSonTour) {
+        this.avoirJoueSonTour = avoirJoueSonTour;
+    }
+
+    public boolean getAvoirDitUNO() {
+        return this.avoirDitUNO;
+    }
+
+    private void setAvoirDitUNO(boolean avoirDitUNO) {
+        this.avoirDitUNO = avoirDitUNO;
     }
 
     public int getNbVictoire() {
@@ -62,14 +81,6 @@ public class Joueur {
 
     private void setNbVictoire(int nbVictoire) {
         this.nbVictoire = nbVictoire;
-    }
-
-    public boolean isAvoirJoueSonTour() {
-        return avoirJoueSonTour;
-    }
-
-    private void setAvoirJoueSonTour(boolean avoirJoueSonTour) {
-        this.avoirJoueSonTour = avoirJoueSonTour;
     }
 
     @Override
@@ -98,9 +109,10 @@ public class Joueur {
 
         copieJoueur.setNom(this.nom);
         copieJoueur.getMainDuJoueur().addAll(this.mainDuJoueur);
-        copieJoueur.setDansPartie(this.dansLaPartie);
-        copieJoueur.setNbVictoire(this.nbVictoire);
+        copieJoueur.setDansLaPartie(this.dansLaPartie);
         copieJoueur.setAvoirJoueSonTour(this.avoirJoueSonTour);
+        copieJoueur.setAvoirDitUNO(this.avoirDitUNO);
+        copieJoueur.setNbVictoire(this.nbVictoire);
 
         return copieJoueur;
     }
@@ -200,16 +212,22 @@ public class Joueur {
     }
 
     public void ditUNO() {
-        // TODO ditUNO
         try {
             if (!this.equals(this.dansLaPartie.joueurCourant())) {
                 throw new JoueurNonCourantException("Le joueur " + this.nom + " n'est pas le joueur courant", this);
             }
+            if (this.avoirJoueSonTour) {
+                throw new JoueurJouePasException("Le joueur " + this.nom + " n'a pas joue, elle ne peut pas dire \"UNO !\"", this);
+            }
 
             System.out.println(this.nom + " dit UNO !!!");
+            this.avoirDitUNO = true;
 
         } catch (JoueurNonCourantException e) {
+            System.out.println(e);
             this.punition();
+
+        } catch (JoueurJouePasException e) {
             System.out.println(e);
         }
     }
@@ -219,13 +237,30 @@ public class Joueur {
             if (!this.equals(this.dansLaPartie.joueurCourant())) {
                 throw new JoueurNonCourantException("Le joueur " + this.nom + " n'est pas le joueur courant donc pas de fin de tour", this);
             }
+            // TODO finTour : !this.avoirJoueSonTour -> JoueurJouePasException
+            /*if (!this.avoirJoueSonTour) {
+                throw new JoueurJouePasException("Le joueur " + this.nom + " n'a pas joue, elle ne peut pas dire \"UNO !\"", this);
+            }*/
+            if (!this.avoirDitUNO) {
+                throw new JoueurOublieDireUnoException("Le joueur " + this.nom + " à oublie de dire \"UNO !\"", this);
+            }
 
             this.dansLaPartie.joueurSuivant();
             this.avoirJoueSonTour = false;
 
         } catch (JoueurNonCourantException e) {
-            this.punition();
             System.out.println(e);
+            this.punition();
+
+        } catch (JoueurOublieDireUnoException e) {
+            System.out.println(e);
+
+            int tailleTas = this.dansLaPartie.getTas().size();
+            Carte carteJouer = this.dansLaPartie.getTas().remove(tailleTas - 1);
+
+            System.out.println("Le joueur " + this.nom + " récupère ça carte : " + carteJouer);
+            this.donnerCarte(carteJouer);
+            this.punition();
         }
     }
 
