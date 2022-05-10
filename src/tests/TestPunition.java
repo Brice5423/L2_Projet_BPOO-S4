@@ -2,10 +2,7 @@ package tests;
 
 import home.enumeration.ECarteCouleur;
 import home.enumeration.ECarteValeur;
-import home.exception.JoueurException;
-import home.exception.JoueurJoueMultipleException;
-import home.exception.JoueurJouePasException;
-import home.exception.JoueurNonCourantException;
+import home.exception.*;
 import home.metier.Joueur;
 import home.metier.Partie;
 import home.metier.carte.Carte;
@@ -104,7 +101,11 @@ public class TestPunition {
         }
 
 
-        aliceTest.finTour();
+        try {
+            aliceTest.finTour();
+        } catch (JoueurOublieDireUnoException e) {
+            System.out.println(e);
+        }
 
 
         if (partieTest.joueurCourant().equals(bobTest)) {

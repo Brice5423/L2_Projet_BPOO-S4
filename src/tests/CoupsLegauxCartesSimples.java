@@ -4,6 +4,7 @@ import home.enumeration.ECarteCouleur;
 import home.enumeration.ECarteValeur;
 import home.exception.JoueurCarteIllegalException;
 import home.exception.JoueurJoueMultipleException;
+import home.exception.JoueurOublieDireUnoException;
 import home.exception.PartieException;
 import home.metier.Joueur;
 import home.metier.Partie;
@@ -154,7 +155,11 @@ public class CoupsLegauxCartesSimples {
         }
 
         // 8) Alice finit le tour
-        alice.finTour();
+        try {
+            alice.finTour();
+        } catch (JoueurOublieDireUnoException e) {
+            System.out.println(e);
+        }
 
         // 9) Vérifier que le joueur courant est Bob.
         if (partie.joueurCourant().equals(bob)) {
@@ -226,7 +231,11 @@ public class CoupsLegauxCartesSimples {
         }
 
         // 7) Bob finit le tour,
-        bob.finTour();
+        try {
+            bob.finTour();
+        } catch (JoueurOublieDireUnoException e) {
+            System.out.println(e);
+        }
 
         // 8) Vérifier que le joueur courant est Charles.
         if (partie.joueurCourant().equals(charles)) {

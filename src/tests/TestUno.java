@@ -4,6 +4,7 @@ import home.enumeration.ECarteCouleur;
 import home.enumeration.ECarteValeur;
 import home.exception.JoueurCarteIllegalException;
 import home.exception.JoueurJoueMultipleException;
+import home.exception.JoueurOublieDireUnoException;
 import home.metier.Joueur;
 import home.metier.Partie;
 import home.metier.carte.Carte;
@@ -92,8 +93,22 @@ public class TestUno {
         } catch (JoueurCarteIllegalException | JoueurJoueMultipleException e) {
             System.out.println(e);
         }
+
         aliceTest.ditUNO();
-        aliceTest.finTour();
+
+        try {
+            aliceTest.finTour();
+        } catch (JoueurOublieDireUnoException e) {
+            System.out.println(e);
+
+            int tailleTas = partieTest.getTas().size();
+            Carte carteJouer = partieTest.getTas().remove(tailleTas-1);
+
+            System.out.println("Le joueur " + aliceTest.getNom() + " récupère ça carte : " + carteJouer);
+            aliceTest.donnerCarte(carteJouer);
+            aliceTest.punition();
+            compteurTest.testOK();
+        }
 
         if(aliceTest.nbCarteEnMain() == 1){
             System.out.println("Alice a 1 cartes ^^");
@@ -135,7 +150,14 @@ public class TestUno {
         } catch (JoueurCarteIllegalException | JoueurJoueMultipleException e) {
             System.out.println(e);
         }
-        aliceTest.finTour();
+
+        try {
+            aliceTest.finTour();
+        } catch (JoueurOublieDireUnoException e) {
+            System.out.println(e);
+            compteurTest.testFaux();
+        }
+
 
         if(aliceTest.nbCarteEnMain() == 4){
             System.out.println("Alice a 4 cartes ^^");

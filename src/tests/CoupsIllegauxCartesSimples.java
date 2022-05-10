@@ -4,6 +4,7 @@ import home.enumeration.ECarteCouleur;
 import home.enumeration.ECarteValeur;
 import home.exception.JoueurCarteIllegalException;
 import home.exception.JoueurJoueMultipleException;
+import home.exception.JoueurOublieDireUnoException;
 import home.exception.PartieException;
 import home.metier.Joueur;
 import home.metier.Partie;
@@ -153,7 +154,11 @@ public class CoupsIllegauxCartesSimples {
             compteurTest.testFaux();
         }
 
-        aliceTest.finTour();
+        try {
+            aliceTest.finTour();
+        } catch (JoueurOublieDireUnoException e) {
+            System.out.println(e);
+        }
 
         try {
             bobTest.poserCarte(bleuDeux);
@@ -165,7 +170,11 @@ public class CoupsIllegauxCartesSimples {
             compteurTest.testFaux();
         }
 
-        bobTest.finTour();
+        try {
+            bobTest.finTour();
+        } catch (JoueurOublieDireUnoException e) {
+            System.out.println(e);
+        }
 
 
         try {
@@ -211,7 +220,11 @@ public class CoupsIllegauxCartesSimples {
         bobTest = partieTest.getListJoueur().get(1);
         charlesTest = partieTest.getListJoueur().get(2);
 
-        aliceTest.finTour();
+        try {
+            aliceTest.finTour();
+        } catch (JoueurOublieDireUnoException e) {
+            System.out.println(e);
+        }
 
         if (aliceTest.nbCarteEnMain() == 3) {
             System.out.println("Alice a bien 3 cartes ^^");
