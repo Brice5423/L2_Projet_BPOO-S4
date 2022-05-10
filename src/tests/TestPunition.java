@@ -103,25 +103,15 @@ public class TestPunition {
             }
             try{
                 aliceTest.donnerCarte(partieTest.retirerCartePioche());
+                System.out.println("Alice est puni");
             }catch (Exception g){
                 System.out.println(g);
             }
             System.out.println(e);
         }
 
+
         aliceTest.finTour();
-        aliceTest.afficheCarteEnMain();
-        if( pioche.size() == 3){
-            System.out.println("its ok ^^");
-        }else{
-            System.out.println("nombre de carte dans la pioche :"+ pioche.size()+"-_-");
-        }
-
-
-
-
-
-        //Punir Alice, la faire piocher 2 cartes et passer son tour
 
 
 
@@ -134,7 +124,7 @@ public class TestPunition {
             compteurTest.testFaux();
         }
 
-        bobTest.afficheCarteEnMain();
+        aliceTest.afficheCarteEnMain();
 
         Carte cartePioche = partieTest.retirerCartePioche();
 
