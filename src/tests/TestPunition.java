@@ -4,6 +4,8 @@ import home.enumeration.ECarteCouleur;
 import home.enumeration.ECarteValeur;
 import home.exception.JoueurException;
 import home.exception.JoueurJoueMultipleException;
+import home.exception.JoueurJouePasException;
+import home.exception.JoueurNonCourantException;
 import home.metier.Joueur;
 import home.metier.Partie;
 import home.metier.carte.Carte;
@@ -24,10 +26,12 @@ public class TestPunition {
 
         ArrayList<Carte> pioche = new ArrayList<Carte>();
 
+        Carte rougeQuatre = new CarteBasique(ECarteCouleur.ROUGE, ECarteValeur.QUATRE);
+
         pioche.add(new CarteBasique(ECarteCouleur.VERT, ECarteValeur.ZERO));
         pioche.add(new CarteBasique(ECarteCouleur.BLEU, ECarteValeur.CINQ));
         pioche.add(new CarteBasique(ECarteCouleur.VERT, ECarteValeur.DEUX));
-        pioche.add(new CarteBasique(ECarteCouleur.ROUGE, ECarteValeur.QUATRE));
+        pioche.add(rougeQuatre);
         pioche.add(new CarteBasique(ECarteCouleur.JAUNE, ECarteValeur.SIX));
 
         ArrayList<Joueur> listJoueur = new ArrayList<Joueur>();
@@ -69,9 +73,10 @@ public class TestPunition {
         charles.donnerCarte(new CarteBasique(ECarteCouleur.BLEU, ECarteValeur.ZERO));
 
 
-        /* ***** ***** Debut test : Test d’une carte illégale ***** ***** */
+        /* ***** ***** Debut test : TestPunition ***** ***** */
 
         /* ***** Bloc des premiers copie pour les tests ***** */
+        System.out.println("\n\tTest de la punition pour un coup illégal d’Alice (joueur courant)");
         Partie partieTest = partie.copiePartie();
 
         Joueur aliceTest = partieTest.getListJoueur().get(0);
@@ -111,7 +116,14 @@ public class TestPunition {
             compteurTest.testFaux();
         }
 
-        aliceTest.afficheCarteEnMain();
+        if (aliceTest.nbCarteEnMain() == 5 && aliceTest.getMainDuJoueur().get(3).equals(jauneSix) && aliceTest.getMainDuJoueur().get(4).equals(rougeQuatre)) {
+            System.out.println("Alice a bien 5 cartes dont le 6 jaune et le 4 rouge ^^");
+            compteurTest.testOK();
+
+        } else {
+            System.out.println("Alice n'a pas 5 cartes ou n'a pas les bonnes cartes de la pioche -_-");
+            compteurTest.testFaux();
+        }
 
         Carte cartePioche = partieTest.retirerCartePioche();
 
@@ -125,6 +137,7 @@ public class TestPunition {
         }
 
         //2e Test
+        System.out.println("\n\tTest de la punition pour un coup illégal d’Alice (joueur courant)");
         partieTest = partie.copiePartie();
 
         aliceTest = partieTest.getListJoueur().get(0);
@@ -132,6 +145,57 @@ public class TestPunition {
         charlesTest = partieTest.getListJoueur().get(2);
 
 
+        if (partie.joueurCourant().equals(aliceTest)) {
+            System.out.println("Le joueur courant est bien Alice ^^");
+            compteurTest.testOK();
+
+        } else {
+            System.out.println("Le joueur courant n'est pas Alice mais " + partieTest.joueurCourant().getNom() + " -_-");
+            compteurTest.testFaux();
+        }
+
+
+        try {
+            bobTest.piocherCarte();
+            compteurTest.testFaux();
+
+        } catch (JoueurNonCourantException  e) {
+            System.out.println(e);
+            bobTest.punition();
+            compteurTest.testOK();
+
+        } catch (JoueurJoueMultipleException e) {
+            System.out.println(e);
+            compteurTest.testFaux();
+        }
+
+        if (partie.joueurCourant().equals(aliceTest)) {
+            System.out.println("Le joueur courant est bien Alice ^^");
+            compteurTest.testOK();
+
+        } else {
+            System.out.println("Le joueur courant n'est pas Alice mais " + partieTest.joueurCourant().getNom() + " -_-");
+            compteurTest.testFaux();
+        }
+
+        if (bobTest.nbCarteEnMain() == 5 && bobTest.getMainDuJoueur().get(3).equals(jauneSix) && bobTest.getMainDuJoueur().get(4).equals(rougeQuatre)) {
+            System.out.println("Bob a bien 5 cartes dont le 6 jaune et le 4 rouge ^^");
+            compteurTest.testOK();
+
+        } else {
+            System.out.println("Bob n'a pas 5 cartes ou n'a pas les bonnes cartes de la pioche -_-");
+            compteurTest.testFaux();
+        }
+
+
+        if (cartePioche.equals(vertDeux)) {
+            System.out.println("La carte de la pioche est le 2 vert ^^");
+            compteurTest.testOK();
+
+        } else {
+            System.out.println("La carte de la pioche est le " + cartePioche + " -_-");
+            compteurTest.testFaux();
+        }
 
 
         /* ***** ***** Fin du test, renvoie si test ok et affiche le résultat global ***** ***** */
