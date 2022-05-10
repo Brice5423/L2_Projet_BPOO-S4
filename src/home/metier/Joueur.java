@@ -168,7 +168,7 @@ public class Joueur {
             }
             if (!this.mainDuJoueur.contains(carteChoisieParJoueur)) {
                 // TODO poserCarte : JoueurException !!!
-                throw new JoueurException("Carte choisie par le joueur n'est pas dans sa main");
+                throw new JoueurException("Carte choisie par le joueur n'est pas dans sa main", this);
             }
             if (this.avoirJoueSonTour) {
                 throw new JoueurJoueMultipleException("Le joueur " + this.nom + " n'a pas le droit de poser ca carte, il a déjà jouer", this);
