@@ -104,15 +104,16 @@ public class CoupsIllegauxCartesSimples {
 
         charles.piocherCarte(new CarteBasique(ECarteCouleur.BLEU, ECarteValeur.ZERO));
 
-        /* ***** ***** Bloc des premiers copie pour les tests ***** ***** */
 
+        /* ***** ***** Debut test : Test d’une carte illégale ***** ***** */
+
+        /* ***** Bloc des premiers copie pour les tests ***** */
         Partie partieTest = partie.copiePartie();
 
         Joueur aliceTest = partieTest.getListJoueur().get(0);
         Joueur bobTest = partieTest.getListJoueur().get(1);
         Joueur charlesTest = partieTest.getListJoueur().get(2);
-
-        /* ***** ***** Debut test : Test d’une carte illégale ***** ***** */
+        /* ************************************************** */
 
         aliceTest.poserCarte(jauneSix);
 
@@ -124,13 +125,14 @@ public class CoupsIllegauxCartesSimples {
             System.out.println("Alice n'à pas 3 carte mais " + aliceTest.getMainDuJoueur().size() + " -_-");
         }
 
+
+        /* ***** ***** Debut test : Test d’un joueur qui pose deux cartes légales de suite ***** ***** */
+
         partieTest = partie.copiePartie();
 
         aliceTest = partieTest.getListJoueur().get(0);
         bobTest = partieTest.getListJoueur().get(1);
         charlesTest = partieTest.getListJoueur().get(2);
-
-        /* ***** ***** Debut test : Test d’un joueur qui pose deux cartes légales de suite ***** ***** */
 
         aliceTest.poserCarte(vertDeux);
         aliceTest.finTour();
@@ -152,25 +154,26 @@ public class CoupsIllegauxCartesSimples {
 
         // TODO : verifier dans le catch que charles a tjr 2 cartes : Il n'a pas le droit de jouer 2 fois de suite
 
+
+        /* ***** ***** Debut test : Test d’un joueur qui finit son tour sans rien faire ***** ***** */
+
         partieTest = partie.copiePartie();
 
         aliceTest = partieTest.getListJoueur().get(0);
         bobTest = partieTest.getListJoueur().get(1);
         charlesTest = partieTest.getListJoueur().get(2);
-
-
-        /* ***** ***** Debut test : Test d’un joueur qui finit son tour sans rien faire ***** ***** */
 
         aliceTest.finTour();
         // TODO : verifier qu'alice possede toujours 3 cartes : Elle n'a pas le droit de pas jouer
 
+
+        /* ***** ***** Debut test : Test d’un joueur qui joue puis pioche ***** ***** */
+
         partieTest = partie.copiePartie();
 
         aliceTest = partieTest.getListJoueur().get(0);
         bobTest = partieTest.getListJoueur().get(1);
         charlesTest = partieTest.getListJoueur().get(2);
-
-        /* ***** ***** Debut test : Test d’un joueur qui joue puis pioche ***** ***** */
 
         aliceTest.poserCarte(vertDeux);
         // aliceTest.pioche();
