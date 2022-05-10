@@ -1,15 +1,15 @@
-        package tests;
+package tests;
 
-        import home.enumeration.ECarteCouleur;
-        import home.enumeration.ECarteValeur;
-        import home.exception.PartieException;
-        import home.metier.Joueur;
-        import home.metier.Partie;
-        import home.metier.carte.Carte;
-        import home.metier.carte.CarteBasique;
-        import tests.controleur.CompteurTest;
+import home.enumeration.ECarteCouleur;
+import home.enumeration.ECarteValeur;
+import home.exception.PartieException;
+import home.metier.Joueur;
+import home.metier.Partie;
+import home.metier.carte.Carte;
+import home.metier.carte.CarteBasique;
+import tests.controleur.CompteurTest;
 
-        import java.util.ArrayList;
+import java.util.ArrayList;
 
 public class CoupsIllegauxCartesSimples {
     /**
@@ -61,11 +61,11 @@ public class CoupsIllegauxCartesSimples {
 
         ArrayList<Carte> pioche = new ArrayList<Carte>();
 
-        pioche.add(new CarteBasique(ECarteCouleur.JAUNE, ECarteValeur.SIX));
-        pioche.add(new CarteBasique(ECarteCouleur.ROUGE, ECarteValeur.QUATRE));
-        pioche.add(new CarteBasique(ECarteCouleur.VERT, ECarteValeur.DEUX));
-        pioche.add(new CarteBasique(ECarteCouleur.BLEU, ECarteValeur.CINQ));
         pioche.add(new CarteBasique(ECarteCouleur.VERT, ECarteValeur.ZERO));
+        pioche.add(new CarteBasique(ECarteCouleur.BLEU, ECarteValeur.CINQ));
+        pioche.add(new CarteBasique(ECarteCouleur.VERT, ECarteValeur.DEUX));
+        pioche.add(new CarteBasique(ECarteCouleur.ROUGE, ECarteValeur.QUATRE));
+        pioche.add(new CarteBasique(ECarteCouleur.JAUNE, ECarteValeur.SIX));
 
         ArrayList<Joueur> listJoueur = new ArrayList<Joueur>();
 
@@ -237,11 +237,14 @@ public class CoupsIllegauxCartesSimples {
             System.out.println(e);
             if (aliceTest.nbCarteEnMain() == 2) {
                 System.out.println("Alice possède bien 2 cartes ^^");
-                if (partieTest.carteAuDessusTas() == jauneSix) {
+
+                Carte cartePioche = partieTest.retirerCartePioche();
+
+                if (cartePioche.equals(jauneSix)) {
                     System.out.println("La carte au sommet du tas est bien le 6 jaune ^^");
                     compteurTest.testOK();
                 } else {
-                    System.out.println("La carte au sommet du tas est " + partie.carteAuDessusTas() + " -_-");
+                    System.out.println("La carte au sommet du tas est " + cartePioche + " -_-");
                     compteurTest.testFaux();
                 }
             } else {
