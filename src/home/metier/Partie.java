@@ -3,7 +3,7 @@ package home.metier;
 import home.enumeration.ECarteCouleur;
 import home.enumeration.ECarteValeur;
 import home.exception.ExpertManquantException;
-import home.exception.ParteException;
+import home.exception.PartieException;
 import home.expert.Expert;
 import home.metier.carte.Carte;
 import home.metier.carte.CarteBasique;
@@ -88,8 +88,8 @@ public class Partie {
     private void setListeJoueur(ArrayList<Joueur> listeJoueur) {
         if (listeJoueur.size() < 2 || listeJoueur.size() > 10) {
             try {
-                throw new ParteException("La partie doit avoir 2 à 10 dans une partie !");
-            } catch (ParteException e) {
+                throw new PartieException("La partie doit avoir 2 à 10 dans une partie !");
+            } catch (PartieException e) {
                 throw new RuntimeException(e);
             }
 
@@ -212,8 +212,8 @@ public class Partie {
     private void initialisationListeJoueur(ArrayList<Joueur> listeJoueur) {
         if (listeJoueur.size() < 2 || listeJoueur.size() > 10) {
             try {
-                throw new ParteException("La partie doit avoir 2 à 10 dans une partie !");
-            } catch (ParteException e) {
+                throw new PartieException("La partie doit avoir 2 à 10 dans une partie !");
+            } catch (PartieException e) {
                 throw new RuntimeException(e);
             }
 
@@ -251,12 +251,12 @@ public class Partie {
      *
      * @param carteJoueur Carte du joueur à déposer dans le tas
      */
-    public void deposerCarteTas(Carte carteJoueur) throws ParteException {
+    public void deposerCarteTas(Carte carteJoueur) throws PartieException {
         Expert lesExperts = Expert.initialiseTousLesExperts();
 
         try {
             if (!lesExperts.peutEtrePoser(carteJoueur, this.carteAuDessusTas())) {
-                throw new ParteException("Le joueur " + this.joueurCourant().getNom() + " ne peut pas poser La carte " + carteJoueur + " dans le tas");
+                throw new PartieException("Le joueur " + this.joueurCourant().getNom() + " ne peut pas poser La carte " + carteJoueur + " dans le tas");
             }
 
         } catch (ExpertManquantException e) {

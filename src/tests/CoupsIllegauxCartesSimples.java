@@ -50,7 +50,7 @@ public class CoupsIllegauxCartesSimples {
      * @return true si succès est à 100% sinon false
      */
     public static boolean executionDuTest() {
-        System.out.println("\n\t\t----- Tests coups légaux avec des cartes simples -----\n");
+        System.out.println("\n\t\t----- Tests coups illégaux avec des cartes simples -----\n");
 
 
         /* ***** ***** initialisation des compteurs du test ***** ***** */
@@ -104,11 +104,12 @@ public class CoupsIllegauxCartesSimples {
 
         charles.piocherCarte(new CarteBasique(ECarteCouleur.BLEU, ECarteValeur.ZERO));
 
-        Joueur aliceTest = alice.copyJoueur();
-        Joueur bobTest = bob.copyJoueur();
-        Joueur charlesTest = charles.copyJoueur();
-
         Partie partieTest = partie.copiePartie();
+
+        Joueur aliceTest = partieTest.getListJoueur().get(0);
+        Joueur bobTest = partieTest.getListJoueur().get(1);
+        Joueur charlesTest = partieTest.getListJoueur().get(2);
+
 
         /* ***** ***** Debut test : Test d’une carte illégale ***** ***** */
 
@@ -125,12 +126,6 @@ public class CoupsIllegauxCartesSimples {
         partieTest = partie.copiePartie();
 
 
-        if (aliceTest.getDansLaPartie().equals(bobTest.getDansLaPartie())) {
-            System.out.println("\tLes deux joueurs sont dans la partie ^^");
-        } else {
-            System.out.println("\tLes joueurs sont dans des parties différentes -_-");
-        }
-
         /* ***** ***** Debut test : Test d’un joueur qui pose deux cartes légales de suite ***** ***** */
 
         aliceTest.poserCarte(vertDeux);
@@ -141,22 +136,23 @@ public class CoupsIllegauxCartesSimples {
 
         charlesTest.poserCarte(bleuSix);
 
-        if (bobTest.nbCarteEnMain() == 2) {
+        if (charlesTest.nbCarteEnMain() == 2) {
             System.out.println("Charles possède bien 2 cartes ^^");
-            compteurTest.testOK();
         } else {
             System.out.println("Charles possède " + charlesTest.nbCarteEnMain() + " cartes -_-");
-            compteurTest.testFaux();
         }
 
         charlesTest.poserCarte(bleuSept);
 
         // TODO : verifier dans le catch que charles a tjr 2 cartes : Il n'a pas le droit de jouer 2 fois de suite
 
-        // tu n'as pas besoin de faire ça, sauf si tu veux tout cassé ^^
-         /*aliceTest = alice.copyJoueur();
-         bobTest = bob.copyJoueur();
-         charlesTest = charles.copyJoueur();*/
+        if (bobTest.nbCarteEnMain() == 2) {
+            System.out.println("Charles possède bien 2 cartes car il n'a pas le droit de jouer 2 fois de suite ^^");
+            compteurTest.testOK();
+        } else {
+            System.out.println("Charles possède " + charlesTest.nbCarteEnMain() + " cartes -_-");
+            compteurTest.testFaux();
+        }
 
          partieTest = partie.copiePartie();
 
@@ -166,15 +162,32 @@ public class CoupsIllegauxCartesSimples {
         aliceTest.finTour();
         // TODO : verifier qu'alice possede toujours 3 cartes : Elle n'a pas le droit de pas jouer
 
-        //aliceTest = alice.copyJoueur(); // la même ici
+        if (aliceTest.nbCarteEnMain() == 3) {
+            System.out.println("Alice possede bien 3 cartes ^^");
+            compteurTest.testOK();
+        } else {
+            System.out.println("Alice possède " + aliceTest.nbCarteEnMain() + " cartes -_-");
+            compteurTest.testFaux();
+        }
+
         partieTest = partie.copiePartie();
 
         /* ***** ***** Debut test : Test d’un joueur qui joue puis pioche ***** ***** */
+        aliceTest.afficheCarteEnMain();
 
         aliceTest.poserCarte(vertDeux);
-        // aliceTest.pioche();
+        aliceTest.piocherCarte();
         // TODO : verifier qu'alice a toujours 2 cartes : elle n'a pas le droit de piocher si elle a deja joué !
+
+        if (aliceTest.nbCarteEnMain() == 2) {
+            System.out.println("Alice possede bien 2 cartes elle a deja joué elle n'a pas le droit de piocher ^^");
+            compteurTest.testOK();
+        } else {
+            System.out.println("Alice possède " + aliceTest.nbCarteEnMain() + " cartes -_-");
+            compteurTest.testFaux();
+        }
         // TODO : verifier que la premiere carte de la pioche n'a pas changé : 6 Jaune
+
 
         return compteurTest.afficheResultatsTest();
     }

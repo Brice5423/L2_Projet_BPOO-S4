@@ -1,7 +1,7 @@
 package home.metier;
 
 import home.exception.JoueurException;
-import home.exception.ParteException;
+import home.exception.PartieException;
 import home.metier.carte.Carte;
 
 import java.util.ArrayList;
@@ -128,7 +128,7 @@ public class Joueur {
             this.dansLaPartie.deposerCarteTas(carteChoisieParJoueur);
             this.mainDuJoueur.remove(carteChoisieParJoueur);
 
-        } catch (JoueurException | ParteException e) {
+        } catch (JoueurException | PartieException e) {
             System.out.println(e);
         }
     }
