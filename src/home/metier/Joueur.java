@@ -216,7 +216,7 @@ public class Joueur {
             if (!this.equals(this.dansLaPartie.joueurCourant())) {
                 throw new JoueurNonCourantException("Le joueur " + this.nom + " n'est pas le joueur courant", this);
             }
-            if (this.avoirJoueSonTour) {
+            if (!this.avoirJoueSonTour) {
                 throw new JoueurJouePasException("Le joueur " + this.nom + " n'a pas joue, elle ne peut pas dire \"UNO !\"", this);
             }
 
