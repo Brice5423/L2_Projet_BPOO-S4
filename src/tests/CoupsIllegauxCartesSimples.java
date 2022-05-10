@@ -211,8 +211,16 @@ public class CoupsIllegauxCartesSimples {
         bobTest = partieTest.getListJoueur().get(1);
         charlesTest = partieTest.getListJoueur().get(2);
 
-
         aliceTest.finTour();
+
+        if (aliceTest.nbCarteEnMain() == 3) {
+            System.out.println("Alice a bien 3 cartes ^^");
+            compteurTest.testOK();
+
+        } else {
+            System.out.println("Alice a" + aliceTest.nbCarteEnMain() + "cartes en main -_-");
+            compteurTest.testFaux();
+        }
 
 
         /* ***** ***** Debut test : Test d’un joueur qui joue puis pioche ***** ***** */
