@@ -127,7 +127,10 @@ public class Joueur {
         }
     }
 
-    public void piocherCarte(Carte carteDonnee) throws JoueurJoueMultipleException {
+    public void piocherCarte(Carte carteDonnee) throws JoueurJoueMultipleException, JoueurNonCourantException {
+        if (!this.equals(this.dansLaPartie.joueurCourant())) {
+            throw new JoueurNonCourantException("Le joueur " + this.nom + " n'est pas le joueur courant", this);
+        }
         if (this.avoirJoueSonTour) {
             throw new JoueurJoueMultipleException("Le joueur " + this.nom + " n'a pas le droit de piocher, il a déjà jouer", this);
         }
