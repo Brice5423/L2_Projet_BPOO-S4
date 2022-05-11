@@ -41,19 +41,19 @@ public abstract class Expert {
         return lesExperts;
     }
 
-    public boolean peutEtrePoser(Carte carteJoueur, Carte carteDepot) throws ExpertManquantException {
-        if (this.etreBonExpert(carteJoueur, carteDepot)) {
+    public boolean peutEtrePoser(Carte carteJoueur, Carte carteDepot, int nbCarteAPiocher) throws ExpertManquantException {
+        if (this.etreBonExpert(carteJoueur, carteDepot, nbCarteAPiocher)) {
             return etreCoupValide(carteJoueur, carteDepot);
 
         } else if (this.avoirUnSuivant()) {
-            return this.getSuivant().peutEtrePoser(carteJoueur, carteDepot);
+            return this.getSuivant().peutEtrePoser(carteJoueur, carteDepot, nbCarteAPiocher);
 
         } else {
             throw new ExpertManquantException(carteJoueur, carteDepot);
         }
     }
 
-    public abstract boolean etreBonExpert(Carte carteAPoser, Carte carteReference);
+    public abstract boolean etreBonExpert(Carte carteAPoser, Carte carteReference, int nbCarteAPiocher);
 
     public abstract boolean etreCoupValide(Carte carteAPoser, Carte carteReference);
 }

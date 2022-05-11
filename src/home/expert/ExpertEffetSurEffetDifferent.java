@@ -11,8 +11,9 @@ public class ExpertEffetSurEffetDifferent extends Expert {
     }
 
     @Override
-    public boolean etreBonExpert(Carte carteJoueur, Carte carteDepot) {
-        return ((carteJoueur instanceof CarteAEffet) && (carteDepot instanceof CarteAEffet) && (carteJoueur.getClass() != carteDepot.getClass()));
+    public boolean etreBonExpert(Carte carteJoueur, Carte carteDepot, int nbCarteAPiocher) {
+        return ((carteJoueur instanceof CarteAEffet) && (carteDepot instanceof CarteAEffet)
+                && (carteJoueur.getClass() != carteDepot.getClass()) && (nbCarteAPiocher == 0));
     }
 
     @Override

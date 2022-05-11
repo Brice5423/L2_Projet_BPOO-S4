@@ -10,8 +10,8 @@ public class ExpertPasserTourSurPasserTour extends Expert {
     }
 
     @Override
-    public boolean etreBonExpert(Carte carteJoueur, Carte carteDepot) {
-        return ((carteJoueur instanceof CartePasserTour) && (carteDepot instanceof CartePasserTour));
+    public boolean etreBonExpert(Carte carteJoueur, Carte carteDepot, int nbCarteAPiocher) {
+        return ((carteJoueur instanceof CartePasserTour) && (carteDepot instanceof CartePasserTour) && nbCarteAPiocher == 0);
     }
 
     @Override

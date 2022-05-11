@@ -2,9 +2,7 @@ package home.metier;
 
 import home.enumeration.ECarteCouleur;
 import home.enumeration.ECarteValeur;
-import home.exception.JoueurCarteIllegalException;
-import home.exception.ExpertManquantException;
-import home.exception.PartieException;
+import home.exception.*;
 import home.expert.Expert;
 import home.metier.carte.Carte;
 import home.metier.carte.CarteAEffet;
@@ -21,6 +19,7 @@ public class Partie {
     private int numJoueurCourant;
     private boolean etreSensHoraire;
     private boolean passerTourActif;
+    private int nbCarteAPiocher;
     private ArrayList<Joueur> listeJoueur;
     private ArrayList<Carte> pioche; // -> joueur
     private ArrayList<Carte> tas; // <- joueur
@@ -33,6 +32,7 @@ public class Partie {
         this.numJoueurCourant = 0;
         this.etreSensHoraire = true;
         this.passerTourActif = false;
+        this.nbCarteAPiocher = 0;
         this.listeJoueur = new ArrayList<Joueur>();
         this.pioche = new ArrayList<Carte>();
         this.tas = new ArrayList<Carte>();
@@ -48,6 +48,7 @@ public class Partie {
         this.numJoueurCourant = 0;
         this.etreSensHoraire = true;
         this.passerTourActif = false;
+        this.nbCarteAPiocher = 0;
         this.initialisationListeJoueur(listeJoueur);
         this.genererPioche();
         this.initialiserCarteJoueur();
@@ -66,6 +67,7 @@ public class Partie {
         this.numJoueurCourant = 0;
         this.etreSensHoraire = true;
         this.passerTourActif = false;
+        this.nbCarteAPiocher = 0;
         this.initialisationListeJoueur(listeJoueur);
         this.pioche = pioche;
         this.tas = new ArrayList<Carte>();
@@ -96,11 +98,27 @@ public class Partie {
     }
 
     public boolean isPasserTourActif() {
-        return passerTourActif;
+        return this.passerTourActif;
     }
 
     public void setPasserTourActif(boolean passerTourActif) {
         this.passerTourActif = passerTourActif;
+    }
+
+    public int getNbCarteAPiocher() {
+        return this.nbCarteAPiocher;
+    }
+
+    public void setNbCarteAPiocher(int nbCarteAPiocher) {
+        this.nbCarteAPiocher = nbCarteAPiocher;
+    }
+
+    public ArrayList<Joueur> getListeJoueur() {
+        return this.listeJoueur;
+    }
+
+    public void setListeJoueur(ArrayList<Joueur> listeJoueur) {
+        this.listeJoueur = listeJoueur;
     }
 
     public ArrayList<Joueur> getListJoueur() {
@@ -264,12 +282,17 @@ public class Partie {
      *
      * @param carteJoueur Carte du joueur à déposer dans le tas
      */
-    public void deposerCarteTas(Carte carteJoueur) throws JoueurCarteIllegalException {
+    public void deposerCarteTas(Carte carteJoueur) throws JoueurCarteIllegalException, PartieException, JoueurOublieDireUnoException, JoueurJouePasException, JoueurNonCourantException {
         try {
             Expert lesExperts = Expert.initialiseTousLesExperts();
 
-            if (!lesExperts.peutEtrePoser(carteJoueur, this.carteAuDessusTas())) {
-                throw new JoueurCarteIllegalException("Le joueur " + this.joueurCourant().getNom() + " ne peut pas poser La carte " + carteJoueur + " dans le tas", this.joueurCourant());
+            if (!lesExperts.peutEtrePoser(carteJoueur, this.carteAuDessusTas(), this.nbCarteAPiocher)) {
+                if (this.nbCarteAPiocher == 0) {
+                    throw new JoueurCarteIllegalException("Le joueur " + this.joueurCourant().getNom() + " ne peut pas poser La carte " + carteJoueur + " dans le tas", this.joueurCourant());
+
+                } else {
+                    throw new JoueurEncaisserAttaqueException("Le joueur " + this.joueurCourant().getNom() + " doit encaisser l'attaque", this.joueurCourant());
+                }
             }
 
             this.tas.add(carteJoueur);
@@ -280,6 +303,9 @@ public class Partie {
 
         } catch (ExpertManquantException e) {
             System.out.println(e);
+        } catch (JoueurEncaisserAttaqueException e) {
+            this.joueurCourantRecupererNCarte(this.nbCarteAPiocher);
+            this.joueurCourant().finTour();
         }
     }
 
@@ -289,6 +315,16 @@ public class Partie {
 
     public void inverseSensPartie() {
         this.etreSensHoraire = !this.etreSensHoraire;
+    }
+
+    public void ajoutNbCarteAPiocher(int nbCarteAPiocherAAjouter) {
+        this.nbCarteAPiocher += nbCarteAPiocherAAjouter;
+    }
+
+    private void joueurCourantRecupererNCarte(int nCarteARecuperer) throws PartieException {
+        for (int i = 0; i < nbCarteAPiocher; i++) {
+            this.joueurCourant().donnerCarte();
+        }
     }
 
     private int numJoueurSuivant() {

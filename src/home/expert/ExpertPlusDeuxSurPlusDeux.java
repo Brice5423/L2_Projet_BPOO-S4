@@ -10,7 +10,8 @@ public class ExpertPlusDeuxSurPlusDeux extends Expert {
     }
 
     @Override
-    public boolean etreBonExpert(Carte carteJoueur, Carte carteDepot) {
+    public boolean etreBonExpert(Carte carteJoueur, Carte carteDepot, int nbCarteAPiocher) {
+        // pas besoin de regarder nbCarteAPiocher == ou > à 0, car on l'utilise dans tous les cas
         return ((carteJoueur instanceof CartePlusDeux) && (carteDepot instanceof CartePlusDeux));
     }
 

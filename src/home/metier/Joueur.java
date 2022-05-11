@@ -178,7 +178,7 @@ public class Joueur {
         }
     }
 
-    public void poserCarte(Carte carteChoisieParJoueur) throws JoueurNonCourantException, JoueurException, JoueurJoueMultipleException, JoueurCarteIllegalException {
+    public void poserCarte(Carte carteChoisieParJoueur) throws JoueurNonCourantException, JoueurException, JoueurJoueMultipleException, JoueurCarteIllegalException, JoueurOublieDireUnoException, JoueurJouePasException, PartieException {
         if (!this.equals(this.dansLaPartie.joueurCourant())) {
             throw new JoueurNonCourantException("Le joueur " + this.nom + " joue alors que ce n'est pas son tour", this);
         }

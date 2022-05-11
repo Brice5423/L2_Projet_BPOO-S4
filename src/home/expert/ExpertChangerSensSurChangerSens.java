@@ -10,7 +10,7 @@ public class ExpertChangerSensSurChangerSens extends Expert {
     }
 
     @Override
-    public boolean etreBonExpert(Carte carteJoueur, Carte carteDepot) {
+    public boolean etreBonExpert(Carte carteJoueur, Carte carteDepot, int nbCarteAPiocher) {
         return ((carteJoueur instanceof CarteChangerSens) && (carteDepot instanceof CarteChangerSens));
     }
 
