@@ -2,10 +2,7 @@ package tests;
 
 import home.enumeration.ECarteCouleur;
 import home.enumeration.ECarteValeur;
-import home.exception.JoueurCarteIllegalException;
-import home.exception.JoueurJoueMultipleException;
-import home.exception.JoueurOublieDireUnoException;
-import home.exception.PartieException;
+import home.exception.*;
 import home.metier.Joueur;
 import home.metier.Partie;
 import home.metier.carte.Carte;
@@ -66,7 +63,14 @@ public class CoupsLegauxCartesSimples {
         listJoueur.add(bob);
         listJoueur.add(charles);
 
-        Partie partie = new Partie(listJoueur, pioche);
+        Partie partie = null;
+        try {
+            partie = new Partie(listJoueur, pioche);
+            compteurTest.testOK();
+        } catch (Exception e) {
+            System.out.println(e);
+            compteurTest.testFaux();
+        }
 
         ArrayList<Carte> tas = new ArrayList<Carte>();
 
@@ -120,7 +124,8 @@ public class CoupsLegauxCartesSimples {
         // 2) Bob pose le « 2 bleu »,
         try {
             bob.poserCarte(bleuDeux);
-        } catch (JoueurJoueMultipleException | JoueurCarteIllegalException e) {
+            compteurTest.testOK();
+        } catch (Exception e) {
             System.out.println(e);
             compteurTest.testFaux();
         }
@@ -160,8 +165,10 @@ public class CoupsLegauxCartesSimples {
         // 7) Bob finit le tour,
         try {
             bob.finTour();
-        } catch (JoueurOublieDireUnoException e) {
+            compteurTest.testOK();
+        } catch (Exception e) {
             System.out.println(e);
+            compteurTest.testFaux();
         }
 
         // 8) Vérifier que le joueur courant est Charles.
@@ -196,7 +203,8 @@ public class CoupsLegauxCartesSimples {
         // 3) Alice joue le « 2 Vert »,
         try {
             alice.poserCarte(vertDeux);
-        } catch (JoueurJoueMultipleException | JoueurCarteIllegalException e) {
+            compteurTest.testOK();
+        } catch (Exception e) {
             System.out.println(e);
             compteurTest.testFaux();
         }
@@ -236,7 +244,8 @@ public class CoupsLegauxCartesSimples {
         // 8) Alice finit le tour
         try {
             alice.finTour();
-        } catch (JoueurOublieDireUnoException e) {
+            compteurTest.testOK();
+        } catch (Exception e) {
             System.out.println(e);
         }
 
