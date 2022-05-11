@@ -19,6 +19,7 @@ public class Partie {
     private int niemePartie;
     private int numJoueurCourant;
     private boolean etreSensHoraire;
+    private boolean passerTourActif;
     private ArrayList<Joueur> listeJoueur;
     private ArrayList<Carte> pioche; // -> joueur
     private ArrayList<Carte> tas; // <- joueur
@@ -30,6 +31,7 @@ public class Partie {
         this.niemePartie = 1;
         this.numJoueurCourant = 0;
         this.etreSensHoraire = true;
+        this.passerTourActif = false;
         this.listeJoueur = new ArrayList<Joueur>();
         this.pioche = new ArrayList<Carte>();
         this.tas = new ArrayList<Carte>();
@@ -44,6 +46,7 @@ public class Partie {
         this.niemePartie = 1;
         this.numJoueurCourant = 0;
         this.etreSensHoraire = true;
+        this.passerTourActif = false;
         this.initialisationListeJoueur(listeJoueur);
         this.genererPioche();
         this.initialiserCarteJoueur();
@@ -61,6 +64,7 @@ public class Partie {
         this.niemePartie = 1;
         this.numJoueurCourant = 0;
         this.etreSensHoraire = true;
+        this.passerTourActif = false;
         this.initialisationListeJoueur(listeJoueur);
         this.pioche = pioche;
         this.tas = new ArrayList<Carte>();
@@ -82,12 +86,20 @@ public class Partie {
         this.numJoueurCourant = numJoueurCourant;
     }
 
-    public boolean getEtreSensHoraire() {
+    public boolean isEtreSensHoraire() {
         return this.etreSensHoraire;
     }
 
     private void setEtreSensHoraire(boolean etreSensHoraire) {
         this.etreSensHoraire = etreSensHoraire;
+    }
+
+    public boolean isPasserTourActif() {
+        return passerTourActif;
+    }
+
+    private void setPasserTourActif(boolean passerTourActif) {
+        this.passerTourActif = passerTourActif;
     }
 
     public ArrayList<Joueur> getListJoueur() {
@@ -236,6 +248,7 @@ public class Partie {
         copiePartie.setNiemePartie(this.niemePartie);
         copiePartie.setNumJoueurCourant(this.numJoueurCourant);
         copiePartie.setEtreSensHoraire(this.etreSensHoraire);
+        copiePartie.setPasserTourActif(this.passerTourActif);
         copiePartie.setListeJoueurEtCopie(this.listeJoueur);
         copiePartie.getPioche().addAll(this.pioche);
         copiePartie.getTas().addAll(this.tas);
@@ -280,29 +293,37 @@ public class Partie {
     }
 
     public void inverseSensPartie() {
-        this.etreSensHoraire = !this.getEtreSensHoraire();
+        this.etreSensHoraire = !this.etreSensHoraire;
+    }
+
+    private int numJoueurSuivant() {
+        if (this.etreSensHoraire) {
+            if (this.numJoueurCourant == (this.listeJoueur.size() - 1)) {
+                return 0;
+
+            } else {
+                return this.numJoueurCourant + 1;
+            }
+
+        } else {
+            if (this.numJoueurCourant == 0) {
+                return (this.listeJoueur.size() - 1);
+
+            } else {
+                return this.numJoueurCourant - 1;
+            }
+        }
     }
 
     public Joueur joueurCourant() {
         return this.listeJoueur.get(this.numJoueurCourant);
     }
 
-    public void joueurSuivant() {
-        if (this.etreSensHoraire) {
-            if (this.numJoueurCourant == (this.listeJoueur.size() - 1)) {
-                this.numJoueurCourant = 0;
+    public Joueur joueurSuivant() {
+        return this.listeJoueur.get(this.numJoueurSuivant());
+    }
 
-            } else {
-                this.numJoueurCourant++;
-            }
-
-        } else {
-            if (this.numJoueurCourant == 0) {
-                this.numJoueurCourant = (this.listeJoueur.size() - 1);
-
-            } else {
-                this.numJoueurCourant--;
-            }
-        }
+    public void joueurCourantSuivant() {
+        this.numJoueurCourant = this.numJoueurSuivant();
     }
 }
