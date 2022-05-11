@@ -206,12 +206,7 @@ public class Joueur {
             throw new JoueurJouePasException("Le joueur " + this.nom + " n'a pas joue, elle ne peut pas dire \"UNO !\"", this);
         }
 
-        System.out.println(this.nom + " dit UNO !!!");
         this.avoirDitUNO = true;
-    }
-
-    public void finTourForcer() {
-
     }
 
     public void finTour() throws JoueurNonCourantException, JoueurJouePasException, JoueurOublieDireUnoException {

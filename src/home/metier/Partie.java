@@ -314,10 +314,6 @@ public class Partie {
         return this.listeJoueur.get(this.numJoueurCourant);
     }
 
-    public Joueur joueurSuivant() {
-        return this.listeJoueur.get(this.numJoueurSuivant());
-    }
-
     public void joueurCourantSuivant() {
         this.numJoueurCourant = this.numJoueurSuivant();
     }
