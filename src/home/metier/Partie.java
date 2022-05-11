@@ -282,7 +282,7 @@ public class Partie {
      *
      * @param carteJoueur Carte du joueur à déposer dans le tas
      */
-    public void deposerCarteTas(Carte carteJoueur) throws JoueurCarteIllegalException, PartieException, JoueurOublieDireUnoException, JoueurJouePasException, JoueurNonCourantException {
+    public void deposerCarteTas(Carte carteJoueur) throws ExpertManquantException, JoueurCarteIllegalException, PartieException, JoueurOublieDireUnoException, JoueurJouePasException, JoueurNonCourantException {
         try {
             Expert lesExperts = Expert.initialiseTousLesExperts();
 
@@ -301,8 +301,6 @@ public class Partie {
                 ((CarteAEffet) carteJoueur).appliquerEffet(this);
             }
 
-        } catch (ExpertManquantException e) {
-            System.out.println(e);
         } catch (JoueurEncaisserAttaqueException e) {
             this.joueurCourantRecupererNCarte(this.nbCarteAPiocher);
             this.joueurCourant().finTour();
