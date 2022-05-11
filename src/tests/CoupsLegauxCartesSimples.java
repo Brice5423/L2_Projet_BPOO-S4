@@ -75,105 +75,41 @@ public class CoupsLegauxCartesSimples {
 
         Carte vertDeux = new CarteBasique(ECarteCouleur.VERT, ECarteValeur.DEUX);
         Carte jauneSix = new CarteBasique(ECarteCouleur.JAUNE, ECarteValeur.SIX);
+        Carte rougeUn = new  CarteBasique(ECarteCouleur.ROUGE, ECarteValeur.UN);
 
         alice.donnerCarte(vertDeux);
         alice.donnerCarte(jauneSix);
-        alice.donnerCarte(new CarteBasique(ECarteCouleur.ROUGE, ECarteValeur.UN));
+        alice.donnerCarte(rougeUn);
 
         Carte bleuDeux = new CarteBasique(ECarteCouleur.BLEU, ECarteValeur.DEUX);
+        Carte jauneQuatre = new CarteBasique(ECarteCouleur.JAUNE, ECarteValeur.QUATRE);
+        Carte rougeNeuf = new CarteBasique(ECarteCouleur.ROUGE, ECarteValeur.NEUF);
 
         bob.donnerCarte(bleuDeux);
-        bob.donnerCarte(new CarteBasique(ECarteCouleur.JAUNE, ECarteValeur.QUATRE));
-        bob.donnerCarte(new CarteBasique(ECarteCouleur.ROUGE, ECarteValeur.NEUF));
+        bob.donnerCarte(jauneQuatre);
+        bob.donnerCarte(rougeNeuf);
 
         charles.donnerCarte(new CarteBasique(ECarteCouleur.BLEU, ECarteValeur.NEUF));
         charles.donnerCarte(new CarteBasique(ECarteCouleur.BLEU, ECarteValeur.SEPT));
         charles.donnerCarte(new CarteBasique(ECarteCouleur.BLEU, ECarteValeur.ZERO));
 
 
-        /* ***** ***** Debut test : Alice joue une carte de la bonne couleur. ***** ***** */
-        System.out.println("\tAlice joue une carte de la bonne couleur.");
-
-        // 1) Vérifier que le joueur courant est bien Alice,
-        if (partie.joueurCourant().equals(alice)) {
-            System.out.println("Le joueur courant est bien Alice ^^");
-            compteurTest.testOK();
-        } else {
-            System.out.println("Le joueur courant n'est pas Alice mais " + partie.joueurCourant().getNom() + " -_-");
-            compteurTest.testFaux();
-        }
-
-        // 2) Vérifier qu'Alice possède bien 3 cartes,
-        if (alice.nbCarteEnMain() == 3) {
-            System.out.println("Alice possède bien 3 cartes ^^");
-            compteurTest.testOK();
-        } else {
-            System.out.println("Alice possède " + alice.nbCarteEnMain() + " cartes -_-");
-            compteurTest.testFaux();
-        }
-
-        // 3) Alice joue le « 2 Vert »,
-        try {
-            alice.poserCarte(vertDeux);
-        } catch (JoueurJoueMultipleException | JoueurCarteIllegalException e) {
-            System.out.println(e);
-            compteurTest.testFaux();
-        }
-
-        // 4) Vérifier qu'Alice possède bien 2 cartes,
-        if (alice.nbCarteEnMain() == 2) {
-            System.out.println("Alice possède bien 2 cartes ^^");
-            compteurTest.testOK();
-        } else {
-            System.out.println("Alice possède " + alice.nbCarteEnMain() + " cartes -_-");
-            compteurTest.testFaux();
-        }
-
-        // 5) Vérifier que les cartes d’Alice sont le « 6 jaune » et le « 1 rouge »
-        alice.afficheCarteEnMain();
-
-        // 6) Vérifier que la carte au sommet du tas est le « 2 Vert »
-        if (partie.carteAuDessusTas() == vertDeux) {
-            System.out.println("La carte au sommet du tas est bien le 2 vert ^^");
-            compteurTest.testOK();
-        } else {
-            System.out.println("La carte au sommet du tas est " + partie.carteAuDessusTas() + " -_-");
-            compteurTest.testFaux();
-        }
-
-        // 7) Vérifier que le nombre de cartes du tas est 2,
-        if (tas.size() == 2) {
-            System.out.println("Le nombre de carte dans le tas est de 2 ^^");
-            compteurTest.testOK();
-        } else {
-            System.out.println("Le nombre de carte dans le tas est de " + tas.size() + " -_-");
-            compteurTest.testFaux();
-        }
-
-        // 8) Alice finit le tour
-        try {
-            alice.finTour();
-        } catch (JoueurOublieDireUnoException e) {
-            System.out.println(e);
-        }
-
-        // 9) Vérifier que le joueur courant est Bob.
-        if (partie.joueurCourant().equals(bob)) {
-            System.out.println("Le joueur courant est Bob ^^");
-            compteurTest.testOK();
-        } else {
-            System.out.println("Le joueur courant est " + partie.joueurCourant().getNom() + " -_-");
-            compteurTest.testFaux();
-        }
+        TestCarteBonneCouleur(compteurTest, alice, bob, partie, tas, vertDeux, jauneSix, rougeUn);
 
 
+        TestCarteMemeValeur(compteurTest, bob, charles, partie, tas, bleuDeux, jauneQuatre, rougeNeuf);
+
+        /* ***** ***** Fin du test, renvoie si test ok et affiche le résultat global ***** ***** */
+        return compteurTest.afficheResultatsTest();
+    }
+
+    private static void TestCarteMemeValeur(CompteurTest compteurTest, Joueur bob, Joueur charles, Partie partie, ArrayList<Carte> tas, Carte bleuDeux, Carte jauneQuatre, Carte rougeNeuf) {
         /* ***** ***** Debut test : Bob joue une carte de couleur différente, mais de même valeur. ***** ***** */
         System.out.println("\n\tBob joue une carte de couleur différente, mais de même valeur.");
 
 
         // 1) Vérifier	que	Bob	possède	bien 3 cartes
         if (bob.nbCarteEnMain() == 3) {
-            System.out.println("Bob possède bien 3 cartes ^^");
             compteurTest.testOK();
         } else {
             System.out.println("Bob possède " + bob.nbCarteEnMain() + " cartes -_-");
@@ -191,7 +127,6 @@ public class CoupsLegauxCartesSimples {
 
         // 3) Vérifier que	Bob	possède	bien 2 cartes,
         if (bob.nbCarteEnMain() == 2) {
-            System.out.println("Bob possède bien 2 cartes ^^");
             compteurTest.testOK();
         } else {
             System.out.println("Bob possède " + bob.nbCarteEnMain() + " cartes -_-");
@@ -199,11 +134,15 @@ public class CoupsLegauxCartesSimples {
         }
 
         // 4) Vérifier que	les cartes de Bob sont le « 4 jaune » et le	« 9	rouge »,
-        bob.afficheCarteEnMain();
+        if (bob.nbCarteEnMain() == 2 && bob.getMainDuJoueur().get(0).equals(jauneQuatre) && bob.getMainDuJoueur().get(1).equals(rougeNeuf)) {
+            compteurTest.testOK();
+        } else {
+            System.out.println("Bob n'a pas 2 cartes ou le 4 jaune et le 9 rouge -_-");
+            compteurTest.testFaux();
+        }
 
         // 5) Vérifier que la carte au sommet du tas est le « 2 Bleu »,
         if (partie.carteAuDessusTas() == bleuDeux) {
-            System.out.println("La carte au sommet du tas est bien le 2 bleu ^^");
             compteurTest.testOK();
         } else {
             System.out.println("La carte au sommet du tas est " + partie.carteAuDessusTas() + " -_-");
@@ -212,7 +151,6 @@ public class CoupsLegauxCartesSimples {
 
         // 6) Vérifier	que le nombre de cartes du tas est 3,
         if (tas.size() == 3) {
-            System.out.println("Le nombre de carte dans le tas est de 3 ^^");
             compteurTest.testOK();
         } else {
             System.out.println("Le nombre de carte dans le tas est de " + tas.size() + " -_-");
@@ -228,14 +166,86 @@ public class CoupsLegauxCartesSimples {
 
         // 8) Vérifier que le joueur courant est Charles.
         if (partie.joueurCourant().equals(charles)) {
-            System.out.println("Le joueur courant est bien Charles ^^");
             compteurTest.testOK();
         } else {
             System.out.println("Le joueur courant n'est pas Charles mais " + partie.joueurCourant().getNom() + " -_-");
             compteurTest.testFaux();
         }
+    }
 
-        /* ***** ***** Fin du test, renvoie si test ok et affiche le résultat global ***** ***** */
-        return compteurTest.afficheResultatsTest();
+    private static void TestCarteBonneCouleur(CompteurTest compteurTest, Joueur alice, Joueur bob, Partie partie, ArrayList<Carte> tas, Carte vertDeux, Carte jauneSix, Carte rougeUn) {
+        /* ***** ***** Debut test : Alice joue une carte de la bonne couleur. ***** ***** */
+        System.out.println("\tAlice joue une carte de la bonne couleur.");
+
+        // 1) Vérifier que le joueur courant est bien Alice,
+        if (partie.joueurCourant().equals(alice)) {
+            compteurTest.testOK();
+        } else {
+            System.out.println("Le joueur courant n'est pas Alice mais " + partie.joueurCourant().getNom() + " -_-");
+            compteurTest.testFaux();
+        }
+
+        // 2) Vérifier qu'Alice possède bien 3 cartes,
+        if (alice.nbCarteEnMain() == 3) {
+            compteurTest.testOK();
+        } else {
+            System.out.println("Alice possède " + alice.nbCarteEnMain() + " cartes -_-");
+            compteurTest.testFaux();
+        }
+
+        // 3) Alice joue le « 2 Vert »,
+        try {
+            alice.poserCarte(vertDeux);
+        } catch (JoueurJoueMultipleException | JoueurCarteIllegalException e) {
+            System.out.println(e);
+            compteurTest.testFaux();
+        }
+
+        // 4) Vérifier qu'Alice possède bien 2 cartes,
+        if (alice.nbCarteEnMain() == 2) {
+            compteurTest.testOK();
+        } else {
+            System.out.println("Alice possède " + alice.nbCarteEnMain() + " cartes -_-");
+            compteurTest.testFaux();
+        }
+
+        // 5) Vérifier que les cartes d’Alice sont le « 6 jaune » et le « 1 rouge »
+        if (alice.nbCarteEnMain() == 2 && alice.getMainDuJoueur().get(0).equals(jauneSix) && alice.getMainDuJoueur().get(1).equals(rougeUn)) {
+            compteurTest.testOK();
+        } else {
+            System.out.println("Alice n'a pas 2 cartes ou le 6 jaune et le 1 rouge -_-");
+            compteurTest.testFaux();
+        }
+
+        // 6) Vérifier que la carte au sommet du tas est le « 2 Vert »
+        if (partie.carteAuDessusTas() == vertDeux) {
+            compteurTest.testOK();
+        } else {
+            System.out.println("La carte au sommet du tas est " + partie.carteAuDessusTas() + " -_-");
+            compteurTest.testFaux();
+        }
+
+        // 7) Vérifier que le nombre de cartes du tas est 2,
+        if (tas.size() == 2) {
+            compteurTest.testOK();
+        } else {
+            System.out.println("Le nombre de carte dans le tas est de " + tas.size() + " -_-");
+            compteurTest.testFaux();
+        }
+
+        // 8) Alice finit le tour
+        try {
+            alice.finTour();
+        } catch (JoueurOublieDireUnoException e) {
+            System.out.println(e);
+        }
+
+        // 9) Vérifier que le joueur courant est Bob.
+        if (partie.joueurCourant().equals(bob)) {
+            compteurTest.testOK();
+        } else {
+            System.out.println("Le joueur courant est " + partie.joueurCourant().getNom() + " -_-");
+            compteurTest.testFaux();
+        }
     }
 }

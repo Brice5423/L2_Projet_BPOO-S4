@@ -68,80 +68,27 @@ public class TestUno {
         charles.donnerCarte(new CarteBasique(ECarteCouleur.BLEU, ECarteValeur.NEUF));
 
 
-        /* ***** ***** Debut test : Test lorsqu’Alice dit « Uno ! » au bon moment ***** ***** */
-        System.out.println("\tTest lorsqu’Alice dit « Uno ! » au bon moment");
-
-        /* ***** Bloc des premiers copie pour les tests ***** */
-        Partie partieTest = partie.copiePartie();
-
-        Joueur aliceTest = partieTest.getListJoueur().get(0);
-        Joueur bobTest = partieTest.getListJoueur().get(1);
-        Joueur charlesTest = partieTest.getListJoueur().get(2);
-        /* ************************************************** */
-
-        // 1) Vérifier qu’Alice	a bien 2 cartes
-        if (aliceTest.nbCarteEnMain() == 2) {
-            System.out.println("Alice a 2 cartes ^^");
-            compteurTest.testOK();
-        } else {
-            System.out.println("Alice a " + aliceTest.nbCarteEnMain() + "-_-");
-            compteurTest.testFaux();
-        }
-
-        // 2) Alice	pose le	« 2	Vert »
-        try {
-            aliceTest.poserCarte(vertDeux);
-        } catch (JoueurCarteIllegalException | JoueurJoueMultipleException e) {
-            System.out.println(e);
-            compteurTest.testFaux();
-        }
-
-        // 3) Alice	dit	« Uno ! »
-        aliceTest.ditUNO();
-
-        // 4) Alice	finit	son	tour
-        try {
-            aliceTest.finTour();
-        } catch (JoueurOublieDireUnoException e) {
-            System.out.println(e);
-            compteurTest.testFaux();
-
-            /*int tailleTas = partieTest.getTas().size();
-            Carte carteJouer = partieTest.getTas().remove(tailleTas - 1);
-
-            System.out.println("Le joueur " + aliceTest.getNom() + " récupère ça carte : " + carteJouer);
-            aliceTest.donnerCarte(carteJouer);
-            aliceTest.punition();*/
-        }
-
-        // 5) Vérifier qu’Alice n’a plus qu’une	seule carte
-        if (aliceTest.nbCarteEnMain() == 1) {
-            System.out.println("Alice a 1 cartes ^^");
-            compteurTest.testOK();
-        } else {
-            System.out.println("Alice a " + aliceTest.nbCarteEnMain() + "-_-");
-            compteurTest.testFaux();
-        }
-
-        // 6) Vérifier que la carte au sommet du tas est le « 2 Vert »
-        if (partieTest.carteAuDessusTas().equals(vertDeux)) {
-            System.out.println("La carte de la pioche est le 2 vert ^^");
-            compteurTest.testOK();
-        } else {
-            System.out.println("La carte de la pioche est le " + partieTest.carteAuDessusTas() + " -_-");
-            compteurTest.testFaux();
-        }
-
-        // 7) Vérifier que le joueur courant est Bob
-        if (partieTest.joueurCourant().equals(bobTest)) {
-            System.out.println("Le joueur courant est bien Bob ^^");
-            compteurTest.testOK();
-        } else {
-            System.out.println("Le joueur courant n'est pas Bob mais " + partieTest.joueurCourant().getNom() + " -_-");
-            compteurTest.testFaux();
-        }
+        UnoBonMoment(compteurTest, partie, vertDeux);
+        Joueur charlesTest;
+        Partie partieTest;
+        Joueur aliceTest;
+        Joueur bobTest;
 
 
+        JoueurCourantOublieUno(compteurTest, partie, vertHuit, vertDeux);
+
+        UnoJoueurNonCourant(compteurTest, partie, vertHuit);
+
+
+        /* ***** ***** Fin du test, renvoie si test ok et affiche le résultat global ***** ***** */
+        return compteurTest.afficheResultatsTest();
+    }
+
+    private static void JoueurCourantOublieUno(CompteurTest compteurTest, Partie partie, Carte vertHuit, Carte vertDeux) {
+        Partie partieTest;
+        Joueur aliceTest;
+        Joueur bobTest;
+        Joueur charlesTest;
         /* ***** ***** Debut test : Test lorsqu’Alice oubli de dire « Uno ! » ***** ***** */
         System.out.println("\n\tTest lorsqu’Alice oubli de dire « Uno ! »");
 
@@ -164,12 +111,11 @@ public class TestUno {
             compteurTest.testFaux();
         } catch (JoueurOublieDireUnoException e) {
             // 3) Punir	Alice
-            System.out.println(e);
+
 
             int tailleTas = partieTest.getTas().size();
             Carte carteJouer = partieTest.getTas().remove(tailleTas - 1);
 
-            System.out.println("Le joueur " + aliceTest.getNom() + " récupère ça carte : " + carteJouer);
             aliceTest.donnerCarte(carteJouer);
             aliceTest.punition();
             compteurTest.testOK();
@@ -183,7 +129,6 @@ public class TestUno {
 
         // 4) Vérifier qu’Alice	a maintenant 4 cartes
         if (aliceTest.nbCarteEnMain() == 4) {
-            System.out.println("Alice a 4 cartes ^^");
             compteurTest.testOK();
         } else {
             System.out.println("Alice a " + aliceTest.nbCarteEnMain() + "cartes -_-");
@@ -192,7 +137,6 @@ public class TestUno {
 
         // 5) Vérifier que la carte	au sommet du tas est le	« 8	Vert »
         if (partieTest.carteAuDessusTas().equals(vertHuit)) {
-            System.out.println("La carte de la pioche est le 2 vert ^^");
             compteurTest.testOK();
         } else {
             System.out.println("La carte de la pioche est le " + partieTest.carteAuDessusTas() + " -_-");
@@ -201,13 +145,18 @@ public class TestUno {
 
         // 6) Vérifier que le joueur courant est Bob
         if (partieTest.joueurCourant().equals(bobTest)) {
-            System.out.println("Le joueur courant est bien Bob ^^");
             compteurTest.testOK();
         } else {
             System.out.println("Le joueur courant n'est pas Bob mais " + partieTest.joueurCourant().getNom() + " -_-");
             compteurTest.testFaux();
         }
+    }
 
+    private static void UnoJoueurNonCourant(CompteurTest compteurTest, Partie partie, Carte vertHuit) {
+        Partie partieTest;
+        Joueur charlesTest;
+        Joueur bobTest;
+        Joueur aliceTest;
         /* ***** ***** Debut test : Test lorsque Bob dit « Uno ! » quand ce n’est pas son tour ***** ***** */
         System.out.println("\n\tTest lorsque Bob dit « Uno ! » quand ce n’est pas son tour");
         partieTest = partie.copiePartie();
@@ -218,7 +167,6 @@ public class TestUno {
 
         // 1) Vérifier qu'Alice	est	le joueur courant
         if (partieTest.joueurCourant().equals(aliceTest)) {
-            System.out.println("Le joueur courant est bien Alice ^^");
             compteurTest.testOK();
         } else {
             System.out.println("Le joueur courant n'est pas Alice mais " + partieTest.joueurCourant().getNom() + " -_-");
@@ -227,10 +175,11 @@ public class TestUno {
 
         // 2) Bob dit « Uno ! »   &   3) Punir Bob
         bobTest.ditUNO();
+        //TODO faire ici tjr
+
 
         // 4) Vérifier que Bob a maintenant	4 cartes
         if (bobTest.nbCarteEnMain() == 4) {
-            System.out.println("Bob a 4 cartes ^^");
             compteurTest.testOK();
         } else {
             System.out.println("Bob a " + bobTest.nbCarteEnMain() + "cartes -_-");
@@ -239,7 +188,6 @@ public class TestUno {
 
         // 5) Vérifier qu’Alice	est	toujours le	joueur courant
         if (partieTest.joueurCourant().equals(aliceTest)) {
-            System.out.println("Le joueur courant est bien Alice ^^");
             compteurTest.testOK();
         } else {
             System.out.println("Le joueur courant n'est pas Alice mais " + partieTest.joueurCourant().getNom() + " -_-");
@@ -248,15 +196,82 @@ public class TestUno {
 
         // 6) Vérifier que la carte	au sommet du tas est le	« 8	Vert »
         if (partieTest.carteAuDessusTas().equals(vertHuit)) {
-            System.out.println("La carte de la pioche est le 2 vert ^^");
+            compteurTest.testOK();
+        } else {
+            System.out.println("La carte de la pioche est le " + partieTest.carteAuDessusTas() + " -_-");
+            compteurTest.testFaux();
+        }
+    }
+
+    private static void UnoBonMoment(CompteurTest compteurTest, Partie partie, Carte vertDeux) {
+        /* ***** ***** Debut test : Test lorsqu’Alice dit « Uno ! » au bon moment ***** ***** */
+        System.out.println("\tTest lorsqu’Alice dit « Uno ! » au bon moment");
+
+        /* ***** Bloc des premiers copie pour les tests ***** */
+        Partie partieTest = partie.copiePartie();
+
+        Joueur aliceTest = partieTest.getListJoueur().get(0);
+        Joueur bobTest = partieTest.getListJoueur().get(1);
+        Joueur charlesTest = partieTest.getListJoueur().get(2);
+        /* ************************************************** */
+
+        // 1) Vérifier qu’Alice	a bien 2 cartes
+        if (aliceTest.nbCarteEnMain() == 2) {
+            compteurTest.testOK();
+        } else {
+            System.out.println("Alice a " + aliceTest.nbCarteEnMain() + "-_-");
+            compteurTest.testFaux();
+        }
+
+        // 2) Alice	pose le	« 2	Vert »
+        try {
+            aliceTest.poserCarte(vertDeux);
+        } catch (JoueurCarteIllegalException | JoueurJoueMultipleException e) {
+            System.out.println(e);
+            compteurTest.testFaux();
+        }
+
+        // 3) Alice	dit	« Uno ! »
+        aliceTest.ditUNO();
+        //@TODO elle ne doit pas ecrire le dit Uno
+
+        // 4) Alice	finit	son	tour
+        try {
+            aliceTest.finTour();
+        } catch (JoueurOublieDireUnoException e) {
+            System.out.println(e);
+            compteurTest.testFaux();
+
+            /*int tailleTas = partieTest.getTas().size();
+            Carte carteJouer = partieTest.getTas().remove(tailleTas - 1);
+
+            System.out.println("Le joueur " + aliceTest.getNom() + " récupère ça carte : " + carteJouer);
+            aliceTest.donnerCarte(carteJouer);
+            aliceTest.punition();*/
+        }
+
+        // 5) Vérifier qu’Alice n’a plus qu’une	seule carte
+        if (aliceTest.nbCarteEnMain() == 1) {
+            compteurTest.testOK();
+        } else {
+            System.out.println("Alice a " + aliceTest.nbCarteEnMain() + "-_-");
+            compteurTest.testFaux();
+        }
+
+        // 6) Vérifier que la carte au sommet du tas est le « 2 Vert »
+        if (partieTest.carteAuDessusTas().equals(vertDeux)) {
             compteurTest.testOK();
         } else {
             System.out.println("La carte de la pioche est le " + partieTest.carteAuDessusTas() + " -_-");
             compteurTest.testFaux();
         }
 
-
-        /* ***** ***** Fin du test, renvoie si test ok et affiche le résultat global ***** ***** */
-        return compteurTest.afficheResultatsTest();
+        // 7) Vérifier que le joueur courant est Bob
+        if (partieTest.joueurCourant().equals(bobTest)) {
+            compteurTest.testOK();
+        } else {
+            System.out.println("Le joueur courant n'est pas Bob mais " + partieTest.joueurCourant().getNom() + " -_-");
+            compteurTest.testFaux();
+        }
     }
 }
