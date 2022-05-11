@@ -42,7 +42,7 @@ public class Partie {
      *
      * @param listeJoueur liste de 2 à 10 joueurs
      */
-    public Partie(ArrayList<Joueur> listeJoueur) {
+    public Partie(ArrayList<Joueur> listeJoueur) throws PartieException {
         this.niemePartie = 1;
         this.numJoueurCourant = 0;
         this.etreSensHoraire = true;
@@ -60,7 +60,7 @@ public class Partie {
      * @param listeJoueur liste de 2 à 10 joueurs
      * @param pioche
      */
-    public Partie(ArrayList<Joueur> listeJoueur, ArrayList<Carte> pioche) {
+    public Partie(ArrayList<Joueur> listeJoueur, ArrayList<Carte> pioche) throws PartieException {
         this.niemePartie = 1;
         this.numJoueurCourant = 0;
         this.etreSensHoraire = true;
@@ -202,39 +202,29 @@ public class Partie {
         Collections.shuffle(this.pioche);
     }
 
-    private void initialisationListeJoueur(ArrayList<Joueur> listeJoueur) {
-        try {
-            if (listeJoueur.size() < 2 || listeJoueur.size() > 10) {
-                throw new PartieException("La partie doit avoir 2 à 10 dans une partie !");
-            }
-
-            this.listeJoueur = listeJoueur;
-            this.listeJoueur.forEach(joueur -> joueur.setDansLaPartie(this));
-
-        } catch (PartieException e) {
-            System.out.println(e);
+    private void initialisationListeJoueur(ArrayList<Joueur> listeJoueur) throws PartieException {
+        if (listeJoueur.size() < 2 || listeJoueur.size() > 10) {
+            throw new PartieException("La partie doit avoir 2 à 10 dans une partie !");
         }
+
+        this.listeJoueur = listeJoueur;
+        this.listeJoueur.forEach(joueur -> joueur.setDansLaPartie(this));
     }
 
-    private void setListeJoueurEtCopie(ArrayList<Joueur> listeJoueur) {
-        try {
-            if (listeJoueur.size() < 2 || listeJoueur.size() > 10) {
-                throw new PartieException("La partie doit avoir 2 à 10 dans une partie !");
-            }
-
-            this.listeJoueur.clear();
-            listeJoueur.forEach(joueur -> this.listeJoueur.add(joueur.copyJoueur()));
-            this.listeJoueur.forEach(joueur -> joueur.setDansLaPartie(this));
-
-        } catch (PartieException e) {
-            System.out.println(e);
+    private void setListeJoueurEtCopie(ArrayList<Joueur> listeJoueur) throws PartieException {
+        if (listeJoueur.size() < 2 || listeJoueur.size() > 10) {
+            throw new PartieException("La partie doit avoir 2 à 10 dans une partie !");
         }
+
+        this.listeJoueur.clear();
+        listeJoueur.forEach(joueur -> this.listeJoueur.add(joueur.copyJoueur()));
+        this.listeJoueur.forEach(joueur -> joueur.setDansLaPartie(this));
     }
 
     /**
      * Donne 7 cartes à chaque joueur dans la partie.
      */
-    public void initialiserCarteJoueur() {
+    public void initialiserCarteJoueur() throws PartieException {
         for (Joueur joueur : this.listeJoueur) {
             for (int i = 0; i < 7; i++) {
                 joueur.donnerCarte();
@@ -242,7 +232,7 @@ public class Partie {
         }
     }
 
-    public Partie copiePartie() {
+    public Partie copiePartie() throws PartieException {
         Partie copiePartie = new Partie();
 
         copiePartie.setNiemePartie(this.niemePartie);
