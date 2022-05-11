@@ -36,7 +36,7 @@ public class CoupsLegauxCartesSimples {
      * 8) Vérifier que le joueur courant est Charles.
      */
     public static boolean executionDuTest() {
-        System.out.println("\n\t\t----- Tests coups légaux avec des cartes simples -----\n");
+        System.out.println("\n\t\t\t----- Tests coups légaux avec des cartes simples -----");
 
         /* ***** ***** initialisation des compteurs du test ***** ***** */
         CompteurTest compteurTest = new CompteurTest("Coup légaux avec des cartes simples");
@@ -78,7 +78,7 @@ public class CoupsLegauxCartesSimples {
 
         Carte vertDeux = new CarteBasique(ECarteCouleur.VERT, ECarteValeur.DEUX);
         Carte jauneSix = new CarteBasique(ECarteCouleur.JAUNE, ECarteValeur.SIX);
-        Carte rougeUn = new  CarteBasique(ECarteCouleur.ROUGE, ECarteValeur.UN);
+        Carte rougeUn = new CarteBasique(ECarteCouleur.ROUGE, ECarteValeur.UN);
 
         alice.donnerCarte(vertDeux);
         alice.donnerCarte(jauneSix);
@@ -100,7 +100,6 @@ public class CoupsLegauxCartesSimples {
         /* ***** ***** Debut test : Bob joue une carte de couleur différente, mais de même valeur. ***** ***** */
         testCarteBonneCouleur(compteurTest, alice, bob, partie, tas, vertDeux, jauneSix, rougeUn);
 
-
         /* ***** ***** Debut test : Alice joue une carte de la bonne couleur. ***** ***** */
         testCarteMemeValeur(compteurTest, bob, charles, partie, tas, bleuDeux, jauneQuatre, rougeNeuf);
 
@@ -110,7 +109,7 @@ public class CoupsLegauxCartesSimples {
     }
 
     private static void testCarteMemeValeur(CompteurTest compteurTest, Joueur bob, Joueur charles, Partie partie, ArrayList<Carte> tas, Carte bleuDeux, Carte jauneQuatre, Carte rougeNeuf) {
-        System.out.println("\n\tBob joue une carte de couleur différente, mais de même valeur.");
+        System.out.println("\tBob joue une carte de couleur différente, mais de même valeur.");
 
         // 1) Vérifier	que	Bob	possède	bien 3 cartes
         if (bob.nbCarteEnMain() == 3) {
@@ -119,7 +118,6 @@ public class CoupsLegauxCartesSimples {
             System.out.println("Bob possède " + bob.nbCarteEnMain() + " cartes -_-");
             compteurTest.testFaux();
         }
-
 
         // 2) Bob pose le « 2 bleu »,
         try {

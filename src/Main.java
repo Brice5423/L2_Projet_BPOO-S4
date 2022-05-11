@@ -44,11 +44,12 @@ public class Main {
         } else {
             compteurTest.testFaux();
         }
-            // ...
+
+        // ...
 
 
         /* ***** ***** Affiche le résultat de tout les tests ***** ***** */
-        System.out.println("\n\n\t\t----- Tous les tests -----");
+        System.out.println("\n\n\t\t\t----- Tous les tests -----");
         compteurTest.afficheResultatsTest();
     }
 }
