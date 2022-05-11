@@ -165,8 +165,6 @@ public class Joueur {
      * punie le joueur en lui donnant 2 cartes.
      */
     public void punition() throws PartieException, JoueurOublieDireUnoException, JoueurNonCourantException, JoueurJouePasException {
-        // TODO punition : regarder si on fait un finiTour pour les joueur courant
-        System.out.println("Le joueur " + this.nom + " est puni(e), " + this.nom + " pioche 2 cartes");
         this.donnerCarte();
         this.donnerCarte();
 
