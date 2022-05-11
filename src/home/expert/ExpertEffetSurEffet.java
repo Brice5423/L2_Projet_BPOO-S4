@@ -8,6 +8,7 @@ import home.metier.carte.carteAEffetType.CartePasserTour;
 import home.metier.carte.carteAEffetType.CartePlusDeux;
 
 public class ExpertEffetSurEffet extends Expert {
+    // TODO : On change tout !!!! (carteAEffet sur même carteAEffet
 
     public ExpertEffetSurEffet() {
         super();
