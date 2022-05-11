@@ -135,7 +135,7 @@ public class TestUno {
             try {
                 aliceTest.finTour();
                 compteurTest.testOK();
-            } catch (JoueurOublieDireUnoException | JoueurNonCourantException ex) {
+            } catch (Exception ex) {
                 System.out.println(ex);
                 compteurTest.testFaux();
             }
