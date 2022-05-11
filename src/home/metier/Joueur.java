@@ -129,7 +129,7 @@ public class Joueur {
                 throw new PartieException("Le joueur " + this.nom + " veut prendre une carte dans la pioche vide");
             }
             if (this.avoirJoueSonTour) {
-                throw new JoueurJoueMultipleException("Le joueur " + this.nom + " n'a pas le droit de piocher, il a déjà jouer", this);
+                throw new JoueurJoueMultipleException("Le joueur " + this.nom + " n'a pas le droit de piocher, il a déjà joué", this);
             }
 
             this.mainDuJoueur.add(this.dansLaPartie.retirerCartePioche());
@@ -147,7 +147,7 @@ public class Joueur {
             throw new JoueurNonCourantException("Le joueur " + this.nom + " n'est pas le joueur courant", this);
         }
         if (this.avoirJoueSonTour) {
-            throw new JoueurJoueMultipleException("Le joueur " + this.nom + " n'a pas le droit de piocher, il a déjà jouer", this);
+            throw new JoueurJoueMultipleException("Le joueur " + this.nom + " n'a pas le droit de piocher, il a déjà joué", this);
         }
 
         this.mainDuJoueur.add(carteDonnee);
@@ -250,7 +250,7 @@ public class Joueur {
             this.punition();
         }
 
-        this.dansLaPartie.joueurSuivant();
+        this.dansLaPartie.joueurCourantSuivant();
         this.avoirJoueSonTour = false;
         this.avoirDitUNO = false;
     }

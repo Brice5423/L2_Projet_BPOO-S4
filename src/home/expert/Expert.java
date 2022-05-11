@@ -33,7 +33,10 @@ public abstract class Expert {
         lesExperts = new ExpertBasiqueSurBasique();
         lesExperts.ajoutExpert(new ExpertBasiqueSurEffet());
         lesExperts.ajoutExpert(new ExpertEffetSurBasique());
-        lesExperts.ajoutExpert(new ExpertEffetSurEffet());
+        lesExperts.ajoutExpert(new ExpertEffetSurEffetDifferent());
+        lesExperts.ajoutExpert(new ExpertChangerSensSurChangerSens());
+        lesExperts.ajoutExpert(new ExpertPasserTourSurPasserTour());
+        lesExperts.ajoutExpert(new ExpertPlusDeuxSurPlusDeux());
 
         return lesExperts;
     }
