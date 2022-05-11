@@ -70,21 +70,21 @@ public class TestPunition {
         charles.donnerCarte(new CarteBasique(ECarteCouleur.BLEU, ECarteValeur.ZERO));
 
 
-        PunitionJoueurCourant(compteurTest, rougeQuatre, partie, vertDeux, jauneSix);
+        punitionJoueurCourant(compteurTest, rougeQuatre, partie, vertDeux, jauneSix);
         Joueur charlesTest;
         Partie partieTest;
         Joueur aliceTest;
         Joueur bobTest;
 
 
-        PunitionJoueurNonCourant(compteurTest, rougeQuatre, partie, vertDeux, jauneSix);
+        punitionJoueurNonCourant(compteurTest, rougeQuatre, partie, vertDeux, jauneSix);
 
 
         /* ***** ***** Fin du test, renvoie si test ok et affiche le résultat global ***** ***** */
         return compteurTest.afficheResultatsTest();
     }
 
-    private static void PunitionJoueurNonCourant(CompteurTest compteurTest, Carte rougeQuatre, Partie partie, Carte vertDeux, Carte jauneSix) {
+    private static void punitionJoueurNonCourant(CompteurTest compteurTest, Carte rougeQuatre, Partie partie, Carte vertDeux, Carte jauneSix) {
         Joueur aliceTest;
         Partie partieTest;
         Joueur charlesTest;
@@ -145,7 +145,7 @@ public class TestPunition {
         }
     }
 
-    private static void PunitionJoueurCourant(CompteurTest compteurTest, Carte rougeQuatre, Partie partie, Carte vertDeux, Carte jauneSix) {
+    private static void punitionJoueurCourant(CompteurTest compteurTest, Carte rougeQuatre, Partie partie, Carte vertDeux, Carte jauneSix) {
         /* ***** ***** Debut test : Test de la punition pour un coup illégal d’Alice (joueur courant) ***** ***** */
         System.out.println("\tTest de la punition pour un coup illégal d’Alice (joueur courant)");
 

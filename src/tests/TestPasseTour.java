@@ -57,9 +57,10 @@ public class TestPasseTour {
         alice.donnerCarte(bleuNeuf);
         alice.donnerCarte(new CarteBasique(ECarteCouleur.JAUNE, ECarteValeur.QUATRE));
 
+        Carte vertSix = new CarteBasique(ECarteCouleur.VERT, ECarteValeur.SIX);
 
         bob.donnerCarte(new CarteBasique(ECarteCouleur.JAUNE, ECarteValeur.SIX));
-        bob.donnerCarte(new CarteBasique(ECarteCouleur.VERT, ECarteValeur.SIX));
+        bob.donnerCarte(vertSix);
         bob.donnerCarte(new CarteBasique(ECarteCouleur.BLEU, ECarteValeur.SEPT));
 
         Carte vertPasse = new CartePasserTour(ECarteCouleur.VERT);
@@ -83,7 +84,6 @@ public class TestPasseTour {
         //1)Verifier qu'alice est bien le joueur courant :
 
         if (partieTest.joueurCourant().equals(aliceTest)) {
-            System.out.println("Le joueur courant est bien Alice ^^");
             compteurTest.testOK();
         } else {
             System.out.println("Le joueur courant n'est pas Bob mais " + partieTest.joueurCourant().getNom() + " -_-");
@@ -108,10 +108,9 @@ public class TestPasseTour {
         }
         //4)Verifier que Charles est le joueur courant
         if (partieTest.joueurCourant().equals(charlesTest)) {
-            System.out.println("Le joueur courant est bien Charles ^^");
             compteurTest.testOK();
         } else {
-            System.out.println("Le joueur courant n'est pas Bob mais " + partieTest.joueurCourant().getNom() + " -_-");
+            System.out.println("Le joueur courant n'est pas Charles mais " + partieTest.joueurCourant().getNom() + " -_-");
             compteurTest.testFaux();
         }
 
@@ -125,6 +124,78 @@ public class TestPasseTour {
         }
 
         //6) Charles pose le passe ton tour vert
+        try {
+            charlesTest.poserCarte(vertPasse);
+            System.out.println("Charles pose le vertPasse^^");
+            compteurTest.testOK();
+        } catch (JoueurCarteIllegalException | JoueurJoueMultipleException e) {
+            System.out.println(e);
+            compteurTest.testFaux();
+        }
+
+        //7) charles finit son tour
+        try {
+            charlesTest.finTour();
+        } catch (JoueurOublieDireUnoException e) {
+            System.out.println(e);
+            compteurTest.testFaux();
+        }
+
+        //8) verifier que le joueur courant = Bob
+        if (partieTest.joueurCourant().equals(bobTest)) {
+            compteurTest.testOK();
+        } else {
+            System.out.println("Le joueur courant n'est pas Bob mais " + partieTest.joueurCourant().getNom() + " -_-");
+            compteurTest.testFaux();
+        }
+
+        // 9) Vérifier que la carte	au sommet du tas est le	« passe ton tour Vert »
+        if (partieTest.carteAuDessusTas().equals(vertPasse)) {
+            System.out.println("La carte de la pioche est le passe ton tour Vert ^^");
+            compteurTest.testOK();
+        } else {
+            System.out.println("La carte de la pioche est le " + partieTest.carteAuDessusTas() + " -_-");
+            compteurTest.testFaux();
+        }
+
+        //10) Bob pose le 6 vert
+        try {
+            bobTest.poserCarte(vertSix);
+            System.out.println("Charles pose le 6 vert^^");
+            compteurTest.testOK();
+        } catch (JoueurCarteIllegalException | JoueurJoueMultipleException e) {
+            System.out.println(e);
+            compteurTest.testFaux();
+        }
+
+        //11) Bob finit son tour
+        try {
+            bobTest.finTour();
+        } catch (JoueurOublieDireUnoException e) {
+            System.out.println(e);
+            compteurTest.testFaux();
+        }
+        //12) verifier que le joueur courant = Charles
+        if (partieTest.joueurCourant().equals(charlesTest)) {
+            compteurTest.testOK();
+        } else {
+            System.out.println("Le joueur courant n'est pas Charles mais " + partieTest.joueurCourant().getNom() + " -_-");
+            compteurTest.testFaux();
+        }
+
+        // 13) Vérifier que la carte	au sommet du tas est le	« 6 vert »
+        if (partieTest.carteAuDessusTas().equals(vertSix)) {
+            System.out.println("La carte de la pioche est le 6 vert ^^");
+            compteurTest.testOK();
+        } else {
+            System.out.println("La carte de la pioche est le " + partieTest.carteAuDessusTas() + " -_-");
+            compteurTest.testFaux();
+        }
+
+
+
+
+
 
 
 

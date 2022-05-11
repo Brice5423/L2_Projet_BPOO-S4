@@ -3,10 +3,7 @@
  *  Version Java : 17.0.2                 *
  * ************************************** */
 
-import tests.CoupsIllegauxCartesSimples;
-import tests.CoupsLegauxCartesSimples;
-import tests.TestPunition;
-import tests.TestUno;
+import tests.*;
 import tests.controleur.CompteurTest;
 
 public class Main {
@@ -41,7 +38,13 @@ public class Main {
         } else {
             compteurTest.testFaux();
         }
-        // ...
+
+        if (TestPasseTour.executionDuTest()) {
+            compteurTest.testOK();
+        } else {
+            compteurTest.testFaux();
+        }
+            // ...
 
 
         /* ***** ***** Affiche le résultat de tout les tests ***** ***** */

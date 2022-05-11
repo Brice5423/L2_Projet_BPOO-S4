@@ -68,23 +68,23 @@ public class TestUno {
         charles.donnerCarte(new CarteBasique(ECarteCouleur.BLEU, ECarteValeur.NEUF));
 
 
-        UnoBonMoment(compteurTest, partie, vertDeux);
+        unoBonMoment(compteurTest, partie, vertDeux);
         Joueur charlesTest;
         Partie partieTest;
         Joueur aliceTest;
         Joueur bobTest;
 
 
-        JoueurCourantOublieUno(compteurTest, partie, vertHuit, vertDeux);
+        joueurCourantOublieUno(compteurTest, partie, vertHuit, vertDeux);
 
-        UnoJoueurNonCourant(compteurTest, partie, vertHuit);
+        unoJoueurNonCourant(compteurTest, partie, vertHuit);
 
 
         /* ***** ***** Fin du test, renvoie si test ok et affiche le résultat global ***** ***** */
         return compteurTest.afficheResultatsTest();
     }
 
-    private static void JoueurCourantOublieUno(CompteurTest compteurTest, Partie partie, Carte vertHuit, Carte vertDeux) {
+    private static void joueurCourantOublieUno(CompteurTest compteurTest, Partie partie, Carte vertHuit, Carte vertDeux) {
         Partie partieTest;
         Joueur aliceTest;
         Joueur bobTest;
@@ -152,7 +152,7 @@ public class TestUno {
         }
     }
 
-    private static void UnoJoueurNonCourant(CompteurTest compteurTest, Partie partie, Carte vertHuit) {
+    private static void unoJoueurNonCourant(CompteurTest compteurTest, Partie partie, Carte vertHuit) {
         Partie partieTest;
         Joueur charlesTest;
         Joueur bobTest;
@@ -203,7 +203,7 @@ public class TestUno {
         }
     }
 
-    private static void UnoBonMoment(CompteurTest compteurTest, Partie partie, Carte vertDeux) {
+    private static void unoBonMoment(CompteurTest compteurTest, Partie partie, Carte vertDeux) {
         /* ***** ***** Debut test : Test lorsqu’Alice dit « Uno ! » au bon moment ***** ***** */
         System.out.println("\tTest lorsqu’Alice dit « Uno ! » au bon moment");
 
