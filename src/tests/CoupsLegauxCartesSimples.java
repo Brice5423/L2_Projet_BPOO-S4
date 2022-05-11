@@ -2,7 +2,6 @@ package tests;
 
 import home.enumeration.ECarteCouleur;
 import home.enumeration.ECarteValeur;
-import home.exception.*;
 import home.metier.Joueur;
 import home.metier.Partie;
 import home.metier.carte.Carte;
@@ -98,19 +97,20 @@ public class CoupsLegauxCartesSimples {
         charles.donnerCarte(new CarteBasique(ECarteCouleur.BLEU, ECarteValeur.ZERO));
 
 
-        TestCarteBonneCouleur(compteurTest, alice, bob, partie, tas, vertDeux, jauneSix, rougeUn);
+        /* ***** ***** Debut test : Bob joue une carte de couleur différente, mais de même valeur. ***** ***** */
+        testCarteBonneCouleur(compteurTest, alice, bob, partie, tas, vertDeux, jauneSix, rougeUn);
 
 
-        TestCarteMemeValeur(compteurTest, bob, charles, partie, tas, bleuDeux, jauneQuatre, rougeNeuf);
+        /* ***** ***** Debut test : Alice joue une carte de la bonne couleur. ***** ***** */
+        testCarteMemeValeur(compteurTest, bob, charles, partie, tas, bleuDeux, jauneQuatre, rougeNeuf);
+
 
         /* ***** ***** Fin du test, renvoie si test ok et affiche le résultat global ***** ***** */
         return compteurTest.afficheResultatsTest();
     }
 
-    private static void TestCarteMemeValeur(CompteurTest compteurTest, Joueur bob, Joueur charles, Partie partie, ArrayList<Carte> tas, Carte bleuDeux, Carte jauneQuatre, Carte rougeNeuf) {
-        /* ***** ***** Debut test : Bob joue une carte de couleur différente, mais de même valeur. ***** ***** */
+    private static void testCarteMemeValeur(CompteurTest compteurTest, Joueur bob, Joueur charles, Partie partie, ArrayList<Carte> tas, Carte bleuDeux, Carte jauneQuatre, Carte rougeNeuf) {
         System.out.println("\n\tBob joue une carte de couleur différente, mais de même valeur.");
-
 
         // 1) Vérifier	que	Bob	possède	bien 3 cartes
         if (bob.nbCarteEnMain() == 3) {
@@ -180,8 +180,7 @@ public class CoupsLegauxCartesSimples {
         }
     }
 
-    private static void TestCarteBonneCouleur(CompteurTest compteurTest, Joueur alice, Joueur bob, Partie partie, ArrayList<Carte> tas, Carte vertDeux, Carte jauneSix, Carte rougeUn) {
-        /* ***** ***** Debut test : Alice joue une carte de la bonne couleur. ***** ***** */
+    private static void testCarteBonneCouleur(CompteurTest compteurTest, Joueur alice, Joueur bob, Partie partie, ArrayList<Carte> tas, Carte vertDeux, Carte jauneSix, Carte rougeUn) {
         System.out.println("\tAlice joue une carte de la bonne couleur.");
 
         // 1) Vérifier que le joueur courant est bien Alice,

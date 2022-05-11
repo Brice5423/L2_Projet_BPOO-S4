@@ -164,7 +164,7 @@ public class Joueur {
     /**
      * punie le joueur en lui donnant 2 cartes.
      */
-    public void punition() throws PartieException, JoueurOublieDireUnoException, JoueurNonCourantException {
+    public void punition() throws PartieException, JoueurOublieDireUnoException, JoueurNonCourantException, JoueurJouePasException {
         // TODO punition : regarder si on fait un finiTour pour les joueur courant
         System.out.println("Le joueur " + this.nom + " est puni(e), " + this.nom + " pioche 2 cartes");
         this.donnerCarte();
@@ -212,15 +212,14 @@ public class Joueur {
         this.avoirDitUNO = true;
     }
 
-    public void finTour() throws JoueurNonCourantException, JoueurOublieDireUnoException {
+    public void finTour() throws JoueurNonCourantException, JoueurJouePasException, JoueurOublieDireUnoException {
         if (!this.equals(this.dansLaPartie.joueurCourant())) {
             throw new JoueurNonCourantException("Le joueur " + this.nom + " n'est pas le joueur courant donc pas de fin de tour", this);
         }
-        // TODO finTour : !this.avoirJoueSonTour -> JoueurJouePasException
-        /*if (!this.avoirJoueSonTour) {
+        if (!this.avoirJoueSonTour) {
             throw new JoueurJouePasException("Le joueur " + this.nom + " n'a pas joue, elle ne peut pas dire \"UNO !\"", this);
-        }*/
-        if (!this.avoirDitUNO && this.nbCarteEnMain() == 1) {
+        }
+        if (this.nbCarteEnMain() == 1 && !this.avoirDitUNO) {
             throw new JoueurOublieDireUnoException("Le joueur " + this.nom + " à oublie de dire \"UNO !\"", this);
         }
 

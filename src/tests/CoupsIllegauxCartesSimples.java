@@ -77,7 +77,14 @@ public class CoupsIllegauxCartesSimples {
         listJoueur.add(bob);
         listJoueur.add(charles);
 
-        Partie partie = new Partie(listJoueur, pioche);
+        Partie partie = null;
+        try {
+            partie = new Partie(listJoueur, pioche);
+            compteurTest.testOK();
+        } catch (Exception e) {
+            System.out.println(e);
+            compteurTest.testFaux();
+        }
 
         ArrayList<Carte> tas = new ArrayList<Carte>();
 
@@ -106,19 +113,19 @@ public class CoupsIllegauxCartesSimples {
         charles.donnerCarte(new CarteBasique(ECarteCouleur.BLEU, ECarteValeur.ZERO));
 
 
+        /* ***** ***** Debut test : Test d’une carte illégale ***** ***** */
         TestCarteCouleurIllégale(compteurTest, partie, jauneSix);
-        Joueur bobTest;
-        Joueur aliceTest;
-        Joueur charlesTest;
-        Partie partieTest;
 
 
+        /* ***** ***** Debut test : Test d’un joueur qui pose deux cartes légales de suite ***** ***** */
         JouerDeuxFoisDAffile(compteurTest, partie, vertDeux, bleuDeux, bleuSix, bleuSept);
 
 
+        /* ***** ***** Debut test : Test d’un joueur qui finit son tour sans rien faire ***** ***** */
         FinirTourSansJouer(compteurTest, partie);
 
 
+        /* ***** ***** Debut test : Test d’un joueur qui joue puis pioche ***** ***** */
         JouePuisPioche(compteurTest, partie, vertDeux, jauneSix);
 
 
@@ -126,81 +133,63 @@ public class CoupsIllegauxCartesSimples {
         return compteurTest.afficheResultatsTest();
     }
 
-    private static void JouePuisPioche(CompteurTest compteurTest, Partie partie, Carte vertDeux, Carte jauneSix) {
-        Joueur aliceTest;
-        Partie partieTest;
-        Joueur charlesTest;
-        Joueur bobTest;
-        /* ***** ***** Debut test : Test d’un joueur qui joue puis pioche ***** ***** */
-        System.out.println("\n\tTest d’un joueur qui joue puis pioche");
+    private static void TestCarteCouleurIllégale(CompteurTest compteurTest, Partie partie, Carte jauneSix) {
+        System.out.println("\tTest d’une carte illégale");
 
-        partieTest = partie.copiePartie();
-
-        aliceTest = partieTest.getListJoueur().get(0);
-        bobTest = partieTest.getListJoueur().get(1);
-        charlesTest = partieTest.getListJoueur().get(2);
-
-        // 1) Alice	joue le	« 2	Vert » (RAS, le	coup est légal)
+        /* ***** Bloc des premiers copie pour les tests ***** */
+        Partie partieTest = null;
         try {
-            aliceTest.poserCarte(vertDeux);
-        } catch (JoueurCarteIllegalException | JoueurJoueMultipleException e) {
-            System.out.println(e);
-            compteurTest.testFaux();
-        }
-
-        // 2) Alice	pioche
-        try {
-            aliceTest.piocherCarte();
-            compteurTest.testFaux();
-        } catch (JoueurJoueMultipleException e) {
-            // 3) Vérifier dans le catch approprié qu'Alice possède toujours 2 cartes
-            if (aliceTest.nbCarteEnMain() == 2) {
-
-                Carte cartePioche = partieTest.retirerCartePioche();
-
-                // 4) Vérifier que la carte	de la pioche est toujours le « 6 jaune »
-                if (cartePioche.equals(jauneSix)) {
-                    compteurTest.testOK();
-                } else {
-                    System.out.println("La carte au sommet du tas est " + cartePioche + " -_-");
-                    compteurTest.testFaux();
-                }
-            } else {
-                System.out.println("Alice possède " + aliceTest.nbCarteEnMain() + " cartes -_-");
-                compteurTest.testFaux();
-            }
+            partieTest = partie.copiePartie();
+            compteurTest.testOK();
         } catch (Exception e) {
             System.out.println(e);
             compteurTest.testFaux();
         }
+
+        Joueur aliceTest = partieTest.getListJoueur().get(0);
+        Joueur bobTest = partieTest.getListJoueur().get(1);
+        Joueur charlesTest = partieTest.getListJoueur().get(2);
+        /* ************************************************** */
+
+
+        // 1) Alice	pose le	« 6	jaune »
+        try {
+            aliceTest.poserCarte(jauneSix);
+            compteurTest.testFaux();
+        } catch (Exception e) {
+            // 2) Vérifier dans	le catch approprié qu'Alice	possède	toujours 3 cartes dont le « 6 Jaune »
+            if (aliceTest.getMainDuJoueur().size() == 3) {
+                compteurTest.testOK();
+            } else {
+                System.out.println("Alice a pas 3 carte mais " + aliceTest.getMainDuJoueur().size() + " -_-");
+                compteurTest.testFaux();
+            }
+        }
     }
 
     private static void JouerDeuxFoisDAffile(CompteurTest compteurTest, Partie partie, Carte vertDeux, Carte bleuDeux, Carte bleuSix, Carte bleuSept) {
-        Partie partieTest;
-        Joueur aliceTest;
-        Joueur bobTest;
-        Joueur charlesTest;
-        /* ***** ***** Debut test : Test d’un joueur qui pose deux cartes légales de suite ***** ***** */
         System.out.println("\n\tTest d’un joueur qui pose deux cartes légales de suite");
 
-        partieTest = partie.copiePartie();
+        Partie partieTest = null;
+        try {
+            partieTest = partie.copiePartie();
+            compteurTest.testOK();
+        } catch (Exception e) {
+            System.out.println(e);
+            compteurTest.testFaux();
+        }
 
-        aliceTest = partieTest.getListJoueur().get(0);
-        bobTest = partieTest.getListJoueur().get(1);
-        charlesTest = partieTest.getListJoueur().get(2);
+        Joueur aliceTest = partieTest.getListJoueur().get(0);
+        Joueur bobTest = partieTest.getListJoueur().get(1);
+        Joueur charlesTest = partieTest.getListJoueur().get(2);
+
 
         // 1) Alice	pose le	« 2	Vert » et finit son tour
         try {
             aliceTest.poserCarte(vertDeux);
-        } catch (JoueurJoueMultipleException | JoueurCarteIllegalException e) {
-            System.out.println(e);
-            System.out.println("Alice ne peut pas poser le 2 vert -_-");
-            compteurTest.testFaux();
-        }
-
-        try {
             aliceTest.finTour();
-        } catch (JoueurOublieDireUnoException e) {
+            compteurTest.testOK();
+        } catch (Exception e) {
             System.out.println(e);
             compteurTest.testFaux();
         }
@@ -208,15 +197,9 @@ public class CoupsIllegauxCartesSimples {
         // 2) Bob pose le « 2 Bleu » et	finit son tour
         try {
             bobTest.poserCarte(bleuDeux);
-        } catch (JoueurCarteIllegalException | JoueurJoueMultipleException e) {
-            System.out.println(e);
-            System.out.println("Bob ne peut pas poser le 2 bleu -_-");
-            compteurTest.testFaux();
-        }
-
-        try {
             bobTest.finTour();
-        } catch (JoueurOublieDireUnoException e) {
+            compteurTest.testOK();
+        } catch (Exception e) {
             System.out.println(e);
             compteurTest.testFaux();
         }
@@ -224,7 +207,8 @@ public class CoupsIllegauxCartesSimples {
         // 3) Charles pose le « 6 Bleu » (RAS, c’est correct, mais Charles ne finit pas le	tour)
         try {
             charlesTest.poserCarte(bleuSix);
-        } catch (JoueurCarteIllegalException | JoueurJoueMultipleException e) {
+            compteurTest.testOK();
+        } catch (Exception e) {
             System.out.println(e);
             compteurTest.testFaux();
         }
@@ -241,76 +225,105 @@ public class CoupsIllegauxCartesSimples {
         try {
             charlesTest.poserCarte(bleuSept);
             compteurTest.testFaux();
-        } catch (JoueurCarteIllegalException e) {
-            System.out.println(e + " -_-");
-            System.out.println("Charles a un problème pour mettre ça carte ??? -_-");
-            compteurTest.testFaux();
         } catch (JoueurJoueMultipleException e) {
-            // 6) Vérifier dans	le catch approprié que Charles possède toujours	2 cartes don le	« 2	Bleu »
-            if (bobTest.nbCarteEnMain() == 2) {
+            // 6) Vérifier dans	le catch approprié que Charles possède toujours	2 cartes TODO dont le « 7 Bleu »
+            if (bobTest.nbCarteEnMain() == 2 && bobTest.getMainDuJoueur().contains(bleuSept)) {
                 compteurTest.testOK();
             } else {
-                System.out.println("Charles possède " + charlesTest.nbCarteEnMain() + " cartes -_-");
+                System.out.println("Charles possède " + charlesTest.nbCarteEnMain() + " cartes ou n'as pas la carte << 7 Bleu >> -_-");
                 compteurTest.testFaux();
             }
+        } catch (Exception e) {
+            System.out.println(e);
+            compteurTest.testFaux();
         }
     }
 
     private static void FinirTourSansJouer(CompteurTest compteurTest, Partie partie) {
-        Joueur charlesTest;
-        Partie partieTest;
-        Joueur aliceTest;
-        Joueur bobTest;
-        /* ***** ***** Debut test : Test d’un joueur qui finit son tour sans rien faire ***** ***** */
         System.out.println("\n\tTest d’un joueur qui finit son tour sans rien faire");
 
-        partieTest = partie.copiePartie();
-
-        aliceTest = partieTest.getListJoueur().get(0);
-        bobTest = partieTest.getListJoueur().get(1);
-        charlesTest = partieTest.getListJoueur().get(2);
-
-        // 1) Alice	finit son tour
+        Partie partieTest = null;
         try {
-            aliceTest.finTour();
-        } catch (JoueurOublieDireUnoException e) {
+            partieTest = partie.copiePartie();
+            compteurTest.testOK();
+        } catch (Exception e) {
             System.out.println(e);
             compteurTest.testFaux();
         }
 
-        // 2) Vérifier dans	le catch approprié qu'Alice	possède	toujours 3 cartes
-        if (aliceTest.nbCarteEnMain() == 3) {
-            compteurTest.testOK();
-        } else {
-            System.out.println("Alice a" + aliceTest.nbCarteEnMain() + "cartes en main -_-");
+        Joueur aliceTest = partieTest.getListJoueur().get(0);
+        Joueur bobTest = partieTest.getListJoueur().get(1);
+        Joueur charlesTest = partieTest.getListJoueur().get(2);
+
+
+        // 1) Alice	finit son tour
+        try {
+            aliceTest.finTour();
+            System.out.println("Alicia à réussi à faire un \"finTour\" alors qu'elle n'a pas joué -_-");
+            compteurTest.testFaux();
+        } catch (JoueurJouePasException e) {
+            // 2) Vérifier dans	le catch approprié qu'Alice	possède	toujours 3 cartes
+            if (aliceTest.nbCarteEnMain() == 3) {
+                compteurTest.testOK();
+            } else {
+                System.out.println("Alice a" + aliceTest.nbCarteEnMain() + " cartes en main -_-");
+                compteurTest.testFaux();
+            }
+
+        } catch (Exception e) {
+            System.out.println(e);
             compteurTest.testFaux();
         }
     }
 
-    private static void TestCarteCouleurIllégale(CompteurTest compteurTest, Partie partie, Carte jauneSix) {
-        /* ***** ***** Debut test : Test d’une carte illégale ***** ***** */
-        System.out.println("\tTest d’une carte illégale");
+    private static void JouePuisPioche(CompteurTest compteurTest, Partie partie, Carte vertDeux, Carte jauneSix) {
+        System.out.println("\n\tTest d’un joueur qui joue puis pioche");
 
-        /* ***** Bloc des premiers copie pour les tests ***** */
-        Partie partieTest = partie.copiePartie();
+        Partie partieTest = null;
+        try {
+            partieTest = partie.copiePartie();
+            compteurTest.testOK();
+        } catch (Exception e) {
+            System.out.println(e);
+            compteurTest.testFaux();
+        }
 
         Joueur aliceTest = partieTest.getListJoueur().get(0);
         Joueur bobTest = partieTest.getListJoueur().get(1);
         Joueur charlesTest = partieTest.getListJoueur().get(2);
-        /* ************************************************** */
 
-        // 1) Alice	pose le	« 6	jaune »
+        // 1) Alice	joue le	« 2	Vert » (RAS, le	coup est légal)
         try {
-            aliceTest.poserCarte(jauneSix);
-            compteurTest.testFaux();
+            aliceTest.poserCarte(vertDeux);
+            compteurTest.testOK();
         } catch (Exception e) {
-            // 2) Vérifier dans	le catch approprié qu'Alice	possède	toujours 3 cartes dont le « 6 Jaune »
-            if (aliceTest.getMainDuJoueur().size() == 3) {
-                compteurTest.testOK();
+            System.out.println(e);
+            compteurTest.testFaux();
+        }
+
+        // 2) Alice	pioche
+        try {
+            aliceTest.piocherCarte();
+            compteurTest.testFaux();
+        } catch (JoueurJoueMultipleException e) {
+            // 3) Vérifier dans le catch approprié qu'Alice possède toujours 2 cartes
+            if (aliceTest.nbCarteEnMain() == 2) {
+                Carte cartePioche = partieTest.retirerCartePioche();
+
+                // 4) Vérifier que la carte	de la pioche est toujours le « 6 jaune »
+                if (cartePioche.equals(jauneSix)) {
+                    compteurTest.testOK();
+                } else {
+                    System.out.println("La carte au sommet du tas est " + cartePioche + " -_-");
+                    compteurTest.testFaux();
+                }
             } else {
-                System.out.println("Alice a pas 3 carte mais " + aliceTest.getMainDuJoueur().size() + " -_-");
+                System.out.println("Alice possède " + aliceTest.nbCarteEnMain() + " cartes -_-");
                 compteurTest.testFaux();
             }
+        } catch (Exception e) {
+            System.out.println(e);
+            compteurTest.testFaux();
         }
     }
 }
