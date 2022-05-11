@@ -2,9 +2,7 @@ package tests;
 
 import home.enumeration.ECarteCouleur;
 import home.enumeration.ECarteValeur;
-import home.exception.JoueurCarteIllegalException;
-import home.exception.JoueurJoueMultipleException;
-import home.exception.JoueurOublieDireUnoException;
+import home.exception.*;
 import home.metier.Joueur;
 import home.metier.Partie;
 import home.metier.carte.Carte;
@@ -42,7 +40,12 @@ public class TestPasseTour {
         listJoueur.add(bob);
         listJoueur.add(charles);
 
-        Partie partie = new Partie(listJoueur, pioche);
+        Partie partie = null;
+        try {
+            partie = new Partie(listJoueur, pioche);
+        } catch (Exception e) {
+            System.out.println(e);
+        }
 
         ArrayList<Carte> tas = new ArrayList<Carte>();
 
@@ -74,7 +77,12 @@ public class TestPasseTour {
         System.out.println("\tTest de coups legaux avec des cartes passe ton tour");
 
         /* ***** Bloc des premiers copie pour les tests ***** */
-        Partie partieTest = partie.copiePartie();
+        Partie partieTest = null;
+        try {
+            partieTest = partie.copiePartie();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
 
         Joueur aliceTest = partieTest.getListJoueur().get(0);
         Joueur bobTest = partieTest.getListJoueur().get(1);
@@ -92,17 +100,21 @@ public class TestPasseTour {
 
         //2)Alice pose le "passe ton tour rouge"
         try {
+
             aliceTest.poserCarte(rougePasse);
             compteurTest.testOK();
-        } catch (JoueurCarteIllegalException | JoueurJoueMultipleException e) {
+        } catch (Exception e) {
             System.out.println(e);
             compteurTest.testFaux();
         }
 
         //3)Alice finit son tour
         try {
+
             aliceTest.finTour();
-        } catch (JoueurOublieDireUnoException e) {
+            compteurTest.testOK();
+
+        } catch (Exception e) {
             System.out.println(e);
             compteurTest.testFaux();
         }
@@ -128,7 +140,7 @@ public class TestPasseTour {
             charlesTest.poserCarte(vertPasse);
             System.out.println("Charles pose le vertPasse^^");
             compteurTest.testOK();
-        } catch (JoueurCarteIllegalException | JoueurJoueMultipleException e) {
+        } catch (Exception e) {
             System.out.println(e);
             compteurTest.testFaux();
         }
@@ -136,7 +148,8 @@ public class TestPasseTour {
         //7) charles finit son tour
         try {
             charlesTest.finTour();
-        } catch (JoueurOublieDireUnoException e) {
+            compteurTest.testOK();
+        } catch (Exception e) {
             System.out.println(e);
             compteurTest.testFaux();
         }
@@ -163,7 +176,7 @@ public class TestPasseTour {
             bobTest.poserCarte(vertSix);
             System.out.println("Charles pose le 6 vert^^");
             compteurTest.testOK();
-        } catch (JoueurCarteIllegalException | JoueurJoueMultipleException e) {
+        } catch (Exception e) {
             System.out.println(e);
             compteurTest.testFaux();
         }
@@ -171,7 +184,8 @@ public class TestPasseTour {
         //11) Bob finit son tour
         try {
             bobTest.finTour();
-        } catch (JoueurOublieDireUnoException e) {
+            compteurTest.testOK();
+        } catch (Exception e) {
             System.out.println(e);
             compteurTest.testFaux();
         }

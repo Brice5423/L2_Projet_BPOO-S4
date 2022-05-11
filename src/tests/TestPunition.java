@@ -41,7 +41,12 @@ public class TestPunition {
         listJoueur.add(bob);
         listJoueur.add(charles);
 
-        Partie partie = new Partie(listJoueur, pioche);
+        Partie partie = null;
+        try {
+            partie = new Partie(listJoueur, pioche);
+        } catch (Exception e) {
+            System.out.println(e);
+        }
 
         ArrayList<Carte> tas = new ArrayList<Carte>();
 
@@ -86,13 +91,17 @@ public class TestPunition {
 
     private static void punitionJoueurNonCourant(CompteurTest compteurTest, Carte rougeQuatre, Partie partie, Carte vertDeux, Carte jauneSix) {
         Joueur aliceTest;
-        Partie partieTest;
+        Partie partieTest = null;
         Joueur charlesTest;
         Joueur bobTest;
         /* ***** ***** Debut test : Test d’une action de bob lorsque ce n’est pas son tour ***** ***** */
         System.out.println("\n\tTest d’une action de bob lorsque ce n’est pas son tour");
 
-        partieTest = partie.copiePartie();
+        try {
+            partieTest = partie.copiePartie();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
 
         aliceTest = partieTest.getListJoueur().get(0);
         bobTest = partieTest.getListJoueur().get(1);
@@ -112,9 +121,14 @@ public class TestPunition {
             compteurTest.testFaux();
         } catch (JoueurNonCourantException  e) {
             // 3) Punir	Bob
-            bobTest.punition();
-            compteurTest.testOK();
-        } catch (JoueurJoueMultipleException e) {
+            try {
+                bobTest.punition();
+                compteurTest.testOK();
+            } catch (Exception ex) {
+                System.out.println(ex);
+                compteurTest.testFaux();
+            }
+        } catch (Exception e) {
             System.out.println(e);
             compteurTest.testFaux();
         }
@@ -150,7 +164,12 @@ public class TestPunition {
         System.out.println("\tTest de la punition pour un coup illégal d’Alice (joueur courant)");
 
         /* ***** Bloc des premiers copie pour les tests ***** */
-        Partie partieTest = partie.copiePartie();
+        Partie partieTest = null;
+        try {
+            partieTest = partie.copiePartie();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
 
         Joueur aliceTest = partieTest.getListJoueur().get(0);
         Joueur bobTest = partieTest.getListJoueur().get(1);
@@ -171,15 +190,23 @@ public class TestPunition {
             compteurTest.testFaux();
         } catch (Exception e) {
             // 3) Punir	Alice
-            aliceTest.punition();
-            compteurTest.testOK();
+            try {
+                aliceTest.punition();
+                compteurTest.testOK();
+            } catch (Exception ex) {
+                System.out.println(ex);
+                compteurTest.testFaux();
+            }
+            compteurTest.testFaux();
         }
 
         // TODO : sup quand punition fera finTour
         try {
             aliceTest.finTour();
-        } catch (JoueurOublieDireUnoException e) {
+            compteurTest.testOK();
+        } catch (Exception e) {
             System.out.println(e);
+            compteurTest.testFaux();
         }
 
         // 4) Vérifier que Bob est le joueur courant
