@@ -42,6 +42,10 @@ public class Joueur {
         this.nom = nom;
     }
 
+    public void setAvoirJouerSonTour(boolean a){
+        this.avoirJoueSonTour=a;
+    }
+
     public ArrayList<Carte> getMainDuJoueur() {
         return this.mainDuJoueur;
     }
@@ -215,7 +219,7 @@ public class Joueur {
             throw new JoueurNonCourantException("Le joueur " + this.nom + " n'est pas le joueur courant donc pas de fin de tour", this);
         }
         if (!this.avoirJoueSonTour) {
-            throw new JoueurJouePasException("Le joueur " + this.nom + " n'a pas joue, elle ne peut pas dire \"UNO !\"", this);
+            throw new JoueurJouePasException("Le joueur " + this.nom + " n'a pas joue, il ne peut pas dire \"UNO !\"", this);
         }
         if (this.nbCarteEnMain() == 1 && !this.avoirDitUNO) {
             throw new JoueurOublieDireUnoException("Le joueur " + this.nom + " à oublie de dire \"UNO !\"", this);

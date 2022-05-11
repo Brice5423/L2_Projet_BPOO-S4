@@ -36,6 +36,8 @@ public class TestPasseTour {
         Joueur bob = new Joueur("Bob");
         Joueur charles = new Joueur("Charles");
 
+
+
         listJoueur.add(alice);
         listJoueur.add(bob);
         listJoueur.add(charles);
@@ -61,19 +63,248 @@ public class TestPasseTour {
         alice.donnerCarte(new CarteBasique(ECarteCouleur.JAUNE, ECarteValeur.QUATRE));
 
         Carte vertSix = new CarteBasique(ECarteCouleur.VERT, ECarteValeur.SIX);
+        Carte bleuSept = new CarteBasique(ECarteCouleur.BLEU, ECarteValeur.SEPT);
 
         bob.donnerCarte(new CarteBasique(ECarteCouleur.JAUNE, ECarteValeur.SIX));
         bob.donnerCarte(vertSix);
-        bob.donnerCarte(new CarteBasique(ECarteCouleur.BLEU, ECarteValeur.SEPT));
+        bob.donnerCarte(bleuSept);
 
         Carte vertPasse = new CartePasserTour(ECarteCouleur.VERT);
+        Carte bleuUn = new CarteBasique(ECarteCouleur.BLEU, ECarteValeur.UN);
 
-        charles.donnerCarte(new CarteBasique(ECarteCouleur.BLEU, ECarteValeur.UN));
+        charles.donnerCarte(bleuUn);
         charles.donnerCarte(vertPasse);
         charles.donnerCarte(new CarteBasique(ECarteCouleur.ROUGE, ECarteValeur.UN));
 
 
         /* ***** ***** Debut test : Test de coups legaux avec des cartes passe ton tour ***** ***** */
+        legauxPasseTour(compteurTest, partie, rougePasse, vertSix, vertPasse);
+
+        carteSimpleIllegalePasseTour(compteurTest, charles, partie, rougePasse, bleuUn);
+
+        /* ***** ***** 3e test : Test PasseTour illégale sur carte simple ***** ***** */
+        System.out.println("\n\tTest PasseTour illégale sur carte simple ");
+
+        Partie partieTest = null;
+        Joueur aliceTest;
+        Joueur bobTest;
+        Joueur charlesTest;
+
+        try {
+            partieTest = partie.copiePartie();
+        } catch (PartieException e) {
+            System.out.println(e);
+        }
+
+        aliceTest = partieTest.getListJoueur().get(0);
+        bobTest = partieTest.getListJoueur().get(1);
+        charlesTest = partieTest.getListJoueur().get(2);
+        /* ************************************************** */
+
+        //1)Verifier qu'alice est le joueur courant
+
+        if (partieTest.joueurCourant().equals(aliceTest)) {
+            compteurTest.testOK();
+        } else {
+            System.out.println("Le joueur courant n'est pas Alice mais " + partieTest.joueurCourant().getNom() + " -_-");
+            compteurTest.testFaux();
+        }
+
+        //2)Alice pose le passe tour rouge
+        try {
+            aliceTest.poserCarte(bleuNeuf);
+            compteurTest.testOK();
+        } catch (Exception e) {
+            System.out.println(e);
+            compteurTest.testFaux();
+        }
+        //3) Alice finit tour
+        try {
+            aliceTest.finTour();
+            compteurTest.testOK();
+
+        } catch (Exception e) {
+            System.out.println(e);
+            compteurTest.testFaux();
+        }
+
+        //4)Bob pose le 7bleu
+        try {
+            bobTest.poserCarte(bleuSept);
+            compteurTest.testOK();
+        } catch (Exception e) {
+            System.out.println(e);
+            compteurTest.testFaux();
+        }
+
+        //5) Bob finit son tour
+        try {
+            bobTest.finTour();
+            compteurTest.testOK();
+
+        } catch (Exception e) {
+            System.out.println(e);
+            compteurTest.testFaux();
+        }
+
+        //6) verifier que charles est le joueur courant
+        if (partieTest.joueurCourant().equals(charlesTest)) {
+            compteurTest.testOK();
+        } else {
+            System.out.println("Le joueur courant n'est pas Charles mais " + partieTest.joueurCourant().getNom() + " -_-");
+            compteurTest.testFaux();
+        }
+
+        //7) verifier que charles possède 3 cartes
+        if(charlesTest.nbCarteEnMain() == 3){
+            compteurTest.testOK();
+        }else{
+            System.out.println("Charles a  " + charles.nbCarteEnMain() + " cartes -_-");
+            compteurTest.testFaux();
+        }
+
+        //8)Charles pose le passeTour vert
+        try {
+            charlesTest.poserCarte(vertPasse);
+            compteurTest.testFaux();
+            System.out.println("Faux1");
+        } catch (Exception e) {
+            try {
+                charlesTest.setAvoirJouerSonTour(true);
+                charlesTest.finTour();
+                compteurTest.testOK();
+            } catch (Exception ex){
+                System.out.println(ex);
+                System.out.println("Faux2");
+                compteurTest.testFaux();
+            }
+            compteurTest.testOK();
+        }
+
+        //9) verifier que charles a tjr 3 cartes :
+        if(charlesTest.nbCarteEnMain() == 3){
+            compteurTest.testOK();
+        }else{
+            System.out.println("Charles a  " + charles.nbCarteEnMain() + " cartes -_-");
+            compteurTest.testFaux();
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        /* ***** ***** Fin du test, renvoie si test ok et affiche le résultat global ***** ***** */
+        return compteurTest.afficheResultatsTest();
+    }
+
+    private static void carteSimpleIllegalePasseTour(CompteurTest compteurTest, Joueur charles, Partie partie, Carte rougePasse, Carte bleuUn) {
+        /* ***** ***** 2e test : Test Carte simple sur Passe de Tour ***** ***** */
+        System.out.println("\n\tTest d'une carte simple illégale sur un passe de tour");
+
+        Partie partieTest = null;
+        Joueur aliceTest;
+        Joueur bobTest;
+        Joueur charlesTest;
+        /* ***** ***** Debut test : Test lorsqu’Alice oubli de dire « Uno ! » ***** ***** */
+
+        try {
+            partieTest = partie.copiePartie();
+        } catch (PartieException e) {
+            System.out.println(e);
+        }
+
+        aliceTest = partieTest.getListJoueur().get(0);
+        bobTest = partieTest.getListJoueur().get(1);
+        charlesTest = partieTest.getListJoueur().get(2);
+
+        //1) Verifier qu'Alice est le joueur courant
+        if (partieTest.joueurCourant().equals(aliceTest)) {
+            compteurTest.testOK();
+        } else {
+            System.out.println("Le joueur courant n'est pas Alice mais " + partieTest.joueurCourant().getNom() + " -_-");
+            compteurTest.testFaux();
+        }
+
+        //2)Alice pose le passe tour rouge
+        try {
+            aliceTest.poserCarte(rougePasse);
+            compteurTest.testOK();
+        } catch (Exception e) {
+            System.out.println(e);
+            compteurTest.testFaux();
+        }
+        //3) Alice finit tour
+        try {
+            aliceTest.finTour();
+            compteurTest.testOK();
+
+        } catch (Exception e) {
+            System.out.println(e);
+            compteurTest.testFaux();
+        }
+
+        //4) Verifier que Charles est le joueur courant
+        if (partieTest.joueurCourant().equals(charlesTest)) {
+            compteurTest.testOK();
+        } else {
+            System.out.println("Le joueur courant n'est pas Charles mais " + partieTest.joueurCourant().getNom() + " -_-");
+            compteurTest.testFaux();
+        }
+
+        //5) Verifier que Charles possede bien 3 cartes
+
+        if(charlesTest.nbCarteEnMain() == 3){
+            compteurTest.testOK();
+        }else{
+            System.out.println("Charles a  " + charles.nbCarteEnMain() + " cartes -_-");
+            compteurTest.testFaux();
+        }
+        //6) Charles pose le 1 bleu
+        try {
+            charlesTest.poserCarte(bleuUn);
+            compteurTest.testFaux();
+            System.out.println("Faux1");
+        } catch (Exception e) {
+            try {
+                charlesTest.setAvoirJouerSonTour(true);
+                charlesTest.finTour();
+                compteurTest.testOK();
+            } catch (Exception ex){
+                System.out.println(ex);
+                System.out.println("Faux2");
+                compteurTest.testFaux();
+            }
+            compteurTest.testOK();
+        }
+
+        //7) Verifier que Charles possede bien 3 cartes
+
+        if(charlesTest.nbCarteEnMain() == 3){
+            compteurTest.testOK();
+        }else{
+            System.out.println("Charles a  " + charles.nbCarteEnMain() + " cartes -_-");
+            compteurTest.testFaux();
+        }
+    }
+
+    private static void legauxPasseTour(CompteurTest compteurTest, Partie partie, Carte rougePasse, Carte vertSix, Carte vertPasse) {
         System.out.println("\tTest de coups legaux avec des cartes passe ton tour");
 
         /* ***** Bloc des premiers copie pour les tests ***** */
@@ -128,7 +359,6 @@ public class TestPasseTour {
 
         // 5) Vérifier que la carte	au sommet du tas est le	« passe ton tour Rouge »
         if (partieTest.carteAuDessusTas().equals(rougePasse)) {
-            System.out.println("La carte de la pioche est le passe ton tour Rouge ^^");
             compteurTest.testOK();
         } else {
             System.out.println("La carte de la pioche est le " + partieTest.carteAuDessusTas() + " -_-");
@@ -138,7 +368,6 @@ public class TestPasseTour {
         //6) Charles pose le passe ton tour vert
         try {
             charlesTest.poserCarte(vertPasse);
-            System.out.println("Charles pose le vertPasse^^");
             compteurTest.testOK();
         } catch (Exception e) {
             System.out.println(e);
@@ -164,7 +393,6 @@ public class TestPasseTour {
 
         // 9) Vérifier que la carte	au sommet du tas est le	« passe ton tour Vert »
         if (partieTest.carteAuDessusTas().equals(vertPasse)) {
-            System.out.println("La carte de la pioche est le passe ton tour Vert ^^");
             compteurTest.testOK();
         } else {
             System.out.println("La carte de la pioche est le " + partieTest.carteAuDessusTas() + " -_-");
@@ -174,7 +402,6 @@ public class TestPasseTour {
         //10) Bob pose le 6 vert
         try {
             bobTest.poserCarte(vertSix);
-            System.out.println("Charles pose le 6 vert^^");
             compteurTest.testOK();
         } catch (Exception e) {
             System.out.println(e);
@@ -189,6 +416,7 @@ public class TestPasseTour {
             System.out.println(e);
             compteurTest.testFaux();
         }
+
         //12) verifier que le joueur courant = Charles
         if (partieTest.joueurCourant().equals(charlesTest)) {
             compteurTest.testOK();
@@ -199,22 +427,11 @@ public class TestPasseTour {
 
         // 13) Vérifier que la carte	au sommet du tas est le	« 6 vert »
         if (partieTest.carteAuDessusTas().equals(vertSix)) {
-            System.out.println("La carte de la pioche est le 6 vert ^^");
             compteurTest.testOK();
         } else {
             System.out.println("La carte de la pioche est le " + partieTest.carteAuDessusTas() + " -_-");
             compteurTest.testFaux();
         }
-
-
-
-
-
-
-
-
-        /* ***** ***** Fin du test, renvoie si test ok et affiche le résultat global ***** ***** */
-        return compteurTest.afficheResultatsTest();
     }
 }
 
