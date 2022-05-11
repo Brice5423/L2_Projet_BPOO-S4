@@ -227,10 +227,11 @@ public class CoupsIllegauxCartesSimples {
             compteurTest.testFaux();
         } catch (JoueurJoueMultipleException e) {
             // 6) Vérifier dans	le catch approprié que Charles possède toujours	2 cartes TODO dont le « 7 Bleu »
-            if (bobTest.nbCarteEnMain() == 2 && bobTest.getMainDuJoueur().contains(bleuSept)) {
+            if (charlesTest.nbCarteEnMain() == 2 && charlesTest.getMainDuJoueur().get(0).equals(bleuSept)) {
                 compteurTest.testOK();
             } else {
-                System.out.println("Charles possède " + charlesTest.nbCarteEnMain() + " cartes ou n'as pas la carte << 7 Bleu >> -_-");
+                System.out.println("la main de charles:"+charlesTest.getMainDuJoueur());
+                System.out.println("Charles possède " +charlesTest.nbCarteEnMain() + " cartes ou n'a pas la carte << 7 Bleu >> -_-");
                 compteurTest.testFaux();
             }
         } catch (Exception e) {
@@ -259,7 +260,7 @@ public class CoupsIllegauxCartesSimples {
         // 1) Alice	finit son tour
         try {
             aliceTest.finTour();
-            System.out.println("Alicia à réussi à faire un \"finTour\" alors qu'elle n'a pas joué -_-");
+            System.out.println("Alice à réussi à faire un \"finTour\" alors qu'elle n'a pas joué -_-");
             compteurTest.testFaux();
         } catch (JoueurJouePasException e) {
             // 2) Vérifier dans	le catch approprié qu'Alice	possède	toujours 3 cartes

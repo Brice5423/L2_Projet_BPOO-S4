@@ -200,12 +200,13 @@ public class TestPunition {
             compteurTest.testFaux();
         }
 
-        // TODO : sup quand punition fera finTour
         try {
             aliceTest.finTour();
+            System.out.println("le joueur courant nest plus alice");
             compteurTest.testOK();
         } catch (Exception e) {
             System.out.println(e);
+            System.out.println("alice n'a pas fini son tour");
             compteurTest.testFaux();
         }
 
