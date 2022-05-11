@@ -7,6 +7,7 @@ import home.exception.ExpertManquantException;
 import home.exception.PartieException;
 import home.expert.Expert;
 import home.metier.carte.Carte;
+import home.metier.carte.CarteAEffet;
 import home.metier.carte.CarteBasique;
 import home.metier.carte.carteAEffetType.CarteChangerSens;
 import home.metier.carte.carteAEffetType.CartePasserTour;
@@ -98,7 +99,7 @@ public class Partie {
         return passerTourActif;
     }
 
-    private void setPasserTourActif(boolean passerTourActif) {
+    public void setPasserTourActif(boolean passerTourActif) {
         this.passerTourActif = passerTourActif;
     }
 
@@ -272,6 +273,10 @@ public class Partie {
             }
 
             this.tas.add(carteJoueur);
+
+            if (carteJoueur instanceof CarteAEffet) {
+                ((CarteAEffet) carteJoueur).appliquerEffet(this);
+            }
 
         } catch (ExpertManquantException e) {
             System.out.println(e);

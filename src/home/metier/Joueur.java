@@ -212,6 +212,10 @@ public class Joueur {
         this.avoirDitUNO = true;
     }
 
+    public void finTourForcer() {
+
+    }
+
     public void finTour() throws JoueurNonCourantException, JoueurJouePasException, JoueurOublieDireUnoException {
         if (!this.equals(this.dansLaPartie.joueurCourant())) {
             throw new JoueurNonCourantException("Le joueur " + this.nom + " n'est pas le joueur courant donc pas de fin de tour", this);
@@ -226,6 +230,10 @@ public class Joueur {
         this.dansLaPartie.joueurCourantSuivant();
         this.avoirJoueSonTour = false;
         this.avoirDitUNO = false;
+
+        if (this.dansLaPartie.isPasserTourActif()) {
+            this.dansLaPartie.joueurCourantSuivant();
+        }
     }
 
     public void avoirGagner() {
