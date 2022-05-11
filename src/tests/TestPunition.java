@@ -126,10 +126,12 @@ public class TestPunition {
                 compteurTest.testOK();
             } catch (Exception ex) {
                 System.out.println(ex);
+                System.out.println("faux2");
                 compteurTest.testFaux();
             }
         } catch (Exception e) {
             System.out.println(e);
+            System.out.println("faux2");
             compteurTest.testFaux();
         }
 
@@ -187,6 +189,7 @@ public class TestPunition {
         // 2) Alice	pose le	« 6	jaune »	(coup illégal)
         try {
             aliceTest.poserCarte(jauneSix);
+            System.out.println("faux1a");
             compteurTest.testFaux();
         } catch (Exception e) {
             // 3) Punir	Alice
@@ -195,20 +198,11 @@ public class TestPunition {
                 compteurTest.testOK();
             } catch (Exception ex) {
                 System.out.println(ex);
+                System.out.println("faux1b");
                 compteurTest.testFaux();
             }
-            compteurTest.testFaux();
         }
 
-        try {
-            aliceTest.finTour();
-            System.out.println("le joueur courant nest plus alice");
-            compteurTest.testOK();
-        } catch (Exception e) {
-            System.out.println(e);
-            System.out.println("alice n'a pas fini son tour");
-            compteurTest.testFaux();
-        }
 
         // 4) Vérifier que Bob est le joueur courant
         if (partieTest.joueurCourant().equals(bobTest)) {

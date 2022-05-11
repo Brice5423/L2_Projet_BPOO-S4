@@ -167,6 +167,7 @@ public class Joueur {
     public void punition() throws PartieException, JoueurOublieDireUnoException, JoueurNonCourantException, JoueurJouePasException {
         this.donnerCarte();
         this.donnerCarte();
+        this.avoirJoueSonTour=true;
 
         if (this.equals(this.dansLaPartie.joueurCourant())) {
             this.finTour();
