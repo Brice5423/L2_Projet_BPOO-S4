@@ -19,7 +19,7 @@ public class CarteChangerSens extends CarteAEffet implements IChangerSens {
 
     @Override
     public void appliquerEffet(Partie partieEnCours) {
-        // @TODO appliquerEffet
+        this.changerSens(partieEnCours);
     }
 
     @Override

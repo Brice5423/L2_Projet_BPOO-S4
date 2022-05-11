@@ -24,7 +24,7 @@ public class CartePlusDeux extends CarteAEffet implements IAjouterCarte {
 
     @Override
     public void appliquerEffet(Partie partieEnCours) {
-        // @TODO appliquerEffet
+        this.ajouterCarte(partieEnCours);
     }
 
     @Override

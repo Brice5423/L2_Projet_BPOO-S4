@@ -18,7 +18,7 @@ public class CartePasserTour extends CarteAEffet implements IPasserTour {
 
     @Override
     public void appliquerEffet(Partie partieEnCours) {
-        // @TODO appliquerEffet
+        this.passerTour(partieEnCours);
     }
 
     @Override
