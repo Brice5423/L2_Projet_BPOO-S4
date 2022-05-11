@@ -227,6 +227,7 @@ public class Joueur {
 
         if (this.dansLaPartie.isPasserTourActif()) {
             this.dansLaPartie.joueurCourantSuivant();
+            this.dansLaPartie.setPasserTourActif(false);
         }
     }
 
