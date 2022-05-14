@@ -319,6 +319,10 @@ public class Partie {
         this.nbCarteAPiocher += nbCarteAPiocherAAjouter;
     }
 
+    public void nbCarteAPiocherAZero() {
+        this.nbCarteAPiocher = 0;
+    }
+
     private int numJoueurSuivant() {
         if (this.etreSensHoraire) {
             if (this.numJoueurCourant == (this.listeJoueur.size() - 1)) {
