@@ -228,7 +228,7 @@ public class Joueur {
         if (!this.equals(this.dansLaPartie.joueurCourant())) {
             throw new JoueurNonCourantException("Le joueur " + this.nom + " n'est pas le joueur courant donc pas de fin de tour", this);
         }
-        if (!this.avoirJoueSonTour) {
+        if (this.dansLaPartie.getNbCarteAPiocher() == 0 && !this.avoirJoueSonTour) {
             throw new JoueurJouePasException("Le joueur " + this.nom + " n'a pas joue, il ne peut pas mettre fin à son tour", this);
         }
         if (this.nbCarteEnMain() == 1 && !this.avoirDitUNO) {
