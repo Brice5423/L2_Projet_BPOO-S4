@@ -181,7 +181,7 @@ public class Joueur {
         this.avoirJoueSonTour = true;
     }
 
-    private void joueurCourantRecupererNCarte(int nCarteARecuperer) throws PartieException {
+    private void recupererNCarte(int nCarteARecuperer) throws PartieException {
         for (int i = 0; i < nCarteARecuperer; i++) {
             this.donnerCarte();
         }
@@ -191,7 +191,7 @@ public class Joueur {
      * punie le joueur en lui donnant 2 cartes.
      */
     public void punition() throws PartieException, JoueurOublieDireUnoException, JoueurNonCourantException, JoueurJouePasException {
-        this.joueurCourantRecupererNCarte(2);
+        this.recupererNCarte(2);
         this.avoirJoueSonTour = true;
 
         if (this.equals(this.dansLaPartie.joueurCourant())) {
@@ -200,7 +200,7 @@ public class Joueur {
     }
 
     public void encaisseAttaque() throws PartieException, JoueurOublieDireUnoException, JoueurJouePasException, JoueurNonCourantException {
-        this.joueurCourantRecupererNCarte(this.dansLaPartie.getNbCarteAPiocher());
+        this.recupererNCarte(this.dansLaPartie.getNbCarteAPiocher());
         this.finTour();
         this.dansLaPartie.nbCarteAPiocherAZero();
     }
