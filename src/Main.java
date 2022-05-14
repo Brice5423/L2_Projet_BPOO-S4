@@ -45,6 +45,12 @@ public class Main {
             compteurTest.testFaux();
         }
 
+        if (TestPlusDeux.executionDuTest()) {
+            compteurTest.testOK();
+        } else {
+            compteurTest.testFaux();
+        }
+
         // ...
 
 
