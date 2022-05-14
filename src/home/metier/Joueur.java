@@ -165,13 +165,12 @@ public class Joueur {
         this.mainDuJoueur.add(carteDonnee);
     }
 
-    public void poserCarte(Carte carteChoisieParJoueur) throws JoueurNonCourantException, JoueurException, JoueurJoueMultipleException, JoueurCarteIllegalException, JoueurOublieDireUnoException, JoueurJouePasException, ExpertManquantException, PartieException {
+    public void poserCarte(Carte carteChoisieParJoueur) throws JoueurNonCourantException, JoueurMauvaiseCarteException, JoueurJoueMultipleException, JoueurCarteIllegalException, JoueurOublieDireUnoException, JoueurJouePasException, ExpertManquantException, PartieException {
         if (!this.equals(this.dansLaPartie.joueurCourant())) {
             throw new JoueurNonCourantException("Le joueur " + this.nom + " joue alors que ce n'est pas son tour", this);
         }
         if (!this.mainDuJoueur.contains(carteChoisieParJoueur)) {
-            // TODO poserCarte : JoueurException !!!
-            throw new JoueurException("Carte choisie par le joueur n'est pas dans sa main", this);
+            throw new JoueurMauvaiseCarteException("Carte choisie par le joueur n'est pas dans sa main", this);
         }
         if (this.avoirJoueSonTour) {
             throw new JoueurJoueMultipleException("Le joueur " + this.nom + " n'a pas le droit de poser ca carte, il a déjà jouer", this);
