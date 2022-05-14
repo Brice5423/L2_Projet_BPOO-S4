@@ -216,10 +216,10 @@ public class Joueur {
 
     public void ditUNO() throws JoueurNonCourantException, JoueurJouePasException {
         if (!this.equals(this.dansLaPartie.joueurCourant())) {
-            throw new JoueurNonCourantException("Le joueur " + this.nom + " n'est pas le joueur courant", this);
+            throw new JoueurNonCourantException("Le joueur " + this.nom + " n'est pas le joueur courant, il/elle ne peut pas dire \"UNO !\"", this);
         }
         if (!this.avoirJoueSonTour) {
-            throw new JoueurJouePasException("Le joueur " + this.nom + " n'a pas joue, elle ne peut pas dire \"UNO !\"", this);
+            throw new JoueurJouePasException("Le joueur " + this.nom + " n'a pas joue, il/elle ne peut pas dire \"UNO !\"", this);
         }
 
         this.avoirDitUNO = true;
@@ -230,7 +230,7 @@ public class Joueur {
             throw new JoueurNonCourantException("Le joueur " + this.nom + " n'est pas le joueur courant donc pas de fin de tour", this);
         }
         if (this.dansLaPartie.getNbCarteAPiocher() == 0 && !this.avoirJoueSonTour) {
-            throw new JoueurJouePasException("Le joueur " + this.nom + " n'a pas joue, il ne peut pas mettre fin à son tour", this);
+            throw new JoueurJouePasException("Le joueur " + this.nom + " n'a pas joue, il/elle ne peut pas mettre fin à son tour", this);
         }
         if (this.nbCarteEnMain() == 1 && !this.avoirDitUNO) {
             throw new JoueurOublieDireUnoException("Le joueur " + this.nom + " à oublie de dire \"UNO !\" avant de mettre fin à son tour", this);
