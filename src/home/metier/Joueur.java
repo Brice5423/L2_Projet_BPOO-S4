@@ -42,8 +42,8 @@ public class Joueur {
         this.nom = nom;
     }
 
-    public void setAvoirJouerSonTour(boolean a){
-        this.avoirJoueSonTour=a;
+    public void setAvoirJouerSonTour(boolean a) {
+        this.avoirJoueSonTour = a;
     }
 
     public ArrayList<Carte> getMainDuJoueur() {
@@ -165,19 +165,6 @@ public class Joueur {
         this.mainDuJoueur.add(carteDonnee);
     }
 
-    /**
-     * punie le joueur en lui donnant 2 cartes.
-     */
-    public void punition() throws PartieException, JoueurOublieDireUnoException, JoueurNonCourantException, JoueurJouePasException {
-        this.donnerCarte();
-        this.donnerCarte();
-        this.avoirJoueSonTour=true;
-
-        if (this.equals(this.dansLaPartie.joueurCourant())) {
-            this.finTour();
-        }
-    }
-
     public void poserCarte(Carte carteChoisieParJoueur) throws JoueurNonCourantException, JoueurException, JoueurJoueMultipleException, JoueurCarteIllegalException, JoueurOublieDireUnoException, JoueurJouePasException, ExpertManquantException, PartieException {
         if (!this.equals(this.dansLaPartie.joueurCourant())) {
             throw new JoueurNonCourantException("Le joueur " + this.nom + " joue alors que ce n'est pas son tour", this);
@@ -193,6 +180,29 @@ public class Joueur {
         this.dansLaPartie.deposerCarteTas(carteChoisieParJoueur);
         this.mainDuJoueur.remove(carteChoisieParJoueur);
         this.avoirJoueSonTour = true;
+    }
+
+    private void joueurCourantRecupererNCarte(int nCarteARecuperer) throws PartieException {
+        for (int i = 0; i < nCarteARecuperer; i++) {
+            this.donnerCarte();
+        }
+    }
+
+    /**
+     * punie le joueur en lui donnant 2 cartes.
+     */
+    public void punition() throws PartieException, JoueurOublieDireUnoException, JoueurNonCourantException, JoueurJouePasException {
+        this.joueurCourantRecupererNCarte(2);
+        this.avoirJoueSonTour = true;
+
+        if (this.equals(this.dansLaPartie.joueurCourant())) {
+            this.finTour();
+        }
+    }
+
+    public void encaisseAttaque() throws PartieException, JoueurOublieDireUnoException, JoueurJouePasException, JoueurNonCourantException {
+        this.joueurCourantRecupererNCarte(this.dansLaPartie.getNbCarteAPiocher());
+        this.finTour();
     }
 
     public int nbCarteEnMain() {

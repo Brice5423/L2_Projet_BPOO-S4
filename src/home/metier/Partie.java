@@ -302,8 +302,8 @@ public class Partie {
             }
 
         } catch (JoueurEncaisserAttaqueException e) {
-            this.joueurCourantRecupererNCarte(this.nbCarteAPiocher);
-            this.joueurCourant().finTour();
+            this.joueurCourant().getMainDuJoueur().add(carteJoueur);
+            this.joueurCourant().encaisseAttaque();
         }
     }
 
@@ -317,12 +317,6 @@ public class Partie {
 
     public void ajoutNbCarteAPiocher(int nbCarteAPiocherAAjouter) {
         this.nbCarteAPiocher += nbCarteAPiocherAAjouter;
-    }
-
-    private void joueurCourantRecupererNCarte(int nCarteARecuperer) throws PartieException {
-        for (int i = 0; i < nbCarteAPiocher; i++) {
-            this.joueurCourant().donnerCarte();
-        }
     }
 
     private int numJoueurSuivant() {
