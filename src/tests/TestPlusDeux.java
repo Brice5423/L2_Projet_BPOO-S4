@@ -25,11 +25,18 @@ public class TestPlusDeux {
 
         ArrayList<Carte> pioche = new ArrayList<Carte>();
 
+        pioche.add(new CarteBasique(ECarteCouleur.ROUGE, ECarteValeur.SIX));
+        pioche.add(new CarteBasique(ECarteCouleur.ROUGE, ECarteValeur.CINQ));
+        pioche.add(new CarteBasique(ECarteCouleur.ROUGE, ECarteValeur.TROIS));
+        pioche.add(new CarteBasique(ECarteCouleur.ROUGE, ECarteValeur.DEUX));
+        pioche.add(new CarteBasique(ECarteCouleur.ROUGE, ECarteValeur.UN));
+        pioche.add(new CarteBasique(ECarteCouleur.ROUGE, ECarteValeur.ZERO));
         pioche.add(new CarteBasique(ECarteCouleur.VERT, ECarteValeur.DEUX));
         pioche.add(new CarteBasique(ECarteCouleur.ROUGE, ECarteValeur.QUATRE));
         pioche.add(new CarteBasique(ECarteCouleur.VERT, ECarteValeur.DEUX));
         pioche.add(new CarteBasique(ECarteCouleur.VERT, ECarteValeur.HUIT));
         pioche.add(new CarteBasique(ECarteCouleur.BLEU, ECarteValeur.ZERO));
+
 
         ArrayList<Joueur> listJoueur = new ArrayList<Joueur>();
 
@@ -161,7 +168,6 @@ public class TestPlusDeux {
             compteurTest.testFaux();
         }
 
-        System.out.println("nb cartes a piocher :"+partieTest.getNbCarteAPiocher());
         //9) Charles pose le 1 vert
         try {
             charlesTest.poserCarte(unVert);
