@@ -8,7 +8,7 @@ public class ExpertManquantException extends Exception {
     private final Carte carteDepot;
 
     public ExpertManquantException(Carte carteJoueur, Carte carteDepot) {
-        super("Il doit manquée un expert");
+        super("Il doit manqué un expert");
         this.carteJoueur = carteJoueur;
         this.carteDepot = carteDepot;
     }

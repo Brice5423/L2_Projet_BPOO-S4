@@ -232,7 +232,7 @@ public class Partie {
 
     private void setListeJoueurEtCopie(ArrayList<Joueur> listeJoueur) throws PartieException {
         if (listeJoueur.size() < 2 || listeJoueur.size() > 10) {
-            throw new PartieException("La partie doit avoir 2 à 10 dans une partie !");
+            throw new PartieException("La partie doit avoir 2 à 10 joueurs dans une partie !");
         }
 
         this.listeJoueur.clear();
