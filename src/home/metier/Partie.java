@@ -191,7 +191,7 @@ public class Partie {
 
     private void initialisationListeJoueur(ArrayList<Joueur> listeJoueur) throws PartieException {
         if (listeJoueur.size() < 2 || listeJoueur.size() > 10) {
-            throw new PartieException("La partie doit avoir 2 à 10 dans une partie !");
+            throw new PartieException("La partie doit avoir 2 à 10 joueurs !");
         }
 
         this.listeJoueur = listeJoueur;
@@ -200,7 +200,7 @@ public class Partie {
 
     private void initialisationListeJoueurEnCopie(ArrayList<Joueur> listeJoueur) throws PartieException {
         if (listeJoueur.size() < 2 || listeJoueur.size() > 10) {
-            throw new PartieException("La partie doit avoir 2 à 10 joueurs dans une partie !");
+            throw new PartieException("La partie doit avoir 2 à 10 joueurs !");
         }
 
         this.listeJoueur.clear();
@@ -255,10 +255,10 @@ public class Partie {
 
             if (!lesExperts.peutEtrePoser(carteJoueur, this.carteAuDessusTas(), this.nbCarteAPiocher)) {
                 if (this.nbCarteAPiocher == 0) {
-                    throw new JoueurCarteIllegalException("Le joueur " + this.joueurCourant().getNom() + " ne peut pas poser La carte " + carteJoueur + " dans le tas", this.joueurCourant());
+                    throw new JoueurCarteIllegalException("Le joueur " + this.joueurCourant().getNom() + " depose la carte " + carteJoueur + ", alors qu'elle est illegal.", this.joueurCourant());
 
                 } else {
-                    throw new JoueurEncaisserAttaqueException("Le joueur " + this.joueurCourant().getNom() + " doit encaisser l'attaque", this.joueurCourant());
+                    throw new JoueurEncaisserAttaqueException("Le joueur " + this.joueurCourant().getNom() + "  depose la carte " + carteJoueur + ", alors il doit encaisser l'attaque.", this.joueurCourant());
                 }
             }
 

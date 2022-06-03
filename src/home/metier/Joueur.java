@@ -33,8 +33,9 @@ public class Joueur {
     }
 
     private void setNom(String nom) {
-        if (nom.isBlank())
-            throw new IllegalArgumentException("Le nom du joueur est vide");
+        if (nom.isBlank()) {
+            throw new IllegalArgumentException("Le nom du joueur est vide ou null.");
+        }
 
         this.nom = nom;
     }
@@ -94,13 +95,13 @@ public class Joueur {
      */
     public void piocherCarte() throws JoueurNonCourantException, PartieException, JoueurJoueMultipleException {
         if (!this.equals(this.dansLaPartie.joueurCourant())) {
-            throw new JoueurNonCourantException("Le joueur " + this.nom + " n'est pas le joueur courant", this);
+            throw new JoueurNonCourantException("Le joueur " + this.nom + " pioche, alors qu'il n'est pas le joueur courant.", this);
         }
         if (this.dansLaPartie.getPioche().isEmpty()) {
-            throw new PartieException("Le joueur " + this.nom + " veut prendre une carte dans la pioche vide");
+            throw new PartieException("Le joueur " + this.nom + " pioche, alors que la pioche est vide.");
         }
         if (this.avoirJouerSonTour) {
-            throw new JoueurJoueMultipleException("Le joueur " + this.nom + " n'a pas le droit de piocher, il a déjà joué", this);
+            throw new JoueurJoueMultipleException("Le joueur " + this.nom + " pioche, alors qu'il a déjà joué.", this);
         }
 
         this.mainDuJoueur.add(this.dansLaPartie.retirerCartePioche());
@@ -111,10 +112,10 @@ public class Joueur {
 
     public void piocherCarte(Carte carteDonnee) throws JoueurJoueMultipleException, JoueurNonCourantException {
         if (!this.equals(this.dansLaPartie.joueurCourant())) {
-            throw new JoueurNonCourantException("Le joueur " + this.nom + " n'est pas le joueur courant", this);
+            throw new JoueurNonCourantException("Le joueur " + this.nom + " pioche, alors qu'il n'est pas le joueur courant.", this);
         }
         if (this.avoirJouerSonTour) {
-            throw new JoueurJoueMultipleException("Le joueur " + this.nom + " n'a pas le droit de piocher, il a déjà joué", this);
+            throw new JoueurJoueMultipleException("Le joueur " + this.nom + " pioche, alors qu'il a déjà joué.", this);
         }
 
         this.mainDuJoueur.add(carteDonnee);
@@ -123,7 +124,7 @@ public class Joueur {
 
     public void donnerCarte() throws PartieException {
         if (this.dansLaPartie.getPioche().isEmpty()) {
-            throw new PartieException("Le joueur " + this.nom + " veut prendre une carte dans la pioche vide");
+            throw new PartieException("On donne une carte au joueur " + this.nom + ", alors que la pioche est vide.");
         }
 
         this.mainDuJoueur.add(this.dansLaPartie.retirerCartePioche());
@@ -135,13 +136,13 @@ public class Joueur {
 
     public void poserCarte(Carte carteChoisieParJoueur) throws JoueurNonCourantException, JoueurMauvaiseCarteException, JoueurJoueMultipleException, JoueurCarteIllegalException, JoueurOublieDireUnoException, JoueurJouePasException, ExpertManquantException, PartieException {
         if (!this.equals(this.dansLaPartie.joueurCourant())) {
-            throw new JoueurNonCourantException("Le joueur " + this.nom + " joue alors que ce n'est pas son tour", this);
+            throw new JoueurNonCourantException("Le joueur " + this.nom + " poser une carte, alors qu'il n'est pas le joueur courant.", this);
         }
         if (!this.mainDuJoueur.contains(carteChoisieParJoueur)) {
-            throw new JoueurMauvaiseCarteException("Carte choisie par le joueur n'est pas dans sa main", this);
+            throw new JoueurMauvaiseCarteException("Le joueur " + this.nom + " choisie une carte qui n'est pas dans sa main.", this);
         }
         if (this.avoirJouerSonTour) {
-            throw new JoueurJoueMultipleException("Le joueur " + this.nom + " n'a pas le droit de poser ca carte, il a déjà jouer", this);
+            throw new JoueurJoueMultipleException("Le joueur " + this.nom + " pose une carte, alors qu'il a déjà jouer.", this);
         }
 
         this.dansLaPartie.deposerCarteTas(carteChoisieParJoueur);
@@ -183,10 +184,10 @@ public class Joueur {
 
     public void ditUNO() throws JoueurNonCourantException, JoueurJouePasException {
         if (!this.equals(this.dansLaPartie.joueurCourant())) {
-            throw new JoueurNonCourantException("Le joueur " + this.nom + " n'est pas le joueur courant, il/elle ne peut pas dire \"UNO !\"", this);
+            throw new JoueurNonCourantException("Le joueur " + this.nom + " dit \"UNO !\", alors qu'il n'est pas le joueur courant.", this);
         }
         if (!this.avoirJouerSonTour) {
-            throw new JoueurJouePasException("Le joueur " + this.nom + " n'a pas joue, il/elle ne peut pas dire \"UNO !\"", this);
+            throw new JoueurJouePasException("Le joueur " + this.nom + " dit \"UNO !\", alors qu'il n'a pas joué.", this);
         }
 
         this.avoirDitUNO = true;
@@ -194,13 +195,13 @@ public class Joueur {
 
     public void finTour() throws JoueurNonCourantException, JoueurJouePasException, JoueurOublieDireUnoException {
         if (!this.equals(this.dansLaPartie.joueurCourant())) {
-            throw new JoueurNonCourantException("Le joueur " + this.nom + " n'est pas le joueur courant donc pas de fin de tour", this);
+            throw new JoueurNonCourantException("Le joueur " + this.nom + " fini son tour, alors qu'il n'est pas le joueur courant.", this);
         }
         if (this.dansLaPartie.getNbCarteAPiocher() == 0 && !this.avoirJouerSonTour) {
-            throw new JoueurJouePasException("Le joueur " + this.nom + " n'a pas joue, il/elle ne peut pas mettre fin à son tour", this);
+            throw new JoueurJouePasException("Le joueur " + this.nom + " fini son tour, alors qu'il n'a pas joué.", this);
         }
         if (this.nbCarteEnMain() == 1 && !this.avoirDitUNO) {
-            throw new JoueurOublieDireUnoException("Le joueur " + this.nom + " à oublie de dire \"UNO !\" avant de mettre fin à son tour", this);
+            throw new JoueurOublieDireUnoException("Le joueur " + this.nom + " fini son tour, alors qu'il n'a pas dit \"UNO !\".", this);
         }
 
         this.dansLaPartie.joueurCourantSuivant();
