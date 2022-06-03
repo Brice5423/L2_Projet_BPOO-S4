@@ -9,26 +9,23 @@ public class Joueur {
     private String nom;
     private ArrayList<Carte> mainDuJoueur;
     private Partie dansLaPartie;
-    private boolean avoirJoueSonTour;
+    private boolean avoirJouerSonTour;
     private boolean avoirDitUNO;
-    private int nbVictoire;
 
     private Joueur() {
         this.nom = null;
         this.mainDuJoueur = new ArrayList<Carte>();
         this.dansLaPartie = null;
-        this.avoirJoueSonTour = false;
+        this.avoirJouerSonTour = false;
         this.avoirDitUNO = false;
-        this.nbVictoire = 0;
     }
 
     public Joueur(String nom) {
         this.setNom(nom);
         this.mainDuJoueur = new ArrayList<Carte>();
         this.dansLaPartie = null;
-        this.avoirJoueSonTour = false;
+        this.avoirJouerSonTour = false;
         this.avoirDitUNO = false;
-        this.nbVictoire = 0;
     }
 
     public String getNom() {
@@ -42,49 +39,20 @@ public class Joueur {
         this.nom = nom;
     }
 
-    public void setAvoirJouerSonTour(boolean a) {
-        this.avoirJoueSonTour = a;
-    }
-
     public ArrayList<Carte> getMainDuJoueur() {
         return this.mainDuJoueur;
-    }
-
-
-    private void setMainDuJoueur(ArrayList<Carte> mainDuJoueur) {
-        this.mainDuJoueur = mainDuJoueur;
-    }
-
-    public Partie getDansLaPartie() {
-        return this.dansLaPartie;
     }
 
     public void setDansLaPartie(Partie dansLaPartie) {
         this.dansLaPartie = dansLaPartie;
     }
 
-    public boolean getAvoirJoueSonTour() {
-        return this.avoirJoueSonTour;
-    }
-
-    private void setAvoirJoueSonTour(boolean avoirJoueSonTour) {
-        this.avoirJoueSonTour = avoirJoueSonTour;
-    }
-
-    public boolean getAvoirDitUNO() {
-        return this.avoirDitUNO;
+    public void setAvoirJouerSonTour(boolean avoirJouerSonTour) {
+        this.avoirJouerSonTour = avoirJouerSonTour;
     }
 
     private void setAvoirDitUNO(boolean avoirDitUNO) {
         this.avoirDitUNO = avoirDitUNO;
-    }
-
-    public int getNbVictoire() {
-        return this.nbVictoire;
-    }
-
-    private void setNbVictoire(int nbVictoire) {
-        this.nbVictoire = nbVictoire;
     }
 
     @Override
@@ -101,22 +69,22 @@ public class Joueur {
 
     @Override
     public String toString() {
-        return "Joueur{" +
+        return "Joueur {\n" +
                 "nom = '" + nom + '\'' +
-                ", nbVictory = " + nbVictoire +
+                ", avoirJouerSonTour = " + this.avoirJouerSonTour +
+                ", avoirDitUNO = " + this.avoirDitUNO +
                 ", mainDuJoueur = \n" + mainDuJoueur +
-                '}';
+                "\n}";
     }
 
-    public Joueur copyJoueur() {
+    public Joueur copieJoueur() {
         Joueur copieJoueur = new Joueur();
 
         copieJoueur.setNom(this.nom);
         copieJoueur.getMainDuJoueur().addAll(this.mainDuJoueur);
         copieJoueur.setDansLaPartie(this.dansLaPartie);
-        copieJoueur.setAvoirJoueSonTour(this.avoirJoueSonTour);
+        copieJoueur.setAvoirJouerSonTour(this.avoirJouerSonTour);
         copieJoueur.setAvoirDitUNO(this.avoirDitUNO);
-        copieJoueur.setNbVictoire(this.nbVictoire);
 
         return copieJoueur;
     }
@@ -131,26 +99,26 @@ public class Joueur {
         if (this.dansLaPartie.getPioche().isEmpty()) {
             throw new PartieException("Le joueur " + this.nom + " veut prendre une carte dans la pioche vide");
         }
-        if (this.avoirJoueSonTour) {
+        if (this.avoirJouerSonTour) {
             throw new JoueurJoueMultipleException("Le joueur " + this.nom + " n'a pas le droit de piocher, il a déjà joué", this);
         }
 
         this.mainDuJoueur.add(this.dansLaPartie.retirerCartePioche());
         this.dansLaPartie.retirerCartePioche();
 
-        this.avoirJoueSonTour = true;
+        this.avoirJouerSonTour = true;
     }
 
     public void piocherCarte(Carte carteDonnee) throws JoueurJoueMultipleException, JoueurNonCourantException {
         if (!this.equals(this.dansLaPartie.joueurCourant())) {
             throw new JoueurNonCourantException("Le joueur " + this.nom + " n'est pas le joueur courant", this);
         }
-        if (this.avoirJoueSonTour) {
+        if (this.avoirJouerSonTour) {
             throw new JoueurJoueMultipleException("Le joueur " + this.nom + " n'a pas le droit de piocher, il a déjà joué", this);
         }
 
         this.mainDuJoueur.add(carteDonnee);
-        this.avoirJoueSonTour = true;
+        this.avoirJouerSonTour = true;
     }
 
     public void donnerCarte() throws PartieException {
@@ -172,13 +140,13 @@ public class Joueur {
         if (!this.mainDuJoueur.contains(carteChoisieParJoueur)) {
             throw new JoueurMauvaiseCarteException("Carte choisie par le joueur n'est pas dans sa main", this);
         }
-        if (this.avoirJoueSonTour) {
+        if (this.avoirJouerSonTour) {
             throw new JoueurJoueMultipleException("Le joueur " + this.nom + " n'a pas le droit de poser ca carte, il a déjà jouer", this);
         }
 
         this.dansLaPartie.deposerCarteTas(carteChoisieParJoueur);
         this.mainDuJoueur.remove(carteChoisieParJoueur);
-        this.avoirJoueSonTour = true;
+        this.avoirJouerSonTour = true;
     }
 
     private void recupererNCarte(int nCarteARecuperer) throws PartieException {
@@ -192,7 +160,7 @@ public class Joueur {
      */
     public void punition() throws PartieException, JoueurOublieDireUnoException, JoueurNonCourantException, JoueurJouePasException {
         this.recupererNCarte(2);
-        this.avoirJoueSonTour = true;
+        this.avoirJouerSonTour = true;
 
         if (this.equals(this.dansLaPartie.joueurCourant())) {
             this.finTour();
@@ -217,7 +185,7 @@ public class Joueur {
         if (!this.equals(this.dansLaPartie.joueurCourant())) {
             throw new JoueurNonCourantException("Le joueur " + this.nom + " n'est pas le joueur courant, il/elle ne peut pas dire \"UNO !\"", this);
         }
-        if (!this.avoirJoueSonTour) {
+        if (!this.avoirJouerSonTour) {
             throw new JoueurJouePasException("Le joueur " + this.nom + " n'a pas joue, il/elle ne peut pas dire \"UNO !\"", this);
         }
 
@@ -228,7 +196,7 @@ public class Joueur {
         if (!this.equals(this.dansLaPartie.joueurCourant())) {
             throw new JoueurNonCourantException("Le joueur " + this.nom + " n'est pas le joueur courant donc pas de fin de tour", this);
         }
-        if (this.dansLaPartie.getNbCarteAPiocher() == 0 && !this.avoirJoueSonTour) {
+        if (this.dansLaPartie.getNbCarteAPiocher() == 0 && !this.avoirJouerSonTour) {
             throw new JoueurJouePasException("Le joueur " + this.nom + " n'a pas joue, il/elle ne peut pas mettre fin à son tour", this);
         }
         if (this.nbCarteEnMain() == 1 && !this.avoirDitUNO) {
@@ -236,16 +204,12 @@ public class Joueur {
         }
 
         this.dansLaPartie.joueurCourantSuivant();
-        this.avoirJoueSonTour = false;
+        this.avoirJouerSonTour = false;
         this.avoirDitUNO = false;
 
         if (this.dansLaPartie.isPasserTourActif()) {
             this.dansLaPartie.joueurCourantSuivant();
             this.dansLaPartie.setPasserTourActif(false);
         }
-    }
-
-    public void avoirGagner() {
-        this.nbVictoire++;
     }
 }

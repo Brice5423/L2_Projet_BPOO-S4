@@ -24,7 +24,7 @@ public class CartePasserTour extends CarteAEffet implements IPasserTour {
     @Override
     public String toString() {
         return "CartePasserTour{" +
-                "couleur=" + this.getCouleur() +
+                "couleur = " + this.getCouleur() +
                 "}";
     }
 

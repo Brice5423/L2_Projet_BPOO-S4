@@ -15,7 +15,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 public class Partie {
-    private int niemePartie;
     private int numJoueurCourant;
     private boolean etreSensHoraire;
     private boolean passerTourActif;
@@ -28,7 +27,6 @@ public class Partie {
      * Constructeur utiliser pour créer une copie d'une partie
      */
     private Partie() {
-        this.niemePartie = 1;
         this.numJoueurCourant = 0;
         this.etreSensHoraire = true;
         this.passerTourActif = false;
@@ -44,7 +42,6 @@ public class Partie {
      * @param listeJoueur liste de 2 à 10 joueurs
      */
     public Partie(ArrayList<Joueur> listeJoueur) throws PartieException {
-        this.niemePartie = 1;
         this.numJoueurCourant = 0;
         this.etreSensHoraire = true;
         this.passerTourActif = false;
@@ -63,7 +60,6 @@ public class Partie {
      * @param pioche
      */
     public Partie(ArrayList<Joueur> listeJoueur, ArrayList<Carte> pioche) throws PartieException {
-        this.niemePartie = 1;
         this.numJoueurCourant = 0;
         this.etreSensHoraire = true;
         this.passerTourActif = false;
@@ -73,24 +69,8 @@ public class Partie {
         this.tas = new ArrayList<Carte>();
     }
 
-    public int getNiemePartie() {
-        return this.niemePartie;
-    }
-
-    private void setNiemePartie(int niemePartie) {
-        this.niemePartie = niemePartie;
-    }
-
-    public int getNumJoueurCourant() {
-        return this.numJoueurCourant;
-    }
-
     private void setNumJoueurCourant(int numJoueurCourant) {
         this.numJoueurCourant = numJoueurCourant;
-    }
-
-    public boolean isEtreSensHoraire() {
-        return this.etreSensHoraire;
     }
 
     private void setEtreSensHoraire(boolean etreSensHoraire) {
@@ -109,16 +89,8 @@ public class Partie {
         return this.nbCarteAPiocher;
     }
 
-    public void setNbCarteAPiocher(int nbCarteAPiocher) {
-        this.nbCarteAPiocher = nbCarteAPiocher;
-    }
-
     public ArrayList<Joueur> getListeJoueur() {
         return this.listeJoueur;
-    }
-
-    public void setListeJoueur(ArrayList<Joueur> listeJoueur) {
-        this.listeJoueur = listeJoueur;
     }
 
     public ArrayList<Joueur> getListJoueur() {
@@ -127,10 +99,6 @@ public class Partie {
 
     public ArrayList<Carte> getPioche() {
         return this.pioche;
-    }
-
-    private void setPioche(ArrayList<Carte> pioche) {
-        this.pioche = pioche;
     }
 
     public ArrayList<Carte> getTas() {
@@ -230,13 +198,13 @@ public class Partie {
         this.listeJoueur.forEach(joueur -> joueur.setDansLaPartie(this));
     }
 
-    private void setListeJoueurEtCopie(ArrayList<Joueur> listeJoueur) throws PartieException {
+    private void initialisationListeJoueurEnCopie(ArrayList<Joueur> listeJoueur) throws PartieException {
         if (listeJoueur.size() < 2 || listeJoueur.size() > 10) {
             throw new PartieException("La partie doit avoir 2 à 10 joueurs dans une partie !");
         }
 
         this.listeJoueur.clear();
-        listeJoueur.forEach(joueur -> this.listeJoueur.add(joueur.copyJoueur()));
+        listeJoueur.forEach(joueur -> this.listeJoueur.add(joueur.copieJoueur()));
         this.listeJoueur.forEach(joueur -> joueur.setDansLaPartie(this));
     }
 
@@ -254,11 +222,10 @@ public class Partie {
     public Partie copiePartie() throws PartieException {
         Partie copiePartie = new Partie();
 
-        copiePartie.setNiemePartie(this.niemePartie);
         copiePartie.setNumJoueurCourant(this.numJoueurCourant);
         copiePartie.setEtreSensHoraire(this.etreSensHoraire);
         copiePartie.setPasserTourActif(this.passerTourActif);
-        copiePartie.setListeJoueurEtCopie(this.listeJoueur);
+        copiePartie.initialisationListeJoueurEnCopie(this.listeJoueur);
         copiePartie.getPioche().addAll(this.pioche);
         copiePartie.getTas().addAll(this.tas);
 
@@ -302,7 +269,7 @@ public class Partie {
             }
 
         } catch (JoueurEncaisserAttaqueException e) {
-            this.joueurCourant().getMainDuJoueur().add(carteJoueur);
+            this.joueurCourant().donnerCarte(carteJoueur);
             this.joueurCourant().encaisseAttaque();
         }
     }

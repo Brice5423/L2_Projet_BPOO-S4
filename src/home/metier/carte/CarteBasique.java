@@ -18,8 +18,8 @@ public class CarteBasique extends Carte {
     @Override
     public String toString() {
         return "CarteBasique{" +
-                "valeur=" + this.valeur + ", " +
-                "couleur=" + this.getCouleur() +
+                "valeur = " + this.valeur + ", " +
+                "couleur = " + this.getCouleur() +
                 '}';
     }
 

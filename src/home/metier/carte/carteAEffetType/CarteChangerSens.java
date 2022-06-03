@@ -25,7 +25,7 @@ public class CarteChangerSens extends CarteAEffet implements IChangerSens {
     @Override
     public String toString() {
         return "CarteChangerSens{" +
-                "couleur=" + this.getCouleur() +
+                "couleur = " + this.getCouleur() +
                 "}";
     }
 

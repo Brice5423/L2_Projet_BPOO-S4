@@ -25,7 +25,7 @@ public class CartePlusDeux extends CarteAEffet implements IAjouterCarte {
     @Override
     public String toString() {
         return "CartePlusDeux{" +
-                "couleur=" + this.getCouleur() +
+                "couleur = " + this.getCouleur() +
                 "}";
     }
 

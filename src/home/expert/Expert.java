@@ -43,7 +43,7 @@ public abstract class Expert {
 
     public boolean peutEtrePoser(Carte carteJoueur, Carte carteDepot, int nbCarteAPiocher) throws ExpertManquantException {
         if (this.etreBonExpert(carteJoueur, carteDepot, nbCarteAPiocher)) {
-            return etreCoupValide(carteJoueur, carteDepot);
+            return this.etreCoupValide(carteJoueur, carteDepot);
 
         } else if (this.avoirUnSuivant()) {
             return this.getSuivant().peutEtrePoser(carteJoueur, carteDepot, nbCarteAPiocher);
