@@ -3,6 +3,9 @@ package home.expert;
 import home.metier.carte.Carte;
 import home.metier.carte.CarteBasique;
 
+/**
+ * Class pour l'expert de quand on a une carte basique sur une carte basique.
+ */
 public class ExpertBasiqueSurBasique extends Expert {
 
     public ExpertBasiqueSurBasique() {

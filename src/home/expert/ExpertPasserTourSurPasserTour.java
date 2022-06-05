@@ -3,6 +3,9 @@ package home.expert;
 import home.metier.carte.Carte;
 import home.metier.carte.carteAEffetType.CartePasserTour;
 
+/**
+ * Class pour l'expert de quand on a une carte passer tour sur une carte passer tour.
+ */
 public class ExpertPasserTourSurPasserTour extends Expert {
 
     public ExpertPasserTourSurPasserTour() {

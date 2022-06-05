@@ -3,6 +3,9 @@ package home.expert;
 import home.metier.carte.Carte;
 import home.metier.carte.carteAEffetType.CartePlusDeux;
 
+/**
+ * Class pour l'expert de quand on a une carte plus deux sur une carte plus deux.
+ */
 public class ExpertPlusDeuxSurPlusDeux extends Expert {
 
     public ExpertPlusDeuxSurPlusDeux() {

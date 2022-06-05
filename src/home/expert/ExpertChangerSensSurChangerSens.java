@@ -3,6 +3,9 @@ package home.expert;
 import home.metier.carte.Carte;
 import home.metier.carte.carteAEffetType.CarteChangerSens;
 
+/**
+ * Class pour l'expert de quand on a une carte changer sens sur une carte changer de sens.
+ */
 public class ExpertChangerSensSurChangerSens extends Expert {
 
     public ExpertChangerSensSurChangerSens() {

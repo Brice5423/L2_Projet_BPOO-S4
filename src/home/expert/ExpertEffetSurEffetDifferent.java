@@ -4,6 +4,9 @@ import home.enumeration.ECarteCouleur;
 import home.metier.carte.Carte;
 import home.metier.carte.CarteAEffet;
 
+/**
+ * Class pour l'expert de quand on a une carte effet sur une autre carte à effet différent.
+ */
 public class ExpertEffetSurEffetDifferent extends Expert {
 
     public ExpertEffetSurEffetDifferent() {
