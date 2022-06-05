@@ -3,21 +3,40 @@ package home.expert;
 import home.exception.ExpertManquantException;
 import home.metier.carte.Carte;
 
+/**
+ * Class abstract qui défini les Experts pour les différentes règles pour pouvoir poser une carte ou non.
+ */
 public abstract class Expert {
+    /** Contient l'expert suivant */
     private Expert suivant;
 
+    /**
+     * Constructeur pour faire un expert.
+     */
     Expert() {
         this.suivant = null;
     }
 
+    /**
+     * Getter pour avoir l'expert suivant.
+     * @return
+     */
     private Expert getSuivant() {
         return this.suivant;
     }
 
+    /**
+     * Renvoie l'expert suivant.
+     * @return l'expert suivant
+     */
     private boolean avoirUnSuivant() {
         return this.suivant != null;
     }
 
+    /**
+     * Ajout un expert à la fin de la liste d'expert.
+     * @param newExpert nouvel expert à ajouté à la chaine.
+     */
     private void ajoutExpert(Expert newExpert) {
         if (this.avoirUnSuivant()) {
             this.getSuivant().ajoutExpert(newExpert);
@@ -27,6 +46,10 @@ public abstract class Expert {
         }
     }
 
+    /**
+     * Fonction static qui initialise tous les experts qu'on a besoin pour le UNO.
+     * @return l'expert final
+     */
     public static Expert initialiseTousLesExperts() {
         Expert lesExperts;
 
@@ -41,6 +64,14 @@ public abstract class Expert {
         return lesExperts;
     }
 
+    /**
+     * Parcourt tous les experts pour savoir si on peut poser une carte.
+     * @param carteJoueur carte du joueur à poser
+     * @param carteDepot carte au-dessus du depot
+     * @param nbCarteAPiocher nombre de cartes à piocher à cause d'un "+2", "+4" et etc.
+     * @return true : peut être poser / false : ne peut pas être poser
+     * @throws ExpertManquantException déclenche une exception quand un expert de vérification si une carte peut-être poser ou pas manquant
+     */
     public boolean peutEtrePoser(Carte carteJoueur, Carte carteDepot, int nbCarteAPiocher) throws ExpertManquantException {
         if (this.etreBonExpert(carteJoueur, carteDepot, nbCarteAPiocher)) {
             return this.etreCoupValide(carteJoueur, carteDepot);
@@ -53,7 +84,20 @@ public abstract class Expert {
         }
     }
 
-    public abstract boolean etreBonExpert(Carte carteAPoser, Carte carteReference, int nbCarteAPiocher);
+    /**
+     * Fonction abstract qui verifier si c'est le bon expert à utiliser.
+     * @param carteJoueur carte du joueur à poser
+     * @param carteDepot carte au-dessus du depot
+     * @param nbCarteAPiocher nombre de cartes à piocher à cause d'un "+2", "+4" et etc.
+     * @return true : bon expert / false : mauvais expert
+     */
+    public abstract boolean etreBonExpert(Carte carteJoueur, Carte carteDepot, int nbCarteAPiocher);
 
-    public abstract boolean etreCoupValide(Carte carteAPoser, Carte carteReference);
+    /**
+     * Fonction abstract qui vérifie sur la carte du joueur n'est pas un coup illegal.
+     * @param carteJoueur carte du joueur à poser
+     * @param carteReference carte au-dessus du depot
+     * @return true : carte legal / false : carte illegal
+     */
+    public abstract boolean etreCoupValide(Carte carteJoueur, Carte carteReference);
 }

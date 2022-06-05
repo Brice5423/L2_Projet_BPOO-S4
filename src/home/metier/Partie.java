@@ -308,6 +308,12 @@ public class Partie {
     /**
      * Dépose la carte du joueur dans le tas de la partie.
      * @param carteJoueur Carte du joueur à déposer dans le tas
+     * @throws ExpertManquantException déclenche une exception quand un expert de vérification si une carte peut-être poser ou pas manquant
+     * @throws JoueurCarteIllegalException déclenche une exception quand le joueur joue un coup illegal
+     * @throws PartieException déclenche une exception quand la pioche est vide
+     * @throws JoueurOublieDireUnoException déclenche une exception quand le joueur ne dit pas "UNO !"
+     * @throws JoueurJouePasException déclenche une exception quand le joueur ne joue pas
+     * @throws JoueurNonCourantException déclenche une exception quand le joueur n'est pas courant
      */
     public void deposerCarteTas(Carte carteJoueur) throws ExpertManquantException, JoueurCarteIllegalException, PartieException, JoueurOublieDireUnoException, JoueurJouePasException, JoueurNonCourantException {
         try {
