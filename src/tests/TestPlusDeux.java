@@ -14,6 +14,7 @@ import tests.controleur.CompteurTest;
 import java.util.ArrayList;
 
 public class TestPlusDeux {
+
     public static boolean executionDuTest() {
         System.out.println("\n\t\t\t----- Tests Plus Deux -----");
 
@@ -389,6 +390,4 @@ public class TestPlusDeux {
             compteurTest.testFaux();
         }
     }
-
-
 }

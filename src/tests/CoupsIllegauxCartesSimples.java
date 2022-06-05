@@ -12,6 +12,7 @@ import tests.controleur.CompteurTest;
 import java.util.ArrayList;
 
 public class CoupsIllegauxCartesSimples {
+
     /**
      * Tous ces tests vont lancer des exceptions.
      * Toutes ces anomalies sont (en principe !) sanctionnées par 2 cartes de punitions,
@@ -21,33 +22,6 @@ public class CoupsIllegauxCartesSimples {
      * Nous le ferons dans d’autres tests par la suite (une chose après l’autre).
      * Pour chacun des tests de cette partie,
      * il faut réinitialiser la partie pour se retrouver dans les conditions des tests précédents
-     * ________________________________________________________________________________
-     * Test d’une carte illégale
-     * <p>
-     * 1) Alice pose le « 6 jaune »
-     * 2) Vérifier dans le catch approprié qu'Alice possède toujours 3 cartes dont le « 6 Jaune »
-     * ________________________________________________________________________________
-     * Test d’un joueur qui pose deux cartes légales de suite
-     * <p>
-     * 1) Alice pose le « 2 Vert » et finit son tour
-     * 2) Bob pose le « 2 Bleu » et finit son tour
-     * 3) Charles pose le « 6 Bleu » (RAS, c’est correct, mais Charles ne finit pas le tour)
-     * 4) Vérifier que Charles possède 2 cartes
-     * 5) Charles pose le « 7 Bleu » (Carte légale, mais il a déjà posé…)
-     * 6) Vérifier dans le catch approprié que Charles possède toujours 2 cartes dont le « 2 Bleu »
-     * ________________________________________________________________________________
-     * Test d’un joueur qui finit son tour sans rien faire
-     * <p>
-     * 1) Alice finit son tour
-     * 2) Vérifier dans le catch approprié qu'Alice possède toujours 3 cartes
-     * ________________________________________________________________________________
-     * Test d’un joueur qui joue puis pioche
-     * <p>
-     * 1) Alice joue le « 2 Vert » (RAS, le coup est légal)
-     * 2) Alice pioche
-     * 3) Vérifier dans le catch approprié qu'Alice possède toujours 2 cartes
-     * 4) Vérifier que la carte de la pioche est toujours le « 6 jaune »
-     *
      * @return true si succès est à 100% sinon false
      */
     public static boolean executionDuTest() {
@@ -130,6 +104,11 @@ public class CoupsIllegauxCartesSimples {
         return compteurTest.afficheResultatsTest();
     }
 
+    /**
+     * Test d’une carte illégale
+     * 1) Alice pose le « 6 jaune »
+     * 2) Vérifier dans le catch approprié qu'Alice possède toujours 3 cartes dont le « 6 Jaune »
+     */
     private static void TestCarteCouleurIllégale(CompteurTest compteurTest, Partie partie, Carte jauneSix) {
         System.out.println("\tTest d’une carte illégale");
 
@@ -164,6 +143,15 @@ public class CoupsIllegauxCartesSimples {
         }
     }
 
+    /**
+     * Test d’un joueur qui pose deux cartes légales de suite
+     * 1) Alice pose le « 2 Vert » et finit son tour
+     * 2) Bob pose le « 2 Bleu » et finit son tour
+     * 3) Charles pose le « 6 Bleu » (RAS, c’est correct, mais Charles ne finit pas le tour)
+     * 4) Vérifier que Charles possède 2 cartes
+     * 5) Charles pose le « 7 Bleu » (Carte légale, mais il a déjà posé…)
+     * 6) Vérifier dans le catch approprié que Charles possède toujours 2 cartes dont le « 2 Bleu »
+     */
     private static void JouerDeuxFoisDAffile(CompteurTest compteurTest, Partie partie, Carte vertDeux, Carte bleuDeux, Carte bleuSix, Carte bleuSept) {
         System.out.println("\tTest d’un joueur qui pose deux cartes légales de suite");
 
@@ -238,6 +226,11 @@ public class CoupsIllegauxCartesSimples {
         }
     }
 
+    /**
+     * Test d’un joueur qui finit son tour sans rien faire
+     * 1) Alice finit son tour
+     * 2) Vérifier dans le catch approprié qu'Alice possède toujours 3 cartes
+     */
     private static void FinirTourSansJouer(CompteurTest compteurTest, Partie partie) {
         System.out.println("\tTest d’un joueur qui finit son tour sans rien faire");
 
@@ -276,6 +269,13 @@ public class CoupsIllegauxCartesSimples {
         }
     }
 
+    /**
+     * Test d’un joueur qui joue puis pioche
+     * 1) Alice joue le « 2 Vert » (RAS, le coup est légal)
+     * 2) Alice pioche
+     * 3) Vérifier dans le catch approprié qu'Alice possède toujours 2 cartes
+     * 4) Vérifier que la carte de la pioche est toujours le « 6 jaune »
+     */
     private static void JouePuisPioche(CompteurTest compteurTest, Partie partie, Carte vertDeux, Carte jauneSix) {
         System.out.println("\tTest d’un joueur qui joue puis pioche");
 

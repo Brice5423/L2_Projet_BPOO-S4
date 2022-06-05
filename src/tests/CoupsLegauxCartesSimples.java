@@ -11,30 +11,7 @@ import tests.controleur.CompteurTest;
 import java.util.ArrayList;
 
 public class CoupsLegauxCartesSimples {
-    /**
-     * Alice joue une carte de la bonne couleur.
-     * <p>
-     * 1) Vérifier que le joueur courant est bien Alice,
-     * 2) Vérifier qu'Alice possède bien 3 cartes,
-     * 3) Alice joue le « 2 Vert »,
-     * 4) Vérifier qu'Alice possède bien 2 cartes,
-     * 5) Vérifier que les cartes d’Alice sont le « 6 jaune » et le « 1 rouge »,
-     * 6) Vérifier que la carte au sommet du tas est le « 2 Vert »,
-     * 7) Vérifier que le nombre de cartes du tas est 2,
-     * 8) Alice finit le tour,
-     * 9) Vérifier que le joueur courant est Bob.
-     * _____________________________________________________________________________
-     * Bob joue une carte de couleur différente, mais de même valeur.
-     * <p>
-     * 1) Vérifier	que	Bob	possède	bien 3 cartes,
-     * 2) Bob pose le « 2 bleu »,
-     * 3) Vérifier que	Bob	possède	bien 2 cartes,
-     * 4) Vérifier que	les cartes de Bob sont le « 4 jaune » et le	« 9	rouge »,
-     * 5) Vérifier que la carte au sommet du tas est le « 2 Bleu »,
-     * 6) Vérifier	que le nombre de cartes du tas est 3,
-     * 7) Bob finit le tour,
-     * 8) Vérifier que le joueur courant est Charles.
-     */
+
     public static boolean executionDuTest() {
         System.out.println("\n\t\t\t----- Tests coups légaux avec des cartes simples -----");
 
@@ -108,6 +85,18 @@ public class CoupsLegauxCartesSimples {
         return compteurTest.afficheResultatsTest();
     }
 
+    /**
+     * Alice joue une carte de la bonne couleur.
+     * 1) Vérifier que le joueur courant est bien Alice,
+     * 2) Vérifier qu'Alice possède bien 3 cartes,
+     * 3) Alice joue le « 2 Vert »,
+     * 4) Vérifier qu'Alice possède bien 2 cartes,
+     * 5) Vérifier que les cartes d’Alice sont le « 6 jaune » et le « 1 rouge »,
+     * 6) Vérifier que la carte au sommet du tas est le « 2 Vert »,
+     * 7) Vérifier que le nombre de cartes du tas est 2,
+     * 8) Alice finit le tour,
+     * 9) Vérifier que le joueur courant est Bob.
+     */
     private static void testCarteMemeValeur(CompteurTest compteurTest, Joueur bob, Joueur charles, Partie partie, ArrayList<Carte> tas, Carte bleuDeux, Carte jauneQuatre, Carte rougeNeuf) {
         System.out.println("\tBob joue une carte de couleur différente, mais de même valeur.");
 
@@ -178,6 +167,17 @@ public class CoupsLegauxCartesSimples {
         }
     }
 
+    /**
+     * Bob joue une carte de couleur différente, mais de même valeur.
+     * 1) Vérifier	que	Bob	possède	bien 3 cartes,
+     * 2) Bob pose le « 2 bleu »,
+     * 3) Vérifier que	Bob	possède	bien 2 cartes,
+     * 4) Vérifier que	les cartes de Bob sont le « 4 jaune » et le	« 9	rouge »,
+     * 5) Vérifier que la carte au sommet du tas est le « 2 Bleu »,
+     * 6) Vérifier	que le nombre de cartes du tas est 3,
+     * 7) Bob finit le tour,
+     * 8) Vérifier que le joueur courant est Charles.
+     */
     private static void testCarteBonneCouleur(CompteurTest compteurTest, Joueur alice, Joueur bob, Partie partie, ArrayList<Carte> tas, Carte vertDeux, Carte jauneSix, Carte rougeUn) {
         System.out.println("\tAlice joue une carte de la bonne couleur.");
 

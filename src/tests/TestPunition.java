@@ -12,6 +12,7 @@ import tests.controleur.CompteurTest;
 import java.util.ArrayList;
 
 public class TestPunition {
+
     public static boolean executionDuTest() {
         System.out.println("\n\t\t\t----- Tests Punitions -----");
 
