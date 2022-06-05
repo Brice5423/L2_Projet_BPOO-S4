@@ -136,13 +136,13 @@ public class Joueur {
 
     public void poserCarte(Carte carteChoisieParJoueur) throws JoueurNonCourantException, JoueurMauvaiseCarteException, JoueurJoueMultipleException, JoueurCarteIllegalException, JoueurOublieDireUnoException, JoueurJouePasException, ExpertManquantException, PartieException {
         if (!this.equals(this.dansLaPartie.joueurCourant())) {
-            throw new JoueurNonCourantException("Le joueur " + this.nom + " poser une carte, alors qu'il n'est pas le joueur courant.", this);
+            throw new JoueurNonCourantException("Le joueur " + this.nom + " pose une carte, alors qu'il n'est pas le joueur courant.", this);
         }
         if (!this.mainDuJoueur.contains(carteChoisieParJoueur)) {
             throw new JoueurMauvaiseCarteException("Le joueur " + this.nom + " choisie une carte qui n'est pas dans sa main.", this);
         }
         if (this.avoirJouerSonTour) {
-            throw new JoueurJoueMultipleException("Le joueur " + this.nom + " pose une carte, alors qu'il a déjà jouer.", this);
+            throw new JoueurJoueMultipleException("Le joueur " + this.nom + " pose une carte, alors qu'il a déjà joué.", this);
         }
 
         this.dansLaPartie.deposerCarteTas(carteChoisieParJoueur);

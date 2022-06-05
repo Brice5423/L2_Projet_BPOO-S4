@@ -255,10 +255,10 @@ public class Partie {
 
             if (!lesExperts.peutEtrePoser(carteJoueur, this.carteAuDessusTas(), this.nbCarteAPiocher)) {
                 if (this.nbCarteAPiocher == 0) {
-                    throw new JoueurCarteIllegalException("Le joueur " + this.joueurCourant().getNom() + " depose la carte " + carteJoueur + ", alors qu'elle est illegal.", this.joueurCourant());
+                    throw new JoueurCarteIllegalException("Le joueur " + this.joueurCourant().getNom() + " depose la carte " + carteJoueur + ", alors qu'elle est illégale.", this.joueurCourant());
 
                 } else {
-                    throw new JoueurEncaisserAttaqueException("Le joueur " + this.joueurCourant().getNom() + "  depose la carte " + carteJoueur + ", alors il doit encaisser l'attaque.", this.joueurCourant());
+                    throw new JoueurEncaisserAttaqueException("Le joueur " + this.joueurCourant().getNom() + "  depose la carte " + carteJoueur + ", alors qu'il doit encaisser l'attaque.", this.joueurCourant());
                 }
             }
 
