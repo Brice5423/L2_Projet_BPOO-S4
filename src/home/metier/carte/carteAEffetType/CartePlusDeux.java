@@ -5,9 +5,17 @@ import home.metier.carte.CarteAEffet;
 import home.interfaces.carte.IAjouterCarte;
 import home.metier.Partie;
 
+/**
+ * Class qui défini une carte plus deux.
+ */
 public class CartePlusDeux extends CarteAEffet implements IAjouterCarte {
+    /** Constant qui permet de savoir le nombre de cartes à donner */
     private static final int nbCarteADonner = 2;
 
+    /**
+     * Constructeur pour une carte plus deux.
+     * @param couleur couleur de la carte
+     */
     public CartePlusDeux(ECarteCouleur couleur) {
         super(couleur);
     }
@@ -22,6 +30,11 @@ public class CartePlusDeux extends CarteAEffet implements IAjouterCarte {
         this.ajouterCarte(partieEnCours);
     }
 
+    /**
+     * Fonction redéfinie (@Override).
+     * Renvoie la carte plus deux sous un format de chaine de caractère String.
+     * @return la carte basique en String
+     */
     @Override
     public String toString() {
         return "CartePlusDeux{" +
@@ -29,6 +42,13 @@ public class CartePlusDeux extends CarteAEffet implements IAjouterCarte {
                 "}";
     }
 
+    /**
+     * Fonction redéfinie (@Override).
+     * Vérifie l'égalité entre 2 CartePlusDeux.
+     * L'égalité entre les deux CartePlusDeux est bonne quand ils ont la même couleur
+     * @param o l'objet CartePlusDeux qu'on veut vérifier l'égalité
+     * @return true : sont égaux / false : ne sont pas égaux
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o)

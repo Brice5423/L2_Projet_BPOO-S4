@@ -101,7 +101,7 @@ public class Joueur {
      * Fonction redéfinie (@Override).
      * Vérifie sur l'objet o et égale au joueur this.
      * Un joueur sont égaux quand ils ont le même nom.
-     * @param o l'objet joueur qu'on veut vérifier l'égalité
+     * @param o l'objet Joueur qu'on veut vérifier l'égalité
      * @return true : sont égaux / false : ne sont pas égaux
      */
     @Override
