@@ -18,6 +18,10 @@ public enum ECarteValeur {
         this.valeur = valeur;
     }
 
+    /**
+     * Renvoie la couleur sur un format String.
+     * @return valeur
+     */
     public String getValeur() {
         return this.valeur;
     }

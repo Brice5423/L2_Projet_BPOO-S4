@@ -13,6 +13,10 @@ public enum ECarteCouleur {
         this.couleur = couleur;
     }
 
+    /**
+     * Renvoie la couleur sur un format String.
+     * @return couleur
+     */
     public String getCouleur() {
         return this.couleur;
     }
