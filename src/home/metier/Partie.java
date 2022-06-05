@@ -14,17 +14,28 @@ import home.metier.carte.carteAEffetType.CartePlusDeux;
 import java.util.ArrayList;
 import java.util.Collections;
 
+/**
+ * Class qui défini une partie UNO.
+ */
 public class Partie {
+    /** Le numéro du joueur courant de la partie. */
     private int numJoueurCourant;
+    /** Pour connaitre le sens de la partie. */
     private boolean etreSensHoraire;
+    /** Pour savoir si la carte passer tour est actif. */
     private boolean passerTourActif;
+    /** Le nombre de cartes que le joueur devra prendre, à cause de carte "+2", "+4" ou autre "+..." si existe. */
     private int nbCarteAPiocher;
+    /** Liste des joueurs se trouvant dans la partie. */
     private ArrayList<Joueur> listeJoueur;
-    private ArrayList<Carte> pioche; // -> joueur
-    private ArrayList<Carte> tas; // <- joueur
+    /** Liste des cartes se trouvent dans la pioche. Liste où le joueur récupère les cartes. */
+    private ArrayList<Carte> pioche;
+    /** Liste des cartes se trouvent dans le tas. Liste où le joueur dépose les cartes. */
+    private ArrayList<Carte> tas;
 
     /**
-     * Constructeur utiliser pour créer une copie d'une partie
+     * Constructeur pour une partie avec des valeurs par défaut.
+     * Utiliser pour faire une copie d'une partie.
      */
     private Partie() {
         this.numJoueurCourant = 0;
@@ -37,8 +48,10 @@ public class Partie {
     }
 
     /**
-     * Crée une partie avec toutes les cartes du jeu (sauf +4 et changement couleur)
-     *
+     * Constructeur qui créer une partie à partir d'une liste de joueur (listeJoueur).
+     * Les cartes sont générées automatiquement et ranger de manière aléatoire.
+     * Les joueurs auront 7 cartes en début de partie.
+     * Utiliser pour faire une vraie partie.
      * @param listeJoueur liste de 2 à 10 joueurs
      */
     public Partie(ArrayList<Joueur> listeJoueur) throws PartieException {
@@ -53,11 +66,10 @@ public class Partie {
     }
 
     /**
-     * Crée une partie en fonction d'une liste de joueur et d'une pioche donnée.
-     * Utiliser pour les tests.
-     *
+     * Constructeur qui créer une partie à partir d'une liste de joueur (listeJoueur) et d'une pioche (pioche).
+     * Utiliser pour faire les tests.
      * @param listeJoueur liste de 2 à 10 joueurs
-     * @param pioche
+     * @param pioche peut-être vide ou plaine (du jeu complet ou non)
      */
     public Partie(ArrayList<Joueur> listeJoueur, ArrayList<Carte> pioche) throws PartieException {
         this.numJoueurCourant = 0;
@@ -69,51 +81,84 @@ public class Partie {
         this.tas = new ArrayList<Carte>();
     }
 
+    /**
+     * Setter pour le numéro du joueur courant de la partie.
+     * @param numJoueurCourant doit être compris entre 0 et le nombre de joueurs - 1
+     */
     private void setNumJoueurCourant(int numJoueurCourant) {
         this.numJoueurCourant = numJoueurCourant;
     }
 
+    /**
+     * Setter pour le sens horaire de la partie.
+     * @param etreSensHoraire true : sens horaire / false : anti-sens horaire
+     */
     private void setEtreSensHoraire(boolean etreSensHoraire) {
         this.etreSensHoraire = etreSensHoraire;
     }
 
+    /**
+     * Getter pour savoir si l'effet de la carte passer tour est actif.
+     * @return true : actif / false : pas actif
+     */
     public boolean isPasserTourActif() {
         return this.passerTourActif;
     }
 
+    /**
+     * Setter pour savoir si l'effet de la carte passer tour est actif.
+     * @param passerTourActif true : actif / false : non actif
+     */
     public void setPasserTourActif(boolean passerTourActif) {
         this.passerTourActif = passerTourActif;
     }
 
+    /**
+     * Getter pour le nombre de cartes à piocher à cause d'un "+2", "+4" ou "+...".
+     * @return le nombre de cartes à piocher
+     */
     public int getNbCarteAPiocher() {
         return this.nbCarteAPiocher;
     }
 
-    public ArrayList<Joueur> getListeJoueur() {
-        return this.listeJoueur;
-    }
-
+    /**
+     * Getter de la liste de joueur dans la partie.
+     * @return liste de joueur
+     */
     public ArrayList<Joueur> getListJoueur() {
         return this.listeJoueur;
     }
 
+    /**
+     * Getter de la liste de cartes dans la pioche
+     * @return liste de carte
+     */
     public ArrayList<Carte> getPioche() {
         return this.pioche;
     }
 
+    /**
+     * Getter de la liste de cartes dans le tas.
+     * @return liste de carte
+     */
     public ArrayList<Carte> getTas() {
         return this.tas;
     }
 
+    /**
+     * Setter de la liste de carte dans le tas
+     * @param tas liste de carte
+     */
     public void setTas(ArrayList<Carte> tas) {
         this.tas = tas;
     }
 
     /**
-     * Nombre de carte noir : 4 par carte (boucle),
-     * Nombre de carte différente de noir ET différente de 0 : 2 par carte (boucle),
-     * Nombre de carte 0 : 1 par couleur,
-     * Melanger, mettre aléatoirement lordre des cartes de la liste
+     * Génère toutes les cartes de la partie et les ranges de manière aléatoire.
+     * Carte dans la partie sont :
+     * jaune 0, rouge 0, bleu 0, vert 0 en 1 fois;
+     * jaune 1 à 9, rouge 1 à 9, bleu 1 à 9, vert 1 à 9 en 2 fois;
+     * passer tour de 4 couleurs, changer sens de 4 couleurs, plus deux en 4 couleurs en 2 fois.
      */
     private void genererPioche() {
         this.pioche = new ArrayList<Carte>();
@@ -183,12 +228,17 @@ public class Partie {
             this.pioche.add(new CartePlusDeux(ECarteCouleur.ROUGE));
             this.pioche.add(new CartePlusDeux(ECarteCouleur.BLEU));
             this.pioche.add(new CartePlusDeux(ECarteCouleur.VERT));
-
         }
-        //Collections.shuffle melange les carte !
+
+        // Collections.shuffle melange les éléments d'une array liste
         Collections.shuffle(this.pioche);
     }
 
+    /**
+     * Mets en place une nouvelle liste de joueur dans la partie.
+     * @param listeJoueur nouvelle liste de joueur
+     * @throws PartieException renvoie une exception quand la liste de joueur n'est pas compris entre 2 et 10.
+     */
     private void initialisationListeJoueur(ArrayList<Joueur> listeJoueur) throws PartieException {
         if (listeJoueur.size() < 2 || listeJoueur.size() > 10) {
             throw new PartieException("La partie doit avoir 2 à 10 joueurs !");
@@ -198,6 +248,11 @@ public class Partie {
         this.listeJoueur.forEach(joueur -> joueur.setDansLaPartie(this));
     }
 
+    /**
+     * Mets en place une nouvelle liste de joueur à partir d'une copie.
+     * @param listeJoueur liste de joueur qui sera copié
+     * @throws PartieException renvoie une exception quand la liste de joueur n'est pas compris entre 2 et 10
+     */
     private void initialisationListeJoueurEnCopie(ArrayList<Joueur> listeJoueur) throws PartieException {
         if (listeJoueur.size() < 2 || listeJoueur.size() > 10) {
             throw new PartieException("La partie doit avoir 2 à 10 joueurs !");
@@ -219,6 +274,11 @@ public class Partie {
         }
     }
 
+    /**
+     * Créer une copie d'une partie.
+     * @return une copie de la partie
+     * @throws PartieException renvoie une exception quand la liste de joueur n'est pas compris entre 2 et 10
+     */
     public Partie copiePartie() throws PartieException {
         Partie copiePartie = new Partie();
 
@@ -233,7 +293,8 @@ public class Partie {
     }
 
     /**
-     * @return renvoie la carte de la pioche de dessus
+     * Retire et renvoie la carte au-dessus de la pioche de la partie.
+     * @return renvoie la carte retirer de la pioche
      */
     public Carte retirerCartePioche() {
         if (!this.pioche.isEmpty()) {
@@ -245,8 +306,7 @@ public class Partie {
     }
 
     /**
-     * Dépose la carte du joueur dans le tas de la partie
-     *
+     * Dépose la carte du joueur dans le tas de la partie.
      * @param carteJoueur Carte du joueur à déposer dans le tas
      */
     public void deposerCarteTas(Carte carteJoueur) throws ExpertManquantException, JoueurCarteIllegalException, PartieException, JoueurOublieDireUnoException, JoueurJouePasException, JoueurNonCourantException {
@@ -274,45 +334,70 @@ public class Partie {
         }
     }
 
+    /**
+     * Renvoie la carte se trouvent au-dessus du tas de la partie.
+     * @return carte au-dessus du tas
+     */
     public Carte carteAuDessusTas() {
         return this.tas.get(this.tas.size() - 1);
     }
 
+    /**
+     * Inverse le sens de la partie.
+     */
     public void inverseSensPartie() {
         this.etreSensHoraire = !this.etreSensHoraire;
     }
 
+    /**
+     * Ajout un nombre de cartes à piocher dans nbCarteAPiocherAAjouter de la partie, causer par des "+2", "+4" et etc.
+     * @param nbCarteAPiocherAAjouter nombre de cartes à ajouter
+     */
     public void ajoutNbCarteAPiocher(int nbCarteAPiocherAAjouter) {
         this.nbCarteAPiocher += nbCarteAPiocherAAjouter;
     }
 
+    /**
+     * Remet à zero le nombre de cartes à piocher, causer par des "+2", "+4" et etc.
+     */
     public void nbCarteAPiocherAZero() {
         this.nbCarteAPiocher = 0;
     }
 
+    /**
+     * Renvoie le numéro du prochain joueur courant dans la partie.
+     * @return numéro du joueur courant suivant
+     */
     private int numJoueurSuivant() {
         if (this.etreSensHoraire) {
-            if (this.numJoueurCourant == (this.listeJoueur.size() - 1)) {
+            return ((this.numJoueurCourant + 1) % this.listeJoueur.size());
+            /*if (this.numJoueurCourant == (this.listeJoueur.size() - 1)) {
                 return 0;
-
             } else {
                 return this.numJoueurCourant + 1;
-            }
+            }*/
 
         } else {
-            if (this.numJoueurCourant == 0) {
+            return ((this.numJoueurCourant - 1) % this.listeJoueur.size());
+            /*if (this.numJoueurCourant == 0) {
                 return (this.listeJoueur.size() - 1);
-
             } else {
                 return this.numJoueurCourant - 1;
-            }
+            }*/
         }
     }
 
+    /**
+     * Renvoie le joueur courant de la partie.
+     * @return joueur courant
+     */
     public Joueur joueurCourant() {
         return this.listeJoueur.get(this.numJoueurCourant);
     }
 
+    /**
+     * Mets en place le prochain joueur courant.
+     */
     public void joueurCourantSuivant() {
         this.numJoueurCourant = this.numJoueurSuivant();
     }
