@@ -5,13 +5,25 @@ import home.metier.carte.Carte;
 
 import java.util.ArrayList;
 
+/**
+ * Class qui défini un joueur UNO
+ */
 public class Joueur {
+    /** Le nom du joueur */
     private String nom;
+    /** La liste de cartes se trouvant dans la main du joueur */
     private ArrayList<Carte> mainDuJoueur;
+    /** La partie où le joueur se trouve */
     private Partie dansLaPartie;
+    /** Pour savoir si le joueur à déjà jouer durant son tour */
     private boolean avoirJouerSonTour;
+    /** Pour savoir si le joueur à dit "UNO !" */
     private boolean avoirDitUNO;
 
+    /**
+     * Création d'un joueur par défaut.
+     * Utiliser pour les copies.
+     */
     private Joueur() {
         this.nom = null;
         this.mainDuJoueur = new ArrayList<Carte>();
@@ -20,6 +32,11 @@ public class Joueur {
         this.avoirDitUNO = false;
     }
 
+    /**
+     * Création d'un joueur à partir de son nom.
+     * Le reste est initialisé à null (ou arrayListe vide).
+     * @param nom
+     */
     public Joueur(String nom) {
         this.setNom(nom);
         this.mainDuJoueur = new ArrayList<Carte>();
@@ -28,10 +45,18 @@ public class Joueur {
         this.avoirDitUNO = false;
     }
 
+    /**
+     * Getter du nom du joueur.
+     * @return nom du joueur
+     */
     public String getNom() {
         return nom;
     }
 
+    /**
+     * Setter du nom du joueur.
+     * @param nom nouveau nom du joueur
+     */
     private void setNom(String nom) {
         if (nom.isBlank()) {
             throw new IllegalArgumentException("Le nom du joueur est vide ou null.");
@@ -40,22 +65,45 @@ public class Joueur {
         this.nom = nom;
     }
 
+    /**
+     * Getter de la liste de cartes dans la main du joueur.
+     * @return la liste de carte du joueur
+     */
     public ArrayList<Carte> getMainDuJoueur() {
         return this.mainDuJoueur;
     }
 
+    /**
+     * Setter de la liste de carte dans la main du joueur.
+     * @param dansLaPartie nouvelle liste de carte du joueur
+     */
     public void setDansLaPartie(Partie dansLaPartie) {
         this.dansLaPartie = dansLaPartie;
     }
 
+    /**
+     * Setter pour savoir si le joueur à jouer son tour.
+     * @param avoirJouerSonTour true : avoir joué / false : ne pas avoir joué
+     */
     public void setAvoirJouerSonTour(boolean avoirJouerSonTour) {
         this.avoirJouerSonTour = avoirJouerSonTour;
     }
 
+    /**
+     * Setter pour savoir si le joueur à dit "UNO !".
+     * @param avoirDitUNO true : avoir dit "UNO !" / false : ne pas avoir dit "UNO !"
+     */
     private void setAvoirDitUNO(boolean avoirDitUNO) {
         this.avoirDitUNO = avoirDitUNO;
     }
 
+    /**
+     * Fonction redéfinie (@Override).
+     * Vérifie sur l'objet o et égale au joueur this.
+     * Un joueur sont égaux quand ils ont le même nom.
+     * @param o l'objet joueur qu'on veut vérifier l'égalité
+     * @return true : sont égaux / false : ne sont pas égaux
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o)
@@ -68,6 +116,11 @@ public class Joueur {
         return this.nom.equals(joueur.getNom());
     }
 
+    /**
+     * Fonction redéfinie (@Override).
+     * Renvoie le joueur sous un format de chaine de caractère String.
+     * @return le joueur en String
+     */
     @Override
     public String toString() {
         return "Joueur {\n" +
@@ -78,6 +131,10 @@ public class Joueur {
                 "\n}";
     }
 
+    /**
+     * Renvoie la copie du joueur.
+     * @return copie du joueur
+     */
     public Joueur copieJoueur() {
         Joueur copieJoueur = new Joueur();
 
@@ -91,14 +148,18 @@ public class Joueur {
     }
 
     /**
-     * Mettre la carte de la pioche dans la main du joueur
+     * Le joueur prend une carte, au-dessus de la pioche.
+     * Pour cette action le joueur sera considérer comme avoir joué.
+     * @throws PartieException déclenche une exception quand la pioche est vide
+     * @throws JoueurNonCourantException déclenche une exception quand le joueur n'est pas courant
+     * @throws JoueurJoueMultipleException déclenche une exception quand le joueur joue plusieurs fois
      */
-    public void piocherCarte() throws JoueurNonCourantException, PartieException, JoueurJoueMultipleException {
-        if (!this.equals(this.dansLaPartie.joueurCourant())) {
-            throw new JoueurNonCourantException("Le joueur " + this.nom + " pioche, alors qu'il n'est pas le joueur courant.", this);
-        }
+    public void piocherCarte() throws PartieException, JoueurNonCourantException, JoueurJoueMultipleException {
         if (this.dansLaPartie.getPioche().isEmpty()) {
             throw new PartieException("Le joueur " + this.nom + " pioche, alors que la pioche est vide.");
+        }
+        if (!this.equals(this.dansLaPartie.joueurCourant())) {
+            throw new JoueurNonCourantException("Le joueur " + this.nom + " pioche, alors qu'il n'est pas le joueur courant.", this);
         }
         if (this.avoirJouerSonTour) {
             throw new JoueurJoueMultipleException("Le joueur " + this.nom + " pioche, alors qu'il a déjà joué.", this);
@@ -110,7 +171,15 @@ public class Joueur {
         this.avoirJouerSonTour = true;
     }
 
-    public void piocherCarte(Carte carteDonnee) throws JoueurJoueMultipleException, JoueurNonCourantException {
+    /**
+     * Le joueur prend la carte carteDonnee.
+     * Utiliser principalement pour les tests.
+     * Pour cette action le joueur sera considérer comme avoir joué.
+     * @param carteDonnee carte que le joueur pioche
+     * @throws JoueurNonCourantException déclenche une exception quand le joueur n'est pas courant
+     * @throws JoueurJoueMultipleException déclenche une exception quand le joueur joue plusieurs fois
+     */
+    public void piocherCarte(Carte carteDonnee) throws JoueurNonCourantException, JoueurJoueMultipleException {
         if (!this.equals(this.dansLaPartie.joueurCourant())) {
             throw new JoueurNonCourantException("Le joueur " + this.nom + " pioche, alors qu'il n'est pas le joueur courant.", this);
         }
@@ -122,6 +191,12 @@ public class Joueur {
         this.avoirJouerSonTour = true;
     }
 
+    /**
+     * Donne une carte au joueur.
+     * La carte est prise dans la pioche.
+     * Par cette action le joueur ne sera pas considérer comme avoir joué.
+     * @throws PartieException déclenche une exception quand la pioche est vide
+     */
     public void donnerCarte() throws PartieException {
         if (this.dansLaPartie.getPioche().isEmpty()) {
             throw new PartieException("On donne une carte au joueur " + this.nom + ", alors que la pioche est vide.");
@@ -130,10 +205,27 @@ public class Joueur {
         this.mainDuJoueur.add(this.dansLaPartie.retirerCartePioche());
     }
 
+    /**
+     * Donne au joueur la carte carteDonnee.
+     * Par cette action le joueur ne sera pas considérer comme avoir joué.
+     * @param carteDonnee carte à donner au joueur
+     */
     public void donnerCarte(Carte carteDonnee) {
         this.mainDuJoueur.add(carteDonnee);
     }
 
+    /**
+     * Le joueur pose la carte carteChoisieParJoueur dans le tas de la partie.
+     * @param carteChoisieParJoueur carte que le joueur dépose dans le tas
+     * @throws JoueurNonCourantException déclenche une exception quand le joueur n'est pas courant
+     * @throws JoueurMauvaiseCarteException déclenche une exception quand le joueur joue une carte qui n'a pas
+     * @throws JoueurJoueMultipleException déclenche une exception quand le joueur joue plusieurs fois
+     * @throws JoueurCarteIllegalException déclenche une exception quand le joueur joue un coup illegal
+     * @throws JoueurOublieDireUnoException déclenche une exception quand le joueur ne dit pas "UNO !"
+     * @throws JoueurJouePasException déclenche une exception quand le joueur ne joue pas
+     * @throws ExpertManquantException déclenche une exception quand un expert de vérification si une carte peut-être poser ou pas manquant
+     * @throws PartieException déclenche une exception quand la pioche est vide
+     */
     public void poserCarte(Carte carteChoisieParJoueur) throws JoueurNonCourantException, JoueurMauvaiseCarteException, JoueurJoueMultipleException, JoueurCarteIllegalException, JoueurOublieDireUnoException, JoueurJouePasException, ExpertManquantException, PartieException {
         if (!this.equals(this.dansLaPartie.joueurCourant())) {
             throw new JoueurNonCourantException("Le joueur " + this.nom + " pose une carte, alors qu'il n'est pas le joueur courant.", this);
@@ -150,6 +242,11 @@ public class Joueur {
         this.avoirJouerSonTour = true;
     }
 
+    /**
+     * Donne au joueur n cartes.
+     * @param nCarteARecuperer nombre de cartes à donnée
+     * @throws PartieException déclenche une exception quand la pioche est vide
+     */
     private void recupererNCarte(int nCarteARecuperer) throws PartieException {
         for (int i = 0; i < nCarteARecuperer; i++) {
             this.donnerCarte();
@@ -157,7 +254,11 @@ public class Joueur {
     }
 
     /**
-     * punie le joueur en lui donnant 2 cartes.
+     * Puni le joueur en lui donnant 2 cartes.
+     * @throws PartieException déclenche une exception quand la pioche est vide
+     * @throws JoueurOublieDireUnoException déclenche une exception quand le joueur ne dit pas "UNO !"
+     * @throws JoueurNonCourantException déclenche une exception quand le joueur n'est pas courant
+     * @throws JoueurJouePasException déclenche une exception quand le joueur ne joue pas
      */
     public void punition() throws PartieException, JoueurOublieDireUnoException, JoueurNonCourantException, JoueurJouePasException {
         this.recupererNCarte(2);
@@ -168,20 +269,39 @@ public class Joueur {
         }
     }
 
-    public void encaisseAttaque() throws PartieException, JoueurOublieDireUnoException, JoueurJouePasException, JoueurNonCourantException {
+    /**
+     * Le joueur encaisse les attaques causé par les "+2", "+4" et etc.
+     * @throws PartieException déclenche une exception quand la pioche est vide
+     * @throws JoueurOublieDireUnoException déclenche une exception quand le joueur ne dit pas "UNO !"
+     * @throws JoueurNonCourantException déclenche une exception quand le joueur n'est pas courant
+     * @throws JoueurJouePasException déclenche une exception quand le joueur ne joue pas
+     */
+    public void encaisseAttaque() throws PartieException, JoueurOublieDireUnoException, JoueurNonCourantException, JoueurJouePasException {
         this.recupererNCarte(this.dansLaPartie.getNbCarteAPiocher());
         this.finTour();
         this.dansLaPartie.nbCarteAPiocherAZero();
     }
 
+    /**
+     * Renvoie le nombre de cartes que le joueur a en main.
+     * @return nombre cartes du joueur
+     */
     public int nbCarteEnMain() {
         return this.mainDuJoueur.size();
     }
 
+    /**
+     * Affiche les cartes que le joueur a en main.
+     */
     public void afficheCarteEnMain() {
         System.out.println(this.mainDuJoueur);
     }
 
+    /**
+     * Le joueur dit "UNO !"
+     * @throws JoueurNonCourantException déclenche une exception quand le joueur n'est pas courant
+     * @throws JoueurJouePasException déclenche une exception quand le joueur ne joue pas
+     */
     public void ditUNO() throws JoueurNonCourantException, JoueurJouePasException {
         if (!this.equals(this.dansLaPartie.joueurCourant())) {
             throw new JoueurNonCourantException("Le joueur " + this.nom + " dit \"UNO !\", alors qu'il n'est pas le joueur courant.", this);
@@ -193,6 +313,12 @@ public class Joueur {
         this.avoirDitUNO = true;
     }
 
+    /**
+     * Le joueur mets fin à son tour.
+     * @throws JoueurNonCourantException déclenche une exception quand le joueur n'est pas courant
+     * @throws JoueurJouePasException déclenche une exception quand le joueur ne joue pas
+     * @throws JoueurOublieDireUnoException déclenche une exception quand le joueur ne dit pas "UNO !"
+     */
     public void finTour() throws JoueurNonCourantException, JoueurJouePasException, JoueurOublieDireUnoException {
         if (!this.equals(this.dansLaPartie.joueurCourant())) {
             throw new JoueurNonCourantException("Le joueur " + this.nom + " fini son tour, alors qu'il n'est pas le joueur courant.", this);
