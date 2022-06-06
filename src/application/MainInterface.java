@@ -1,3 +1,5 @@
+package application;
+
 import javafx.application.Application;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -24,9 +26,9 @@ public class MainInterface extends Application {
     private ArrayList<String> listeCartes = new ArrayList<String>(); // Devrait disparaître en fonction des vos classes
 
 
-	public static void main(String[] args) {
-		launch(args);
-	}
+    public static void main(String[] args) {
+        launch(args);
+    }
 
     @Override
     public void start(Stage primaryStage) {
@@ -183,6 +185,7 @@ public class MainInterface extends Application {
         int pad = (L_CANVAS - lMain) / 2;
 
         for (int i = 0; i < nbCartes; i++) {
+        	System.out.println(getClass().getResourceAsStream(liste.get(i)));
             Image carte = new Image(getClass().getResourceAsStream(liste.get(i))); /* à adapter */
             canvas.getGraphicsContext2D().drawImage(carte, pad + i * ECART, 0);
         }

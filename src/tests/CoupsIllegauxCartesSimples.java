@@ -88,7 +88,7 @@ public class CoupsIllegauxCartesSimples {
 
 
         /* ***** ***** Debut test : Test d’une carte illégale ***** ***** */
-        TestCarteCouleurIllégale(compteurTest, partie, jauneSix);
+        TestCarteCouleurIllegale(compteurTest, partie, jauneSix);
 
         /* ***** ***** Debut test : Test d’un joueur qui pose deux cartes légales de suite ***** ***** */
         JouerDeuxFoisDAffile(compteurTest, partie, vertDeux, bleuDeux, bleuSix, bleuSept);
@@ -109,7 +109,7 @@ public class CoupsIllegauxCartesSimples {
      * 1) Alice pose le « 6 jaune »
      * 2) Vérifier dans le catch approprié qu'Alice possède toujours 3 cartes dont le « 6 Jaune »
      */
-    private static void TestCarteCouleurIllégale(CompteurTest compteurTest, Partie partie, Carte jauneSix) {
+    private static void TestCarteCouleurIllegale(CompteurTest compteurTest, Partie partie, Carte jauneSix) {
         System.out.println("\tTest d’une carte illégale");
 
         /* ***** Bloc des premiers copie pour les tests ***** */
