@@ -46,7 +46,7 @@ public class CartePlusDeux extends CarteAEffet implements IAjouterCarte {
      * Fonction redéfinie (@Override).
      * Vérifie l'égalité entre 2 CartePlusDeux.
      * L'égalité entre les deux CartePlusDeux est bonne quand ils ont la même couleur
-     * @param o l'objet CartePlusDeux qu'on veut vérifier l'égalité
+     * @param o l'objet CartePlusDeux qui est vérifié par l'égalité
      * @return true : sont égaux / false : ne sont pas égaux
      */
     @Override

@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 /**
- * Class qui défini une partie UNO.
+ * Class qui définit une partie UNO.
  */
 public class Partie {
     /** Le numéro du joueur courant de la partie. */
@@ -28,7 +28,7 @@ public class Partie {
     private int nbCarteAPiocher;
     /** Liste des joueurs se trouvant dans la partie. */
     private ArrayList<Joueur> listeJoueur;
-    /** Liste des cartes se trouvent dans la pioche. Liste où le joueur récupère les cartes. */
+    /** Liste des cartes se trouvant dans la pioche. Liste où le joueur récupère les cartes. */
     private ArrayList<Carte> pioche;
     /** Liste des cartes se trouvent dans le tas. Liste où le joueur dépose les cartes. */
     private ArrayList<Carte> tas;
@@ -66,10 +66,10 @@ public class Partie {
     }
 
     /**
-     * Constructeur qui créer une partie à partir d'une liste de joueur (listeJoueur) et d'une pioche (pioche).
+     * Constructeur qui crée une partie à partir d'une liste de joueur (listeJoueur) et d'une pioche (pioche).
      * Utiliser pour faire les tests.
      * @param listeJoueur liste de 2 à 10 joueurs
-     * @param pioche peut-être vide ou plaine (du jeu complet ou non)
+     * @param pioche peut-être vide ou pleine (du jeu complet ou non)
      */
     public Partie(ArrayList<Joueur> listeJoueur, ArrayList<Carte> pioche) throws PartieException {
         this.numJoueurCourant = 0;
@@ -154,7 +154,7 @@ public class Partie {
     }
 
     /**
-     * Génère toutes les cartes de la partie et les ranges de manière aléatoire.
+     * Génère toutes les cartes de la partie et les range de manière aléatoire.
      * Carte dans la partie sont :
      * jaune 0, rouge 0, bleu 0, vert 0 en 1 fois;
      * jaune 1 à 9, rouge 1 à 9, bleu 1 à 9, vert 1 à 9 en 2 fois;
@@ -235,7 +235,7 @@ public class Partie {
     }
 
     /**
-     * Mets en place une nouvelle liste de joueur dans la partie.
+     * Met en place une nouvelle liste de joueur dans la partie.
      * @param listeJoueur nouvelle liste de joueur
      * @throws PartieException renvoie une exception quand la liste de joueur n'est pas compris entre 2 et 10.
      */
@@ -249,7 +249,7 @@ public class Partie {
     }
 
     /**
-     * Mets en place une nouvelle liste de joueur à partir d'une copie.
+     * Met en place une nouvelle liste de joueur à partir d'une copie.
      * @param listeJoueur liste de joueur qui sera copié
      * @throws PartieException renvoie une exception quand la liste de joueur n'est pas compris entre 2 et 10
      */
@@ -308,7 +308,7 @@ public class Partie {
     /**
      * Dépose la carte du joueur dans le tas de la partie.
      * @param carteJoueur Carte du joueur à déposer dans le tas
-     * @throws ExpertManquantException déclenche une exception quand un expert de vérification si une carte peut-être poser ou pas manquant
+     * @throws ExpertManquantException déclenche une exception si une carte peut-être poser ou pas ou manquant par un expert de vérification
      * @throws JoueurCarteIllegalException déclenche une exception quand le joueur joue un coup illegal
      * @throws PartieException déclenche une exception quand la pioche est vide
      * @throws JoueurOublieDireUnoException déclenche une exception quand le joueur ne dit pas "UNO !"
@@ -341,7 +341,7 @@ public class Partie {
     }
 
     /**
-     * Renvoie la carte se trouvent au-dessus du tas de la partie.
+     * Renvoie la carte se trouvant au-dessus du tas de la partie.
      * @return carte au-dessus du tas
      */
     public Carte carteAuDessusTas() {
@@ -356,7 +356,7 @@ public class Partie {
     }
 
     /**
-     * Ajout un nombre de cartes à piocher dans nbCarteAPiocherAAjouter de la partie, causer par des "+2", "+4" et etc.
+     * Ajoute un nombre de cartes à piocher dans nbCarteAPiocherAAjouter de la partie, causer par des "+2", "+4" et etc.
      * @param nbCarteAPiocherAAjouter nombre de cartes à ajouter
      */
     public void ajoutNbCarteAPiocher(int nbCarteAPiocherAAjouter) {
@@ -402,7 +402,7 @@ public class Partie {
     }
 
     /**
-     * Mets en place le prochain joueur courant.
+     * Met en place le prochain joueur courant.
      */
     public void joueurCourantSuivant() {
         this.numJoueurCourant = this.numJoueurSuivant();

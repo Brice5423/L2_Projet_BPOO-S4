@@ -1,7 +1,7 @@
 package tests.controleur;
 
 /**
- * Class pour le controller de réussite du programme.
+ * Class pour le contrôleur de réussite du programme.
  */
 public class CompteurTest {
     /** Le nom du test */
@@ -37,7 +37,7 @@ public class CompteurTest {
     }
 
     /**
-     * Affiche le nombre de tests total, le nombre de tests OK avec le taux de réussite des testes.
+     * Affiche le nombre de tests total, le nombre de tests OK avec le taux de réussite des tests.
      * @return true : 100% OK / false : < 100% OK
      */
     public boolean afficheResultatsTest() {

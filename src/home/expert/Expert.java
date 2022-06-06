@@ -4,7 +4,7 @@ import home.exception.ExpertManquantException;
 import home.metier.carte.Carte;
 
 /**
- * Class abstract qui défini les Experts pour les différentes règles pour pouvoir poser une carte ou non.
+ * Class abstract qui définie les différentes règles des Experts pour pouvoir poser une carte ou non.
  */
 public abstract class Expert {
     /** Contient l'expert suivant */
@@ -35,7 +35,7 @@ public abstract class Expert {
 
     /**
      * Ajout un expert à la fin de la liste d'expert.
-     * @param newExpert nouvel expert à ajouté à la chaine.
+     * @param newExpert nouvel expert a ajouté à la chaine.
      */
     private void ajoutExpert(Expert newExpert) {
         if (this.avoirUnSuivant()) {
@@ -66,11 +66,11 @@ public abstract class Expert {
 
     /**
      * Parcourt tous les experts pour savoir si on peut poser une carte.
-     * @param carteJoueur carte du joueur à poser
+     * @param carteJoueur carte du joueur a posé
      * @param carteDepot carte au-dessus du depot
-     * @param nbCarteAPiocher nombre de cartes à piocher à cause d'un "+2", "+4" et etc.
-     * @return true : peut être poser / false : ne peut pas être poser
-     * @throws ExpertManquantException déclenche une exception quand un expert de vérification si une carte peut-être poser ou pas manquant
+     * @param nbCarteAPiocher nombre de cartes a pioché à cause d'un "+2", "+4" et etc.
+     * @return true : peut être posé / false : ne peut pas être posé
+     * @throws ExpertManquantException déclenche une exception si une carte peut-être poser ou pas ou manquant selon un expert de vérification
      */
     public boolean peutEtrePoser(Carte carteJoueur, Carte carteDepot, int nbCarteAPiocher) throws ExpertManquantException {
         if (this.etreBonExpert(carteJoueur, carteDepot, nbCarteAPiocher)) {
@@ -88,16 +88,16 @@ public abstract class Expert {
      * Fonction abstract qui verifier si c'est le bon expert à utiliser.
      * @param carteJoueur carte du joueur à poser
      * @param carteDepot carte au-dessus du depot
-     * @param nbCarteAPiocher nombre de cartes à piocher à cause d'un "+2", "+4" et etc.
+     * @param nbCarteAPiocher nombre de cartes a pioché à cause d'un "+2", "+4" et etc.
      * @return true : bon expert / false : mauvais expert
      */
     public abstract boolean etreBonExpert(Carte carteJoueur, Carte carteDepot, int nbCarteAPiocher);
 
     /**
-     * Fonction abstract qui vérifie sur la carte du joueur n'est pas un coup illegal.
-     * @param carteJoueur carte du joueur à poser
+     * Fonction abstract qui vérifie si la carte du joueur n'est pas un coup illegal.
+     * @param carteJoueur carte du joueur a posé
      * @param carteReference carte au-dessus du depot
-     * @return true : carte legal / false : carte illegal
+     * @return true : carte légale / false : carte illégale
      */
     public abstract boolean etreCoupValide(Carte carteJoueur, Carte carteReference);
 }

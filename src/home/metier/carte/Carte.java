@@ -6,7 +6,7 @@ import home.enumeration.ECarteCouleur;
  * Class abstract pour définir une carte UNO
  */
 public abstract class Carte {
-    /** Défini la couleur de la carte */
+    /** Définit la couleur de la carte */
     private ECarteCouleur couleur;
 
     /**

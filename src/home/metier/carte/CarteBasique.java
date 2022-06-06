@@ -7,7 +7,7 @@ import home.enumeration.ECarteValeur;
  * Class qui défini une carte basique.
  */
 public class CarteBasique extends Carte {
-    /** Une carte basique à une valeur (0 à 9) */
+    /** Une carte basique a une valeur (0 à 9) */
     private ECarteValeur valeur;
 
     /**
@@ -44,8 +44,8 @@ public class CarteBasique extends Carte {
     /**
      * Fonction redéfinie (@Override).
      * Vérifie l'égalité entre 2 CarteBasique.
-     * L'égalité entre les deux CarteBasique est bonne quand ils ont la même valeur et la même couleur
-     * @param o l'objet CarteBasique qu'on veut vérifier l'égalité
+     * L'égalité entre les deux CarteBasique est bonne s'ils ont la même valeur et la même couleur
+     * @param o l'objet CarteBasique qui est vérifié par l'égalité
      * @return true : sont égaux / false : ne sont pas égaux
      */
     @Override

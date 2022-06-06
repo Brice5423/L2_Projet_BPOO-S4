@@ -6,7 +6,7 @@ import home.interfaces.carte.IChangerSens;
 import home.metier.Partie;
 
 /**
- * Class qui défini une carte changement de sens.
+ * Class qui définie une carte changement de sens.
  */
 public class CarteChangerSens extends CarteAEffet implements IChangerSens {
 
@@ -43,8 +43,8 @@ public class CarteChangerSens extends CarteAEffet implements IChangerSens {
     /**
      * Fonction redéfinie (@Override).
      * Vérifie l'égalité entre 2 CarteChangerSens.
-     * L'égalité entre les deux CarteChangerSens est bonne quand ils ont la même couleur
-     * @param o l'objet CarteChangerSens qu'on veut vérifier l'égalité
+     * L'égalité entre les deux CarteChangerSens est bonne s'ils ont la même couleur
+     * @param o l'objet CarteChangerSens qui est vérifié par l'égalité
      * @return true : sont égaux / false : ne sont pas égaux
      */
     @Override

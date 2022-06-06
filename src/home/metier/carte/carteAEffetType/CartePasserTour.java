@@ -6,7 +6,7 @@ import home.metier.Partie;
 import home.metier.carte.CarteAEffet;
 
 /**
- * Class qui défini une carte passer tour.
+ * Class qui définie une carte passer tour.
  */
 public class CartePasserTour extends CarteAEffet implements IPasserTour {
 
@@ -44,7 +44,7 @@ public class CartePasserTour extends CarteAEffet implements IPasserTour {
      * Fonction redéfinie (@Override).
      * Vérifie l'égalité entre 2 CartePasserTour.
      * L'égalité entre les deux CartePasserTour est bonne quand ils ont la même couleur
-     * @param o l'objet CartePasserTour qu'on veut vérifier l'égalité
+     * @param o l'objet CartePasserTour qui est vérifié par l'égalité
      * @return true : sont égaux / false : ne sont pas égaux
      */
     @Override

@@ -6,7 +6,7 @@ import home.metier.carte.Carte;
 import java.util.ArrayList;
 
 /**
- * Class qui défini un joueur UNO
+ * Classe qui définit un joueur UNO
  */
 public class Joueur {
     /** Le nom du joueur */
@@ -15,9 +15,9 @@ public class Joueur {
     private ArrayList<Carte> mainDuJoueur;
     /** La partie où le joueur se trouve */
     private Partie dansLaPartie;
-    /** Pour savoir si le joueur à déjà jouer durant son tour */
+    /** Pour savoir si le joueur a déjà joué durant son tour */
     private boolean avoirJouerSonTour;
-    /** Pour savoir si le joueur à dit "UNO !" */
+    /** Pour savoir si le joueur a dit "UNO !" */
     private boolean avoirDitUNO;
 
     /**
@@ -34,7 +34,7 @@ public class Joueur {
 
     /**
      * Création d'un joueur à partir de son nom.
-     * Le reste est initialisé à null (ou arrayListe vide).
+     * Le reste est initialisé à null (ou arrayList vide).
      * @param nom
      */
     public Joueur(String nom) {
@@ -90,7 +90,7 @@ public class Joueur {
     }
 
     /**
-     * Setter pour savoir si le joueur à dit "UNO !".
+     * Setter pour savoir si le joueur a dit "UNO !".
      * @param avoirDitUNO true : avoir dit "UNO !" / false : ne pas avoir dit "UNO !"
      */
     private void setAvoirDitUNO(boolean avoirDitUNO) {
@@ -99,9 +99,9 @@ public class Joueur {
 
     /**
      * Fonction redéfinie (@Override).
-     * Vérifie sur l'objet o et égale au joueur this.
-     * Un joueur sont égaux quand ils ont le même nom.
-     * @param o l'objet Joueur qu'on veut vérifier l'égalité
+     * Vérifie sur l'objet o est égal au joueur this.
+     * Deux joueurs sont égaux lorsqu'ils ont le même nom.
+     * @param o l'objet Joueur pour lequel on veut vérifier l'égalité
      * @return true : sont égaux / false : ne sont pas égaux
      */
     @Override
@@ -118,7 +118,7 @@ public class Joueur {
 
     /**
      * Fonction redéfinie (@Override).
-     * Renvoie le joueur sous un format de chaine de caractère String.
+     * Renvoie le joueur sous un format de chaîne de caractère String.
      * @return le joueur en String
      */
     @Override
@@ -148,7 +148,7 @@ public class Joueur {
     }
 
     /**
-     * Le joueur prend une carte, au-dessus de la pioche.
+     * Le joueur prend une carte au-dessus de la pioche.
      * Pour cette action le joueur sera considérer comme avoir joué.
      * @throws PartieException déclenche une exception quand la pioche est vide
      * @throws JoueurNonCourantException déclenche une exception quand le joueur n'est pas courant
@@ -174,7 +174,7 @@ public class Joueur {
     /**
      * Le joueur prend la carte carteDonnee.
      * Utiliser principalement pour les tests.
-     * Pour cette action le joueur sera considérer comme avoir joué.
+     * Pour cette action, le joueur sera considérer comme avoir joué.
      * @param carteDonnee carte que le joueur pioche
      * @throws JoueurNonCourantException déclenche une exception quand le joueur n'est pas courant
      * @throws JoueurJoueMultipleException déclenche une exception quand le joueur joue plusieurs fois
@@ -218,12 +218,12 @@ public class Joueur {
      * Le joueur pose la carte carteChoisieParJoueur dans le tas de la partie.
      * @param carteChoisieParJoueur carte que le joueur dépose dans le tas
      * @throws JoueurNonCourantException déclenche une exception quand le joueur n'est pas courant
-     * @throws JoueurMauvaiseCarteException déclenche une exception quand le joueur joue une carte qui n'a pas
+     * @throws JoueurMauvaiseCarteException déclenche une exception quand le joueur joue une carte qu'il n'a pas
      * @throws JoueurJoueMultipleException déclenche une exception quand le joueur joue plusieurs fois
      * @throws JoueurCarteIllegalException déclenche une exception quand le joueur joue un coup illegal
      * @throws JoueurOublieDireUnoException déclenche une exception quand le joueur ne dit pas "UNO !"
      * @throws JoueurJouePasException déclenche une exception quand le joueur ne joue pas
-     * @throws ExpertManquantException déclenche une exception quand un expert de vérification si une carte peut-être poser ou pas manquant
+     * @throws ExpertManquantException déclenche une exception si une carte peut-être poser ou pas manquant par un expert de vérification
      * @throws PartieException déclenche une exception quand la pioche est vide
      */
     public void poserCarte(Carte carteChoisieParJoueur) throws JoueurNonCourantException, JoueurMauvaiseCarteException, JoueurJoueMultipleException, JoueurCarteIllegalException, JoueurOublieDireUnoException, JoueurJouePasException, ExpertManquantException, PartieException {
@@ -244,7 +244,7 @@ public class Joueur {
 
     /**
      * Donne au joueur n cartes.
-     * @param nCarteARecuperer nombre de cartes à donnée
+     * @param nCarteARecuperer nombre de cartes à donner
      * @throws PartieException déclenche une exception quand la pioche est vide
      */
     private void recupererNCarte(int nCarteARecuperer) throws PartieException {
@@ -314,7 +314,7 @@ public class Joueur {
     }
 
     /**
-     * Le joueur mets fin à son tour.
+     * Le joueur met fin à son tour.
      * @throws JoueurNonCourantException déclenche une exception quand le joueur n'est pas courant
      * @throws JoueurJouePasException déclenche une exception quand le joueur ne joue pas
      * @throws JoueurOublieDireUnoException déclenche une exception quand le joueur ne dit pas "UNO !"

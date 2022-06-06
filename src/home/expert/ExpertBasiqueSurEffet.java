@@ -5,7 +5,7 @@ import home.metier.carte.CarteAEffet;
 import home.metier.carte.CarteBasique;
 
 /**
- * Class pour l'expert de quand on a une carte basique sur une carte à effet.
+ * Class pour l'expert lorsqu'on a une carte basique sur une carte à effet.
  */
 public class ExpertBasiqueSurEffet extends Expert {
 
