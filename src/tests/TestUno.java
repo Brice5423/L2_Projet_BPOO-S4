@@ -14,10 +14,10 @@ import java.util.ArrayList;
 public class TestUno {
 
     public static boolean executionDuTest() {
-        System.out.println("\n\t\t\t----- Tests Uno -----");
+        System.out.println("\n\t\t\t----- Tests dit UNO ! -----");
 
         /* ***** ***** initialisation des compteurs du test ***** ***** */
-        CompteurTest compteurTest = new CompteurTest("Test Uno");
+        CompteurTest compteurTest = new CompteurTest("Test dit UNO !");
 
 
         /* ***** ***** Initialiser le fichier test ***** ***** */

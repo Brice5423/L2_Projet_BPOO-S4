@@ -6,7 +6,7 @@
 import tests.*;
 import tests.controleur.CompteurTest;
 
-public class Main {
+public class MainTest {
     public static void main(String[] args) {
         /* ***** ***** initialisation des compteurs du test ***** ***** */
         CompteurTest compteurTest = new CompteurTest("Tous les tests");
@@ -27,32 +27,33 @@ public class Main {
             compteurTest.testFaux();
         }
 
+        /* ***** Tests Punitions ***** */
         if (TestPunition.executionDuTest()) {
             compteurTest.testOK();
         } else {
             compteurTest.testFaux();
         }
 
+        /* ***** Tests dit UNO !  ***** */
         if (TestUno.executionDuTest()) {
             compteurTest.testOK();
         } else {
             compteurTest.testFaux();
         }
 
+        /* ***** Tests Passe Tour ***** */
         if (TestPasseTour.executionDuTest()) {
             compteurTest.testOK();
         } else {
             compteurTest.testFaux();
         }
 
+        /* ***** Tests Plus Deux ***** */
         if (TestPlusDeux.executionDuTest()) {
             compteurTest.testOK();
         } else {
             compteurTest.testFaux();
         }
-
-        // ...
-
 
         /* ***** ***** Affiche le résultat de tout les tests ***** ***** */
         System.out.println("\n\n\t\t\t----- Tous les tests -----");
