@@ -185,7 +185,6 @@ public class MainInterface extends Application {
         int pad = (L_CANVAS - lMain) / 2;
 
         for (int i = 0; i < nbCartes; i++) {
-        	System.out.println(getClass().getResourceAsStream(liste.get(i)));
             Image carte = new Image(getClass().getResourceAsStream(liste.get(i))); /* à adapter */
             canvas.getGraphicsContext2D().drawImage(carte, pad + i * ECART, 0);
         }
