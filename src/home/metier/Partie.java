@@ -377,19 +377,13 @@ public class Partie {
     private int numJoueurSuivant() {
         if (this.etreSensHoraire) {
             return ((this.numJoueurCourant + 1) % this.listeJoueur.size());
-            /*if (this.numJoueurCourant == (this.listeJoueur.size() - 1)) {
-                return 0;
-            } else {
-                return this.numJoueurCourant + 1;
-            }*/
 
         } else {
-            return ((this.numJoueurCourant - 1) % this.listeJoueur.size());
-            /*if (this.numJoueurCourant == 0) {
+            if (this.numJoueurCourant == 0) {
                 return (this.listeJoueur.size() - 1);
             } else {
                 return this.numJoueurCourant - 1;
-            }*/
+            }
         }
     }
 
