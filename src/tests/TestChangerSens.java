@@ -81,7 +81,7 @@ public class TestChangerSens {
 
 
         /* ***** ***** 1er test : Test de coups légaux avec des cartes « Changer de sens » ***** ***** */
-        changerSensLegaux(compteurTest, partie, rougeSens, vertSens, jauneSens,jauneQuatre);
+        changerSensLegaux(compteurTest, partie, rougeSens, vertSens, jauneSens, jauneQuatre);
 
         /* ***** ***** 2e test : Test d’une carte simple illégale sur un « Changer de Sens » ***** ***** */
         carteSimpleSurChangerSensIllegale(compteurTest, charles, partie, rougeSens, bleuUn);
