@@ -17,7 +17,7 @@ public class CartePlusDeux extends CarteAEffet implements IAjouterCarte {
      * @param couleur couleur de la carte
      */
     public CartePlusDeux(ECarteCouleur couleur) {
-        super(couleur);
+        super(couleur, "carte_Plus2_" + couleur.getCouleur() + ".png");
     }
 
     @Override

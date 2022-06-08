@@ -1,11 +1,11 @@
 package home.enumeration;
 
 public enum ECarteCouleur {
-    NOIR("noir"),
-    ROUGE("rouge"),
-    BLEU("bleu"),
-    VERT("vert"),
-    JAUNE("jaune");
+    NOIR("Noir"),
+    ROUGE("Rouge"),
+    BLEU("Bleu"),
+    VERT("Vert"),
+    JAUNE("Jaune");
 
     private final String couleur;
 

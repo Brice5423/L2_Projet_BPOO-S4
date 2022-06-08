@@ -15,7 +15,7 @@ public class CartePasserTour extends CarteAEffet implements IPasserTour {
      * @param couleur couleur de la carte
      */
     public CartePasserTour(ECarteCouleur couleur) {
-        super(couleur);
+        super(couleur, "carte_Passe_" + couleur.getCouleur() + ".png");
     }
 
     @Override

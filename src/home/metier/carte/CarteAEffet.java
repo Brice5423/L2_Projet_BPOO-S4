@@ -11,9 +11,10 @@ public abstract class CarteAEffet extends Carte {
     /**
      * Constructeur d'une carte à effet.
      * @param couleur couleur de la carte
+     * @param cheminVersImage chemin vers l'image de la carte
      */
-    public CarteAEffet(ECarteCouleur couleur) {
-        super(couleur);
+    public CarteAEffet(ECarteCouleur couleur, String cheminVersImage) {
+        super(couleur, cheminVersImage);
     }
 
     /**

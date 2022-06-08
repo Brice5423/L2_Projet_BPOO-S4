@@ -16,7 +16,7 @@ public class CarteBasique extends Carte {
      * @param valeur valeur de la carte
      */
     public CarteBasique(ECarteCouleur couleur, ECarteValeur valeur) {
-        super(couleur);
+        super(couleur, ("carte_" + valeur.getValeur() + "_" + couleur.getCouleur() + ".png"));
         this.valeur = valeur;
     }
 

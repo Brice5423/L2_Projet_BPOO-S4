@@ -15,7 +15,7 @@ public class CarteChangerSens extends CarteAEffet implements IChangerSens {
      * @param couleur couleur de la carte.
      */
     public CarteChangerSens(ECarteCouleur couleur) {
-        super(couleur);
+        super(couleur, ("carte_Change_" + couleur.getCouleur() + ".png"));
     }
 
     @Override
