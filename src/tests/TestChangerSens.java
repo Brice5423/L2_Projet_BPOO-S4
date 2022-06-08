@@ -191,7 +191,7 @@ public class TestChangerSens {
 
         // 10) Alice pose le 4 jaune
         try {
-            bobTest.poserCarte(jauneQuatre);
+            aliceTest.poserCarte(jauneQuatre);
             compteurTest.testOK();
         } catch (Exception e) {
             System.out.println(e);
@@ -200,6 +200,7 @@ public class TestChangerSens {
 
         // 11)Alice finit son tour
         try {
+            aliceTest.ditUNO();
             aliceTest.finTour();
             compteurTest.testOK();
         } catch (Exception e) {
@@ -211,7 +212,7 @@ public class TestChangerSens {
         if (partieTest.joueurCourant().equals(bobTest)) {
             compteurTest.testOK();
         } else {
-            System.out.println("Le joueur courant n'est pas Charles mais " + partieTest.joueurCourant().getNom() + " -_-");
+            System.out.println("Le joueur courant n'est pas Bob mais " + partieTest.joueurCourant().getNom() + " -_-");
             compteurTest.testFaux();
         }
 
