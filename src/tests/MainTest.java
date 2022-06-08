@@ -55,6 +55,13 @@ public class MainTest {
             compteurTest.testFaux();
         }
 
+        /* ***** Tests Changer de Sens ***** */
+        if (TestChangerSens.executionDuTest()) {
+            compteurTest.testOK();
+        } else {
+            compteurTest.testFaux();
+        }
+
         /* ***** ***** Affiche le résultat de tout les tests ***** ***** */
         System.out.println("\n\n\t\t\t----- Tous les tests -----");
         compteurTest.afficheResultatsTest();
