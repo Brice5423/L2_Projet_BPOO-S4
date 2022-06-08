@@ -382,7 +382,7 @@ public class Partie {
             if (this.numJoueurCourant == 0) {
                 return (this.listeJoueur.size() - 1);
             } else {
-                return this.numJoueurCourant - 1;
+                return (this.numJoueurCourant - 1);
             }
         }
     }
