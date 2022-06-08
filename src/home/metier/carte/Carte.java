@@ -18,7 +18,7 @@ public abstract class Carte {
      */
     public Carte(ECarteCouleur couleur, String cheminVersImage) {
         this.couleur = couleur;
-        this.cheminVersImage = cheminVersImage;
+        this.cheminVersImage = "/" + cheminVersImage;
     }
 
     /**

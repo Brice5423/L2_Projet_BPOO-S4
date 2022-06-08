@@ -1,5 +1,9 @@
 package application;
 
+import home.exception.*;
+import home.metier.Joueur;
+import home.metier.Partie;
+import home.metier.carte.Carte;
 import javafx.application.Application;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -23,8 +27,7 @@ public class MainInterface extends Application {
     private static final int ECART = 30;
     private Canvas canSabot;
 
-    private ArrayList<String> listeCartes = new ArrayList<String>(); // Devrait disparaître en fonction des vos classes
-
+    private Partie partie;
 
     public static void main(String[] args) {
         launch(args);
@@ -38,9 +41,9 @@ public class MainInterface extends Application {
             Scene scene = new Scene(root);
             primaryStage.setScene(scene);
 
-
-            listeCartes.add("/carte_1_Bleu.png");
-            listeCartes.add("/carte_Passe_Jaune.png");
+            this.partie = new Partie();
+            this.partie.genererPioche();
+            this.partie.poserPremiereCarteDuTas();
 
             VBox joueurNord = initJoueur("Yann");
             root.setTop(joueurNord);
@@ -54,7 +57,6 @@ public class MainInterface extends Application {
             VBox joueurEst = initJoueur("Charlotte");
             root.setLeft(joueurEst);
 
-
             root.setCenter(initSabot());
 
             primaryStage.show();
@@ -64,66 +66,137 @@ public class MainInterface extends Application {
         }
     }
 
-
-    private VBox initJoueur(String nom) {
+    private VBox initJoueur(String nom) throws PartieException {
         VBox vBox = new VBox();
         vBox.setAlignment(Pos.CENTER);
 
+        Joueur joueur = new Joueur(nom);
+        this.partie.ajoutJoueur(joueur);
+        joueur.recupererNCarte(7);
+
         Label nomNord = initLabelNom(nom);
-        Canvas canMainNord = initMain(listeCartes/* paramètres ?*/);
-        HBox unoNord = initBoutonUno(canMainNord /* et d'autres paramètres ? */);
-        vBox.getChildren().addAll(nomNord, canMainNord, unoNord);
+        Canvas canMain = initMain(joueur);
+        HBox boutonsUno = initBoutonUno(canMain, joueur);
+        vBox.getChildren().addAll(nomNord, canMain, boutonsUno);
+
         return vBox;
     }
 
-
-    private HBox initBoutonUno(Canvas canMain /* et d'autres paramètres ? */) {
-        /* Cette partie est sans doute incomplète. Il y a sans doute d'autres actions à
-         * prévoir que piocher et dire uno !
-         */
-
-
-        HBox hBox = new HBox();
-        hBox.setAlignment(Pos.CENTER);
-        Button boutonUno = new Button("Uno !");
-
-        boutonUno.setOnAction(select -> {
-            System.out.println("Le joueur dit Uno !");
-        });
-
-        Button boutonPioche = new Button("Pioche");
-
-        boutonPioche.setOnAction(select -> {
-            System.out.println("Le joueur pioche");
-        });
-
-        hBox.getChildren().addAll(boutonUno, boutonPioche);
-
-        return hBox;
-    }
-
-
     private Label initLabelNom(String nom) {
-        Label bidon = new Label("");
-        bidon.setFont(new Font("Arial", 30));
-
         Label lNom = new Label(nom);
         lNom.setFont(new Font("Arial", 30));
 
         return lNom;
     }
 
+    private HBox initBoutonUno(Canvas canMain, Joueur joueur) {
+        /* TODO Voir si on a bien panser à tout
+         * Cette partie est sans doute incomplète. Il y a sans doute d'autres actions à
+         * prévoir que piocher et dire uno !
+         */
+
+        HBox hBox = new HBox();
+        hBox.setAlignment(Pos.CENTER);
+
+        Button boutonUno = new Button("Uno !");
+        boutonUno.setOnAction(select -> {
+            System.out.println("Le joueur " + joueur.getNom() + " dit Uno !");
+            try {
+                joueur.ditUNO();
+
+            } catch (JoueurNonCourantException | JoueurJouePasException e) {
+                System.out.println("\t" + e);
+                try {
+                    joueur.punition();
+
+                } catch (Exception ex) {
+                    System.out.println("\t\t" + ex);
+                }
+
+            } catch (Exception e) {
+                System.out.println("\t" + e);
+            }
+            this.dessinerMain(canMain, joueur.getMainDuJoueur());
+        });
+
+        Button boutonPioche = new Button("Pioche");
+        boutonPioche.setOnAction(select -> {
+            System.out.println("Le joueur " + joueur.getNom() + " pioche");
+            try {
+                joueur.piocherCarte();
+
+            } catch (JoueurNonCourantException | JoueurJoueMultipleException e) {
+                System.out.println("\t" + e);
+                try {
+                    joueur.punition();
+
+                } catch (Exception ex) {
+                    System.out.println("\t\t" + ex);
+                }
+
+            } catch (Exception e) {
+                System.out.println("\t" + e);
+            }
+            this.dessinerMain(canMain, joueur.getMainDuJoueur());
+        });
+
+        Button boutonEncaisseAttaque = new Button("Encaisse attaque");
+        boutonEncaisseAttaque.setOnAction(select -> {
+            System.out.println("Le joueur " + joueur.getNom() + " encaisse attaque");
+            try {
+                joueur.encaisseAttaque();
+
+            } catch (JoueurNonCourantException e) {
+                System.out.println("\t" + e);
+                try {
+                    joueur.punition();
+                } catch (Exception ex) {
+                    System.out.println("\t\t" + e);
+                }
+
+            } catch (Exception e) {
+                System.out.println("\t" + e);
+            }
+            this.dessinerMain(canMain, joueur.getMainDuJoueur());
+        });
+
+        Button boutonFiniTour = new Button("Fini tour");
+        boutonFiniTour.setOnAction(select -> {
+            System.out.println("Le joueur " + joueur.getNom() + " fini son tour");
+            try {
+                joueur.finTour();
+
+            } catch (JoueurOublieDireUnoException | JoueurJouePasException | JoueurNonCourantException e) {
+                System.out.println("\t" + e);
+                try {
+                    joueur.punition();
+
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
+
+            } catch (Exception e) {
+                System.out.println("\t" + e);
+            }
+            this.dessinerMain(canMain, joueur.getMainDuJoueur());
+        });
+
+        hBox.getChildren().addAll(boutonUno, boutonPioche, boutonEncaisseAttaque, boutonFiniTour);
+
+        return hBox;
+    }
 
     private Canvas initSabot() {
-
         canSabot = new Canvas();
 
         dessinerSabot();
 
         canSabot.setOnMouseClicked(clic -> {
-            System.out.println("Pioche!");
-            /* j'ai prévu l'évènement mais personnellement je ne l'utilise pas. J'utilise le bouton
-             * prévu pour chaque joueur. Faites coimme vous voulez !
+            System.out.println("Le joueur courant est " + this.partie.joueurCourant().getNom() + " !");
+            /* TODO Voir si on le fait ou pas
+             * J'ai prévu l'évènement, mais personnellement je ne l'utilise pas.
+             * J'utilise le bouton prévu pour chaque joueur. Faites comme vous voulez !
+             * A la base c'est fait pour piocher met on le fait pas...
              */
         });
 
@@ -136,56 +209,77 @@ public class MainInterface extends Application {
         canSabot.setWidth(sabot.getWidth());
         canSabot.setHeight(sabot.getHeight());
 
-        /* normalement, il faut retourner la première carte de la pioche pour amorcer
-         * la manche. J'initialise cela en dur mais vous devrez changer cela en fonction
-         * de vos classes
-         */
-        Image imageCarte = new Image(getClass().getResourceAsStream("/carte_6_Rouge.png"));
+        Image imageCarte = new Image(getClass().getResourceAsStream(this.partie.carteAuDessusTas().getCheminVersImage()));
 
         canSabot.getGraphicsContext2D().drawImage(sabot, 0, 0);
         canSabot.getGraphicsContext2D().drawImage(imageCarte, 25, 20);
         canSabot.getGraphicsContext2D().drawImage(dos, 124, 20);
     }
 
-
-    private Canvas initMain(ArrayList<String> liste) {
+    private Canvas initMain(Joueur joueur) {
         Canvas canMain = new Canvas(L_CANVAS, H_CANVAS);
 
-        dessinerMain(liste, canMain);
-
+        ArrayList<Carte> mainDuJoueur = joueur.getMainDuJoueur();
+        dessinerMain(canMain, mainDuJoueur);
 
         canMain.setOnMouseClicked(clic -> {
             int x = (int) clic.getX();
-            int nbCartes = liste.size();
+            int nbCartes = mainDuJoueur.size();
             int lMain = L_CARTE + ((nbCartes - 1) * ECART);
             int pad = (L_CANVAS - lMain) / 2;
 
             if (x >= pad && x <= pad + lMain) {
                 int num = (int) ((x - pad) / ECART);
                 num = Math.min(nbCartes - 1, num);
-                System.out.println("Le joueur a sélectionné la carte " + num);
-                /* sûrement à compléter */
+
+                System.out.println("Le joueur " + joueur.getNom() + " a sélectionné la carte " + mainDuJoueur.get(num));
+                try {
+                    joueur.poserCarte(mainDuJoueur.get(num));
+
+                } catch (JoueurOublieDireUnoException | JoueurJouePasException | JoueurNonCourantException e) {
+                    System.out.println("\t" + e);
+                    try {
+                        joueur.punition();
+
+                    } catch (Exception ex) {
+                        System.out.println("\t\t" + e);
+                    }
+
+                } catch (JoueurMauvaiseCarteException | JoueurJoueMultipleException | JoueurCarteIllegalException e) {
+                    System.out.println("\t" + e);
+                    try {
+                        ArrayList<Carte> tasPartie = this.partie.getTas();
+                        joueur.donnerCarte(tasPartie.remove(tasPartie.size() - 1));
+                        joueur.punition();
+
+                    } catch (Exception ex) {
+                        System.out.println("\t\t" + e);
+                    }
+
+                } catch (Exception e) {
+                    System.out.println("\t" + e);
+                }
             }
+            this.dessinerMain(canMain, joueur.getMainDuJoueur());
+            this.dessinerSabot();
         });
 
         return canMain;
     }
 
-
-    private void dessinerMain(ArrayList<String> liste, Canvas canvas) {
-        /* liste est une liste de chaines de car. Mais vous devriez sans doute utiliser
-         * vos propres classes, pas des String !
+    private void dessinerMain(Canvas canvas, ArrayList<Carte> mainDuJoueur) {
+        /* Liste est une liste de chaines de car. Mais vous devriez sans doute utiliser
+         * vos propres classes, pas des Strings !
          */
-
 
         canvas.getGraphicsContext2D().clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
 
-        int nbCartes = liste.size();
+        int nbCartes = mainDuJoueur.size();
         int lMain = L_CARTE + ((nbCartes - 1) * ECART);
         int pad = (L_CANVAS - lMain) / 2;
 
         for (int i = 0; i < nbCartes; i++) {
-            Image carte = new Image(getClass().getResourceAsStream(liste.get(i))); /* à adapter */
+            Image carte = new Image(getClass().getResourceAsStream(mainDuJoueur.get(i).getCheminVersImage())); /* à adapter */
             canvas.getGraphicsContext2D().drawImage(carte, pad + i * ECART, 0);
         }
     }
