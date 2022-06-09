@@ -287,14 +287,16 @@ public class MainInterface extends Application {
 
     private void dessinerSabot() {
         Image sabot = new Image(getClass().getResourceAsStream("/Sabot.png"));
+        Image imageCarte = new Image(getClass().getResourceAsStream(this.partie.carteAuDessusTas().getCheminVersImage()));
         Image dos = new Image(getClass().getResourceAsStream("/carte_dos.png"));
+
         canSabot.setWidth(sabot.getWidth());
         canSabot.setHeight(sabot.getHeight());
 
-        Image imageCarte = new Image(getClass().getResourceAsStream(this.partie.carteAuDessusTas().getCheminVersImage()));
-
         canSabot.getGraphicsContext2D().drawImage(sabot, 0, 0);
         canSabot.getGraphicsContext2D().drawImage(imageCarte, 25, 20);
-        canSabot.getGraphicsContext2D().drawImage(dos, 124, 20);
+        if (!this.partie.getPioche().isEmpty()) {
+            canSabot.getGraphicsContext2D().drawImage(dos, 124, 20);
+        }
     }
 }
