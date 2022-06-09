@@ -8,6 +8,7 @@ import javafx.application.Application;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -87,6 +88,85 @@ public class MainInterface extends Application {
         lNom.setFont(new Font("Arial", 30));
 
         return lNom;
+    }
+
+    private Canvas initMain(Joueur joueur) {
+        Canvas canMain = new Canvas(L_CANVAS, H_CANVAS);
+
+        ArrayList<Carte> mainDuJoueur = joueur.getMainDuJoueur();
+        dessinerMain(canMain, mainDuJoueur);
+
+        canMain.setOnMouseClicked(clic -> {
+            int x = (int) clic.getX();
+            int nbCartes = mainDuJoueur.size();
+            int lMain = L_CARTE + ((nbCartes - 1) * ECART);
+            int pad = (L_CANVAS - lMain) / 2;
+
+            if (x >= pad && x <= pad + lMain) {
+                int num = (int) ((x - pad) / ECART);
+                num = Math.min(nbCartes - 1, num);
+
+                System.out.println("Le joueur " + joueur.getNom() + " a sélectionné la carte " + mainDuJoueur.get(num));
+                try {
+                    joueur.poserCarte(mainDuJoueur.get(num));
+
+                } catch (JoueurOublieDireUnoException | JoueurJouePasException | JoueurNonCourantException e) {
+                    System.out.println("\t" + e);
+                    try {
+                        joueur.punition();
+
+                    } catch (Exception ex) {
+                        System.out.println("\t\t" + e);
+                    }
+
+                } catch (JoueurMauvaiseCarteException | JoueurJoueMultipleException | JoueurCarteIllegalException e) {
+                    System.out.println("\t" + e);
+                    try {
+                        ArrayList<Carte> tasPartie = this.partie.getTas();
+                        joueur.donnerCarte(tasPartie.remove(tasPartie.size() - 1));
+                        joueur.punition();
+
+                    } catch (Exception ex) {
+                        System.out.println("\t\t" + e);
+                    }
+
+                } catch (Exception e) {
+                    System.out.println("\t" + e);
+                }
+            }
+            this.dessinerMain(canMain, joueur.getMainDuJoueur());
+            this.dessinerSabot();
+
+            if (mainDuJoueur.isEmpty()) {
+                // TODO Faire en sorte que le jeu puisse ce finir.
+                Alert boitDialogueFin = new Alert(Alert.AlertType.CONFIRMATION);
+
+                boitDialogueFin.setTitle("Fin de partie");
+                boitDialogueFin.setHeaderText(null);
+                boitDialogueFin.setContentText("Le joueur " + joueur.getNom() + "à gagner la partie !!!\nFélicitation pour tes 6 ans " + joueur.getNom() + " !!!");
+
+                boitDialogueFin.showAndWait();
+            }
+        });
+
+        return canMain;
+    }
+
+    private void dessinerMain(Canvas canvas, ArrayList<Carte> mainDuJoueur) {
+        /* Liste est une liste de chaines de caractère.
+         * Mais vous devriez sans doute utiliser vos propres classes, pas des Strings !
+         */
+
+        canvas.getGraphicsContext2D().clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
+
+        int nbCartes = mainDuJoueur.size();
+        int lMain = L_CARTE + ((nbCartes - 1) * ECART);
+        int pad = (L_CANVAS - lMain) / 2;
+
+        for (int i = 0; i < nbCartes; i++) {
+            Image carte = new Image(getClass().getResourceAsStream(mainDuJoueur.get(i).getCheminVersImage())); /* à adapter */
+            canvas.getGraphicsContext2D().drawImage(carte, pad + i * ECART, 0);
+        }
     }
 
     private HBox initBoutonUno(Canvas canMain, Joueur joueur) {
@@ -214,73 +294,5 @@ public class MainInterface extends Application {
         canSabot.getGraphicsContext2D().drawImage(sabot, 0, 0);
         canSabot.getGraphicsContext2D().drawImage(imageCarte, 25, 20);
         canSabot.getGraphicsContext2D().drawImage(dos, 124, 20);
-    }
-
-    private Canvas initMain(Joueur joueur) {
-        Canvas canMain = new Canvas(L_CANVAS, H_CANVAS);
-
-        ArrayList<Carte> mainDuJoueur = joueur.getMainDuJoueur();
-        dessinerMain(canMain, mainDuJoueur);
-
-        canMain.setOnMouseClicked(clic -> {
-            int x = (int) clic.getX();
-            int nbCartes = mainDuJoueur.size();
-            int lMain = L_CARTE + ((nbCartes - 1) * ECART);
-            int pad = (L_CANVAS - lMain) / 2;
-
-            if (x >= pad && x <= pad + lMain) {
-                int num = (int) ((x - pad) / ECART);
-                num = Math.min(nbCartes - 1, num);
-
-                System.out.println("Le joueur " + joueur.getNom() + " a sélectionné la carte " + mainDuJoueur.get(num));
-                try {
-                    joueur.poserCarte(mainDuJoueur.get(num));
-
-                } catch (JoueurOublieDireUnoException | JoueurJouePasException | JoueurNonCourantException e) {
-                    System.out.println("\t" + e);
-                    try {
-                        joueur.punition();
-
-                    } catch (Exception ex) {
-                        System.out.println("\t\t" + e);
-                    }
-
-                } catch (JoueurMauvaiseCarteException | JoueurJoueMultipleException | JoueurCarteIllegalException e) {
-                    System.out.println("\t" + e);
-                    try {
-                        ArrayList<Carte> tasPartie = this.partie.getTas();
-                        joueur.donnerCarte(tasPartie.remove(tasPartie.size() - 1));
-                        joueur.punition();
-
-                    } catch (Exception ex) {
-                        System.out.println("\t\t" + e);
-                    }
-
-                } catch (Exception e) {
-                    System.out.println("\t" + e);
-                }
-            }
-            this.dessinerMain(canMain, joueur.getMainDuJoueur());
-            this.dessinerSabot();
-        });
-
-        return canMain;
-    }
-
-    private void dessinerMain(Canvas canvas, ArrayList<Carte> mainDuJoueur) {
-        /* Liste est une liste de chaines de caractère.
-         * Mais vous devriez sans doute utiliser vos propres classes, pas des Strings !
-         */
-
-        canvas.getGraphicsContext2D().clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
-
-        int nbCartes = mainDuJoueur.size();
-        int lMain = L_CARTE + ((nbCartes - 1) * ECART);
-        int pad = (L_CANVAS - lMain) / 2;
-
-        for (int i = 0; i < nbCartes; i++) {
-            Image carte = new Image(getClass().getResourceAsStream(mainDuJoueur.get(i).getCheminVersImage())); /* à adapter */
-            canvas.getGraphicsContext2D().drawImage(carte, pad + i * ECART, 0);
-        }
     }
 }
