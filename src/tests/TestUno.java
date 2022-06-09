@@ -204,6 +204,7 @@ public class TestUno {
             aliceTest.donnerCarte(carteJouer);
             try {
                 aliceTest.punition();
+                aliceTest.finTour();
                 compteurTest.testOK();
             } catch (Exception ex) {
                 System.out.println(ex);

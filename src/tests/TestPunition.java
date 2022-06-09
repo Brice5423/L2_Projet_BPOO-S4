@@ -124,6 +124,7 @@ public class TestPunition {
             // 3) Punir	Alice
             try {
                 aliceTest.punition();
+                aliceTest.finTour();
                 compteurTest.testOK();
             } catch (Exception ex) {
                 System.out.println(ex);

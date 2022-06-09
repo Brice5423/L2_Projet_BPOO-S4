@@ -326,7 +326,7 @@ public class Joueur {
 
         if (this.equals(this.dansLaPartie.joueurCourant())) {
             this.avoirJouerSonTour = true;
-            this.finTour();
+            //this.finTour(); // TODO punition : Voir si on enlève ou pas
 
         } else {
             this.avoirJouerSonTour = false;
