@@ -262,6 +262,7 @@ public class MainInterface extends Application {
         });
 
         hBox.getChildren().addAll(boutonPioche, boutonUno, boutonFiniTour);
+        System.out.println(""); // Pour faire un saut de ligne
 
         return hBox;
     }
