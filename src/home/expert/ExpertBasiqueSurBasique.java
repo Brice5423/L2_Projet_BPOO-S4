@@ -13,12 +13,12 @@ public class ExpertBasiqueSurBasique extends Expert {
     }
 
     @Override
-    public boolean etreBonExpert(Carte carteJoueur, Carte carteDepot, int nbCarteAPiocher) {
-        return ((carteJoueur instanceof CarteBasique) && (carteDepot instanceof CarteBasique) && (nbCarteAPiocher == 0));
+    public boolean etreBonExpert(Carte carteJoueur, Carte carteDepot) {
+        return ((carteJoueur instanceof CarteBasique) && (carteDepot instanceof CarteBasique));
     }
 
     @Override
-    public boolean etreCoupValide(Carte carteJoueur, Carte carteDepot) {
+    public boolean etreCoupValide(Carte carteJoueur, Carte carteDepot, int nbCarteAPiocher) {
         CarteBasique carteJoueurB = (CarteBasique) carteJoueur;
         CarteBasique carteDepotB = (CarteBasique) carteDepot;
 

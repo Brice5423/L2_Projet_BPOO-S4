@@ -56,10 +56,11 @@ public abstract class Expert {
         lesExperts = new ExpertBasiqueSurBasique();
         lesExperts.ajoutExpert(new ExpertBasiqueSurEffet());
         lesExperts.ajoutExpert(new ExpertEffetSurBasique());
+        lesExperts.ajoutExpert(new ExpertEffetSurEffetIdentique());
         lesExperts.ajoutExpert(new ExpertEffetSurEffetDifferent());
-        lesExperts.ajoutExpert(new ExpertChangerSensSurChangerSens());
+        /*lesExperts.ajoutExpert(new ExpertChangerSensSurChangerSens());
         lesExperts.ajoutExpert(new ExpertPasserTourSurPasserTour());
-        lesExperts.ajoutExpert(new ExpertPlusDeuxSurPlusDeux());
+        lesExperts.ajoutExpert(new ExpertPlusDeuxSurPlusDeux());*/
 
         return lesExperts;
     }
@@ -73,14 +74,14 @@ public abstract class Expert {
      * @throws ExpertManquantException déclenche une exception si une carte peut-être poser ou pas ou manquant selon un expert de vérification
      */
     public boolean peutEtrePoser(Carte carteJoueur, Carte carteDepot, int nbCarteAPiocher) throws ExpertManquantException {
-        if (this.etreBonExpert(carteJoueur, carteDepot, nbCarteAPiocher)) {
-            return this.etreCoupValide(carteJoueur, carteDepot);
+        if (this.etreBonExpert(carteJoueur, carteDepot)) {
+            return this.etreCoupValide(carteJoueur, carteDepot, nbCarteAPiocher);
 
         } else if (this.avoirUnSuivant()) {
             return this.getSuivant().peutEtrePoser(carteJoueur, carteDepot, nbCarteAPiocher);
 
         } else {
-            throw new ExpertManquantException(carteJoueur, carteDepot);
+            throw new ExpertManquantException(carteJoueur, carteDepot, nbCarteAPiocher);
         }
     }
 
@@ -88,16 +89,16 @@ public abstract class Expert {
      * Fonction abstract qui verifier si c'est le bon expert à utiliser.
      * @param carteJoueur carte du joueur à poser
      * @param carteDepot carte au-dessus du depot
-     * @param nbCarteAPiocher nombre de cartes a pioché à cause d'un "+2", "+4" et etc.
      * @return true : bon expert / false : mauvais expert
      */
-    public abstract boolean etreBonExpert(Carte carteJoueur, Carte carteDepot, int nbCarteAPiocher);
+    public abstract boolean etreBonExpert(Carte carteJoueur, Carte carteDepot);
 
     /**
      * Fonction abstract qui vérifie si la carte du joueur n'est pas un coup illegal.
      * @param carteJoueur carte du joueur a posé
      * @param carteReference carte au-dessus du depot
+     * @param nbCarteAPiocher nombre de cartes a pioché à cause d'un "+2", "+4" et etc.
      * @return true : carte légale / false : carte illégale
      */
-    public abstract boolean etreCoupValide(Carte carteJoueur, Carte carteReference);
+    public abstract boolean etreCoupValide(Carte carteJoueur, Carte carteReference, int nbCarteAPiocher);
 }
