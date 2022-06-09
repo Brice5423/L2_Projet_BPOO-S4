@@ -260,10 +260,10 @@ public class MainInterface extends Application {
                 System.out.println("\t" + e);
             }
             this.dessinerMain(canMain, joueur.getMainDuJoueur());
+            System.out.println(""); // Pour faire un saut de ligne
         });
 
         hBox.getChildren().addAll(boutonPioche, boutonUno, boutonFiniTour);
-        System.out.println(""); // Pour faire un saut de ligne
 
         return hBox;
     }
