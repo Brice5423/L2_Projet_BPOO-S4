@@ -120,7 +120,7 @@ public class MainInterface extends Application {
 
             } else {
                 try {
-                    System.out.println("Le joueur " + joueur.getNom() + " encaisse attaque");
+                    System.out.println("Le joueur " + joueur.getNom() + " encaisse attaque (+2, +4...)");
                     joueur.encaisseAttaque();
 
                 } catch (JoueurNonCourantException e) {

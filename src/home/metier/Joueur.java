@@ -202,8 +202,9 @@ public class Joueur {
      */
     public void encaisseAttaque() throws PartieException, JoueurOublieDireUnoException, JoueurNonCourantException, JoueurJouePasException {
         this.recupererNCarte(this.dansLaPartie.getNbCarteAPiocher());
-        this.finTour();
         this.dansLaPartie.nbCarteAPiocherAZero();
+        this.setAvoirJouerSonTour(true);
+        //this.finTour();
     }
 
     /**

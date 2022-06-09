@@ -251,6 +251,7 @@ public class TestPlusDeux {
         //15) Bob encaisse ?
         try {
             bobTest.encaisseAttaque();
+            bobTest.finTour();
             compteurTest.testOK();
         } catch (Exception e){
             System.out.println(e);
@@ -341,6 +342,7 @@ public class TestPlusDeux {
         //6 Bob encaisse
         try {
             bobTest.encaisseAttaque();
+            bobTest.finTour();
             compteurTest.testOK();
         } catch (Exception e){
             System.out.println(e);
