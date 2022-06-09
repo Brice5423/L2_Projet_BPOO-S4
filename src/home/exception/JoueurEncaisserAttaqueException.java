@@ -2,6 +2,9 @@ package home.exception;
 
 import home.metier.Joueur;
 
+/**
+ * Exception quand un joueur doit encaisser une attaque provoquer par un "+2", "+4", etc.
+ */
 public class JoueurEncaisserAttaqueException extends Exception {
     private final Joueur joueurException;
 

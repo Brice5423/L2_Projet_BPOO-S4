@@ -2,6 +2,10 @@ package home.exception;
 
 import home.metier.Joueur;
 
+/**
+ * Exception quand un joueur joue plusieurs fois.
+ * Action cible : poserCarte, piocher...
+ */
 public class JoueurJoueMultipleException extends Exception {
     private final Joueur joueurException;
 

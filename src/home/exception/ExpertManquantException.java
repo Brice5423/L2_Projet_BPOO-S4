@@ -1,8 +1,11 @@
 package home.exception;
 
-import home.expert.Expert;
 import home.metier.carte.Carte;
 
+/**
+ * Exception pour indiquer quand il manque un expert.
+ * C'est une règle qui permet de savoir si on peut poser une carte sur une autre.
+ */
 public class ExpertManquantException extends Exception {
     private final Carte carteJoueur;
     private final Carte carteDepot;

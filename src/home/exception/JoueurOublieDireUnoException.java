@@ -2,6 +2,9 @@ package home.exception;
 
 import home.metier.Joueur;
 
+/**
+ * Exception quand un joueur oublie de dire "UNO !" quand il lui reste 1 carte.
+ */
 public class JoueurOublieDireUnoException extends Exception {
     private final Joueur joueurException;
 

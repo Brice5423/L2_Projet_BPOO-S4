@@ -2,6 +2,9 @@ package home.exception;
 
 import home.metier.Joueur;
 
+/**
+ * Exception quand un joueur ne joue pas.
+ */
 public class JoueurJouePasException extends Exception {
     private final Joueur joueurException;
 
