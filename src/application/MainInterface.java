@@ -110,7 +110,8 @@ public class MainInterface extends Application {
                 try {
                     joueur.poserCarte(mainDuJoueur.get(num));
 
-                } catch (JoueurOublieDireUnoException | JoueurJouePasException | JoueurNonCourantException e) {
+                } catch (JoueurCarteIllegalException | JoueurOublieDireUnoException | JoueurJouePasException
+                         | JoueurNonCourantException | JoueurMauvaiseCarteException e) {
                     System.out.println("\t" + e);
                     try {
                         joueur.punition();
@@ -119,7 +120,7 @@ public class MainInterface extends Application {
                         System.out.println("\t\t" + e);
                     }
 
-                } catch (JoueurMauvaiseCarteException | JoueurJoueMultipleException | JoueurCarteIllegalException e) {
+                } catch (JoueurJoueMultipleException e) {
                     System.out.println("\t" + e);
                     try {
                         ArrayList<Carte> tasPartie = this.partie.getTas();
