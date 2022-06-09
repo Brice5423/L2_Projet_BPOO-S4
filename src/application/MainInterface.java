@@ -98,6 +98,47 @@ public class MainInterface extends Application {
         HBox hBox = new HBox();
         hBox.setAlignment(Pos.CENTER);
 
+        Button boutonPioche = new Button("Pioche");
+        boutonPioche.setOnAction(select -> {
+            if (this.partie.getNbCarteAPiocher() == 0) {
+                try {
+                    System.out.println("Le joueur " + joueur.getNom() + " pioche");
+                    joueur.piocherCarte();
+
+                } catch (JoueurNonCourantException | JoueurJoueMultipleException e) {
+                    System.out.println("\t" + e);
+                    try {
+                        joueur.punition();
+
+                    } catch (Exception ex) {
+                        System.out.println("\t\t" + ex);
+                    }
+
+                } catch (Exception e) {
+                    System.out.println("\t" + e);
+                }
+
+            } else {
+                try {
+                    System.out.println("Le joueur " + joueur.getNom() + " encaisse attaque");
+                    joueur.encaisseAttaque();
+
+                } catch (JoueurNonCourantException e) {
+                    System.out.println("\t" + e);
+                    try {
+                        joueur.punition();
+                    } catch (Exception ex) {
+                        System.out.println("\t\t" + e);
+                    }
+
+                } catch (Exception e) {
+                    System.out.println("\t" + e);
+                }
+            }
+
+            this.dessinerMain(canMain, joueur.getMainDuJoueur());
+        });
+
         Button boutonUno = new Button("Uno !");
         boutonUno.setOnAction(select -> {
             System.out.println("Le joueur " + joueur.getNom() + " dit Uno !");
@@ -119,48 +160,7 @@ public class MainInterface extends Application {
             this.dessinerMain(canMain, joueur.getMainDuJoueur());
         });
 
-        Button boutonPioche = new Button("Pioche");
-        boutonPioche.setOnAction(select -> {
-            System.out.println("Le joueur " + joueur.getNom() + " pioche");
-            try {
-                joueur.piocherCarte();
-
-            } catch (JoueurNonCourantException | JoueurJoueMultipleException e) {
-                System.out.println("\t" + e);
-                try {
-                    joueur.punition();
-
-                } catch (Exception ex) {
-                    System.out.println("\t\t" + ex);
-                }
-
-            } catch (Exception e) {
-                System.out.println("\t" + e);
-            }
-            this.dessinerMain(canMain, joueur.getMainDuJoueur());
-        });
-
-        Button boutonEncaisseAttaque = new Button("Encaisse attaque");
-        boutonEncaisseAttaque.setOnAction(select -> {
-            System.out.println("Le joueur " + joueur.getNom() + " encaisse attaque");
-            try {
-                joueur.encaisseAttaque();
-
-            } catch (JoueurNonCourantException e) {
-                System.out.println("\t" + e);
-                try {
-                    joueur.punition();
-                } catch (Exception ex) {
-                    System.out.println("\t\t" + e);
-                }
-
-            } catch (Exception e) {
-                System.out.println("\t" + e);
-            }
-            this.dessinerMain(canMain, joueur.getMainDuJoueur());
-        });
-
-        Button boutonFiniTour = new Button("Fini tour");
+        Button boutonFiniTour = new Button("Fin tour");
         boutonFiniTour.setOnAction(select -> {
             System.out.println("Le joueur " + joueur.getNom() + " fini son tour");
             try {
@@ -181,7 +181,7 @@ public class MainInterface extends Application {
             this.dessinerMain(canMain, joueur.getMainDuJoueur());
         });
 
-        hBox.getChildren().addAll(boutonUno, boutonPioche, boutonEncaisseAttaque, boutonFiniTour);
+        hBox.getChildren().addAll(boutonPioche, boutonUno, boutonFiniTour);
 
         return hBox;
     }
