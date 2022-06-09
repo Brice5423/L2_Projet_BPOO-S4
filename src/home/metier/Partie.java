@@ -348,6 +348,13 @@ public class Partie {
      */
     public void joueurCourantSuivant() {
         this.numJoueurCourant = this.numJoueurSuivant();
+
+        /* Pour que la partie continue même si un joueur fini...
+         * Inutile mais fait quand même...
+         */
+        if (this.joueurCourant().getMainDuJoueur().isEmpty()) {
+            this.joueurCourantSuivant();
+        }
     }
 
     /**

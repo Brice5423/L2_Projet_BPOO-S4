@@ -143,7 +143,7 @@ public class MainInterface extends Application {
 
                 boitDialogueFin.setTitle("Fin de partie");
                 boitDialogueFin.setHeaderText(null);
-                boitDialogueFin.setContentText("Le joueur " + joueur.getNom() + "à gagner la partie !!!\nFélicitation pour tes 6 ans " + joueur.getNom() + " !!!");
+                boitDialogueFin.setContentText("Le joueur " + joueur.getNom() + " à gagner la partie !!!\n");
 
                 boitDialogueFin.showAndWait();
             }
