@@ -268,8 +268,8 @@ public class MainInterface extends Application {
     }
 
     private void dessinerMain(Canvas canvas, ArrayList<Carte> mainDuJoueur) {
-        /* Liste est une liste de chaines de car. Mais vous devriez sans doute utiliser
-         * vos propres classes, pas des Strings !
+        /* Liste est une liste de chaines de caractère.
+         * Mais vous devriez sans doute utiliser vos propres classes, pas des Strings !
          */
 
         canvas.getGraphicsContext2D().clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
