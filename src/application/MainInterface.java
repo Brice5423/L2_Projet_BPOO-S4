@@ -239,11 +239,11 @@ public class MainInterface extends Application {
                     System.out.println("\t\t-> punition");
                     joueur.punition();
 
-                } catch (Exception ex) {
+                } catch (Exception ex) { // => PartieException
                     System.out.println("\t\t" + ex);
                 }
 
-            } catch (Exception e) {
+            } catch (Exception e) { // => Rien
                 System.out.println("\t" + e);
             }
 
@@ -265,13 +265,14 @@ public class MainInterface extends Application {
 
                     if (e instanceof JoueurOublieDireUnoException) {
                         joueur.finTour();
+                        System.out.println(""); // Pour faire un saut de ligne dans les messages terminaux
                     }
 
-                } catch (Exception ex) {
-                    ex.printStackTrace();
+                } catch (Exception ex) { // => PartieException
+                    System.out.println("\t\t" + e);
                 }
 
-            } catch (Exception e) {
+            } catch (Exception e) { // => Rien
                 System.out.println("\t" + e);
             }
 
