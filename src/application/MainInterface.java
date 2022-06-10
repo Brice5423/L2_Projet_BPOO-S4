@@ -19,6 +19,7 @@ import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 
 public class MainInterface extends Application {
@@ -117,11 +118,10 @@ public class MainInterface extends Application {
                     try {
                         joueur.punition();
 
-                        if (e instanceof JoueurJoueMultipleException) {
+                        /*if (e instanceof JoueurJoueMultipleException) {
                             ArrayList<Carte> tasPartie = this.partie.getTas();
-
-                            joueur.donnerCarte(tasPartie.get(tasPartie.size() - 1));
-                        }
+                            joueur.donnerCarte(tasPartie.remove(tasPartie.size() - 1));
+                        }*/
 
                     } catch (Exception ex) { // => PartieException
                         System.out.println("\t\t" + e);
@@ -140,6 +140,7 @@ public class MainInterface extends Application {
                     System.out.println("\t" + e);
                 }
             }
+
             this.dessinerMain(canMain, joueur.getMainDuJoueur());
             this.dessinerSabot();
 
@@ -235,6 +236,7 @@ public class MainInterface extends Application {
             } catch (Exception e) {
                 System.out.println("\t" + e);
             }
+
             this.dessinerMain(canMain, joueur.getMainDuJoueur());
         });
 
@@ -256,8 +258,9 @@ public class MainInterface extends Application {
             } catch (Exception e) {
                 System.out.println("\t" + e);
             }
+
             this.dessinerMain(canMain, joueur.getMainDuJoueur());
-            System.out.println(""); // Pour faire un saut de ligne
+            System.out.println(""); // Pour faire un saut de ligne dans les messages terminaux
         });
 
         hBox.getChildren().addAll(boutonPioche, boutonUno, boutonFiniTour);
@@ -283,16 +286,20 @@ public class MainInterface extends Application {
     }
 
     private void dessinerSabot() {
-        Image sabot = new Image(getClass().getResourceAsStream("/Sabot.png"));
-        Image imageCarte = new Image(getClass().getResourceAsStream(this.partie.carteAuDessusTas().getCheminVersImage()));
-        Image dos = new Image(getClass().getResourceAsStream("/carte_dos.png"));
+        Image sabot = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/Sabot.png")));
+        Image imageCarte = new Image(Objects.requireNonNull(getClass().getResourceAsStream(this.partie.carteAuDessusTas().getCheminVersImage())));
+        Image dos = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/carte_dos.png")));
 
         canSabot.setWidth(sabot.getWidth());
         canSabot.setHeight(sabot.getHeight());
 
         canSabot.getGraphicsContext2D().drawImage(sabot, 0, 0);
-        canSabot.getGraphicsContext2D().drawImage(imageCarte, 25, 20);
+        if (!this.partie.getTas().isEmpty()) {
+            // Permet de voir si le tas est vide
+            canSabot.getGraphicsContext2D().drawImage(imageCarte, 25, 20);
+        }
         if (!this.partie.getPioche().isEmpty()) {
+            // Permet de voir si la pioche est vide
             canSabot.getGraphicsContext2D().drawImage(dos, 124, 20);
         }
     }
