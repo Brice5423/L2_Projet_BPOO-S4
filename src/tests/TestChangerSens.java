@@ -251,7 +251,7 @@ public class TestChangerSens {
             compteurTest.testFaux();
         }
 
-        // 2) Alice pose le passe tour rouge
+        // 2) Alice pose le changer sens rouge
         try {
             aliceTest.poserCarte(rougeSens);
             compteurTest.testOK();
