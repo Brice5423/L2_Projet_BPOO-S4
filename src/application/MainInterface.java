@@ -210,7 +210,11 @@ public class MainInterface extends Application {
                         System.out.println("\t\t" + ex);
                     }
 
-                } catch (Exception e) { // => PartiePiocheVideException
+                } catch (PartiePiocheVideException e) {
+                    System.out.println("\t" + e);
+                    joueur.setAvoirJouerSonTour(true);
+
+                } catch (Exception e) { // => Rien
                     System.out.println("\t" + e);
                 }
 
