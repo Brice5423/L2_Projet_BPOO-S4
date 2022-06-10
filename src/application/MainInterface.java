@@ -150,11 +150,11 @@ public class MainInterface extends Application {
                 /* ***** Boite de dialogue, pour mettre fin au jeu ***** */ // TODO Faire en sorte que le jeu puisse ce finir.
                 // Créer la boite avec le dialogue
                 Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-                alert.setTitle("Victoire !");
-                alert.setHeaderText("Bravo tu as gagné la partie !");
-                alert.setContentText("Appuyé sur \"Fermé\" pour mettre fin à la partie.");
+                alert.setTitle("Victoire de " + joueur.getNom() + " !");
+                alert.setHeaderText("Bravo le joueur " + joueur.getNom() + " a gagné la partie !");
+                alert.setContentText("Appuyez sur le bouton \"Fermer\" pour mettre fin à la partie.");
                 // Créer les boutons et mets dans la boite
-                ButtonType buttonTypeOne = new ButtonType("Fermé");
+                ButtonType buttonTypeOne = new ButtonType("Fermer");
                 alert.getButtonTypes().setAll(buttonTypeOne);
                 // Affiche la boite
                 alert.showAndWait();
