@@ -46,7 +46,7 @@ public class Joueur {
      * Création d'un joueur à partir de son nom.
      * Le reste est initialisé à null (ou arrayList vide).
      *
-     * @param nom
+     * @param nom nom du joueur
      */
     public Joueur(String nom) {
         this.setNom(nom);
