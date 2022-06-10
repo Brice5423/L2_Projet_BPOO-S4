@@ -344,12 +344,8 @@ public class Joueur {
     public void punition() throws PartieException {
         this.recupererNCarte(2);
 
-        if (this.equals(this.dansLaPartie.joueurCourant())) {
-            this.avoirJouerSonTour = true;
-
-        } else {
-            this.avoirJouerSonTour = false;
-        }
+        // Renvoie true si joueur courant sinon false
+        this.avoirJouerSonTour = this.equals(this.dansLaPartie.joueurCourant());
     }
 
     /**
