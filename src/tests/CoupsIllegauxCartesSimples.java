@@ -22,6 +22,7 @@ public class CoupsIllegauxCartesSimples {
      * Nous le ferons dans d’autres tests par la suite (une chose après l’autre).
      * Pour chacun des tests de cette partie,
      * il faut réinitialiser la partie pour se retrouver dans les conditions des tests précédents
+     *
      * @return true si succès est à 100% sinon false
      */
     public static boolean executionDuTest() {

@@ -4,15 +4,22 @@ package tests.controleur;
  * Class pour le contrôleur de réussite du programme.
  */
 public class CompteurTest {
-    /** Le nom du test */
+    /**
+     * Le nom du test
+     */
     private final String nomTest;
-    /** Le nombre de tests total */
+    /**
+     * Le nombre de tests total
+     */
     private int nbTestTotal;
-    /** Le nombre de tests réussi */
+    /**
+     * Le nombre de tests réussi
+     */
     private int nbTestOk;
 
     /**
      * Constructeur pour faire un suivi d'un test.
+     *
      * @param nomTest nom du test
      */
     public CompteurTest(String nomTest) {
@@ -38,6 +45,7 @@ public class CompteurTest {
 
     /**
      * Affiche le nombre de tests total, le nombre de tests OK avec le taux de réussite des tests.
+     *
      * @return true : 100% OK / false : < 100% OK
      */
     public boolean afficheResultatsTest() {

@@ -120,6 +120,7 @@ public class TestPlusDeux {
         bobTest = partieTest.getListJoueur().get(1);
         charlesTest = partieTest.getListJoueur().get(2);
         /* ************************************************** */
+
         //1)Verifier qu'alice est le joueur courant :
         if (partieTest.joueurCourant().equals(aliceTest)) {
             compteurTest.testOK();
@@ -244,7 +245,7 @@ public class TestPlusDeux {
         if (bobTest.nbCarteEnMain() == 4) {
             compteurTest.testOK();
         } else {
-            System.out.println("14)Bob n'a pas 4 cartes mais"+bobTest.nbCarteEnMain()+"-_-");
+            System.out.println("14)Bob n'a pas 4 cartes mais" + bobTest.nbCarteEnMain() + "-_-");
             compteurTest.testFaux();
         }
 
@@ -253,7 +254,7 @@ public class TestPlusDeux {
             bobTest.encaisseAttaque();
             bobTest.finTour();
             compteurTest.testOK();
-        } catch (Exception e){
+        } catch (Exception e) {
             System.out.println(e);
             System.out.println("Bob na pas encaissé -_-");
             compteurTest.testFaux();
@@ -264,7 +265,7 @@ public class TestPlusDeux {
         if (bobTest.nbCarteEnMain() == 8) {
             compteurTest.testOK();
         } else {
-            System.out.println("16)Bob n'a pas 8 cartes mais"+bobTest.nbCarteEnMain()+"-_-");
+            System.out.println("16)Bob n'a pas 8 cartes mais" + bobTest.nbCarteEnMain() + "-_-");
             compteurTest.testFaux();
         }
 
@@ -296,6 +297,7 @@ public class TestPlusDeux {
         Joueur bobTest = partieTest.getListJoueur().get(1);
         Joueur charlesTest = partieTest.getListJoueur().get(2);
         /* ************************************************** */
+
         //1)Verifier qu'alice est le joueur courant :
         if (partieTest.joueurCourant().equals(aliceTest)) {
             compteurTest.testOK();
@@ -323,6 +325,7 @@ public class TestPlusDeux {
             System.out.println("3) Alice n'a pas reussi a finir son tour -_-");
             compteurTest.testFaux();
         }
+
         //4) Bob joueur courant
         if (partieTest.joueurCourant().equals(bobTest)) {
             compteurTest.testOK();
@@ -335,7 +338,7 @@ public class TestPlusDeux {
         if (bobTest.nbCarteEnMain() == 3) {
             compteurTest.testOK();
         } else {
-            System.out.println("Bob n'a pas 3 cartes mais"+bobTest.nbCarteEnMain()+"-_-");
+            System.out.println("Bob n'a pas 3 cartes mais " + bobTest.nbCarteEnMain() + " -_-");
             compteurTest.testFaux();
         }
 
@@ -344,7 +347,7 @@ public class TestPlusDeux {
             bobTest.encaisseAttaque();
             bobTest.finTour();
             compteurTest.testOK();
-        } catch (Exception e){
+        } catch (Exception e) {
             System.out.println(e);
             System.out.println("Bob na pas encaissé -_-");
             compteurTest.testFaux();
@@ -353,7 +356,7 @@ public class TestPlusDeux {
         if (bobTest.nbCarteEnMain() == 5) {
             compteurTest.testOK();
         } else {
-            System.out.println("Bob n'a pas 5 cartes mais"+bobTest.nbCarteEnMain()+"-_-");
+            System.out.println("Bob n'a pas 5 cartes mais" + bobTest.nbCarteEnMain() + "-_-");
             compteurTest.testFaux();
         }
         //8) Verifier que Charles est le joueur courant :
@@ -388,7 +391,7 @@ public class TestPlusDeux {
         if (charlesTest.nbCarteEnMain() == 2) {
             compteurTest.testOK();
         } else {
-            System.out.println("Charles n'a pas 2 cartes mais"+charlesTest.nbCarteEnMain()+"-_-");
+            System.out.println("Charles n'a pas 2 cartes mais" + charlesTest.nbCarteEnMain() + "-_-");
             compteurTest.testFaux();
         }
     }

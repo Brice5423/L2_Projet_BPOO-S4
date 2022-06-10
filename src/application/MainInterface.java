@@ -85,6 +85,7 @@ public class MainInterface extends Application {
 
     private Label initLabelNom(String nom) {
         Label lNom = new Label(nom);
+
         lNom.setFont(new Font("Arial", 30));
 
         return lNom;
@@ -110,28 +111,32 @@ public class MainInterface extends Application {
                 try {
                     joueur.poserCarte(mainDuJoueur.get(num));
 
-                } catch (JoueurCarteIllegalException | JoueurOublieDireUnoException | JoueurJouePasException
-                         | JoueurNonCourantException | JoueurMauvaiseCarteException e) {
+                } catch (JoueurNonCourantException | JoueurMauvaiseCarteException | JoueurCarteIllegalException
+                         | JoueurJoueMultipleException e) {
                     System.out.println("\t" + e);
                     try {
                         joueur.punition();
 
-                    } catch (Exception ex) {
+                        if (e instanceof JoueurJoueMultipleException) {
+                            ArrayList<Carte> tasPartie = this.partie.getTas();
+
+                            joueur.donnerCarte(tasPartie.get(tasPartie.size() - 1));
+                        }
+
+                    } catch (Exception ex) { // => PartieException
                         System.out.println("\t\t" + e);
                     }
 
-                } catch (JoueurJoueMultipleException e) {
+                } catch (JoueurEncaisserAttaqueException e) {
                     System.out.println("\t" + e);
                     try {
-                        ArrayList<Carte> tasPartie = this.partie.getTas();
-                        joueur.donnerCarte(tasPartie.remove(tasPartie.size() - 1));
-                        joueur.punition();
+                        joueur.encaisseAttaque();
 
-                    } catch (Exception ex) {
+                    } catch (Exception ex) { // => PartieException
                         System.out.println("\t\t" + e);
                     }
 
-                } catch (Exception e) {
+                } catch (Exception e) { // => ExpertManquantException
                     System.out.println("\t" + e);
                 }
             }
@@ -191,11 +196,11 @@ public class MainInterface extends Application {
                     try {
                         joueur.punition();
 
-                    } catch (Exception ex) {
+                    } catch (Exception ex) { // => PartieException
                         System.out.println("\t\t" + ex);
                     }
 
-                } catch (Exception e) {
+                } catch (Exception e) { // => PartieException
                     System.out.println("\t" + e);
                 }
 
@@ -204,15 +209,7 @@ public class MainInterface extends Application {
                     System.out.println("Le joueur " + joueur.getNom() + " encaisse attaque (+2, +4...)");
                     joueur.encaisseAttaque();
 
-                } catch (JoueurNonCourantException e) {
-                    System.out.println("\t" + e);
-                    try {
-                        joueur.punition();
-                    } catch (Exception ex) {
-                        System.out.println("\t\t" + e);
-                    }
-
-                } catch (Exception e) {
+                } catch (Exception e) { // => PartieException
                     System.out.println("\t" + e);
                 }
             }
@@ -247,7 +244,7 @@ public class MainInterface extends Application {
             try {
                 joueur.finTour();
 
-            } catch (JoueurOublieDireUnoException | JoueurJouePasException | JoueurNonCourantException e) {
+            } catch (JoueurNonCourantException | JoueurJouePasException | JoueurOublieDireUnoException e) {
                 System.out.println("\t" + e);
                 try {
                     joueur.punition();

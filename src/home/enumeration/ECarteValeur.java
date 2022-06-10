@@ -20,6 +20,7 @@ public enum ECarteValeur {
 
     /**
      * Renvoie la couleur sur un format String.
+     *
      * @return valeur
      */
     public String getValeur() {

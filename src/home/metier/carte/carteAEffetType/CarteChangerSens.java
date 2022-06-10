@@ -12,6 +12,7 @@ public class CarteChangerSens extends CarteAEffet implements IChangerSens {
 
     /**
      * Constructeur pour une carte changement de sens.
+     *
      * @param couleur couleur de la carte.
      */
     public CarteChangerSens(ECarteCouleur couleur) {
@@ -31,6 +32,7 @@ public class CarteChangerSens extends CarteAEffet implements IChangerSens {
     /**
      * Fonction redéfinie (@Override).
      * Renvoie la carte changement de sens sous un format de chaine de caractère String.
+     *
      * @return la carte basique en String
      */
     @Override
@@ -44,6 +46,7 @@ public class CarteChangerSens extends CarteAEffet implements IChangerSens {
      * Fonction redéfinie (@Override).
      * Vérifie l'égalité entre 2 CarteChangerSens.
      * L'égalité entre les deux CarteChangerSens est bonne s'ils ont la même couleur
+     *
      * @param o l'objet CarteChangerSens qui est vérifié par l'égalité
      * @return true : sont égaux / false : ne sont pas égaux
      */

@@ -18,19 +18,33 @@ import java.util.Collections;
  * Class qui définit une partie UNO.
  */
 public class Partie {
-    /** Le numéro du joueur courant de la partie. */
+    /**
+     * Le numéro du joueur courant de la partie.
+     */
     private int numJoueurCourant;
-    /** Pour connaitre le sens de la partie. */
+    /**
+     * Pour connaitre le sens de la partie.
+     */
     private boolean etreSensHoraire;
-    /** Pour savoir si la carte passer tour est actif. */
+    /**
+     * Pour savoir si la carte passer tour est actif.
+     */
     private boolean passerTourActif;
-    /** Le nombre de cartes que le joueur devra prendre, à cause de carte "+2", "+4" ou autre "+..." si existe. */
+    /**
+     * Le nombre de cartes que le joueur devra prendre, à cause de carte "+2", "+4" ou autre "+..." si existe.
+     */
     private int nbCarteAPiocher;
-    /** Liste des joueurs se trouvant dans la partie. */
+    /**
+     * Liste des joueurs se trouvant dans la partie.
+     */
     private ArrayList<Joueur> listeJoueur;
-    /** Liste des cartes se trouvant dans la pioche. Liste où le joueur récupère les cartes. */
+    /**
+     * Liste des cartes se trouvant dans la pioche. Liste où le joueur récupère les cartes.
+     */
     private ArrayList<Carte> pioche;
-    /** Liste des cartes se trouvent dans le tas. Liste où le joueur dépose les cartes. */
+    /**
+     * Liste des cartes se trouvent dans le tas. Liste où le joueur dépose les cartes.
+     */
     private ArrayList<Carte> tas;
 
     /**
@@ -50,8 +64,9 @@ public class Partie {
     /**
      * Constructeur qui crée une partie à partir d'une liste de joueur (listeJoueur) et d'une pioche (pioche).
      * Utiliser pour faire les tests.
+     *
      * @param listeJoueur liste de 2 à 10 joueurs
-     * @param pioche peut-être vide ou pleine (du jeu complet ou non)
+     * @param pioche      peut-être vide ou pleine (du jeu complet ou non)
      */
     public Partie(ArrayList<Joueur> listeJoueur, ArrayList<Carte> pioche) throws PartieException {
         this.numJoueurCourant = 0;
@@ -65,6 +80,7 @@ public class Partie {
 
     /**
      * Setter pour le numéro du joueur courant de la partie.
+     *
      * @param numJoueurCourant doit être compris entre 0 et le nombre de joueurs - 1
      */
     private void setNumJoueurCourant(int numJoueurCourant) {
@@ -73,6 +89,7 @@ public class Partie {
 
     /**
      * Setter pour le sens horaire de la partie.
+     *
      * @param etreSensHoraire true : sens horaire / false : anti-sens horaire
      */
     private void setEtreSensHoraire(boolean etreSensHoraire) {
@@ -81,6 +98,7 @@ public class Partie {
 
     /**
      * Getter pour savoir si l'effet de la carte passer tour est actif.
+     *
      * @return true : actif / false : pas actif
      */
     public boolean isPasserTourActif() {
@@ -89,6 +107,7 @@ public class Partie {
 
     /**
      * Setter pour savoir si l'effet de la carte passer tour est actif.
+     *
      * @param passerTourActif true : actif / false : non actif
      */
     public void setPasserTourActif(boolean passerTourActif) {
@@ -97,6 +116,7 @@ public class Partie {
 
     /**
      * Getter pour le nombre de cartes à piocher à cause d'un "+2", "+4" ou "+...".
+     *
      * @return le nombre de cartes à piocher
      */
     public int getNbCarteAPiocher() {
@@ -105,6 +125,7 @@ public class Partie {
 
     /**
      * Getter de la liste de joueur dans la partie.
+     *
      * @return liste de joueur
      */
     public ArrayList<Joueur> getListJoueur() {
@@ -113,6 +134,7 @@ public class Partie {
 
     /**
      * Getter de la liste de cartes dans la pioche
+     *
      * @return liste de carte
      */
     public ArrayList<Carte> getPioche() {
@@ -121,6 +143,7 @@ public class Partie {
 
     /**
      * Getter de la liste de cartes dans le tas.
+     *
      * @return liste de carte
      */
     public ArrayList<Carte> getTas() {
@@ -129,6 +152,7 @@ public class Partie {
 
     /**
      * Setter de la liste de carte dans le tas
+     *
      * @param tas liste de carte
      */
     public void setTas(ArrayList<Carte> tas) {
@@ -137,6 +161,7 @@ public class Partie {
 
     /**
      * Ajout un joueur à la partie. Il ne peut pas avoir plus de 10 joueur dans la partie
+     *
      * @param nouveauJoueur joueur à ajouter dans la partie
      * @throws PartieException renvoie une exception quand la liste de joueur n'est pas compris entre 2 et 10
      */
@@ -151,6 +176,7 @@ public class Partie {
 
     /**
      * Ajoute un nombre de cartes à piocher dans nbCarteAPiocherAAjouter de la partie, causer par des "+2", "+4" et etc.
+     *
      * @param nbCarteAPiocherAAjouter nombre de cartes à ajouter
      */
     public void ajoutNbCarteAPiocher(int nbCarteAPiocherAAjouter) {
@@ -159,6 +185,7 @@ public class Partie {
 
     /**
      * Renvoie la carte se trouvant au-dessus du tas de la partie.
+     *
      * @return carte au-dessus du tas
      */
     public Carte carteAuDessusTas() {
@@ -167,6 +194,7 @@ public class Partie {
 
     /**
      * Créer une copie d'une partie.
+     *
      * @return une copie de la partie
      * @throws PartieException renvoie une exception quand la liste de joueur n'est pas compris entre 2 et 10
      */
@@ -185,36 +213,28 @@ public class Partie {
 
     /**
      * Dépose la carte du joueur dans le tas de la partie.
+     *
      * @param carteJoueur Carte du joueur à déposer dans le tas
-     * @throws ExpertManquantException déclenche une exception si une carte peut-être poser ou pas ou manquant par un expert de vérification
-     * @throws JoueurCarteIllegalException déclenche une exception quand le joueur joue un coup illegal
-     * @throws PartieException déclenche une exception quand la pioche est vide
-     * @throws JoueurOublieDireUnoException déclenche une exception quand le joueur ne dit pas "UNO !"
-     * @throws JoueurJouePasException déclenche une exception quand le joueur ne joue pas
-     * @throws JoueurNonCourantException déclenche une exception quand le joueur n'est pas courant
+     * @throws ExpertManquantException         déclenche une exception si une carte peut-être poser ou pas ou manquant par un expert de vérification
+     * @throws JoueurCarteIllegalException     déclenche une exception quand le joueur joue un coup illegal
+     * @throws JoueurEncaisserAttaqueException déclenche quand un joueur poser une carte alors qu'il doit encaisser les attaque du aux "+2", "+4", etc.
      */
-    public void deposerCarteTas(Carte carteJoueur) throws ExpertManquantException, JoueurCarteIllegalException, PartieException, JoueurOublieDireUnoException, JoueurJouePasException, JoueurNonCourantException {
-        try {
-            Expert lesExperts = Expert.initialiseTousLesExperts();
+    public void deposerCarteTas(Carte carteJoueur) throws ExpertManquantException, JoueurCarteIllegalException, JoueurEncaisserAttaqueException {
+        Expert lesExperts = Expert.initialiseTousLesExperts();
 
-            if (!lesExperts.peutEtrePoser(carteJoueur, this.carteAuDessusTas(), this.nbCarteAPiocher)) {
-                if (this.nbCarteAPiocher == 0) {
-                    throw new JoueurCarteIllegalException("Le joueur " + this.joueurCourant().getNom() + " depose la carte " + carteJoueur + ", alors qu'elle est illégale.", this.joueurCourant());
+        if (!lesExperts.peutEtrePoser(carteJoueur, this.carteAuDessusTas(), this.nbCarteAPiocher)) {
+            if (this.nbCarteAPiocher == 0) {
+                throw new JoueurCarteIllegalException("Le joueur " + this.joueurCourant().getNom() + " depose la carte " + carteJoueur + ", alors qu'elle est illégale.", this.joueurCourant());
 
-                } else {
-                    throw new JoueurEncaisserAttaqueException("Le joueur " + this.joueurCourant().getNom() + "  depose la carte " + carteJoueur + ", alors qu'il doit encaisser l'attaque.", this.joueurCourant());
-                }
+            } else {
+                throw new JoueurEncaisserAttaqueException("Le joueur " + this.joueurCourant().getNom() + "  depose la carte " + carteJoueur + ", alors qu'il doit encaisser l'attaque.", this.joueurCourant());
             }
+        }
 
-            this.tas.add(carteJoueur);
+        this.tas.add(carteJoueur);
 
-            if (carteJoueur instanceof CarteAEffet) {
-                ((CarteAEffet) carteJoueur).appliquerEffet(this);
-            }
-
-        } catch (JoueurEncaisserAttaqueException e) {
-            this.joueurCourant().donnerCarte(carteJoueur);
-            this.joueurCourant().encaisseAttaque();
+        if (carteJoueur instanceof CarteAEffet) {
+            ((CarteAEffet) carteJoueur).appliquerEffet(this);
         }
     }
 
@@ -301,6 +321,7 @@ public class Partie {
 
     /**
      * Met en place une nouvelle liste de joueur dans la partie.
+     *
      * @param listeJoueur nouvelle liste de joueur
      * @throws PartieException renvoie une exception quand la liste de joueur n'est pas compris entre 2 et 10.
      */
@@ -315,6 +336,7 @@ public class Partie {
 
     /**
      * Met en place une nouvelle liste de joueur à partir d'une copie.
+     *
      * @param listeJoueur liste de joueur qui sera copié
      * @throws PartieException renvoie une exception quand la liste de joueur n'est pas compris entre 2 et 10
      */
@@ -337,6 +359,7 @@ public class Partie {
 
     /**
      * Renvoie le joueur courant de la partie.
+     *
      * @return joueur courant
      */
     public Joueur joueurCourant() {
@@ -366,6 +389,7 @@ public class Partie {
 
     /**
      * Renvoie le numéro du prochain joueur courant dans la partie.
+     *
      * @return numéro du joueur courant suivant
      */
     private int numJoueurSuivant() {
@@ -391,6 +415,7 @@ public class Partie {
 
     /**
      * Retire et renvoie la carte au-dessus de la pioche de la partie.
+     *
      * @return renvoie la carte retirer de la pioche
      */
     public Carte retirerCartePioche() {
