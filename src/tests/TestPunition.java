@@ -148,7 +148,14 @@ public class TestPunition {
             compteurTest.testFaux();
         }
 
-        Carte cartePioche = partieTest.retirerCartePioche();
+        Carte cartePioche = null;
+        try {
+            cartePioche = partieTest.retirerCartePioche();
+            compteurTest.testOK();
+        } catch (PartiePiocheVideException e) {
+            System.out.println(e);
+            compteurTest.testFaux();
+        }
 
         // 6) Vérifier que la prochaine	carte de la	pioche est le « 2 vert »
         if (cartePioche.equals(vertDeux)) {
@@ -220,7 +227,14 @@ public class TestPunition {
             compteurTest.testFaux();
         }
 
-        Carte cartePioche = partieTest.retirerCartePioche();
+        Carte cartePioche = null;
+        try {
+            cartePioche = partieTest.retirerCartePioche();
+            compteurTest.testOK();
+        } catch (PartiePiocheVideException e) {
+            System.out.println(e);
+            compteurTest.testFaux();
+        }
 
         // 6) Vérifier que la prochaine	carte de la	pioche est le « 2 vert »
         if (cartePioche.equals(vertDeux)) {

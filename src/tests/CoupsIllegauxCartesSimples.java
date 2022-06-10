@@ -312,15 +312,23 @@ public class CoupsIllegauxCartesSimples {
         } catch (JoueurJoueMultipleException e) {
             // 3) Vérifier dans le catch approprié qu'Alice possède toujours 2 cartes
             if (aliceTest.nbCarteEnMain() == 2) {
-                Carte cartePioche = partieTest.retirerCartePioche();
+                Carte cartePioche = null;
+                try {
+                    cartePioche = partieTest.retirerCartePioche();
 
-                // 4) Vérifier que la carte	de la pioche est toujours le « 6 jaune »
-                if (cartePioche.equals(jauneSix)) {
-                    compteurTest.testOK();
-                } else {
-                    System.out.println("La carte au sommet du tas est " + cartePioche + " -_-");
+                    // 4) Vérifier que la carte	de la pioche est toujours le « 6 jaune »
+                    if (cartePioche.equals(jauneSix)) {
+                        compteurTest.testOK();
+                    } else {
+                        System.out.println("La carte au sommet du tas est " + cartePioche + " -_-");
+                        compteurTest.testFaux();
+                    }
+
+                } catch (PartiePiocheVideException ex) {
+                    System.out.println(ex);
                     compteurTest.testFaux();
                 }
+
             } else {
                 System.out.println("Alice possède " + aliceTest.nbCarteEnMain() + " cartes -_-");
                 compteurTest.testFaux();

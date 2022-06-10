@@ -233,7 +233,7 @@ public class TestChangerSens {
         try {
             partieTest = partie.copiePartie();
             compteurTest.testOK();
-        } catch (PartieException e) {
+        } catch (PartieProblemeNombreJoueurException e) {
             System.out.println(e);
             compteurTest.testFaux();
         }
@@ -318,7 +318,7 @@ public class TestChangerSens {
         try {
             partieTest = partie.copiePartie();
             compteurTest.testOK();
-        } catch (PartieException e) {
+        } catch (PartieProblemeNombreJoueurException e) {
             System.out.println(e);
             compteurTest.testFaux();
         }

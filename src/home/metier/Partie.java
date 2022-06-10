@@ -67,8 +67,9 @@ public class Partie {
      *
      * @param listeJoueur liste de 2 à 10 joueurs
      * @param pioche      peut-être vide ou pleine (du jeu complet ou non)
+     * @throws PartieProblemeNombreJoueurException déclenche une exception quand la liste de joueur n'est pas compris entre 2 et 10
      */
-    public Partie(ArrayList<Joueur> listeJoueur, ArrayList<Carte> pioche) throws PartieException {
+    public Partie(ArrayList<Joueur> listeJoueur, ArrayList<Carte> pioche) throws PartieProblemeNombreJoueurException {
         this.numJoueurCourant = 0;
         this.etreSensHoraire = true;
         this.passerTourActif = false;
@@ -163,11 +164,11 @@ public class Partie {
      * Ajout un joueur à la partie. Il ne peut pas avoir plus de 10 joueur dans la partie
      *
      * @param nouveauJoueur joueur à ajouter dans la partie
-     * @throws PartieException renvoie une exception quand la liste de joueur n'est pas compris entre 2 et 10
+     * @throws PartieProblemeNombreJoueurException déclenche une exception quand on ajoute un joueur à une liste de plus de 10 joueurs
      */
-    public void ajoutJoueur(Joueur nouveauJoueur) throws PartieException {
+    public void ajoutJoueur(Joueur nouveauJoueur) throws PartieProblemeNombreJoueurException {
         if (listeJoueur.size() >= 10) {
-            throw new PartieException("La partie doit avoir 2 à 10 joueurs !");
+            throw new PartieProblemeNombreJoueurException("On ajout un joueur dans une partie avec 10 joueurs ou plus.");
         }
 
         nouveauJoueur.setDansLaPartie(this);
@@ -196,9 +197,9 @@ public class Partie {
      * Créer une copie d'une partie.
      *
      * @return une copie de la partie
-     * @throws PartieException renvoie une exception quand la liste de joueur n'est pas compris entre 2 et 10
+     * @throws PartieProblemeNombreJoueurException déclenche une exception quand la liste de joueur n'est pas compris entre 2 et 10
      */
-    public Partie copiePartie() throws PartieException {
+    public Partie copiePartie() throws PartieProblemeNombreJoueurException {
         Partie copiePartie = new Partie();
 
         copiePartie.setNumJoueurCourant(this.numJoueurCourant);
@@ -323,11 +324,11 @@ public class Partie {
      * Met en place une nouvelle liste de joueur dans la partie.
      *
      * @param listeJoueur nouvelle liste de joueur
-     * @throws PartieException renvoie une exception quand la liste de joueur n'est pas compris entre 2 et 10.
+     * @throws PartieProblemeNombreJoueurException renvoie une exception quand la liste de joueur n'est pas compris entre 2 et 10.
      */
-    private void initialisationListeJoueur(ArrayList<Joueur> listeJoueur) throws PartieException {
+    private void initialisationListeJoueur(ArrayList<Joueur> listeJoueur) throws PartieProblemeNombreJoueurException {
         if (listeJoueur.size() < 2 || listeJoueur.size() >= 10) {
-            throw new PartieException("La partie doit avoir 2 à 10 joueurs !");
+            throw new PartieProblemeNombreJoueurException("La partie doit avoir 2 à 10 joueurs !");
         }
 
         this.listeJoueur = listeJoueur;
@@ -338,11 +339,11 @@ public class Partie {
      * Met en place une nouvelle liste de joueur à partir d'une copie.
      *
      * @param listeJoueur liste de joueur qui sera copié
-     * @throws PartieException renvoie une exception quand la liste de joueur n'est pas compris entre 2 et 10
+     * @throws PartieProblemeNombreJoueurException renvoie une exception quand la liste de joueur n'est pas compris entre 2 et 10
      */
-    private void initialisationListeJoueurEnCopie(ArrayList<Joueur> listeJoueur) throws PartieException {
+    private void initialisationListeJoueurEnCopie(ArrayList<Joueur> listeJoueur) throws PartieProblemeNombreJoueurException {
         if (listeJoueur.size() < 2 || listeJoueur.size() >= 10) {
-            throw new PartieException("La partie doit avoir 2 à 10 joueurs !");
+            throw new PartieProblemeNombreJoueurException("La partie doit avoir 2 à 10 joueurs !");
         }
 
         this.listeJoueur.clear();
@@ -405,9 +406,15 @@ public class Partie {
         }
     }
 
-    public void poserPremiereCarteDuTas() throws PartieException {
+    /**
+     * Poser la première carte de la partie dans le tas. Prend la carte de la pioche.
+     *
+     * @throws PartieTasNonVideException déclenche une exception quand le tas n'est pas vide
+     * @throws PartiePiocheVideException déclenche une exception quand la pioche est vide
+     */
+    public void poserPremiereCarteDuTas() throws PartieTasNonVideException, PartiePiocheVideException {
         if (!this.tas.isEmpty()) {
-            throw new PartieException("Le tas de la partie n'est pas vide, on ne peut pas poser la 1er carte du tas.");
+            throw new PartieTasNonVideException("Le tas de la partie n'est pas vide, on ne peut pas poser la 1er carte du tas.");
         }
 
         this.tas.add(this.retirerCartePioche());
@@ -417,13 +424,13 @@ public class Partie {
      * Retire et renvoie la carte au-dessus de la pioche de la partie.
      *
      * @return renvoie la carte retirer de la pioche
+     * @throws PartiePiocheVideException déclenche une exception quand la pioche est vide
      */
-    public Carte retirerCartePioche() {
-        if (!this.pioche.isEmpty()) {
-            return this.pioche.remove(this.pioche.size() - 1);
-
-        } else {
-            return null;
+    public Carte retirerCartePioche() throws PartiePiocheVideException {
+        if (this.pioche.isEmpty()) {
+            throw new PartiePiocheVideException("La pioche de la partie est vide, on ne peut pas prendre de carte dans la pioche.");
         }
+
+        return this.pioche.remove(this.pioche.size() - 1);
     }
 }

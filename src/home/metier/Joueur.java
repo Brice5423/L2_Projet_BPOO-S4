@@ -179,11 +179,11 @@ public class Joueur {
      * La carte est prise dans la pioche.
      * Par cette action le joueur ne sera pas considérer comme avoir joué.
      *
-     * @throws PartieException déclenche une exception quand la pioche est vide
+     * @throws PartiePiocheVideException déclenche une exception quand la pioche est vide
      */
-    public void donnerCarte() throws PartieException {
+    public void donnerCarte() throws PartiePiocheVideException {
         if (this.dansLaPartie.getPioche().isEmpty()) {
-            throw new PartieException("On donne une carte au joueur " + this.nom + ", alors que la pioche est vide.");
+            throw new PartiePiocheVideException("On donne une carte au joueur " + this.nom + ", alors que la pioche est vide.");
         }
 
         this.mainDuJoueur.add(this.dansLaPartie.retirerCartePioche());
@@ -219,9 +219,9 @@ public class Joueur {
     /**
      * Le joueur encaisse les attaques causé par les "+2", "+4" et etc.
      *
-     * @throws PartieException déclenche une exception quand la pioche est vide
+     * @throws PartiePiocheVideException déclenche une exception quand la pioche est vide
      */
-    public void encaisseAttaque() throws PartieException {
+    public void encaisseAttaque() throws PartiePiocheVideException {
         this.recupererNCarte(this.dansLaPartie.getNbCarteAPiocher());
         this.dansLaPartie.nbCarteAPiocherAZero();
         this.setAvoirJouerSonTour(true);
@@ -268,13 +268,13 @@ public class Joueur {
      * Le joueur prend une carte au-dessus de la pioche.
      * Pour cette action le joueur sera considérer comme avoir joué.
      *
-     * @throws PartieException             déclenche une exception quand la pioche est vide
+     * @throws PartiePiocheVideException   déclenche une exception quand la pioche est vide
      * @throws JoueurNonCourantException   déclenche une exception quand le joueur n'est pas courant
      * @throws JoueurJoueMultipleException déclenche une exception quand le joueur joue plusieurs fois
      */
-    public void piocherCarte() throws PartieException, JoueurNonCourantException, JoueurJoueMultipleException {
+    public void piocherCarte() throws PartiePiocheVideException, JoueurNonCourantException, JoueurJoueMultipleException {
         if (this.dansLaPartie.getPioche().isEmpty()) {
-            throw new PartieException("Le joueur " + this.nom + " pioche, alors que la pioche est vide.");
+            throw new PartiePiocheVideException("Le joueur " + this.nom + " pioche, alors que la pioche est vide.");
         }
         if (!this.equals(this.dansLaPartie.joueurCourant())) {
             throw new JoueurNonCourantException("Le joueur " + this.nom + " pioche, alors qu'il n'est pas le joueur courant.", this);
@@ -314,13 +314,14 @@ public class Joueur {
      * Le joueur pose la carte carteChoisieParJoueur dans le tas de la partie.
      *
      * @param carteChoisieParJoueur carte que le joueur dépose dans le tas
-     * @throws JoueurNonCourantException    déclenche une exception quand le joueur n'est pas courant
-     * @throws JoueurMauvaiseCarteException déclenche une exception quand le joueur joue une carte qu'il n'a pas
-     * @throws JoueurJoueMultipleException  déclenche une exception quand le joueur joue plusieurs fois
-     * @throws JoueurCarteIllegalException  déclenche une exception quand le joueur joue un coup illegal
-     * @throws ExpertManquantException      déclenche une exception si une carte peut-être poser ou pas manquant par un expert de vérification
+     * @throws JoueurNonCourantException       déclenche une exception quand le joueur n'est pas courant
+     * @throws JoueurMauvaiseCarteException    déclenche une exception quand le joueur joue une carte qu'il n'a pas
+     * @throws JoueurJoueMultipleException     déclenche une exception quand le joueur joue plusieurs fois
+     * @throws JoueurCarteIllegalException     déclenche une exception quand le joueur joue un coup illegal
+     * @throws JoueurEncaisserAttaqueException déclenche quand un joueur poser une carte alors qu'il doit encaisser les attaque du aux "+2", "+4", etc.
+     * @throws ExpertManquantException         déclenche une exception si une carte peut-être poser ou pas manquant par un expert de vérification
      */
-    public void poserCarte(Carte carteChoisieParJoueur) throws JoueurNonCourantException, JoueurMauvaiseCarteException, JoueurJoueMultipleException, ExpertManquantException, JoueurCarteIllegalException, JoueurEncaisserAttaqueException {
+    public void poserCarte(Carte carteChoisieParJoueur) throws JoueurNonCourantException, JoueurMauvaiseCarteException, JoueurJoueMultipleException, JoueurCarteIllegalException, JoueurEncaisserAttaqueException, ExpertManquantException {
         if (!this.equals(this.dansLaPartie.joueurCourant())) {
             throw new JoueurNonCourantException("Le joueur " + this.nom + " pose une carte, alors qu'il n'est pas le joueur courant.", this);
         }
@@ -339,9 +340,9 @@ public class Joueur {
     /**
      * Puni le joueur en lui donnant 2 cartes.
      *
-     * @throws PartieException déclenche une exception quand la pioche est vide
+     * @throws PartiePiocheVideException déclenche une exception quand la pioche est vide
      */
-    public void punition() throws PartieException {
+    public void punition() throws PartiePiocheVideException {
         this.recupererNCarte(2);
 
         // Renvoie true si joueur courant sinon false
@@ -352,9 +353,9 @@ public class Joueur {
      * Donne au joueur n cartes.
      *
      * @param nCarteARecuperer nombre de cartes à donner
-     * @throws PartieException déclenche une exception quand la pioche est vide
+     * @throws PartiePiocheVideException déclenche une exception quand la pioche est vide
      */
-    public void recupererNCarte(int nCarteARecuperer) throws PartieException {
+    public void recupererNCarte(int nCarteARecuperer) throws PartiePiocheVideException {
         for (int i = 0; i < nCarteARecuperer; i++) {
             this.donnerCarte();
         }

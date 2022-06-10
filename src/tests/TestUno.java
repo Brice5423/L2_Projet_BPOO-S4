@@ -173,7 +173,7 @@ public class TestUno {
         try {
             partieTest = partie.copiePartie();
             compteurTest.testOK();
-        } catch (PartieException e) {
+        } catch (PartieProblemeNombreJoueurException e) {
             System.out.println(e);
             compteurTest.testFaux();
         }

@@ -68,7 +68,7 @@ public class MainInterface extends Application {
         }
     }
 
-    private VBox initJoueur(String nom) throws PartieException {
+    private VBox initJoueur(String nom) throws PartieProblemeNombreJoueurException, PartiePiocheVideException {
         VBox vBox = new VBox();
         vBox.setAlignment(Pos.CENTER);
 
@@ -124,7 +124,7 @@ public class MainInterface extends Application {
                             joueur.donnerCarte(tasPartie.remove(tasPartie.size() - 1));
                         }*/
 
-                    } catch (Exception ex) { // => PartieException
+                    } catch (Exception ex) { // => PartiePiocheVideException
                         System.out.println("\t\t" + e);
                     }
 
@@ -134,7 +134,7 @@ public class MainInterface extends Application {
                         System.out.println("\t\t-> encaisseAttaque");
                         joueur.encaisseAttaque();
 
-                    } catch (Exception ex) { // => PartieException
+                    } catch (Exception ex) { // => PartiePiocheVideException
                         System.out.println("\t\t" + e);
                     }
 
@@ -206,11 +206,11 @@ public class MainInterface extends Application {
                         System.out.println("\t\t-> punition");
                         joueur.punition();
 
-                    } catch (Exception ex) { // => PartieException
+                    } catch (Exception ex) { // => PartiePiocheVideException
                         System.out.println("\t\t" + ex);
                     }
 
-                } catch (Exception e) { // => PartieException
+                } catch (Exception e) { // => PartiePiocheVideException
                     System.out.println("\t" + e);
                 }
 
@@ -219,7 +219,7 @@ public class MainInterface extends Application {
                     System.out.println("Le joueur " + joueur.getNom() + " encaisse attaque (+2, +4...)");
                     joueur.encaisseAttaque();
 
-                } catch (Exception e) { // => PartieException
+                } catch (Exception e) { // => PartiePiocheVideException
                     System.out.println("\t" + e);
                 }
             }
@@ -239,7 +239,7 @@ public class MainInterface extends Application {
                     System.out.println("\t\t-> punition");
                     joueur.punition();
 
-                } catch (Exception ex) { // => PartieException
+                } catch (Exception ex) { // => PartiePiocheVideException
                     System.out.println("\t\t" + ex);
                 }
 
@@ -268,7 +268,7 @@ public class MainInterface extends Application {
                         System.out.println(""); // Pour faire un saut de ligne dans les messages terminaux
                     }
 
-                } catch (Exception ex) { // => PartieException
+                } catch (Exception ex) { // => PartiePiocheVideException
                     System.out.println("\t\t" + e);
                 }
 
