@@ -4,13 +4,13 @@ import home.exception.*;
 import home.metier.Joueur;
 import home.metier.Partie;
 import home.metier.carte.Carte;
+
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
@@ -116,6 +116,7 @@ public class MainInterface extends Application {
                          | JoueurJoueMultipleException e) {
                     System.out.println("\t" + e);
                     try {
+                        System.out.println("\t\t-> punition");
                         joueur.punition();
 
                         /*if (e instanceof JoueurJoueMultipleException) {
@@ -130,6 +131,7 @@ public class MainInterface extends Application {
                 } catch (JoueurEncaisserAttaqueException e) {
                     System.out.println("\t" + e);
                     try {
+                        System.out.println("\t\t-> encaisseAttaque");
                         joueur.encaisseAttaque();
 
                     } catch (Exception ex) { // => PartieException
@@ -145,14 +147,20 @@ public class MainInterface extends Application {
             this.dessinerSabot();
 
             if (mainDuJoueur.isEmpty()) {
-                // TODO Faire en sorte que le jeu puisse ce finir.
-                Alert boitDialogueFin = new Alert(Alert.AlertType.CONFIRMATION);
+                /* ***** Boite de dialogue, pour mettre fin au jeu ***** */ // TODO Faire en sorte que le jeu puisse ce finir.
+                // Créer la boite avec le dialogue
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setTitle("Victoire !");
+                alert.setHeaderText("Bravo tu as gagné la partie !");
+                alert.setContentText("Appuyé sur \"Fermé\" pour mettre fin à la partie.");
+                // Créer les boutons et mets dans la boite
+                ButtonType buttonTypeOne = new ButtonType("Fermé");
+                alert.getButtonTypes().setAll(buttonTypeOne);
+                // Affiche la boite
+                alert.showAndWait();
 
-                boitDialogueFin.setTitle("Fin de partie");
-                boitDialogueFin.setHeaderText(null);
-                boitDialogueFin.setContentText("Le joueur " + joueur.getNom() + " à gagner la partie !!!\n");
-
-                boitDialogueFin.showAndWait();
+                // Ferme l'application quand la boite dialogue ce fermera.
+                Platform.exit();
             }
         });
 
@@ -195,6 +203,7 @@ public class MainInterface extends Application {
                 } catch (JoueurNonCourantException | JoueurJoueMultipleException e) {
                     System.out.println("\t" + e);
                     try {
+                        System.out.println("\t\t-> punition");
                         joueur.punition();
 
                     } catch (Exception ex) { // => PartieException
@@ -227,6 +236,7 @@ public class MainInterface extends Application {
             } catch (JoueurNonCourantException | JoueurJouePasException e) {
                 System.out.println("\t" + e);
                 try {
+                    System.out.println("\t\t-> punition");
                     joueur.punition();
 
                 } catch (Exception ex) {
@@ -245,11 +255,17 @@ public class MainInterface extends Application {
             System.out.println("Le joueur " + joueur.getNom() + " fini son tour");
             try {
                 joueur.finTour();
+                System.out.println(""); // Pour faire un saut de ligne dans les messages terminaux
 
             } catch (JoueurNonCourantException | JoueurJouePasException | JoueurOublieDireUnoException e) {
                 System.out.println("\t" + e);
                 try {
+                    System.out.println("\t\t-> punition");
                     joueur.punition();
+
+                    if (e instanceof JoueurOublieDireUnoException) {
+                        joueur.finTour();
+                    }
 
                 } catch (Exception ex) {
                     ex.printStackTrace();
@@ -260,7 +276,6 @@ public class MainInterface extends Application {
             }
 
             this.dessinerMain(canMain, joueur.getMainDuJoueur());
-            System.out.println(""); // Pour faire un saut de ligne dans les messages terminaux
         });
 
         hBox.getChildren().addAll(boutonPioche, boutonUno, boutonFiniTour);
@@ -274,7 +289,7 @@ public class MainInterface extends Application {
         dessinerSabot();
 
         canSabot.setOnMouseClicked(clic -> {
-            System.out.println("Le joueur courant est " + this.partie.joueurCourant().getNom() + " !");
+            System.out.println("=> Le joueur courant est " + this.partie.joueurCourant().getNom() + " !");
             /* TODO Voir si on le fait ou pas
              * J'ai prévu l'évènement, mais personnellement je ne l'utilise pas.
              * J'utilise le bouton prévu pour chaque joueur. Faites comme vous voulez !
