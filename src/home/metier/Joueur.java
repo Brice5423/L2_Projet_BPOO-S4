@@ -238,7 +238,8 @@ public class Joueur {
         if (!this.equals(this.dansLaPartie.joueurCourant())) {
             throw new JoueurNonCourantException("Le joueur " + this.nom + " fini son tour, alors qu'il n'est pas le joueur courant.", this);
         }
-        if (this.dansLaPartie.getNbCarteAPiocher() == 0 && !this.avoirJouerSonTour) {
+        if (this.dansLaPartie.getNbCarteAPiocher() == 0 && !this.avoirJouerSonTour
+                && !this.dansLaPartie.getPioche().isEmpty()) { // Pour que le joueur puisse finir son tour quand la pioche est vide
             throw new JoueurJouePasException("Le joueur " + this.nom + " fini son tour, alors qu'il n'a pas joué.", this);
         }
         if (this.nbCarteEnMain() == 1 && !this.avoirDitUNO) {
