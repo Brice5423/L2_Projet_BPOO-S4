@@ -228,7 +228,7 @@ public class Partie {
                 throw new JoueurCarteIllegalException("Le joueur " + this.joueurCourant().getNom() + " depose la carte " + carteJoueur + ", alors qu'elle est illégale.", this.joueurCourant());
 
             } else {
-                throw new JoueurEncaisserAttaqueException("Le joueur " + this.joueurCourant().getNom() + "  depose la carte " + carteJoueur + ", alors qu'il doit encaisser l'attaque.", this.joueurCourant());
+                throw new JoueurEncaisserAttaqueException("Le joueur " + this.joueurCourant().getNom() + " depose la carte " + carteJoueur + ", alors qu'il doit encaisser l'attaque.", this.joueurCourant());
             }
         }
 

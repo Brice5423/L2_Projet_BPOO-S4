@@ -151,13 +151,6 @@ public class Joueur {
     }
 
     /**
-     * Affiche les cartes que le joueur a en main.
-     */
-    public void afficheCarteEnMain() {
-        System.out.println(this.mainDuJoueur);
-    }
-
-    /**
      * Renvoie la copie du joueur.
      *
      * @return copie du joueur
@@ -237,14 +230,21 @@ public class Joueur {
      * @throws JoueurNonCourantException    déclenche une exception quand le joueur n'est pas courant
      * @throws JoueurJouePasException       déclenche une exception quand le joueur ne joue pas
      * @throws JoueurOublieDireUnoException déclenche une exception quand le joueur ne dit pas "UNO !"
-     */
-    public void finTour() throws JoueurNonCourantException, JoueurJouePasException, JoueurOublieDireUnoException {
+     * @throws JoueurEncaisserAttaqueException déclenche quand un joueur poser une carte alors qu'il doit encaisser les attaque du aux "+2", "+4", etc.
+     * */
+    public void finTour() throws JoueurNonCourantException, JoueurJouePasException, JoueurOublieDireUnoException, JoueurEncaisserAttaqueException {
         if (!this.equals(this.dansLaPartie.joueurCourant())) {
             throw new JoueurNonCourantException("Le joueur " + this.nom + " fini son tour, alors qu'il n'est pas le joueur courant.", this);
         }
-        if (this.dansLaPartie.getNbCarteAPiocher() == 0 && !this.avoirJouerSonTour
-                && !this.dansLaPartie.getPioche().isEmpty()) { // Pour que le joueur puisse finir son tour quand la pioche est vide
-            throw new JoueurJouePasException("Le joueur " + this.nom + " fini son tour, alors qu'il n'a pas joué.", this);
+        if (!this.avoirJouerSonTour) {
+            if (this.dansLaPartie.getNbCarteAPiocher() == 0) {
+                // Pour que le joueur puisse finir son tour quand la pioche est vide
+                if (!this.dansLaPartie.getPioche().isEmpty()) {
+                    throw new JoueurJouePasException("Le joueur " + this.nom + " fini son tour, alors qu'il n'a pas joué.", this);
+                }
+            } else {
+                throw new JoueurEncaisserAttaqueException("Le joueur " + this.getNom() + " fini son tour, alors qu'il doit encaisser l'attaque.", this);
+            }
         }
         if (this.nbCarteEnMain() == 1 && !this.avoirDitUNO) {
             throw new JoueurOublieDireUnoException("Le joueur " + this.nom + " fini son tour, alors qu'il n'a pas dit \"UNO !\".", this);
@@ -289,7 +289,7 @@ public class Joueur {
         }
 
         this.mainDuJoueur.add(this.dansLaPartie.retirerCartePioche());
-        this.dansLaPartie.retirerCartePioche();
+        this.dansLaPartie.retirerCartePioche(); // TODO il fait quoi lui
 
         this.avoirJouerSonTour = true;
     }
