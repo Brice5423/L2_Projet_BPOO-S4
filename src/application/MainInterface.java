@@ -112,7 +112,7 @@ public class MainInterface extends Application {
                     System.out.println("Le joueur " + joueur.getNom() + " a sélectionné la carte " + mainDuJoueur.get(num));
                     joueur.poserCarte(mainDuJoueur.get(num));
 
-                } catch (JoueurNonCourantException | JoueurMauvaiseCarteException | JoueurCarteIllegalException
+                } catch (JoueurNonCourantException | JoueurJoueCarteAbsentMainException | JoueurCarteIllegalException
                          | JoueurJoueMultipleException e) {
                     try {
                         System.out.println("\t" + e + "\n\t\t-> punition");

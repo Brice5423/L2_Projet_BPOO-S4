@@ -316,18 +316,18 @@ public class Joueur {
      *
      * @param carteChoisieParJoueur carte que le joueur dépose dans le tas
      * @throws JoueurNonCourantException       déclenche une exception quand le joueur n'est pas courant
-     * @throws JoueurMauvaiseCarteException    déclenche une exception quand le joueur joue une carte qu'il n'a pas
+     * @throws JoueurJoueCarteAbsentMainException    déclenche une exception quand le joueur joue une carte qu'il n'a pas
      * @throws JoueurJoueMultipleException     déclenche une exception quand le joueur joue plusieurs fois
      * @throws JoueurCarteIllegalException     déclenche une exception quand le joueur joue un coup illegal
      * @throws JoueurEncaisserAttaqueException déclenche quand un joueur poser une carte alors qu'il doit encaisser les attaque du aux "+2", "+4", etc.
      * @throws ExpertManquantException         déclenche une exception si une carte peut-être poser ou pas manquant par un expert de vérification
      */
-    public void poserCarte(Carte carteChoisieParJoueur) throws JoueurNonCourantException, JoueurMauvaiseCarteException, JoueurJoueMultipleException, JoueurCarteIllegalException, JoueurEncaisserAttaqueException, ExpertManquantException {
+    public void poserCarte(Carte carteChoisieParJoueur) throws JoueurNonCourantException, JoueurJoueCarteAbsentMainException, JoueurJoueMultipleException, JoueurCarteIllegalException, JoueurEncaisserAttaqueException, ExpertManquantException {
         if (!this.equals(this.dansLaPartie.joueurCourant())) {
             throw new JoueurNonCourantException("Le joueur " + this.nom + " pose une carte, alors qu'il n'est pas le joueur courant.", this);
         }
         if (!this.mainDuJoueur.contains(carteChoisieParJoueur)) {
-            throw new JoueurMauvaiseCarteException("Le joueur " + this.nom + " choisie une carte qui n'est pas dans sa main.", this);
+            throw new JoueurJoueCarteAbsentMainException("Le joueur " + this.nom + " choisie une carte qui n'est pas dans sa main.", this);
         }
         if (this.avoirJouerSonTour) {
             throw new JoueurJoueMultipleException("Le joueur " + this.nom + " pose une carte, alors qu'il a déjà joué.", this);
