@@ -46,19 +46,19 @@ public class MainInterface extends Application {
             this.partie.genererPioche();
             this.partie.poserPremiereCarteDuTas();
 
-            VBox joueurNord = initJoueur("Briçou");
+            VBox joueurNord = this.initJoueur("Brice");
             root.setTop(joueurNord);
 
-            VBox joueurOuest = initJoueur("Alicia");
+            VBox joueurOuest = this.initJoueur("Alicia");
             root.setRight(joueurOuest);
 
-            VBox joueurSud = initJoueur("Nicolas");
+            VBox joueurSud = this.initJoueur("Nicolas");
             root.setBottom(joueurSud);
 
-            VBox joueurEst = initJoueur("Baptiste");
+            VBox joueurEst = this.initJoueur("Baptiste");
             root.setLeft(joueurEst);
 
-            root.setCenter(initSabot());
+            root.setCenter(this.initSabot());
 
             primaryStage.show();
 
@@ -75,9 +75,9 @@ public class MainInterface extends Application {
         this.partie.ajoutJoueur(joueur);
         joueur.recupererNCarte(7);
 
-        Label nomNord = initLabelNom(nom);
-        Canvas canMain = initMain(joueur);
-        HBox boutonsUno = initBoutonUno(canMain, joueur);
+        Label nomNord = this.initLabelNom(nom);
+        Canvas canMain = this.initMain(joueur);
+        HBox boutonsUno = this.initBoutonUno(canMain, joueur);
         vBox.getChildren().addAll(nomNord, canMain, boutonsUno);
 
         return vBox;
@@ -95,7 +95,7 @@ public class MainInterface extends Application {
         Canvas canMain = new Canvas(L_CANVAS, H_CANVAS);
 
         ArrayList<Carte> mainDuJoueur = joueur.getMainDuJoueur();
-        dessinerMain(canMain, mainDuJoueur);
+        this.dessinerMain(canMain, mainDuJoueur);
 
         canMain.setOnMouseClicked(clic -> {
             int x = (int) clic.getX();
@@ -272,11 +272,11 @@ public class MainInterface extends Application {
     }
 
     private Canvas initSabot() {
-        canSabot = new Canvas();
+        this.canSabot = new Canvas();
 
-        dessinerSabot();
+        this.dessinerSabot();
 
-        canSabot.setOnMouseClicked(clic -> {
+        this.canSabot.setOnMouseClicked(clic -> {
             System.out.println("=> Le joueur courant est " + this.partie.joueurCourant().getNom() + " !");
             /* TODO Voir si on le fait ou pas
              * J'ai prévu l'évènement, mais personnellement je ne l'utilise pas.
@@ -285,7 +285,7 @@ public class MainInterface extends Application {
              */
         });
 
-        return canSabot;
+        return this.canSabot;
     }
 
     private void dessinerSabot() {
@@ -293,17 +293,17 @@ public class MainInterface extends Application {
         Image imageCarte = new Image(Objects.requireNonNull(getClass().getResourceAsStream(this.partie.carteAuDessusTas().getCheminVersImage())));
         Image dos = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/carte_dos.png")));
 
-        canSabot.setWidth(sabot.getWidth());
-        canSabot.setHeight(sabot.getHeight());
+        this.canSabot.setWidth(sabot.getWidth());
+        this.canSabot.setHeight(sabot.getHeight());
 
-        canSabot.getGraphicsContext2D().drawImage(sabot, 0, 0);
+        this.canSabot.getGraphicsContext2D().drawImage(sabot, 0, 0);
         if (!this.partie.getTas().isEmpty()) {
             // Permet de voir si le tas est vide
-            canSabot.getGraphicsContext2D().drawImage(imageCarte, 25, 20);
+            this.canSabot.getGraphicsContext2D().drawImage(imageCarte, 25, 20);
         }
         if (!this.partie.getPioche().isEmpty()) {
             // Permet de voir si la pioche est vide
-            canSabot.getGraphicsContext2D().drawImage(dos, 124, 20);
+            this.canSabot.getGraphicsContext2D().drawImage(dos, 124, 20);
         }
     }
 }
