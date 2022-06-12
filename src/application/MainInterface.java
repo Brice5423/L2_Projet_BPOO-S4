@@ -49,13 +49,13 @@ public class MainInterface extends Application {
             VBox joueurNord = initJoueur("Briçou");
             root.setTop(joueurNord);
 
-            VBox joueurOuest = initJoueur("Nicolas");
+            VBox joueurOuest = initJoueur("Alicia");
             root.setRight(joueurOuest);
 
-            VBox joueurSud = initJoueur("Baptiste");
+            VBox joueurSud = initJoueur("Nicolas");
             root.setBottom(joueurSud);
 
-            VBox joueurEst = initJoueur("Gauthier");
+            VBox joueurEst = initJoueur("Baptiste");
             root.setLeft(joueurEst);
 
             root.setCenter(initSabot());
