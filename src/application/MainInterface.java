@@ -21,7 +21,6 @@ import javafx.stage.Stage;
 import java.util.ArrayList;
 import java.util.Objects;
 
-
 public class MainInterface extends Application {
     private static final int H_CANVAS = 130;
     private static final int L_CANVAS = 400;
@@ -118,7 +117,7 @@ public class MainInterface extends Application {
                         System.out.println("\t" + e + "\n\t\t-> punition");
                         joueur.punition();
 
-                    } catch (Exception ex) { // => PartiePiocheVideException
+                    } catch (PartiePiocheVideException ex) {
                         System.out.println("\t\t" + ex + "\n\t\t\t-> fait rien");
                     }
 
@@ -127,11 +126,11 @@ public class MainInterface extends Application {
                         System.out.println("\t" + e + "\n\t\t-> encaisseAttaque");
                         joueur.encaisseAttaque();
 
-                    } catch (Exception ex) { // => PartiePiocheVideException
+                    } catch (PartiePiocheVideException ex) {
                         System.out.println("\t\t" + ex + "\n\t\t\t-> fait rien");
                     }
 
-                } catch (Exception e) { // => ExpertManquantException
+                } catch (ExpertManquantException e) {
                     System.out.println("\t" + e + "\n\t\t-> fait rien");
                 }
             }
@@ -189,11 +188,11 @@ public class MainInterface extends Application {
                         System.out.println("\t" + e + "\n\t\t-> punition");
                         joueur.punition();
 
-                    } catch (Exception ex) { // => PartiePiocheVideException
+                    } catch (PartiePiocheVideException ex) {
                         System.out.println("\t\t" + ex + "\n\t\t\t-> fait rien");
                     }
 
-                } catch (Exception e) { // => PartiePiocheVideException
+                } catch (PartiePiocheVideException e) {
                     System.out.println("\t" + e + "\n\t\t-> fait rien");
                 }
 
@@ -202,7 +201,7 @@ public class MainInterface extends Application {
                     System.out.println("Le joueur " + joueur.getNom() + " encaisse attaque (+2, +4...)");
                     joueur.encaisseAttaque();
 
-                } catch (Exception e) { // => PartiePiocheVideException
+                } catch (PartiePiocheVideException e) {
                     System.out.println("\t" + e + "\n\t\t-> fait rien");
                 }
             }
@@ -216,17 +215,14 @@ public class MainInterface extends Application {
                 System.out.println("Le joueur " + joueur.getNom() + " dit Uno !");
                 joueur.ditUNO();
 
-            } catch (JoueurNonCourantException | JoueurJouePasException e) {
+            } catch (JoueurNonCourantException | JoueurJouePasException | JoueurDireUnoTropTotException e) {
                 try {
                     System.out.println("\t" + e + "\n\t\t-> punition");
                     joueur.punition();
 
-                } catch (Exception ex) { // => PartiePiocheVideException
+                } catch (PartiePiocheVideException ex) {
                     System.out.println("\t\t" + ex + "\n\t\t\t-> fait rien");
                 }
-
-            } catch (Exception e) { // => Rien
-                System.out.println("\t" + e + "\n\t\t-> fait rien : problème -_-");
             }
 
             this.dessinerMain(canMain, joueur.getMainDuJoueur());
@@ -245,16 +241,15 @@ public class MainInterface extends Application {
                     joueur.punition();
 
                     if (e instanceof JoueurOublieDireUnoException) {
+                        System.out.println("\n\t\t-> punition");
                         joueur.finTour();
                         System.out.println(""); // Pour faire un saut de ligne dans les messages terminaux
                     }
 
-                } catch (Exception ex) { // => PartiePiocheVideException
+                } catch (JoueurNonCourantException | JoueurJouePasException | JoueurOublieDireUnoException
+                         | PartiePiocheVideException ex) {
                     System.out.println("\t\t" + ex + "\n\t\t\t-> fait rien");
                 }
-
-            } catch (Exception e) { // => Rien
-                System.out.println("\t" + e + "\n\t\t-> fait rien : problème -_-");
             }
 
             this.dessinerMain(canMain, joueur.getMainDuJoueur());

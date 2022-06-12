@@ -200,17 +200,21 @@ public class Joueur {
     }
 
     /**
-     * Le joueur dit "UNO !"
+     * Le joueur dit "UNO !".
      *
-     * @throws JoueurNonCourantException déclenche une exception quand le joueur n'est pas courant
-     * @throws JoueurJouePasException    déclenche une exception quand le joueur ne joue pas
+     * @throws JoueurNonCourantException     déclenche une exception quand le joueur n'est pas courant
+     * @throws JoueurJouePasException        déclenche une exception quand le joueur ne joue pas
+     * @throws JoueurDireUnoTropTotException déclenche une exception quand le joueur à plus d'une carte dans sa main
      */
-    public void ditUNO() throws JoueurNonCourantException, JoueurJouePasException {
+    public void ditUNO() throws JoueurNonCourantException, JoueurJouePasException, JoueurDireUnoTropTotException {
         if (!this.equals(this.dansLaPartie.joueurCourant())) {
             throw new JoueurNonCourantException("Le joueur " + this.nom + " dit \"UNO !\", alors qu'il n'est pas le joueur courant.", this);
         }
         if (!this.avoirJouerSonTour) {
             throw new JoueurJouePasException("Le joueur " + this.nom + " dit \"UNO !\", alors qu'il n'a pas joué.", this);
+        }
+        if (this.mainDuJoueur.size() > 1) {
+            throw new JoueurDireUnoTropTotException("Le joueur " + this.nom + " dit \"UNO !\", alors qu'il a plus d'une carte en main.", this);
         }
 
         this.avoirDitUNO = true;
@@ -315,12 +319,12 @@ public class Joueur {
      * Le joueur pose la carte carteChoisieParJoueur dans le tas de la partie.
      *
      * @param carteChoisieParJoueur carte que le joueur dépose dans le tas
-     * @throws JoueurNonCourantException       déclenche une exception quand le joueur n'est pas courant
-     * @throws JoueurJoueCarteAbsentMainException    déclenche une exception quand le joueur joue une carte qu'il n'a pas
-     * @throws JoueurJoueMultipleException     déclenche une exception quand le joueur joue plusieurs fois
-     * @throws JoueurCarteIllegalException     déclenche une exception quand le joueur joue un coup illegal
-     * @throws JoueurEncaisserAttaqueException déclenche quand un joueur poser une carte alors qu'il doit encaisser les attaque du aux "+2", "+4", etc.
-     * @throws ExpertManquantException         déclenche une exception si une carte peut-être poser ou pas manquant par un expert de vérification
+     * @throws JoueurNonCourantException          déclenche une exception quand le joueur n'est pas courant
+     * @throws JoueurJoueCarteAbsentMainException déclenche une exception quand le joueur joue une carte qu'il n'a pas
+     * @throws JoueurJoueMultipleException        déclenche une exception quand le joueur joue plusieurs fois
+     * @throws JoueurCarteIllegalException        déclenche une exception quand le joueur joue un coup illegal
+     * @throws JoueurEncaisserAttaqueException    déclenche quand un joueur poser une carte alors qu'il doit encaisser les attaque du aux "+2", "+4", etc.
+     * @throws ExpertManquantException            déclenche une exception si une carte peut-être poser ou pas manquant par un expert de vérification
      */
     public void poserCarte(Carte carteChoisieParJoueur) throws JoueurNonCourantException, JoueurJoueCarteAbsentMainException, JoueurJoueMultipleException, JoueurCarteIllegalException, JoueurEncaisserAttaqueException, ExpertManquantException {
         if (!this.equals(this.dansLaPartie.joueurCourant())) {
