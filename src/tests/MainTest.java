@@ -1,9 +1,9 @@
-package tests;/* ************************************** *
+/* ************************************** *
  *  Projet BPOO | Par Brice.O & Alicia.O  *
  *  Version Java : 17.0.2                 *
  * ************************************** */
+package tests;
 
-import tests.*;
 import tests.controleur.CompteurTest;
 
 public class MainTest {
