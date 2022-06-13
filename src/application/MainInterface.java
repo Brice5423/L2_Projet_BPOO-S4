@@ -267,7 +267,7 @@ public class MainInterface extends Application {
                             System.out.println(""); // Pour faire un saut de ligne dans les messages terminaux
 
                         } catch (JoueurNonCourantException | JoueurJouePasException | JoueurOublieDireUnoException
-                                | JoueurEncaisserAttaqueException ex) {
+                                 | JoueurEncaisserAttaqueException ex) {
                             System.out.println("\t\t" + ex + "\n\t\t\t-> fait rien");
                         }
                     }
