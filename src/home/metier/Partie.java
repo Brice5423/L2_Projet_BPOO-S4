@@ -389,6 +389,36 @@ public class Partie {
     }
 
     /**
+     * Fait en sorte que la partie recommence depuis le début.
+     */
+    public void nouvellePartie() {
+        try {
+            this.numJoueurCourant = 0;
+            this.etreSensHoraire = true;
+            this.passerTourActif = false;
+            this.nbCarteAPiocher = 0;
+
+            this.pioche.clear();
+            this.tas.clear();
+
+            this.genererPioche();
+            this.poserPremiereCarteDuTas();
+
+            this.listeJoueur.forEach(joueur -> {
+                try {
+                    joueur.getMainDuJoueur().clear();
+                    joueur.recupererNCarte(7);
+                } catch (PartiePiocheVideException e) {
+                    e.printStackTrace();
+                }
+            });
+
+        } catch (PartieTasNonVideException | PartiePiocheVideException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
      * Renvoie le numéro du prochain joueur courant dans la partie.
      *
      * @return numéro du joueur courant suivant

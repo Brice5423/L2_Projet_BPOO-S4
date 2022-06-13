@@ -20,6 +20,7 @@ import javafx.stage.Stage;
 
 import java.util.ArrayList;
 import java.util.Objects;
+import java.util.Optional;
 
 public class MainInterface extends Application {
     private static final int H_CANVAS = 130;
@@ -28,6 +29,7 @@ public class MainInterface extends Application {
     private static final int ECART = 30;
 
     private Canvas canSabot;
+    private ArrayList<Canvas> listeCanMain;
     private Partie partie;
 
     public static void main(String[] args) {
@@ -42,6 +44,7 @@ public class MainInterface extends Application {
             Scene scene = new Scene(root);
             primaryStage.setScene(scene);
 
+            this.listeCanMain = new ArrayList<Canvas>();
             this.partie = new Partie();
             this.partie.genererPioche();
             this.partie.poserPremiereCarteDuTas();
@@ -49,14 +52,14 @@ public class MainInterface extends Application {
             VBox joueurNord = this.initJoueur("Brice");
             root.setTop(joueurNord);
 
-            VBox joueurOuest = this.initJoueur("Alicia");
-            root.setRight(joueurOuest);
+            VBox joueurEst = this.initJoueur("Alicia");
+            root.setRight(joueurEst);
 
             VBox joueurSud = this.initJoueur("Nicolas");
             root.setBottom(joueurSud);
 
-            VBox joueurEst = this.initJoueur("Baptiste");
-            root.setLeft(joueurEst);
+            VBox joueurOuest = this.initJoueur("Baptiste");
+            root.setLeft(joueurOuest);
 
             root.setCenter(this.initSabot());
 
@@ -77,6 +80,7 @@ public class MainInterface extends Application {
 
         Label nomNord = this.initLabelNom(nom);
         Canvas canMain = this.initMain(joueur);
+        this.listeCanMain.add(canMain);
         HBox boutonsUno = this.initBoutonUno(canMain, joueur);
         vBox.getChildren().addAll(nomNord, canMain, boutonsUno);
 
@@ -141,18 +145,31 @@ public class MainInterface extends Application {
             if (mainDuJoueur.isEmpty()) {
                 /* ***** Boite de dialogue, pour mettre fin au jeu ***** */
                 // Créer la boite avec le dialogue
-                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-                alert.setTitle("Victoire de " + joueur.getNom() + " !");
-                alert.setHeaderText("Bravo le joueur " + joueur.getNom() + " a gagné la partie !");
-                alert.setContentText("Appuyez sur le bouton \"Fermer\" pour mettre fin à la partie.");
+                Alert boitDialgue = new Alert(Alert.AlertType.CONFIRMATION);
+                boitDialgue.setTitle("Victoire de " + joueur.getNom() + " !");
+                boitDialgue.setHeaderText("Bravo le joueur " + joueur.getNom() + " a gagné la partie !");
+                boitDialgue.setContentText("Appuyez sur un des boutons pour lancer une nouvelle partie ou pour en finir.");
                 // Créer les boutons et mets dans la boite
-                ButtonType buttonTypeOne = new ButtonType("Fermer");
-                alert.getButtonTypes().setAll(buttonTypeOne);
+                ButtonType buttonNouvellePartie = new ButtonType("Nouvelle partie");
+                ButtonType buttonFermeture = new ButtonType("Fermer partie");
+                boitDialgue.getButtonTypes().setAll(buttonNouvellePartie, buttonFermeture);
                 // Affiche la boite
-                alert.showAndWait();
+                Optional<ButtonType> resultatBoitDialgue = boitDialgue.showAndWait();
 
-                // Ferme l'application quand la boite dialogue ce fermera.
-                Platform.exit();
+                if (resultatBoitDialgue.get() == buttonNouvellePartie) {
+                    // Met en place une nouvelle partie
+                    this.partie.nouvellePartie();
+
+                    // Redessine tout les éléments de la partie
+                    this.dessinerSabot();
+                    for (int i = 0; i < this.listeCanMain.size(); i++) {
+                        this.dessinerMain(this.listeCanMain.get(i), this.partie.getListJoueur().get(i).getMainDuJoueur());
+                    }
+
+                } else {
+                    // Ferme l'application quand la boite dialogue cera fermer.
+                    Platform.exit();
+                }
             }
         });
 
@@ -243,9 +260,9 @@ public class MainInterface extends Application {
                     joueur.punition();
                     this.dessinerSabot();
 
-                    if (e instanceof JoueurOublieDireUnoException) {
+                    if ((e instanceof JoueurJouePasException) || (e instanceof JoueurOublieDireUnoException)) {
                         try {
-                            System.out.println("\n\t\t-> finTour");
+                            System.out.println("\t\t-> finTour");
                             joueur.finTour();
                             System.out.println(""); // Pour faire un saut de ligne dans les messages terminaux
 
