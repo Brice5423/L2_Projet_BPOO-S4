@@ -149,7 +149,7 @@ public class MainInterface extends Application {
                 boitDialgue.setTitle("Victoire de " + joueur.getNom() + " !");
                 boitDialgue.setHeaderText("Bravo le joueur " + joueur.getNom() + " a gagné la partie !");
                 boitDialgue.setContentText("Appuyez sur un des boutons pour lancer une nouvelle partie ou pour en finir.");
-                // Créer les boutons et mets dans la boite
+                // Créer les boutons et met dans la boite
                 ButtonType buttonNouvellePartie = new ButtonType("Nouvelle partie");
                 ButtonType buttonFermeture = new ButtonType("Fermer partie");
                 boitDialgue.getButtonTypes().setAll(buttonNouvellePartie, buttonFermeture);
@@ -160,14 +160,14 @@ public class MainInterface extends Application {
                     // Met en place une nouvelle partie
                     this.partie.nouvellePartie();
 
-                    // Redessine tout les éléments de la partie
+                    // Redessine tous les éléments de la partie
                     this.dessinerSabot();
                     for (int i = 0; i < this.listeCanMain.size(); i++) {
                         this.dessinerMain(this.listeCanMain.get(i), this.partie.getListJoueur().get(i).getMainDuJoueur());
                     }
 
                 } else {
-                    // Ferme l'application quand la boite dialogue cera fermer.
+                    // Ferme l'application quand la boite dialogue sera fermé.
                     Platform.exit();
                 }
             }
@@ -298,7 +298,7 @@ public class MainInterface extends Application {
             /* TODO Voir si on le fait ou pas
              * J'ai prévu l'évènement, mais personnellement je ne l'utilise pas.
              * J'utilise le bouton prévu pour chaque joueur. Faites comme vous voulez !
-             * A la base c'est fait pour piocher met on le fait pas...
+             * A la base c'est fait pour piocher mais on le fait pas...
              */
         });
 

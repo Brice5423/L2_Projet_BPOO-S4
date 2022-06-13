@@ -184,8 +184,8 @@ public class Joueur {
      * @throws JoueurJoueCarteAbsentMainException déclenche une exception quand le joueur joue une carte qu'il n'a pas
      * @throws JoueurJoueMultipleException        déclenche une exception quand le joueur joue plusieurs fois
      * @throws JoueurCarteIllegalException        déclenche une exception quand le joueur joue un coup illegal
-     * @throws JoueurEncaisserAttaqueException    déclenche quand un joueur poser une carte alors qu'il doit encaisser les attaque du aux "+2", "+4", etc.
-     * @throws ExpertManquantException            déclenche une exception si une carte peut-être poser ou pas manquant par un expert de vérification
+     * @throws JoueurEncaisserAttaqueException    déclenche quand un joueur pose une carte alors qu'il doit encaisser les attaque dû aux "+2", "+4", etc.
+     * @throws ExpertManquantException            déclenche une exception si une carte peut-être poser ou pas ou manquant par un expert de vérification
      */
     public void poserCarte(Carte carteChoisieParJoueur) throws JoueurNonCourantException, JoueurJoueCarteAbsentMainException, JoueurJoueMultipleException, JoueurCarteIllegalException, JoueurEncaisserAttaqueException, ExpertManquantException {
         if (!this.equals(this.dansLaPartie.joueurCourant())) {
@@ -206,7 +206,7 @@ public class Joueur {
     /**
      * Donne une carte au joueur.
      * La carte est prise dans la pioche.
-     * Par cette action le joueur ne sera pas considérer comme avoir joué.
+     * Par cette action le joueur ne sera pas considéré comme avoir joué.
      *
      * @throws PartiePiocheVideException déclenche une exception quand la pioche est vide
      */
@@ -220,7 +220,7 @@ public class Joueur {
 
     /**
      * Donne au joueur la carte carteDonnee.
-     * Par cette action le joueur ne sera pas considérer comme avoir joué.
+     * Par cette action le joueur ne sera pas considéré comme avoir joué.
      *
      * @param carteDonnee carte à donner au joueur
      */
@@ -299,7 +299,7 @@ public class Joueur {
     }
 
     /**
-     * Le joueur encaisse les attaques causé par les "+2", "+4" et etc.
+     * Le joueur encaisse les attaques causées par les "+2", "+4" et etc.
      *
      * @throws PartiePiocheVideException déclenche une exception quand la pioche est vide
      */
@@ -336,7 +336,7 @@ public class Joueur {
      * @throws JoueurNonCourantException       déclenche une exception quand le joueur n'est pas courant
      * @throws JoueurJouePasException          déclenche une exception quand le joueur ne joue pas
      * @throws JoueurOublieDireUnoException    déclenche une exception quand le joueur ne dit pas "UNO !"
-     * @throws JoueurEncaisserAttaqueException déclenche quand un joueur poser une carte alors qu'il doit encaisser les attaque du aux "+2", "+4", etc.
+     * @throws JoueurEncaisserAttaqueException déclenche quand un joueur pose une carte alors qu'il doit encaisser les attaque dû aux "+2", "+4", etc.
      */
     public void finTour() throws JoueurNonCourantException, JoueurJouePasException, JoueurOublieDireUnoException, JoueurEncaisserAttaqueException {
         if (!this.equals(this.dansLaPartie.joueurCourant())) {

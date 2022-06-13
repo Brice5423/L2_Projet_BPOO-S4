@@ -3,7 +3,7 @@ package home.exception;
 import home.metier.Joueur;
 
 /**
- * Exception pour indiquer que le joueur à poser une carte illégale.
+ * Exception pour indiquer que le joueur a posé une carte illégale.
  */
 public class JoueurCarteIllegalException extends Exception {
     private final Joueur joueurException;

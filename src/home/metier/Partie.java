@@ -292,7 +292,7 @@ public class Partie {
     }
 
     /**
-     * Ajout un joueur à la partie. Il ne peut pas avoir plus de 10 joueur dans la partie
+     * Ajout d'un joueur à la partie. Il ne peut pas avoir plus de 10 joueurs dans la partie
      *
      * @param nouveauJoueur joueur à ajouter dans la partie
      * @throws PartieProblemeNombreJoueurException déclenche une exception quand on ajoute un joueur à une liste de plus de 10 joueurs
@@ -362,7 +362,7 @@ public class Partie {
     }
 
     /**
-     * Poser la première carte de la partie dans le tas. Prend la carte de la pioche.
+     * Pose la première carte de la partie dans le tas. Prend la carte de la pioche.
      *
      * @throws PartieTasNonVideException déclenche une exception quand le tas n'est pas vide
      * @throws PartiePiocheVideException déclenche une exception quand la pioche est vide
@@ -381,7 +381,7 @@ public class Partie {
      * @param carteJoueur Carte du joueur à déposer dans le tas
      * @throws ExpertManquantException         déclenche une exception si une carte peut-être poser ou pas ou manquant par un expert de vérification
      * @throws JoueurCarteIllegalException     déclenche une exception quand le joueur joue un coup illegal
-     * @throws JoueurEncaisserAttaqueException déclenche quand un joueur poser une carte alors qu'il doit encaisser les attaque du aux "+2", "+4", etc.
+     * @throws JoueurEncaisserAttaqueException déclenche quand un joueur pose une carte alors qu'il doit encaisser les attaque dû aux "+2", "+4", etc.
      */
     public void deposerCarteTas(Carte carteJoueur) throws ExpertManquantException, JoueurCarteIllegalException, JoueurEncaisserAttaqueException {
         Expert lesExperts = Expert.initialiseTousLesExperts();
