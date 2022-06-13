@@ -161,36 +161,34 @@ public class Partie {
     }
 
     /**
-     * Ajout un joueur à la partie. Il ne peut pas avoir plus de 10 joueur dans la partie
+     * Met en place une nouvelle liste de joueur dans la partie.
      *
-     * @param nouveauJoueur joueur à ajouter dans la partie
-     * @throws PartieProblemeNombreJoueurException déclenche une exception quand on ajoute un joueur à une liste de plus de 10 joueurs
+     * @param listeJoueur nouvelle liste de joueur
+     * @throws PartieProblemeNombreJoueurException renvoie une exception quand la liste de joueur n'est pas compris entre 2 et 10.
      */
-    public void ajoutJoueur(Joueur nouveauJoueur) throws PartieProblemeNombreJoueurException {
-        if (listeJoueur.size() >= 10) {
-            throw new PartieProblemeNombreJoueurException("On ajout un joueur dans une partie avec 10 joueurs ou plus.");
+    private void initialisationListeJoueur(ArrayList<Joueur> listeJoueur) throws PartieProblemeNombreJoueurException {
+        if (listeJoueur.size() < 2 || listeJoueur.size() >= 10) {
+            throw new PartieProblemeNombreJoueurException("La partie doit avoir 2 à 10 joueurs !");
         }
 
-        nouveauJoueur.setDansLaPartie(this);
-        this.listeJoueur.add(nouveauJoueur);
+        this.listeJoueur = listeJoueur;
+        this.listeJoueur.forEach(joueur -> joueur.setDansLaPartie(this));
     }
 
     /**
-     * Ajoute un nombre de cartes à piocher dans nbCarteAPiocherAAjouter de la partie, causer par des "+2", "+4" et etc.
+     * Met en place une nouvelle liste de joueur à partir d'une copie.
      *
-     * @param nbCarteAPiocherAAjouter nombre de cartes à ajouter
+     * @param listeJoueur liste de joueur qui sera copié
+     * @throws PartieProblemeNombreJoueurException renvoie une exception quand la liste de joueur n'est pas compris entre 2 et 10
      */
-    public void ajoutNbCarteAPiocher(int nbCarteAPiocherAAjouter) {
-        this.nbCarteAPiocher += nbCarteAPiocherAAjouter;
-    }
+    private void initialisationListeJoueurEnCopie(ArrayList<Joueur> listeJoueur) throws PartieProblemeNombreJoueurException {
+        if (listeJoueur.size() < 2 || listeJoueur.size() >= 10) {
+            throw new PartieProblemeNombreJoueurException("La partie doit avoir 2 à 10 joueurs !");
+        }
 
-    /**
-     * Renvoie la carte se trouvant au-dessus du tas de la partie.
-     *
-     * @return carte au-dessus du tas
-     */
-    public Carte carteAuDessusTas() {
-        return this.tas.get(this.tas.size() - 1);
+        this.listeJoueur.clear();
+        listeJoueur.forEach(joueur -> this.listeJoueur.add(joueur.copieJoueur()));
+        this.listeJoueur.forEach(joueur -> joueur.setDansLaPartie(this));
     }
 
     /**
@@ -210,33 +208,6 @@ public class Partie {
         copiePartie.getTas().addAll(this.tas);
 
         return copiePartie;
-    }
-
-    /**
-     * Dépose la carte du joueur dans le tas de la partie.
-     *
-     * @param carteJoueur Carte du joueur à déposer dans le tas
-     * @throws ExpertManquantException         déclenche une exception si une carte peut-être poser ou pas ou manquant par un expert de vérification
-     * @throws JoueurCarteIllegalException     déclenche une exception quand le joueur joue un coup illegal
-     * @throws JoueurEncaisserAttaqueException déclenche quand un joueur poser une carte alors qu'il doit encaisser les attaque du aux "+2", "+4", etc.
-     */
-    public void deposerCarteTas(Carte carteJoueur) throws ExpertManquantException, JoueurCarteIllegalException, JoueurEncaisserAttaqueException {
-        Expert lesExperts = Expert.initialiseTousLesExperts();
-
-        if (!lesExperts.peutEtrePoser(carteJoueur, this.carteAuDessusTas(), this.nbCarteAPiocher)) {
-            if (this.nbCarteAPiocher == 0) {
-                throw new JoueurCarteIllegalException("Le joueur " + this.joueurCourant().getNom() + " depose la carte " + carteJoueur + ", alors qu'elle est illégale.", this.joueurCourant());
-
-            } else {
-                throw new JoueurEncaisserAttaqueException("Le joueur " + this.joueurCourant().getNom() + " depose la carte " + carteJoueur + ", alors qu'il doit encaisser l'attaque.", this.joueurCourant());
-            }
-        }
-
-        this.tas.add(carteJoueur);
-
-        if (carteJoueur instanceof CarteAEffet) {
-            ((CarteAEffet) carteJoueur).appliquerEffet(this);
-        }
     }
 
     /**
@@ -321,41 +292,18 @@ public class Partie {
     }
 
     /**
-     * Met en place une nouvelle liste de joueur dans la partie.
+     * Ajout un joueur à la partie. Il ne peut pas avoir plus de 10 joueur dans la partie
      *
-     * @param listeJoueur nouvelle liste de joueur
-     * @throws PartieProblemeNombreJoueurException renvoie une exception quand la liste de joueur n'est pas compris entre 2 et 10.
+     * @param nouveauJoueur joueur à ajouter dans la partie
+     * @throws PartieProblemeNombreJoueurException déclenche une exception quand on ajoute un joueur à une liste de plus de 10 joueurs
      */
-    private void initialisationListeJoueur(ArrayList<Joueur> listeJoueur) throws PartieProblemeNombreJoueurException {
-        if (listeJoueur.size() < 2 || listeJoueur.size() >= 10) {
-            throw new PartieProblemeNombreJoueurException("La partie doit avoir 2 à 10 joueurs !");
+    public void ajoutJoueur(Joueur nouveauJoueur) throws PartieProblemeNombreJoueurException {
+        if (listeJoueur.size() >= 10) {
+            throw new PartieProblemeNombreJoueurException("On ajout un joueur dans une partie avec 10 joueurs ou plus.");
         }
 
-        this.listeJoueur = listeJoueur;
-        this.listeJoueur.forEach(joueur -> joueur.setDansLaPartie(this));
-    }
-
-    /**
-     * Met en place une nouvelle liste de joueur à partir d'une copie.
-     *
-     * @param listeJoueur liste de joueur qui sera copié
-     * @throws PartieProblemeNombreJoueurException renvoie une exception quand la liste de joueur n'est pas compris entre 2 et 10
-     */
-    private void initialisationListeJoueurEnCopie(ArrayList<Joueur> listeJoueur) throws PartieProblemeNombreJoueurException {
-        if (listeJoueur.size() < 2 || listeJoueur.size() >= 10) {
-            throw new PartieProblemeNombreJoueurException("La partie doit avoir 2 à 10 joueurs !");
-        }
-
-        this.listeJoueur.clear();
-        listeJoueur.forEach(joueur -> this.listeJoueur.add(joueur.copieJoueur()));
-        this.listeJoueur.forEach(joueur -> joueur.setDansLaPartie(this));
-    }
-
-    /**
-     * Inverse le sens de la partie.
-     */
-    public void inverseSensPartie() {
-        this.etreSensHoraire = !this.etreSensHoraire;
+        nouveauJoueur.setDansLaPartie(this);
+        this.listeJoueur.add(nouveauJoueur);
     }
 
     /**
@@ -365,6 +313,24 @@ public class Partie {
      */
     public Joueur joueurCourant() {
         return this.listeJoueur.get(this.numJoueurCourant);
+    }
+
+    /**
+     * Renvoie le numéro du prochain joueur courant dans la partie.
+     *
+     * @return numéro du joueur courant suivant
+     */
+    private int numJoueurSuivant() {
+        if (this.etreSensHoraire) {
+            return ((this.numJoueurCourant + 1) % this.listeJoueur.size());
+
+        } else {
+            if (this.numJoueurCourant == 0) {
+                return (this.listeJoueur.size() - 1);
+            } else {
+                return (this.numJoueurCourant - 1);
+            }
+        }
     }
 
     /**
@@ -382,10 +348,90 @@ public class Partie {
     }
 
     /**
+     * Retire et renvoie la carte au-dessus de la pioche de la partie.
+     *
+     * @return renvoie la carte retirer de la pioche
+     * @throws PartiePiocheVideException déclenche une exception quand la pioche est vide
+     */
+    public Carte retirerCartePioche() throws PartiePiocheVideException {
+        if (this.pioche.isEmpty()) {
+            throw new PartiePiocheVideException("La pioche de la partie est vide, on ne peut pas prendre de carte dans la pioche.");
+        }
+
+        return this.pioche.remove(this.pioche.size() - 1);
+    }
+
+    /**
+     * Poser la première carte de la partie dans le tas. Prend la carte de la pioche.
+     *
+     * @throws PartieTasNonVideException déclenche une exception quand le tas n'est pas vide
+     * @throws PartiePiocheVideException déclenche une exception quand la pioche est vide
+     */
+    public void poserPremiereCarteDuTas() throws PartieTasNonVideException, PartiePiocheVideException {
+        if (!this.tas.isEmpty()) {
+            throw new PartieTasNonVideException("Le tas de la partie n'est pas vide, on ne peut pas poser la 1er carte du tas.");
+        }
+
+        this.tas.add(this.retirerCartePioche());
+    }
+
+    /**
+     * Dépose la carte du joueur dans le tas de la partie.
+     *
+     * @param carteJoueur Carte du joueur à déposer dans le tas
+     * @throws ExpertManquantException         déclenche une exception si une carte peut-être poser ou pas ou manquant par un expert de vérification
+     * @throws JoueurCarteIllegalException     déclenche une exception quand le joueur joue un coup illegal
+     * @throws JoueurEncaisserAttaqueException déclenche quand un joueur poser une carte alors qu'il doit encaisser les attaque du aux "+2", "+4", etc.
+     */
+    public void deposerCarteTas(Carte carteJoueur) throws ExpertManquantException, JoueurCarteIllegalException, JoueurEncaisserAttaqueException {
+        Expert lesExperts = Expert.initialiseTousLesExperts();
+
+        if (!lesExperts.peutEtrePoser(carteJoueur, this.carteAuDessusTas(), this.nbCarteAPiocher)) {
+            if (this.nbCarteAPiocher == 0) {
+                throw new JoueurCarteIllegalException("Le joueur " + this.joueurCourant().getNom() + " depose la carte " + carteJoueur + ", alors qu'elle est illégale.", this.joueurCourant());
+
+            } else {
+                throw new JoueurEncaisserAttaqueException("Le joueur " + this.joueurCourant().getNom() + " depose la carte " + carteJoueur + ", alors qu'il doit encaisser l'attaque.", this.joueurCourant());
+            }
+        }
+
+        this.tas.add(carteJoueur);
+
+        if (carteJoueur instanceof CarteAEffet) {
+            ((CarteAEffet) carteJoueur).appliquerEffet(this);
+        }
+    }
+
+    /**
+     * Renvoie la carte se trouvant au-dessus du tas de la partie.
+     *
+     * @return carte au-dessus du tas
+     */
+    public Carte carteAuDessusTas() {
+        return this.tas.get(this.tas.size() - 1);
+    }
+
+    /**
+     * Inverse le sens de la partie.
+     */
+    public void inverseSensPartie() {
+        this.etreSensHoraire = !this.etreSensHoraire;
+    }
+
+    /**
      * Remet à zero le nombre de cartes à piocher, causer par des "+2", "+4" et etc.
      */
     public void nbCarteAPiocherAZero() {
         this.nbCarteAPiocher = 0;
+    }
+
+    /**
+     * Ajoute un nombre de cartes à piocher dans nbCarteAPiocherAAjouter de la partie, causer par des "+2", "+4" et etc.
+     *
+     * @param nbCarteAPiocherAAjouter nombre de cartes à ajouter
+     */
+    public void ajoutNbCarteAPiocher(int nbCarteAPiocherAAjouter) {
+        this.nbCarteAPiocher += nbCarteAPiocherAAjouter;
     }
 
     /**
@@ -416,51 +462,5 @@ public class Partie {
         } catch (PartieTasNonVideException | PartiePiocheVideException e) {
             e.printStackTrace();
         }
-    }
-
-    /**
-     * Renvoie le numéro du prochain joueur courant dans la partie.
-     *
-     * @return numéro du joueur courant suivant
-     */
-    private int numJoueurSuivant() {
-        if (this.etreSensHoraire) {
-            return ((this.numJoueurCourant + 1) % this.listeJoueur.size());
-
-        } else {
-            if (this.numJoueurCourant == 0) {
-                return (this.listeJoueur.size() - 1);
-            } else {
-                return (this.numJoueurCourant - 1);
-            }
-        }
-    }
-
-    /**
-     * Poser la première carte de la partie dans le tas. Prend la carte de la pioche.
-     *
-     * @throws PartieTasNonVideException déclenche une exception quand le tas n'est pas vide
-     * @throws PartiePiocheVideException déclenche une exception quand la pioche est vide
-     */
-    public void poserPremiereCarteDuTas() throws PartieTasNonVideException, PartiePiocheVideException {
-        if (!this.tas.isEmpty()) {
-            throw new PartieTasNonVideException("Le tas de la partie n'est pas vide, on ne peut pas poser la 1er carte du tas.");
-        }
-
-        this.tas.add(this.retirerCartePioche());
-    }
-
-    /**
-     * Retire et renvoie la carte au-dessus de la pioche de la partie.
-     *
-     * @return renvoie la carte retirer de la pioche
-     * @throws PartiePiocheVideException déclenche une exception quand la pioche est vide
-     */
-    public Carte retirerCartePioche() throws PartiePiocheVideException {
-        if (this.pioche.isEmpty()) {
-            throw new PartiePiocheVideException("La pioche de la partie est vide, on ne peut pas prendre de carte dans la pioche.");
-        }
-
-        return this.pioche.remove(this.pioche.size() - 1);
     }
 }
